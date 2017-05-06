@@ -10,7 +10,7 @@ import UIKit
 
 class PodTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
+    var podList = [Pod]()
 
     @IBOutlet weak var podTableView: UITableView!
     override func viewDidLoad() {
@@ -20,7 +20,7 @@ class PodTableViewController: UIViewController, UITableViewDelegate, UITableView
         podTableView.delegate = self
         podTableView.dataSource = self
         //Status bar style and visibility
-        
+        podList = getTestData()
         //Change status bar color
         let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
         if statusBar.responds(to: "setBackgroundColor:"){
@@ -47,15 +47,16 @@ class PodTableViewController: UIViewController, UITableViewDelegate, UITableView
     @available(iOS 2.0, *)
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PodCell", for: indexPath) as! PodTableViewCell
-        cell.podTitle.text = "Title"
+        let pod = podList[indexPath.row]
+        cell.podTitle.text = pod.name
         cell.podLastPost.text = "Last post 5 mins ago"
-        cell.peopleInPod.text = "26"
+        cell.peopleInPod.text = String(pod.numPeople)
         return cell
     }
     
     @available(iOS 2.0, *)
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return podList.count
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
