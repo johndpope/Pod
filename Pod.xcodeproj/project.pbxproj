@@ -13,6 +13,7 @@
 		F4BECB371EBD682D00B98BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB361EBD682D00B98BA8 /* Assets.xcassets */; };
 		F4BECB3A1EBD682D00B98BA8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB381EBD682D00B98BA8 /* LaunchScreen.storyboard */; };
 		F4BECB421EBD6FE000B98BA8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BECB411EBD6FE000B98BA8 /* LoginViewController.swift */; };
+		F4BECB441EBD738800B98BA8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB431EBD738800B98BA8 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,8 @@
 		F4BECB391EBD682D00B98BA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4BECB3B1EBD682D00B98BA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4BECB411EBD6FE000B98BA8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		F4BECB431EBD738800B98BA8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F4BECB451EBD760600B98BA8 /* Pod-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pod-Bridging-Header.h"; sourceTree = "<group>"; };
 		FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pod.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -79,11 +82,13 @@
 			isa = PBXGroup;
 			children = (
 				F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */,
+				F4BECB451EBD760600B98BA8 /* Pod-Bridging-Header.h */,
 				F4BECB411EBD6FE000B98BA8 /* LoginViewController.swift */,
 				F4BECB331EBD682D00B98BA8 /* Main.storyboard */,
 				F4BECB361EBD682D00B98BA8 /* Assets.xcassets */,
 				F4BECB381EBD682D00B98BA8 /* LaunchScreen.storyboard */,
 				F4BECB3B1EBD682D00B98BA8 /* Info.plist */,
+				F4BECB431EBD738800B98BA8 /* GoogleService-Info.plist */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -152,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4BECB3A1EBD682D00B98BA8 /* LaunchScreen.storyboard in Resources */,
+				F4BECB441EBD738800B98BA8 /* GoogleService-Info.plist in Resources */,
 				F4BECB371EBD682D00B98BA8 /* Assets.xcassets in Resources */,
 				F4BECB351EBD682D00B98BA8 /* Main.storyboard in Resources */,
 			);
@@ -342,6 +348,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.Pod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -356,6 +363,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.Pod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

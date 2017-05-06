@@ -11,6 +11,22 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
+    
+    // MARK: - Properties
+    
+    private lazy var fbLoginButton: FBSDKLoginButton = {
+        let fbLoginButton = FBSDKLoginButton()
+        return fbLoginButton
+    }()
+    
+    private lazy var googleSignInButton: GIDSignInButton = {
+        let googleSignInButton = GIDSignInButton()
+        GIDSignIn.sharedInstance().uiDelegate = self
+        googleSignInButton.style = .wide
+        return googleSignInButton
+    }()
+    
+    // MARK: - LoginViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,25 +37,13 @@ class LoginViewController: UIViewController {
             print("Not logged in")
         }
 
-        let fbLoginButton = FBSDKLoginButton()
-        fbLoginButton.center = view.center
         view.addSubview(fbLoginButton)
+        view.addSubview(googleSignInButton)
     }
+}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+// MARK: - GIDSignInUIDelegate
+
+extension LoginViewController: GIDSignInUIDelegate {
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
