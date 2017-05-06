@@ -51,13 +51,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XLR-U0-vWc">
-                                                    <rect key="frame" x="150.5" y="0.0" width="42.5" height="24"/>
+                                                    <rect key="frame" x="166.5" y="0.0" width="42.5" height="24"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Post Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFQ-iv-UN3">
-                                                    <rect key="frame" x="116" y="63.5" width="111.5" height="20.5"/>
+                                                    <rect key="frame" x="132" y="63.5" width="111.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -68,12 +68,21 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="people" translatesAutoresizingMaskIntoConstraints="NO" id="fHT-8O-Nr9">
+                                                    <rect key="frame" x="19" y="63" width="21" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="GZu-q0-KQ6"/>
+                                                        <constraint firstAttribute="width" constant="21" id="qNj-vv-xXm"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="r9l-yJ-EbA" secondAttribute="bottom" id="EHu-VO-Hy2"/>
                                                 <constraint firstItem="XLR-U0-vWc" firstAttribute="top" secondItem="2g3-a9-OK2" secondAttribute="top" id="HR3-fj-jE2"/>
                                                 <constraint firstItem="XLR-U0-vWc" firstAttribute="centerX" secondItem="2g3-a9-OK2" secondAttribute="centerX" id="KO8-Cw-wUW"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="fHT-8O-Nr9" secondAttribute="bottom" id="Lrh-5Y-Dkn"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="AFQ-iv-UN3" secondAttribute="bottom" id="Soh-mN-tHN"/>
+                                                <constraint firstItem="fHT-8O-Nr9" firstAttribute="leading" secondItem="r9l-yJ-EbA" secondAttribute="trailing" id="ZBb-6Q-a7V"/>
                                                 <constraint firstItem="r9l-yJ-EbA" firstAttribute="leading" secondItem="2g3-a9-OK2" secondAttribute="leadingMargin" id="dgJ-y6-KPp"/>
                                                 <constraint firstItem="AFQ-iv-UN3" firstAttribute="centerX" secondItem="2g3-a9-OK2" secondAttribute="centerX" id="kaM-6t-bSz"/>
                                             </constraints>
@@ -104,7 +113,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lhr-Fk-Ey9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1162" y="865"/>
+            <point key="canvasLocation" x="1160.8" y="864.91754122938539"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="eXU-KQ-rpX">
@@ -124,4 +133,7 @@
             <point key="canvasLocation" x="139" y="865"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="people" width="100" height="100"/>
+    </resources>
 </document>
