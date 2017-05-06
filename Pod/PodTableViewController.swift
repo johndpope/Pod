@@ -17,6 +17,13 @@ class PodTableViewController: UIViewController, UITableViewDelegate, UITableView
 //        self.podTableView.contentInset = UIEdgeInsets(top: UIApplication.shared.statusBarFrame.size.height, left: 0, bottom: 0, right: 0)
         podTableView.delegate = self
         podTableView.dataSource = self
+        //Status bar style and visibility
+        
+        //Change status bar color
+        let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
+        if statusBar.responds(to: "setBackgroundColor:"){
+            statusBar.backgroundColor = UIColor.cyan
+        }
 
         super.viewDidLoad()
 

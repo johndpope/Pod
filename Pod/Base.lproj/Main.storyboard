@@ -40,14 +40,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sZE-A3-z0l">
-                                <rect key="frame" x="16" y="20" width="343" height="598"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PodCell" rowHeight="93" id="T57-Au-sh2" customClass="PodTableViewCell" customModule="Pod" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="93"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="93"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T57-Au-sh2" id="2g3-a9-OK2">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="92.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XLR-U0-vWc">
@@ -90,8 +90,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="sZE-A3-z0l" firstAttribute="top" secondItem="9yR-02-wHi" secondAttribute="bottom" id="2ia-rq-hza"/>
-                            <constraint firstItem="sZE-A3-z0l" firstAttribute="leading" secondItem="3tC-39-hE1" secondAttribute="leadingMargin" id="IzJ-Qx-gbK"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="sZE-A3-z0l" secondAttribute="trailing" id="UGd-q6-73H"/>
+                            <constraint firstItem="UXd-lC-rea" firstAttribute="top" secondItem="sZE-A3-z0l" secondAttribute="bottom" id="CP8-Wr-40j"/>
+                            <constraint firstItem="sZE-A3-z0l" firstAttribute="leading" secondItem="3tC-39-hE1" secondAttribute="leading" id="T8V-at-hLx"/>
+                            <constraint firstItem="sZE-A3-z0l" firstAttribute="top" secondItem="9yR-02-wHi" secondAttribute="bottom" id="kdc-zT-ew7"/>
+                            <constraint firstAttribute="trailing" secondItem="sZE-A3-z0l" secondAttribute="trailing" id="qkt-R2-3dz"/>
                             <constraint firstItem="UXd-lC-rea" firstAttribute="top" secondItem="sZE-A3-z0l" secondAttribute="bottom" id="vlc-lJ-yhE"/>
                         </constraints>
                     </view>
