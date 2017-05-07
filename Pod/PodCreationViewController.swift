@@ -8,6 +8,7 @@
 
 import UIKit
 import GooglePlaces
+import GoogleMaps
 
 class PodCreationViewController: UIViewController {
 
@@ -20,7 +21,14 @@ class PodCreationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         podLocation.addTarget(self, action: #selector(self.autoComplete(textField:)), for: UIControlEvents.touchDown)
-        // Do any additional setup after loading the view.
+        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+        let mapView = GMSMapView.map(withFrame: CGRect(x: 100, y: 270, width: 250 , height: 250) , camera: camera)
+        view.addSubview(mapView)
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
+        marker.title = "Sydney"
+        marker.snippet = "Australia"
+        marker.map = mapView
     }
     
     func autoComplete(textField: UITextField) {
