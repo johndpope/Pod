@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C807AC9F9F51908EF23D61C2 /* Pods_Pod.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */; };
 		95D14F191EBD738A0049C58A /* PodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F181EBD738A0049C58A /* PodTableViewController.swift */; };
 		95D14F1B1EBD773C0049C58A /* PodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F1A1EBD773C0049C58A /* PodTableViewCell.swift */; };
 		95D14F211EBD7F580049C58A /* PodTableViewSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F201EBD7F580049C58A /* PodTableViewSectionHeader.swift */; };
 		95D14F231EBD7F6B0049C58A /* PodTableViewSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95D14F221EBD7F6B0049C58A /* PodTableViewSectionHeader.xib */; };
 		95D14F251EBE8C410049C58A /* PodData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F241EBE8C410049C58A /* PodData.swift */; };
+		C807AC9F9F51908EF23D61C2 /* Pods_Pod.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */; };
 		F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */; };
 		F4BECB351EBD682D00B98BA8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB331EBD682D00B98BA8 /* Main.storyboard */; };
 		F4BECB371EBD682D00B98BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB361EBD682D00B98BA8 /* Assets.xcassets */; };
@@ -25,13 +25,12 @@
 
 /* Begin PBXFileReference section */
 		6D44DA30209E359384E89016 /* Pods-Pod.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pod.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pod/Pods-Pod.release.xcconfig"; sourceTree = "<group>"; };
-		DB37B267B5709340ACC441C6 /* Pods-Pod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pod.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pod/Pods-Pod.debug.xcconfig"; sourceTree = "<group>"; };
-		8302A44E1CBD6B6573899262 /* Pods_Pod.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pod.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95D14F181EBD738A0049C58A /* PodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTableViewController.swift; sourceTree = "<group>"; };
 		95D14F1A1EBD773C0049C58A /* PodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTableViewCell.swift; sourceTree = "<group>"; };
 		95D14F201EBD7F580049C58A /* PodTableViewSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTableViewSectionHeader.swift; sourceTree = "<group>"; };
 		95D14F221EBD7F6B0049C58A /* PodTableViewSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PodTableViewSectionHeader.xib; sourceTree = "<group>"; };
 		95D14F241EBE8C410049C58A /* PodData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodData.swift; sourceTree = "<group>"; };
+		DB37B267B5709340ACC441C6 /* Pods-Pod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pod.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pod/Pods-Pod.debug.xcconfig"; sourceTree = "<group>"; };
 		F4BECB2C1EBD682D00B98BA8 /* Pod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pod.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4BECB341EBD682D00B98BA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -245,7 +244,6 @@
 				F4BECB471EBE660900B98BA8 /* UIView+Autolayout.swift in Sources */,
 				F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */,
 				F4BECB491EBE6D3D00B98BA8 /* UIColor+Pod.swift in Sources */,
-				F4BECB321EBD682D00B98BA8 /* ViewController.swift in Sources */,
 				95D14F211EBD7F580049C58A /* PodTableViewSectionHeader.swift in Sources */,
 				95D14F251EBE8C410049C58A /* PodData.swift in Sources */,
 				95D14F191EBD738A0049C58A /* PodTableViewController.swift in Sources */,
@@ -375,6 +373,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = F42N7QJG3C;
 				INFOPLIST_FILE = Pod/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.Pod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -390,6 +389,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = F42N7QJG3C;
 				INFOPLIST_FILE = Pod/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.Pod;
 				PRODUCT_NAME = "$(TARGET_NAME)";

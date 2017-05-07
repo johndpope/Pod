@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     
     private lazy var googleSignInButton: GIDSignInButton = {
         GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = self
         let googleSignInButton = GIDSignInButton()
         googleSignInButton.style = .wide
         return googleSignInButton
@@ -23,6 +24,7 @@ class LoginViewController: UIViewController {
     
     private lazy var fbLoginButton: FBSDKLoginButton = {
         let fbLoginButton = FBSDKLoginButton()
+        fbLoginButton.delegate = self
         return fbLoginButton
     }()
     
@@ -30,17 +32,18 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if FBSDKAccessToken.current() != nil {
-            print("Already logged in")
-        } else {
-            print("Not logged in")
-        }
-
         view.addSubview(googleSignInButton.usingAutolayout())
         view.addSubview(fbLoginButton.usingAutolayout())
         setupConstraints()
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        
+//        if GIDSignIn.sharedInstance().hasAuthInKeychain() || FBSDKAccessToken.current() != nil {
+//            performSegue(withIdentifier: "toPodList", sender: nil)
+//        }
+//    }
     
     // MARK: - Helper Methods
     
@@ -68,4 +71,41 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController: GIDSignInUIDelegate {
     
+}
+
+extension LoginViewController: GIDSignInDelegate {
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        guard error == nil else {
+            print("There was an error signing in with Google: \(error.localizedDescription)")
+            return
+        }
+        performSegue(withIdentifier: "toPodList", sender: nil)
+        
+        // Perform any operations on signed in user here
+        //let userId = user.userID                    // For client-side use only
+        //let idToken = user.authentication.idToken   // Safe to send to the server
+        //let fullName = user.profile.name
+        //let givenName = user.profile.givenName
+        //let familyName = user.profile.familyName
+        //let email = user.profile.email
+    }
+    
+}
+
+// MARK: - FBSDKLoginButtonDelegate
+
+extension LoginViewController: FBSDKLoginButtonDelegate {
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        guard error == nil else {
+            print("There was an error loggin in with Facebook: \(error.localizedDescription)")
+            return
+        }
+        performSegue(withIdentifier: "toPodList", sender: nil)
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        // Not needed. Will perform logout from a different VC
+    }
 }
