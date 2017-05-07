@@ -9,5 +9,6 @@ target 'Pod' do
   pod 'GoogleMaps'
   pod 'FBSDKLoginKit'
   pod 'Google/SignIn'
+  pod 'GooglePlaces'
 
 end

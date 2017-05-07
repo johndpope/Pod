@@ -12,7 +12,7 @@ class PodTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBar.barTintColor = UIColor.cyan
+        self.tabBar.barTintColor = .lightBlue
 
         // Do any additional setup after loading the view.
     }

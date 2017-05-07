@@ -7,13 +7,27 @@
 //
 
 import UIKit
+import GooglePlaces
 
 class PodCreationViewController: UIViewController {
 
+    @IBOutlet weak var podTitle: UITextField!
+    @IBOutlet weak var podLocation: UITextField!
+    @IBOutlet weak var podRadius: UITextField!
+    
+    var location: GMSPlace!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        podLocation.addTarget(self, action: #selector(self.autoComplete(textField:)), for: UIControlEvents.touchDown)
         // Do any additional setup after loading the view.
+    }
+    
+    func autoComplete(textField: UITextField) {
+        // user touch field
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        present(autocompleteController, animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,6 +35,24 @@ class PodCreationViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func createPod(_ sender: Any) {
+        if(allFieldsEntered()){
+            
+        }
+    }
+    
+    func allFieldsEntered() -> Bool {
+        if(podTitle.text == "") {
+            return false;
+        }
+        if(podLocation.text == ""){
+             return false;
+        }
+        if(podRadius.text == "") {
+            return false;
+        }
+        return true
+    }
 
     /*
     // MARK: - Navigation
@@ -32,4 +64,37 @@ class PodCreationViewController: UIViewController {
     }
     */
 
+}
+
+extension PodCreationViewController: GMSAutocompleteViewControllerDelegate {
+    
+    // Handle the user's selection.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        print("Place name: \(place.name)")
+        print("Place address: \(place.formattedAddress)")
+        print("Place attributions: \(place.attributions)")
+        dismiss(animated: true, completion: nil)
+        podLocation.text = place.name
+        location = place
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        // TODO: handle the error.
+        print("Error: ", error.localizedDescription)
+    }
+    
+    // User canceled the operation.
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    
 }

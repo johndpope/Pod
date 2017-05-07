@@ -24,7 +24,7 @@ class PodTableViewController: UIViewController, UITableViewDelegate, UITableView
         //Change status bar color
         let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
         if statusBar.responds(to: "setBackgroundColor:"){
-            statusBar.backgroundColor = UIColor.cyan
+            statusBar.backgroundColor = .lightBlue
         }
 
         super.viewDidLoad()
@@ -71,7 +71,7 @@ class PodTableViewController: UIViewController, UITableViewDelegate, UITableView
         if(section == 0) {
             // Dequeue with the reuse identifier
             let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableSectionHeader")
-            cell?.contentView.backgroundColor = UIColor.cyan
+            cell?.contentView.backgroundColor =  .lightBlue
             let header = cell as! PodTableViewSectionHeader
             header.podTableViewTitle.text = "Pod"
             return cell

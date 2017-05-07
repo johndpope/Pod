@@ -14,6 +14,7 @@
 		95D14F251EBE8C410049C58A /* PodData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F241EBE8C410049C58A /* PodData.swift */; };
 		95D14F271EBE993E0049C58A /* PodTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F261EBE993E0049C58A /* PodTabBarController.swift */; };
 		95D14F291EBE9A5F0049C58A /* PodCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F281EBE9A5F0049C58A /* PodCreationViewController.swift */; };
+		95D14F2C1EBEA0A70049C58A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F2B1EBEA0A70049C58A /* Constants.swift */; };
 		C807AC9F9F51908EF23D61C2 /* Pods_Pod.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */; };
 		F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */; };
 		F4BECB351EBD682D00B98BA8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB331EBD682D00B98BA8 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 		95D14F241EBE8C410049C58A /* PodData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodData.swift; sourceTree = "<group>"; };
 		95D14F261EBE993E0049C58A /* PodTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTabBarController.swift; sourceTree = "<group>"; };
 		95D14F281EBE9A5F0049C58A /* PodCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCreationViewController.swift; sourceTree = "<group>"; };
+		95D14F2B1EBEA0A70049C58A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DB37B267B5709340ACC441C6 /* Pods-Pod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pod.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pod/Pods-Pod.debug.xcconfig"; sourceTree = "<group>"; };
 		F4BECB2C1EBD682D00B98BA8 /* Pod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pod.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				95D14F241EBE8C410049C58A /* PodData.swift */,
 				95D14F261EBE993E0049C58A /* PodTabBarController.swift */,
 				95D14F281EBE9A5F0049C58A /* PodCreationViewController.swift */,
+				95D14F2B1EBEA0A70049C58A /* Constants.swift */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				95D14F251EBE8C410049C58A /* PodData.swift in Sources */,
 				95D14F271EBE993E0049C58A /* PodTabBarController.swift in Sources */,
 				95D14F191EBD738A0049C58A /* PodTableViewController.swift in Sources */,
+				95D14F2C1EBEA0A70049C58A /* Constants.swift in Sources */,
 				95D14F1B1EBD773C0049C58A /* PodTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
