@@ -128,34 +128,15 @@
                     </tabBar>
                     <connections>
                         <segue destination="VYc-gz-8tj" kind="relationship" relationship="viewControllers" id="cYH-PM-Q2D"/>
-                        <segue destination="Nsu-tL-qHl" kind="relationship" relationship="viewControllers" id="8TE-P9-IPf"/>
                         <segue destination="TPJ-Gx-Vyq" kind="relationship" relationship="viewControllers" id="Xge-kZ-fVO"/>
                         <segue destination="BZZ-8d-taH" kind="relationship" relationship="viewControllers" id="GtY-MQ-Y99"/>
                         <segue destination="dfg-z1-vV9" kind="relationship" relationship="viewControllers" id="pms-LD-ngG"/>
+                        <segue destination="A1Q-b5-Mkq" kind="relationship" relationship="viewControllers" id="eH4-iI-Qia"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kch-Fi-3yY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="865"/>
-        </scene>
-        <!--Item-->
-        <scene sceneID="bXM-Hl-gOG">
-            <objects>
-                <viewController id="Nsu-tL-qHl" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="JwW-Dn-X59"/>
-                        <viewControllerLayoutGuide type="bottom" id="4qy-JM-SUu"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="nvA-BD-mvZ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="KkU-Xm-wXl"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zNR-Pp-kR6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1540" y="112"/>
+            <point key="canvasLocation" x="137" y="903"/>
         </scene>
         <!--Item-->
         <scene sceneID="zkl-iR-pWE">
@@ -275,6 +256,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wBl-r9-Ei4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1540" y="2346"/>
+        </scene>
+        <!--Data Source-->
+        <scene sceneID="mtM-VQ-bFT">
+            <objects>
+                <viewController id="A1Q-b5-Mkq" customClass="PodCarouselViewController" customModule="Pod" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Rgu-sx-eag"/>
+                        <viewControllerLayoutGuide type="bottom" id="0sT-1M-pmp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YS4-vR-opX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="rki-0Z-7Ye" customClass="iCarousel">
+                                <rect key="frame" x="16" y="99" width="343" height="438"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="438" id="VRh-v9-Gcg"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="A1Q-b5-Mkq" id="XCV-oC-eJL"/>
+                                    <outlet property="delegate" destination="A1Q-b5-Mkq" id="1GG-Fd-wb5"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.59607843137254901" green="0.83529411764705885" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="rki-0Z-7Ye" secondAttribute="leading" id="SXc-2E-IVd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rki-0Z-7Ye" secondAttribute="trailing" id="XqE-YQ-Ju8"/>
+                            <constraint firstItem="0sT-1M-pmp" firstAttribute="top" secondItem="rki-0Z-7Ye" secondAttribute="bottom" constant="81" id="pP5-Ra-B6I"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="a7Z-vd-ICU"/>
+                    <connections>
+                        <outlet property="carousel" destination="rki-0Z-7Ye" id="iuq-SU-ddC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Sf-YN-ZrJ" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1540" y="103.89805097451276"/>
         </scene>
     </scenes>
     <resources>

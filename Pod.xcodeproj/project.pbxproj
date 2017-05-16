@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */; };
+		9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */; };
 		95D14F191EBD738A0049C58A /* PodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F181EBD738A0049C58A /* PodTableViewController.swift */; };
 		95D14F1B1EBD773C0049C58A /* PodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F1A1EBD773C0049C58A /* PodTableViewCell.swift */; };
 		95D14F211EBD7F580049C58A /* PodTableViewSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F201EBD7F580049C58A /* PodTableViewSectionHeader.swift */; };
@@ -28,6 +30,9 @@
 
 /* Begin PBXFileReference section */
 		6D44DA30209E359384E89016 /* Pods-Pod.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pod.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pod/Pods-Pod.release.xcconfig"; sourceTree = "<group>"; };
+		9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCarouselViewController.swift; sourceTree = "<group>"; };
+		9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		9559D0731EC8F1E800BAC3F5 /* iCarousel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		95D14F181EBD738A0049C58A /* PodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTableViewController.swift; sourceTree = "<group>"; };
 		95D14F1A1EBD773C0049C58A /* PodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTableViewCell.swift; sourceTree = "<group>"; };
 		95D14F201EBD7F580049C58A /* PodTableViewSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTableViewSectionHeader.swift; sourceTree = "<group>"; };
@@ -71,6 +76,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9559D0681EC8F0FA00BAC3F5 /* iCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */,
+				9559D0731EC8F1E800BAC3F5 /* iCarousel.h */,
+			);
+			path = iCarousel;
+			sourceTree = "<group>";
+		};
 		95D14F2A1EBE9A630049C58A /* Pod Table View */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,11 +126,13 @@
 		F4BECB2E1EBD682D00B98BA8 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
+				9559D0681EC8F0FA00BAC3F5 /* iCarousel */,
 				95D14F2A1EBE9A630049C58A /* Pod Table View */,
 				F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */,
 				F4BECB451EBD760600B98BA8 /* Pod-Bridging-Header.h */,
 				F4BECB411EBD6FE000B98BA8 /* LoginViewController.swift */,
 				F4BECB481EBE6D3D00B98BA8 /* UIColor+Pod.swift */,
+				9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */,
 				F4BECB461EBE660900B98BA8 /* UIView+Autolayout.swift */,
 				F4BECB331EBD682D00B98BA8 /* Main.storyboard */,
 				F4BECB361EBD682D00B98BA8 /* Assets.xcassets */,
@@ -262,9 +278,11 @@
 				F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */,
 				F4BECB491EBE6D3D00B98BA8 /* UIColor+Pod.swift in Sources */,
 				95D14F211EBD7F580049C58A /* PodTableViewSectionHeader.swift in Sources */,
+				9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */,
 				95D14F291EBE9A5F0049C58A /* PodCreationViewController.swift in Sources */,
 				95D14F251EBE8C410049C58A /* PodData.swift in Sources */,
 				95D14F271EBE993E0049C58A /* PodTabBarController.swift in Sources */,
+				9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */,
 				95D14F191EBD738A0049C58A /* PodTableViewController.swift in Sources */,
 				95D14F2C1EBEA0A70049C58A /* Constants.swift in Sources */,
 				95D14F1B1EBD773C0049C58A /* PodTableViewCell.swift in Sources */,
