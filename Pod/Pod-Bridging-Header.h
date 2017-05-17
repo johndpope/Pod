@@ -8,3 +8,4 @@
 
 #import <Google/SignIn.h>
 #import "iCarousel.h"
+#import "SlackTextViewController/SLKTextViewController.h"

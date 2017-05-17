@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */; };
 		9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */; };
+		95CF55941ECBABEC00B1751E /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CF55931ECBABEC00B1751E /* CommentsViewController.swift */; };
+		95CF56071ECBC9BD00B1751E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CF56061ECBC9BD00B1751E /* Main.storyboard */; };
+		95CF56101ECBD18900B1751E /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CF560E1ECBD18900B1751E /* MessageCell.swift */; };
 		95D14F191EBD738A0049C58A /* PodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F181EBD738A0049C58A /* PodTableViewController.swift */; };
 		95D14F1B1EBD773C0049C58A /* PodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F1A1EBD773C0049C58A /* PodTableViewCell.swift */; };
 		95D14F211EBD7F580049C58A /* PodTableViewSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F201EBD7F580049C58A /* PodTableViewSectionHeader.swift */; };
@@ -19,7 +22,6 @@
 		95D14F2C1EBEA0A70049C58A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F2B1EBEA0A70049C58A /* Constants.swift */; };
 		C807AC9F9F51908EF23D61C2 /* Pods_Pod.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */; };
 		F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */; };
-		F4BECB351EBD682D00B98BA8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB331EBD682D00B98BA8 /* Main.storyboard */; };
 		F4BECB371EBD682D00B98BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB361EBD682D00B98BA8 /* Assets.xcassets */; };
 		F4BECB3A1EBD682D00B98BA8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB381EBD682D00B98BA8 /* LaunchScreen.storyboard */; };
 		F4BECB421EBD6FE000B98BA8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BECB411EBD6FE000B98BA8 /* LoginViewController.swift */; };
@@ -33,6 +35,9 @@
 		9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCarouselViewController.swift; sourceTree = "<group>"; };
 		9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		9559D0731EC8F1E800BAC3F5 /* iCarousel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		95CF55931ECBABEC00B1751E /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		95CF56061ECBC9BD00B1751E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		95CF560E1ECBD18900B1751E /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		95D14F181EBD738A0049C58A /* PodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTableViewController.swift; sourceTree = "<group>"; };
 		95D14F1A1EBD773C0049C58A /* PodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTableViewCell.swift; sourceTree = "<group>"; };
 		95D14F201EBD7F580049C58A /* PodTableViewSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTableViewSectionHeader.swift; sourceTree = "<group>"; };
@@ -44,7 +49,6 @@
 		DB37B267B5709340ACC441C6 /* Pods-Pod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pod.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pod/Pods-Pod.debug.xcconfig"; sourceTree = "<group>"; };
 		F4BECB2C1EBD682D00B98BA8 /* Pod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pod.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F4BECB341EBD682D00B98BA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F4BECB361EBD682D00B98BA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4BECB391EBD682D00B98BA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4BECB3B1EBD682D00B98BA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -134,7 +138,7 @@
 				F4BECB481EBE6D3D00B98BA8 /* UIColor+Pod.swift */,
 				9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */,
 				F4BECB461EBE660900B98BA8 /* UIView+Autolayout.swift */,
-				F4BECB331EBD682D00B98BA8 /* Main.storyboard */,
+				95CF56061ECBC9BD00B1751E /* Main.storyboard */,
 				F4BECB361EBD682D00B98BA8 /* Assets.xcassets */,
 				F4BECB381EBD682D00B98BA8 /* LaunchScreen.storyboard */,
 				F4BECB3B1EBD682D00B98BA8 /* Info.plist */,
@@ -143,6 +147,8 @@
 				95D14F261EBE993E0049C58A /* PodTabBarController.swift */,
 				95D14F281EBE9A5F0049C58A /* PodCreationViewController.swift */,
 				95D14F2B1EBEA0A70049C58A /* Constants.swift */,
+				95CF55931ECBABEC00B1751E /* CommentsViewController.swift */,
+				95CF560E1ECBD18900B1751E /* MessageCell.swift */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -211,10 +217,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4BECB3A1EBD682D00B98BA8 /* LaunchScreen.storyboard in Resources */,
+				95CF56071ECBC9BD00B1751E /* Main.storyboard in Resources */,
 				F4BECB441EBD738800B98BA8 /* GoogleService-Info.plist in Resources */,
 				F4BECB371EBD682D00B98BA8 /* Assets.xcassets in Resources */,
 				95D14F231EBD7F6B0049C58A /* PodTableViewSectionHeader.xib in Resources */,
-				F4BECB351EBD682D00B98BA8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +281,7 @@
 			files = (
 				F4BECB421EBD6FE000B98BA8 /* LoginViewController.swift in Sources */,
 				F4BECB471EBE660900B98BA8 /* UIView+Autolayout.swift in Sources */,
+				95CF55941ECBABEC00B1751E /* CommentsViewController.swift in Sources */,
 				F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */,
 				F4BECB491EBE6D3D00B98BA8 /* UIColor+Pod.swift in Sources */,
 				95D14F211EBD7F580049C58A /* PodTableViewSectionHeader.swift in Sources */,
@@ -283,6 +290,7 @@
 				95D14F251EBE8C410049C58A /* PodData.swift in Sources */,
 				95D14F271EBE993E0049C58A /* PodTabBarController.swift in Sources */,
 				9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */,
+				95CF56101ECBD18900B1751E /* MessageCell.swift in Sources */,
 				95D14F191EBD738A0049C58A /* PodTableViewController.swift in Sources */,
 				95D14F2C1EBEA0A70049C58A /* Constants.swift in Sources */,
 				95D14F1B1EBD773C0049C58A /* PodTableViewCell.swift in Sources */,
@@ -292,14 +300,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		F4BECB331EBD682D00B98BA8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F4BECB341EBD682D00B98BA8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		F4BECB381EBD682D00B98BA8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

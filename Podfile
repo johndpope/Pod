@@ -10,5 +10,6 @@ target 'Pod' do
   pod 'FBSDKLoginKit'
   pod 'Google/SignIn'
   pod 'GooglePlaces'
+  pod "SlackTextViewController"
 
 end
