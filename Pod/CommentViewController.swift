@@ -33,12 +33,15 @@ class CommentViewController: SLKTextViewController {
         self.tableView?.separatorStyle = UITableViewCellSeparatorStyle.none
         self.isInverted = false
         self.textView.placeholder = "Write message"
+        self.textInputbar.backgroundColor = UIColor.lightBlue
         self.shouldScrollToBottomAfterKeyboardShows = true
         self.automaticallyAdjustsScrollViewInsets = false
         
         tableView?.estimatedRowHeight = 60.0 // Replace with your actual estimation
         // Automatic dimensions to tell the table view to use dynamic height
         tableView?.rowHeight = UITableViewAutomaticDimension
+       // self.textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        tableView?.allowsSelection = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -83,6 +86,10 @@ class CommentViewController: SLKTextViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("clicked")
+    }
+    
     // -----------------------
     // TABLE VIEW DATA METHODS
     // -----------------------
@@ -99,7 +106,7 @@ class CommentViewController: SLKTextViewController {
     
     // Set the spacing between sections
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10.0
+        return 4
     }
     
     // Make the background color show through
@@ -118,9 +125,20 @@ class CommentViewController: SLKTextViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
         cell.transform = (self.tableView?.transform)!
         cell.userName.text = "Name"
-        cell.commentTextView.text = messages[indexPath.section]
+        cell.commentBody.text = messages[indexPath.section]
         cell.profilePic.image = UIImage(named: "profile-pic")
         return cell
+    }
+    
+    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = font
+        label.text = text
+        label.sizeToFit()
+        
+        return label.frame.height
     }
 
 }

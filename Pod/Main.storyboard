@@ -49,7 +49,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="93"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T57-Au-sh2" id="2g3-a9-OK2">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="93"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XLR-U0-vWc">
@@ -231,7 +231,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qbi-Kg-IJo">
-                                <rect key="frame" x="9" y="148" width="357" height="461"/>
+                                <rect key="frame" x="0.0" y="148" width="375" height="470"/>
                                 <connections>
                                     <segue destination="7Wk-fp-ZSF" kind="embed" id="qIu-1N-efy"/>
                                 </connections>
@@ -313,13 +313,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="qbi-Kg-IJo" firstAttribute="leading" secondItem="lnn-qt-co5" secondAttribute="leading" constant="9" id="0Gl-LM-P9r"/>
                             <constraint firstItem="Ple-1V-Hlq" firstAttribute="top" secondItem="l4H-uN-B6x" secondAttribute="bottom" id="4yb-eU-oSI"/>
                             <constraint firstAttribute="trailing" secondItem="Ple-1V-Hlq" secondAttribute="trailing" id="8RD-Bs-AhY"/>
-                            <constraint firstAttribute="trailing" secondItem="qbi-Kg-IJo" secondAttribute="trailing" constant="9" id="LLj-6M-7bx"/>
                             <constraint firstItem="Ple-1V-Hlq" firstAttribute="leading" secondItem="lnn-qt-co5" secondAttribute="leading" id="MZM-dd-SzY"/>
+                            <constraint firstItem="qbi-Kg-IJo" firstAttribute="leading" secondItem="lnn-qt-co5" secondAttribute="leading" id="NPN-GG-LMD"/>
                             <constraint firstItem="Ple-1V-Hlq" firstAttribute="top" secondItem="l4H-uN-B6x" secondAttribute="bottom" id="OfQ-jk-HgE"/>
-                            <constraint firstItem="aaK-XS-yRp" firstAttribute="top" secondItem="qbi-Kg-IJo" secondAttribute="bottom" constant="9" id="wsx-FE-Hez"/>
+                            <constraint firstAttribute="trailing" secondItem="qbi-Kg-IJo" secondAttribute="trailing" id="gbQ-bN-DRp"/>
+                            <constraint firstItem="aaK-XS-yRp" firstAttribute="top" secondItem="qbi-Kg-IJo" secondAttribute="bottom" id="iY9-r2-8OF"/>
                             <constraint firstItem="qbi-Kg-IJo" firstAttribute="top" secondItem="Ple-1V-Hlq" secondAttribute="bottom" id="xDN-vz-Twr"/>
                         </constraints>
                     </view>
@@ -404,7 +404,7 @@
                         <viewControllerLayoutGuide type="bottom" id="DPW-pf-HwN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Q7w-pl-aUQ">
-                        <rect key="frame" x="0.0" y="0.0" width="357" height="461"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="470"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
