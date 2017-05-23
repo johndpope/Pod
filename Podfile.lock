@@ -51,12 +51,16 @@ PODS:
   - GTMSessionFetcher/Core (1.1.9)
   - GTMSessionFetcher/Full (1.1.9):
     - GTMSessionFetcher/Core (= 1.1.9)
+  - SlackTextViewController (1.9.5)
+  - SnapKit (3.2.0)
 
 DEPENDENCIES:
   - FBSDKLoginKit
   - Google/SignIn
   - GoogleMaps
   - GooglePlaces
+  - SlackTextViewController
+  - SnapKit (~> 3.0)
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -72,7 +76,9 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
+  SlackTextViewController: fbcdadbb8090673f604484ff5b6eb8d77baed42a
+  SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
 
-PODFILE CHECKSUM: 2313e372789ddd3dbbbc8d4e76698dd71c502e2a
+PODFILE CHECKSUM: 3c5538f92405e8af4a4986a7ceb768fede9cece7
 
 COCOAPODS: 1.2.1
