@@ -35,6 +35,10 @@ class CommentViewController: SLKTextViewController {
         self.textView.placeholder = "Write message"
         self.shouldScrollToBottomAfterKeyboardShows = true
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        tableView?.estimatedRowHeight = 60.0 // Replace with your actual estimation
+        // Automatic dimensions to tell the table view to use dynamic height
+        tableView?.rowHeight = UITableViewAutomaticDimension
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -95,7 +99,7 @@ class CommentViewController: SLKTextViewController {
     
     // Set the spacing between sections
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 2.0
+        return 10.0
     }
     
     // Make the background color show through
@@ -105,16 +109,16 @@ class CommentViewController: SLKTextViewController {
         return headerView
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
-        return 70.0;//Choose your custom row height
-    }
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+//    {
+//        return 100.0;//Choose your custom row height
+//    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
         cell.transform = (self.tableView?.transform)!
         cell.userName.text = "Name"
-        cell.commentBody.text = messages[indexPath.section]
+        cell.commentTextView.text = messages[indexPath.section]
         cell.profilePic.image = UIImage(named: "profile-pic")
         return cell
     }

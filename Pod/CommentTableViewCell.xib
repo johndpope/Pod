@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -31,21 +32,22 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gby-iu-y1b">
-                        <rect key="frame" x="52" y="4" width="58" height="37"/>
+                        <rect key="frame" x="52" y="4" width="272" height="37"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rb0-3Y-ZS9">
-                                <rect key="frame" x="8" y="8" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hPb-bw-p9b">
+                                <rect key="frame" x="8" y="0.0" width="256" height="33"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="rb0-3Y-ZS9" secondAttribute="bottom" constant="8" id="49s-aH-B6t"/>
-                            <constraint firstItem="rb0-3Y-ZS9" firstAttribute="leading" secondItem="Gby-iu-y1b" secondAttribute="leading" constant="8" id="G5E-mh-hxF"/>
-                            <constraint firstItem="rb0-3Y-ZS9" firstAttribute="top" secondItem="Gby-iu-y1b" secondAttribute="top" constant="8" id="a2M-6l-ukd"/>
-                            <constraint firstAttribute="trailing" secondItem="rb0-3Y-ZS9" secondAttribute="trailing" constant="8" id="t1j-Lp-hWF"/>
+                            <constraint firstAttribute="trailing" secondItem="hPb-bw-p9b" secondAttribute="trailing" constant="8" id="29c-W1-pXI"/>
+                            <constraint firstItem="hPb-bw-p9b" firstAttribute="top" secondItem="Gby-iu-y1b" secondAttribute="top" id="Q7L-mV-lAm"/>
+                            <constraint firstItem="hPb-bw-p9b" firstAttribute="leading" secondItem="Gby-iu-y1b" secondAttribute="leading" constant="8" id="aXt-b2-XcV"/>
+                            <constraint firstAttribute="bottom" secondItem="hPb-bw-p9b" secondAttribute="bottom" constant="4" id="njG-ir-DAm"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -53,6 +55,8 @@
                     <constraint firstItem="Gby-iu-y1b" firstAttribute="centerY" secondItem="zyP-Pk-RkM" secondAttribute="centerY" id="9M3-JL-nJV"/>
                     <constraint firstItem="zyP-Pk-RkM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="DCR-iA-CIy"/>
                     <constraint firstItem="zyP-Pk-RkM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="LMY-Kg-4k7"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Gby-iu-y1b" secondAttribute="trailing" id="bDc-hJ-QO0"/>
+                    <constraint firstItem="Gby-iu-y1b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-4" id="h2G-BJ-oNF"/>
                     <constraint firstItem="IZD-yS-HGu" firstAttribute="centerX" secondItem="zyP-Pk-RkM" secondAttribute="centerX" id="iG1-ul-mmA"/>
                     <constraint firstItem="Gby-iu-y1b" firstAttribute="leading" secondItem="zyP-Pk-RkM" secondAttribute="trailing" constant="8" id="mf5-gd-N8E"/>
                     <constraint firstItem="Gby-iu-y1b" firstAttribute="leading" secondItem="zyP-Pk-RkM" secondAttribute="trailing" constant="8" id="sLj-kL-vUW"/>
@@ -61,7 +65,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="chatBubble" destination="Gby-iu-y1b" id="3Dg-Zp-brR"/>
-                <outlet property="commentBody" destination="rb0-3Y-ZS9" id="eu7-tY-MSX"/>
+                <outlet property="commentTextView" destination="hPb-bw-p9b" id="AWM-6Z-oo7"/>
                 <outlet property="profilePic" destination="zyP-Pk-RkM" id="iAR-Hr-9fR"/>
                 <outlet property="userName" destination="IZD-yS-HGu" id="scQ-qc-iTp"/>
             </connections>

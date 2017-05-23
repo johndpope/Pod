@@ -10,6 +10,7 @@ import UIKit
 
 class CommentHeaderViewController: UIViewController {
     @IBOutlet weak var OPImage: UIImageView!
+    @IBOutlet weak var heartImage: UIImageView!
     @IBOutlet weak var OPTitle: UILabel!
     @IBOutlet weak var OPComment: UITextView!
     @IBOutlet weak var numHearts: UILabel!
@@ -17,13 +18,14 @@ class CommentHeaderViewController: UIViewController {
     @IBOutlet weak var commentFrame: UIView!
     
     var messages: [String] = []
-    
+    var likedComment: Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         setOPDetails()
         setCommentDetails()
         commentFrame.layer.borderWidth = 1
         commentFrame.layer.borderColor = UIColor.gray.cgColor
+        
         // Do any additional setup after loading the view.
     }
 
@@ -40,7 +42,7 @@ class CommentHeaderViewController: UIViewController {
         OPImage.layer.borderColor = UIColor.black.cgColor
         OPImage.layer.cornerRadius = OPImage.frame.height/2
         OPImage.clipsToBounds = true
-        
+
         //Set Name
         OPTitle.text = "Max Freundlich"
         OPTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
@@ -52,6 +54,22 @@ class CommentHeaderViewController: UIViewController {
     func setCommentDetails(){
         numHearts.text = "26"
         numComments.text = "5"
+        
+        //Set heart to clickable
+        heartImage.isUserInteractionEnabled = true
+        let tapRecognizer = UITapGestureRecognizer(target: self, action:#selector(heartTapped))
+        heartImage.addGestureRecognizer(tapRecognizer)
+    }
+    
+    func heartTapped(){
+        if(likedComment){
+            heartImage.image = UIImage(named: "icons8-hearts")
+            numHearts.text = String((Int(numHearts.text!)! - 1))
+        } else {
+            heartImage.image = UIImage(named: "icons8-hearts_filled")
+            numHearts.text = String((Int(numHearts.text!)! + 1))
+        }
+        likedComment = !likedComment
     }
 
     /*
