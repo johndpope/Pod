@@ -52,9 +52,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="Gby-iu-y1b" firstAttribute="centerY" secondItem="zyP-Pk-RkM" secondAttribute="centerY" id="9M3-JL-nJV"/>
+                    <constraint firstAttribute="trailing" secondItem="Gby-iu-y1b" secondAttribute="trailing" constant="8" id="B1t-0S-3Mu"/>
                     <constraint firstItem="zyP-Pk-RkM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="DCR-iA-CIy"/>
                     <constraint firstItem="zyP-Pk-RkM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="SAA-uG-fIy"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="DSs-Ld-rQU" secondAttribute="trailing" constant="8" id="VIE-d1-uWN"/>
                     <constraint firstItem="Gby-iu-y1b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-4" id="h2G-BJ-oNF"/>
                     <constraint firstItem="IZD-yS-HGu" firstAttribute="centerX" secondItem="zyP-Pk-RkM" secondAttribute="centerX" id="iG1-ul-mmA"/>
                     <constraint firstAttribute="bottom" secondItem="IZD-yS-HGu" secondAttribute="bottom" constant="2" id="l7g-wO-UoY"/>
