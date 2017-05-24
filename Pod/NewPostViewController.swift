@@ -15,6 +15,10 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var podTitle: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var postPhotoButton: UIImageView!
+    
+    let imagePicker = UIImagePickerController()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightBlue
@@ -22,11 +26,16 @@ class NewPostViewController: UIViewController {
         setupPodHeader()
         setupTextField()
         setupButtons()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+       // NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tapGesture)
+        imagePicker.delegate = self
+
+        postPhotoButton.isUserInteractionEnabled = true
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(postPhoto))
+        postPhotoButton.addGestureRecognizer(tapRecognizer)
         // Do any additional setup after loading the view.
     }
 
@@ -85,6 +94,47 @@ class NewPostViewController: UIViewController {
     func tap(gesture: UITapGestureRecognizer) {
         textView.resignFirstResponder()
     }
+    
+    
+    func postPhoto(gesture: UITapGestureRecognizer) {
+
+        let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+            self.openCamera()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+            self.openGallary()
+        }))
+        
+        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func openCamera()
+    {
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.camera))
+        {
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+            imagePicker.allowsEditing = true
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        else
+        {
+            let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func openGallary()
+    {
+        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        imagePicker.allowsEditing = true
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+
     /*
     // MARK: - Navigation
 
@@ -95,6 +145,35 @@ class NewPostViewController: UIViewController {
     }
     */
 
+}
+
+extension NewPostViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        // TODO: Send profile image to backend
+        if let selectedImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            let attributedString = NSMutableAttributedString(string: "")
+            let textAttachment = NSTextAttachment()
+            textAttachment.image = selectedImage
+            let oldWidth = textAttachment.image!.size.width;
+            
+            let scaleFactor = oldWidth / (textView.frame.size.width - 10); //for the padding inside the textView
+            if(imagePicker.sourceType == .camera){
+                textAttachment.image = UIImage(cgImage: (textAttachment.image?.cgImage)!, scale: scaleFactor, orientation: UIImageOrientation.right)
+            } else {
+                textAttachment.image = UIImage(cgImage: (textAttachment.image?.cgImage)!, scale: scaleFactor, orientation: UIImageOrientation.up)
+            }
+            let attrStringWithImage = NSAttributedString(attachment: textAttachment)
+            attributedString.replaceCharacters(in: NSMakeRange(0, 0), with: attrStringWithImage)
+            textView.attributedText = attributedString;
+            textView.placeholder = ""
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 /// Extend UITextView and implemented UITextViewDelegate to listen for changes

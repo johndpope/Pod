@@ -215,6 +215,7 @@
                     <connections>
                         <outlet property="cancelButton" destination="JyT-AQ-LVs" id="0qh-3e-equ"/>
                         <outlet property="podTitle" destination="FId-5R-Iw2" id="j0D-EI-MyH"/>
+                        <outlet property="postPhotoButton" destination="8XS-15-OJu" id="nb1-LV-cac"/>
                         <outlet property="sendButton" destination="p2j-6y-yrs" id="1M4-bj-xgX"/>
                         <outlet property="textBackgroundView" destination="Xt9-Bc-JIS" id="Lh2-7J-t8b"/>
                         <outlet property="textView" destination="XkE-8v-5Ry" id="f1p-QA-gOr"/>

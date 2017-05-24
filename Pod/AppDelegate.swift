@@ -29,15 +29,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Present initial VC depedning on if user is logged in
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if GIDSignIn.sharedInstance().hasAuthInKeychain() || FBSDKAccessToken.current() != nil {
+        //if GIDSignIn.sharedInstance().hasAuthInKeychain() || FBSDKAccessToken.current() != nil {
             if let tabBarVC = storyboard.instantiateViewController(withIdentifier: "PodTabBarController") as? UITabBarController {
                 window?.rootViewController = tabBarVC
             }
-        } else {
-            if let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
-                window?.rootViewController = loginVC
-            }
-        }
+        ///} else {
+           // if let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
+         //       window?.rootViewController = loginVC
+           // }
+       // }
         
         return true
     }
