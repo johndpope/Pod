@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9511220E1ED65AF10056BE16 /* PodTitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9511220D1ED65AF10056BE16 /* PodTitleViewController.swift */; };
 		9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */; };
 		9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */; };
 		9578B5941ED3E4370096A518 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B5931ED3E4370096A518 /* NewPostViewController.swift */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		6D44DA30209E359384E89016 /* Pods-Pod.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pod.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pod/Pods-Pod.release.xcconfig"; sourceTree = "<group>"; };
+		9511220D1ED65AF10056BE16 /* PodTitleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTitleViewController.swift; sourceTree = "<group>"; };
 		9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCarouselViewController.swift; sourceTree = "<group>"; };
 		9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		9559D0731EC8F1E800BAC3F5 /* iCarousel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
@@ -90,6 +92,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9511220C1ED65AA80056BE16 /* Pod Creation */ = {
+			isa = PBXGroup;
+			children = (
+				9511220D1ED65AF10056BE16 /* PodTitleViewController.swift */,
+			);
+			name = "Pod Creation";
+			sourceTree = "<group>";
+		};
+		9511220F1ED65D150056BE16 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				95CF55931ECBABEC00B1751E /* CommentHeaderViewController.swift */,
+				95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */,
+				95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */,
+				95C8C3A71ED3A00F004A2A29 /* CommentTableViewCell.xib */,
+			);
+			name = Comments;
+			sourceTree = "<group>";
+		};
 		9559D0681EC8F0FA00BAC3F5 /* iCarousel */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +161,8 @@
 		F4BECB2E1EBD682D00B98BA8 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
+				9511220F1ED65D150056BE16 /* Comments */,
+				9511220C1ED65AA80056BE16 /* Pod Creation */,
 				9559D0681EC8F0FA00BAC3F5 /* iCarousel */,
 				95D14F2A1EBE9A630049C58A /* Pod Table View */,
 				F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */,
@@ -158,11 +181,7 @@
 				95D14F261EBE993E0049C58A /* PodTabBarController.swift */,
 				95D14F281EBE9A5F0049C58A /* PodCreationViewController.swift */,
 				95D14F2B1EBEA0A70049C58A /* Constants.swift */,
-				95CF55931ECBABEC00B1751E /* CommentHeaderViewController.swift */,
 				95CF560E1ECBD18900B1751E /* MessageCell.swift */,
-				95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */,
-				95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */,
-				95C8C3A71ED3A00F004A2A29 /* CommentTableViewCell.xib */,
 				9578B5931ED3E4370096A518 /* NewPostViewController.swift */,
 			);
 			path = Pod;
@@ -298,6 +317,7 @@
 				F4BECB421EBD6FE000B98BA8 /* LoginViewController.swift in Sources */,
 				F4BECB471EBE660900B98BA8 /* UIView+Autolayout.swift in Sources */,
 				95CF55941ECBABEC00B1751E /* CommentHeaderViewController.swift in Sources */,
+				9511220E1ED65AF10056BE16 /* PodTitleViewController.swift in Sources */,
 				F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */,
 				F4BECB491EBE6D3D00B98BA8 /* UIColor+Pod.swift in Sources */,
 				F4A3BE381ECBAC180032B3E3 /* PodView.swift in Sources */,
