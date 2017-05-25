@@ -10,5 +10,7 @@ target 'Pod' do
   pod 'FBSDKLoginKit'
   pod 'Google/SignIn'
   pod 'GooglePlaces'
-
+  pod "SlackTextViewController"
+  pod 'SnapKit', '~> 3.0'
+  pod 'TextFieldEffects', '~> 1.3'
 end

@@ -7,11 +7,23 @@
 //
 
 import UIKit
+import AWSCore
+import AWSMobileHubHelper
 
 class PodCarouselViewController: UIViewController {
     var items: [String] = []
     @IBOutlet var carousel: iCarousel!
 
+    @IBAction func signOut(_ sender: Any) {
+        if (AWSSignInManager.sharedInstance().isLoggedIn) {
+            AWSSignInManager.sharedInstance().logout(completionHandler: {(result: Any?, authState: AWSIdentityManagerAuthState, error: Error?) in
+                print("go to sign in view controller")
+            })
+            // print("Logout Successful: \(signInProvider.getDisplayName)");
+        } else {
+            assert(false)
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         //for i in 0 ... 99 {
@@ -28,6 +40,7 @@ class PodCarouselViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         carousel.type = .cylinder
+        print(AWSSignInManager.sharedInstance().isLoggedIn)
     }
 }
 
