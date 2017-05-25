@@ -37,6 +37,7 @@
 		95D14F291EBE9A5F0049C58A /* PodCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F281EBE9A5F0049C58A /* PodCreationViewController.swift */; };
 		95D14F2C1EBEA0A70049C58A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F2B1EBEA0A70049C58A /* Constants.swift */; };
 		C807AC9F9F51908EF23D61C2 /* Pods_Pod.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */; };
+		F44AB6341ED3DEB0001B5E69 /* PodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44AB6331ED3DEB0001B5E69 /* PodViewController.swift */; };
 		F4A3BE381ECBAC180032B3E3 /* PodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A3BE371ECBAC180032B3E3 /* PodView.swift */; };
 		F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */; };
 		F4BECB371EBD682D00B98BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB361EBD682D00B98BA8 /* Assets.xcassets */; };
@@ -92,6 +93,7 @@
 		95D14F281EBE9A5F0049C58A /* PodCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCreationViewController.swift; sourceTree = "<group>"; };
 		95D14F2B1EBEA0A70049C58A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DB37B267B5709340ACC441C6 /* Pods-Pod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pod.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pod/Pods-Pod.debug.xcconfig"; sourceTree = "<group>"; };
+		F44AB6331ED3DEB0001B5E69 /* PodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodViewController.swift; sourceTree = "<group>"; };
 		F4A3BE371ECBAC180032B3E3 /* PodView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodView.swift; sourceTree = "<group>"; };
 		F4BECB2C1EBD682D00B98BA8 /* Pod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pod.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				F4A3BE371ECBAC180032B3E3 /* PodView.swift */,
 				F4BECB461EBE660900B98BA8 /* UIView+Autolayout.swift */,
 				95CF56061ECBC9BD00B1751E /* Main.storyboard */,
+				F44AB6331ED3DEB0001B5E69 /* PodViewController.swift */,
 				F4BECB361EBD682D00B98BA8 /* Assets.xcassets */,
 				F4BECB381EBD682D00B98BA8 /* LaunchScreen.storyboard */,
 				F4BECB3B1EBD682D00B98BA8 /* Info.plist */,
@@ -279,7 +282,7 @@
 				TargetAttributes = {
 					F4BECB2B1EBD682D00B98BA8 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = ALM4357QZ2;
+						DevelopmentTeam = F42N7QJG3C;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -386,6 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F44AB6341ED3DEB0001B5E69 /* PodViewController.swift in Sources */,
 				F4BECB471EBE660900B98BA8 /* UIView+Autolayout.swift in Sources */,
 				9599E2801ED68FB40078328A /* PodPrivacyViewController.swift in Sources */,
 				95309FF71ED67B82008A7A7F /* AWSMobileClient.swift in Sources */,
@@ -523,7 +527,7 @@
 			baseConfigurationReference = DB37B267B5709340ACC441C6 /* Pods-Pod.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ALM4357QZ2;
+				DEVELOPMENT_TEAM = F42N7QJG3C;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sdk/Aws",
@@ -616,7 +620,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194b.Pod;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.Pod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -628,7 +632,7 @@
 			baseConfigurationReference = 6D44DA30209E359384E89016 /* Pods-Pod.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ALM4357QZ2;
+				DEVELOPMENT_TEAM = F42N7QJG3C;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sdk/Aws",
@@ -721,7 +725,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194b.Pod;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.Pod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

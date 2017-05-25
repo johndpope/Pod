@@ -31,15 +31,22 @@ class PodView: UIView {
         return joinButton
     }()
     
-    private lazy var blurEffectView: UIView? = {
-        if !UIAccessibilityIsReduceTransparencyEnabled() {
+    private lazy var blurEffectView: UIView = {
+        if self.lockedPod && !UIAccessibilityIsReduceTransparencyEnabled() {
             let blurEffect = UIBlurEffect(style: .light)
             let blurEffectView = UIVisualEffectView(effect: blurEffect)
             return blurEffectView
         } else {
-            return nil
+            let transparentView = UIView()
+            let podTapGesture = UITapGestureRecognizer(target: self, action: #selector(toSinglePod))
+            transparentView.addGestureRecognizer(podTapGesture)
+            return transparentView
         }
     }()
+    
+    var lockedPod = false
+    
+    weak var delegate: PodViewDelegate?
     
     private lazy var lockImageView: UIImageView = {
         let lockImageView = UIImageView(image: UIImage(named: "lock"))
@@ -57,7 +64,7 @@ class PodView: UIView {
         layer.masksToBounds = true
         
         addSubview(tableView.usingAutolayout())
-        addSubview(blurEffectView!.usingAutolayout())
+        addSubview(blurEffectView.usingAutolayout())
         addSubview(lockImageView.usingAutolayout())
         addSubview(joinButton.usingAutolayout())
         
@@ -82,10 +89,10 @@ class PodView: UIView {
         
         // Blur View
         NSLayoutConstraint.activate([
-            blurEffectView!.topAnchor.constraint(equalTo: topAnchor),
-            blurEffectView!.leftAnchor.constraint(equalTo: leftAnchor),
-            blurEffectView!.rightAnchor.constraint(equalTo: rightAnchor),
-            blurEffectView!.bottomAnchor.constraint(equalTo: bottomAnchor)
+            blurEffectView.topAnchor.constraint(equalTo: topAnchor),
+            blurEffectView.leftAnchor.constraint(equalTo: leftAnchor),
+            blurEffectView.rightAnchor.constraint(equalTo: rightAnchor),
+            blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
         
         /// Lock ImageView
@@ -103,6 +110,12 @@ class PodView: UIView {
             joinButton.widthAnchor.constraint(equalToConstant: 191.0),
             joinButton.heightAnchor.constraint(equalToConstant: 34.0)
             ])
+    }
+    
+    func toSinglePod() {
+        if let delegate = delegate {
+            delegate.toSinglePod(tableView.copyView())
+        }
     }
 }
 
@@ -124,4 +137,8 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         let cell = UITableViewCell()
         return cell
     }
+}
+
+protocol PodViewDelegate: class {
+    func toSinglePod(_ podView: UITableView)
 }
