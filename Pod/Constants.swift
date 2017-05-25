@@ -16,4 +16,7 @@ class Constants {
         static let GMSPlacesKey = "AIzaSyBmDEfPeg2x7jb10EIcPRYfuuAwyg9opi4"
     }
     
+    struct Storyboard {
+        static let SinglePodSegueId = "toSinglePod"
+    }
 }

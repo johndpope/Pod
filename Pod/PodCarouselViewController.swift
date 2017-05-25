@@ -11,6 +11,9 @@ import AWSCore
 import AWSMobileHubHelper
 
 class PodCarouselViewController: UIViewController {
+    
+    // MARK: - Properties
+    
     var items: [String] = []
     @IBOutlet var carousel: iCarousel!
 
@@ -24,6 +27,8 @@ class PodCarouselViewController: UIViewController {
             assert(false)
         }
     }
+    // MARK: - PodCarouselViewController
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         //for i in 0 ... 99 {
@@ -60,7 +65,14 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
     }
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
-        let blah = (view as? PodView != nil) ? view as! PodView : PodView(frame: CGRect(x: 0, y: 0, width: 255, height: 453))
-        return blah
+        let podView = (view as? PodView != nil) ? view as! PodView : PodView(frame: CGRect(x: 0, y: 0, width: 255, height: 453))
+        podView.delegate = self
+        return podView
+    }
+}
+
+extension PodCarouselViewController: PodViewDelegate {
+    func toSinglePod(_ podView: UITableView) {
+        performSegue(withIdentifier: Constants.Storyboard.SinglePodSegueId, sender: podView)
     }
 }
