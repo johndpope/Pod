@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="PSr-z4-d9K">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,6 +9,40 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Sign In View Controller-->
+        <scene sceneID="RfZ-U9-JpX">
+            <objects>
+                <viewController storyboardIdentifier="SignInViewController" id="PSr-z4-d9K" customClass="SignInViewController" customModule="Pod" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aqj-xv-qe7"/>
+                        <viewControllerLayoutGuide type="bottom" id="YYp-ca-gzX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JJi-99-EgE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZlI-i7-PhW" customClass="AWSFacebookSignInButton">
+                                <rect key="frame" x="67" y="269" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.59607843140000005" green="0.83529411760000005" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="ZlI-i7-PhW" firstAttribute="leading" secondItem="JJi-99-EgE" secondAttribute="leadingMargin" constant="51" id="7Vy-hU-ZlY"/>
+                            <constraint firstItem="ZlI-i7-PhW" firstAttribute="top" secondItem="aqj-xv-qe7" secondAttribute="bottom" constant="249" id="7mY-yh-0ES"/>
+                            <constraint firstItem="ZlI-i7-PhW" firstAttribute="centerX" secondItem="JJi-99-EgE" secondAttribute="centerX" id="fas-mM-2P2"/>
+                            <constraint firstItem="ZlI-i7-PhW" firstAttribute="centerY" secondItem="JJi-99-EgE" secondAttribute="centerY" id="rtK-LV-lwR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="facebookButton" destination="ZlI-i7-PhW" id="EcO-nR-2zA"/>
+                        <segue destination="6gB-4V-rMJ" kind="show" identifier="toTabBar" id="3cW-GU-LBA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="92a-uI-6j0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-892" y="204"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -22,9 +56,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.49490946531295776" green="0.87986856698989868" blue="0.86527091264724731" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <connections>
-                        <segue destination="6gB-4V-rMJ" kind="show" identifier="toPodList" id="Zel-mq-z8I"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -332,12 +363,21 @@
                                     <outlet property="delegate" destination="A1Q-b5-Mkq" id="1GG-Fd-wb5"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jC4-y4-ydE">
+                                <rect key="frame" x="163" y="0.0" width="48" height="30"/>
+                                <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="signOut:" destination="A1Q-b5-Mkq" eventType="touchUpInside" id="blU-Vo-PQa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.59607843137254901" green="0.83529411764705885" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="leadingMargin" secondItem="rki-0Z-7Ye" secondAttribute="leading" id="SXc-2E-IVd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rki-0Z-7Ye" secondAttribute="trailing" id="XqE-YQ-Ju8"/>
+                            <constraint firstItem="jC4-y4-ydE" firstAttribute="centerX" secondItem="YS4-vR-opX" secondAttribute="centerX" id="gTH-Kq-wXf"/>
                             <constraint firstItem="0sT-1M-pmp" firstAttribute="top" secondItem="rki-0Z-7Ye" secondAttribute="bottom" constant="81" id="pP5-Ra-B6I"/>
+                            <constraint firstItem="jC4-y4-ydE" firstAttribute="top" secondItem="YS4-vR-opX" secondAttribute="topMargin" id="sKB-6N-6WX"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="a7Z-vd-ICU"/>
@@ -365,6 +405,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WEb-J2-Y3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1540" y="942"/>
         </scene>
         <!--Comment View Controller-->
         <scene sceneID="upB-sr-e9g">

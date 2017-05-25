@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		9511220E1ED65AF10056BE16 /* PodTitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9511220D1ED65AF10056BE16 /* PodTitleViewController.swift */; };
+		95309FEA1ED67B41008A7A7F /* Sdk in Resources */ = {isa = PBXBuildFile; fileRef = 95309FE91ED67B41008A7A7F /* Sdk */; };
+		95309FEC1ED67B58008A7A7F /* AWSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FEB1ED67B58008A7A7F /* AWSCore.framework */; };
+		95309FED1ED67B58008A7A7F /* AWSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FEB1ED67B58008A7A7F /* AWSCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		95309FF51ED67B82008A7A7F /* AWSFacebookSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FF11ED67B82008A7A7F /* AWSFacebookSignIn.framework */; };
+		95309FF61ED67B82008A7A7F /* AWSFacebookSignInResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 95309FF21ED67B82008A7A7F /* AWSFacebookSignInResources.bundle */; };
+		95309FF71ED67B82008A7A7F /* AWSMobileClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95309FF31ED67B82008A7A7F /* AWSMobileClient.swift */; };
+		95309FF81ED67B82008A7A7F /* AWSMobileHubHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FF41ED67B82008A7A7F /* AWSMobileHubHelper.framework */; };
+		95309FFA1ED67BB8008A7A7F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FF91ED67BB8008A7A7F /* libz.tbd */; };
+		95309FFC1ED67BBE008A7A7F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FFB1ED67BBE008A7A7F /* libsqlite3.tbd */; };
+		95309FFE1ED67C27008A7A7F /* FacebookIdentityProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95309FFD1ED67C27008A7A7F /* FacebookIdentityProfile.swift */; };
+		9530A0001ED67D30008A7A7F /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95309FFF1ED67D30008A7A7F /* SignInViewController.swift */; };
 		9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */; };
 		9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */; };
 		9578B5941ED3E4370096A518 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B5931ED3E4370096A518 /* NewPostViewController.swift */; };
@@ -36,9 +47,33 @@
 		F4BECB491EBE6D3D00B98BA8 /* UIColor+Pod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BECB481EBE6D3D00B98BA8 /* UIColor+Pod.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		95309FEE1ED67B58008A7A7F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				95309FED1ED67B58008A7A7F /* AWSCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		6D44DA30209E359384E89016 /* Pods-Pod.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pod.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pod/Pods-Pod.release.xcconfig"; sourceTree = "<group>"; };
 		9511220D1ED65AF10056BE16 /* PodTitleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTitleViewController.swift; sourceTree = "<group>"; };
+		95309FE91ED67B41008A7A7F /* Sdk */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sdk; sourceTree = "<group>"; };
+		95309FEB1ED67B58008A7A7F /* AWSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCore.framework; path = Pod/Sdk/Aws/AWSCore.framework; sourceTree = "<group>"; };
+		95309FF11ED67B82008A7A7F /* AWSFacebookSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSFacebookSignIn.framework; sourceTree = "<group>"; };
+		95309FF21ED67B82008A7A7F /* AWSFacebookSignInResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AWSFacebookSignInResources.bundle; sourceTree = "<group>"; };
+		95309FF31ED67B82008A7A7F /* AWSMobileClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSMobileClient.swift; sourceTree = "<group>"; };
+		95309FF41ED67B82008A7A7F /* AWSMobileHubHelper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSMobileHubHelper.framework; sourceTree = "<group>"; };
+		95309FF91ED67BB8008A7A7F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		95309FFB1ED67BBE008A7A7F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		95309FFD1ED67C27008A7A7F /* FacebookIdentityProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookIdentityProfile.swift; sourceTree = "<group>"; };
+		95309FFF1ED67D30008A7A7F /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCarouselViewController.swift; sourceTree = "<group>"; };
 		9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		9559D0731EC8F1E800BAC3F5 /* iCarousel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
@@ -77,7 +112,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95309FFC1ED67BBE008A7A7F /* libsqlite3.tbd in Frameworks */,
+				95309FFA1ED67BB8008A7A7F /* libz.tbd in Frameworks */,
+				95309FF51ED67B82008A7A7F /* AWSFacebookSignIn.framework in Frameworks */,
 				C807AC9F9F51908EF23D61C2 /* Pods_Pod.framework in Frameworks */,
+				95309FF81ED67B82008A7A7F /* AWSMobileHubHelper.framework in Frameworks */,
+				95309FEC1ED67B58008A7A7F /* AWSCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +127,9 @@
 		75B3EF7C8AD1162361520E4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				95309FEB1ED67B58008A7A7F /* AWSCore.framework */,
+				95309FFB1ED67BBE008A7A7F /* libsqlite3.tbd */,
+				95309FF91ED67BB8008A7A7F /* libz.tbd */,
 				FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */,
 			);
 			name = Frameworks;
@@ -109,6 +152,17 @@
 				95C8C3A71ED3A00F004A2A29 /* CommentTableViewCell.xib */,
 			);
 			name = Comments;
+			sourceTree = "<group>";
+		};
+		95309FF01ED67B82008A7A7F /* AmazonAws */ = {
+			isa = PBXGroup;
+			children = (
+				95309FF11ED67B82008A7A7F /* AWSFacebookSignIn.framework */,
+				95309FF21ED67B82008A7A7F /* AWSFacebookSignInResources.bundle */,
+				95309FF31ED67B82008A7A7F /* AWSMobileClient.swift */,
+				95309FF41ED67B82008A7A7F /* AWSMobileHubHelper.framework */,
+			);
+			path = AmazonAws;
 			sourceTree = "<group>";
 		};
 		9559D0681EC8F0FA00BAC3F5 /* iCarousel */ = {
@@ -161,6 +215,9 @@
 		F4BECB2E1EBD682D00B98BA8 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
+				95309FFD1ED67C27008A7A7F /* FacebookIdentityProfile.swift */,
+				95309FF01ED67B82008A7A7F /* AmazonAws */,
+				95309FE91ED67B41008A7A7F /* Sdk */,
 				9511220F1ED65D150056BE16 /* Comments */,
 				9511220C1ED65AA80056BE16 /* Pod Creation */,
 				9559D0681EC8F0FA00BAC3F5 /* iCarousel */,
@@ -183,6 +240,7 @@
 				95D14F2B1EBEA0A70049C58A /* Constants.swift */,
 				95CF560E1ECBD18900B1751E /* MessageCell.swift */,
 				9578B5931ED3E4370096A518 /* NewPostViewController.swift */,
+				95309FFF1ED67D30008A7A7F /* SignInViewController.swift */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -200,6 +258,8 @@
 				F4BECB2A1EBD682D00B98BA8 /* Resources */,
 				09D60DA96CFB0D82638AA4F3 /* [CP] Embed Pods Frameworks */,
 				4CD3306A44AB436DF1B401DF /* [CP] Copy Pods Resources */,
+				95309FEE1ED67B58008A7A7F /* Embed Frameworks */,
+				95309FEF1ED67B63008A7A7F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -253,6 +313,8 @@
 				F4BECB3A1EBD682D00B98BA8 /* LaunchScreen.storyboard in Resources */,
 				95C8C3A91ED3A00F004A2A29 /* CommentTableViewCell.xib in Resources */,
 				95CF56071ECBC9BD00B1751E /* Main.storyboard in Resources */,
+				95309FF61ED67B82008A7A7F /* AWSFacebookSignInResources.bundle in Resources */,
+				95309FEA1ED67B41008A7A7F /* Sdk in Resources */,
 				F4BECB441EBD738800B98BA8 /* GoogleService-Info.plist in Resources */,
 				F4BECB371EBD682D00B98BA8 /* Assets.xcassets in Resources */,
 				95D14F231EBD7F6B0049C58A /* PodTableViewSectionHeader.xib in Resources */,
@@ -292,6 +354,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pod/Pods-Pod-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		95309FEF1ED67B63008A7A7F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework/strip-frameworks.sh\"";
+		};
 		F188B94A429CBBFF17EA0C35 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -316,6 +391,7 @@
 			files = (
 				F4BECB421EBD6FE000B98BA8 /* LoginViewController.swift in Sources */,
 				F4BECB471EBE660900B98BA8 /* UIView+Autolayout.swift in Sources */,
+				95309FF71ED67B82008A7A7F /* AWSMobileClient.swift in Sources */,
 				95CF55941ECBABEC00B1751E /* CommentHeaderViewController.swift in Sources */,
 				9511220E1ED65AF10056BE16 /* PodTitleViewController.swift in Sources */,
 				F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */,
@@ -324,6 +400,7 @@
 				95D14F211EBD7F580049C58A /* PodTableViewSectionHeader.swift in Sources */,
 				95C8C3A81ED3A00F004A2A29 /* CommentTableViewCell.swift in Sources */,
 				9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */,
+				95309FFE1ED67C27008A7A7F /* FacebookIdentityProfile.swift in Sources */,
 				95D14F291EBE9A5F0049C58A /* PodCreationViewController.swift in Sources */,
 				95C8C3A31ED39ABC004A2A29 /* CommentViewController.swift in Sources */,
 				95D14F251EBE8C410049C58A /* PodData.swift in Sources */,
@@ -333,6 +410,7 @@
 				95D14F191EBD738A0049C58A /* PodTableViewController.swift in Sources */,
 				95D14F2C1EBEA0A70049C58A /* Constants.swift in Sources */,
 				9578B5941ED3E4370096A518 /* NewPostViewController.swift in Sources */,
+				9530A0001ED67D30008A7A7F /* SignInViewController.swift in Sources */,
 				95D14F1B1EBD773C0049C58A /* PodTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -450,9 +528,98 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = ALM4357QZ2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sdk/Aws",
+					"$(PROJECT_DIR)/Sdk/Facebook",
+					"$(PROJECT_DIR)/Pod/Sdk/Aws",
+					"$(PROJECT_DIR)/Pod/AmazonAws",
+				);
 				INFOPLIST_FILE = Pod/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"stdc++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKLoginKit\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"GGLCore\"",
+					"-framework",
+					"\"GGLSignIn\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GTMOAuth2\"",
+					"-framework",
+					"\"GTMSessionFetcher\"",
+					"-framework",
+					"\"GoogleMaps\"",
+					"-framework",
+					"\"GoogleMapsBase\"",
+					"-framework",
+					"\"GoogleMapsCore\"",
+					"-framework",
+					"\"GooglePlaces\"",
+					"-framework",
+					"\"GoogleSignIn\"",
+					"-framework",
+					"\"GoogleToolboxForMac\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SlackTextViewController\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"TextFieldEffects\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194b.Pod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
@@ -466,9 +633,98 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = ALM4357QZ2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sdk/Aws",
+					"$(PROJECT_DIR)/Sdk/Facebook",
+					"$(PROJECT_DIR)/Pod/Sdk/Aws",
+					"$(PROJECT_DIR)/Pod/AmazonAws",
+				);
 				INFOPLIST_FILE = Pod/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"stdc++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKLoginKit\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"GGLCore\"",
+					"-framework",
+					"\"GGLSignIn\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GTMOAuth2\"",
+					"-framework",
+					"\"GTMSessionFetcher\"",
+					"-framework",
+					"\"GoogleMaps\"",
+					"-framework",
+					"\"GoogleMapsBase\"",
+					"-framework",
+					"\"GoogleMapsCore\"",
+					"-framework",
+					"\"GooglePlaces\"",
+					"-framework",
+					"\"GoogleSignIn\"",
+					"-framework",
+					"\"GoogleToolboxForMac\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SlackTextViewController\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"TextFieldEffects\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194b.Pod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";

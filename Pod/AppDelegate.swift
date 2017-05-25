@@ -10,6 +10,9 @@ import UIKit
 import FBSDKCoreKit
 import GooglePlaces
 import GoogleMaps
+import AWSCore
+import AWSMobileHubHelper
+import AWSFacebookSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,28 +21,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        GMSPlacesClient.provideAPIKey(Constants.APIServices.GMSPlacesKey)
-        GMSServices.provideAPIKey(Constants.APIServices.GMSMapKey)
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+       // GMSPlacesClient.provideAPIKey(Constants.APIServices.GMSPlacesKey)
+        //GMSServices.provideAPIKey(Constants.APIServices.GMSMapKey)
+        //FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         // Allow Google sign-in
-        var configureError: NSError?
-        GGLContext.sharedInstance().configureWithError(&configureError)
-        assert(configureError == nil, "Error configuring Google services: \(configureError)")
-        
+       // var configureError: NSError?
+        //GGLContext.sharedInstance().configureWithError(&configureError)
+       // assert(configureError == nil, "Error configuring Google services: \(configureError)")
+        let clientfinished = AWSMobileClient.sharedInstance.didFinishLaunching(application, withOptions: launchOptions)
         // Present initial VC depedning on if user is logged in
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        //if GIDSignIn.sharedInstance().hasAuthInKeychain() || FBSDKAccessToken.current() != nil {
+        if(AWSSignInManager.sharedInstance().isLoggedIn){
             if let tabBarVC = storyboard.instantiateViewController(withIdentifier: "PodTabBarController") as? UITabBarController {
                 window?.rootViewController = tabBarVC
             }
-        ///} else {
-           // if let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
-         //       window?.rootViewController = loginVC
-           // }
-       // }
-        
-        return true
+        } else {
+            if let loginVC = storyboard.instantiateViewController(withIdentifier: "SignInViewController") as? SignInViewController {
+                window?.rootViewController = loginVC
+            }
+        }
+    
+        return clientfinished
+    }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return AWSMobileClient.sharedInstance.withApplication(application, withURL: url, withSourceApplication: sourceApplication, withAnnotation: annotation)
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -65,6 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
         FBSDKAppEvents.activateApp()
+        AWSMobileClient.sharedInstance.applicationDidBecomeActive(application)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
