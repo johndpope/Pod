@@ -24,25 +24,22 @@ class PodPrivacyViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     func setPrivacy(gesture: UITapGestureRecognizer) {
         if(isPrivate){
             privacyImage.image = UIImage(named: "icons8-unlock")
             privacyText.text = "Tap the lock to make this pod public"
-            isPrivate = true;
+            isPrivate = false;
         } else {
             privacyImage.image = UIImage(named: "icons8-lock")
             privacyText.text = "Tap the lock to make this pod private"
-            isPrivate = false;
+            isPrivate = true;
         }
 
     }
     
     @IBAction func createPod(_ sender: Any) {
         print("Creating pod: \(podTitle). Private: \(isPrivate)")
+        dismiss(animated: true, completion: nil)
     }
     
 

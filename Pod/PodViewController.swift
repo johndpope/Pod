@@ -34,7 +34,16 @@ class PodViewController: UIViewController {
         postButton.setTitleColor(.white, for: .normal)
         postButton.backgroundColor = .lightBlue
         postButton.titleLabel?.textAlignment = .center
+        postButton.addTarget(self, action: #selector(toNewPost), for: .touchUpInside)
         return postButton
+    }()
+    
+    private lazy var closeButton: UIButton = {
+        let closeButton = UIButton()
+        closeButton.setTitle("Close", for: .normal)
+        closeButton.setTitleColor(.white, for: .normal)
+        closeButton.addTarget(self, action: #selector(closePod), for: .touchUpInside)
+        return closeButton
     }()
     
     let postButtonHeight: CGFloat = 50.0
@@ -51,6 +60,7 @@ class PodViewController: UIViewController {
         view.addSubview(titleLabel.usingAutolayout())
         view.addSubview(tableView.usingAutolayout())
         view.addSubview(postButton.usingAutolayout())
+        view.addSubview(closeButton.usingAutolayout())
         setupConstraints()
     }
     
@@ -79,6 +89,20 @@ class PodViewController: UIViewController {
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ])
+        
+        // Close Button
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 8.0),
+            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8.0)
+            ])
+    }
+    
+    func toNewPost() {
+        performSegue(withIdentifier: "toNewPost", sender: nil)
+    }
+    
+    func closePod() {
+        dismiss(animated: true, completion: nil)
     }
 }
 

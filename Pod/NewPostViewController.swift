@@ -134,6 +134,14 @@ class NewPostViewController: UIViewController {
         imagePicker.allowsEditing = true
         self.present(imagePicker, animated: true, completion: nil)
     }
+    
+    @IBAction func cancelNewPost(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func createNewPost(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

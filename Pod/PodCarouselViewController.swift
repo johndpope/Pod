@@ -71,6 +71,8 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
     }
 }
 
+// MARK: - PodView Methods
+
 extension PodCarouselViewController: PodViewDelegate {
     func toSinglePod(_ podView: UITableView) {
         performSegue(withIdentifier: Constants.Storyboard.SinglePodSegueId, sender: podView)
