@@ -12,7 +12,7 @@ class CommentHeaderViewController: UIViewController {
     @IBOutlet weak var OPImage: UIImageView!
     @IBOutlet weak var heartImage: UIImageView!
     @IBOutlet weak var OPTitle: UILabel!
-    @IBOutlet weak var OPComment: UITextView!
+    @IBOutlet weak var OPComment: UILabel!
     @IBOutlet weak var numHearts: UILabel!
     @IBOutlet weak var numComments: UILabel!
     @IBOutlet weak var commentFrame: UIView!
@@ -23,8 +23,17 @@ class CommentHeaderViewController: UIViewController {
         super.viewDidLoad()
         setOPDetails()
         setCommentDetails()
-        commentFrame.layer.borderWidth = 1
-        commentFrame.layer.borderColor = UIColor.gray.cgColor
+       // commentFrame.layer.borderWidth = 1
+       // commentFrame.layer.borderColor = UIColor.gray.cgColor
+        let lowerBorder = CALayer()
+        lowerBorder.backgroundColor = UIColor.gray.cgColor
+        lowerBorder.frame = CGRect(x: commentFrame.frame.minX, y: commentFrame.layer.bounds.maxY, width: commentFrame.frame.width, height: 1.0)
+        commentFrame.layer.addSublayer(lowerBorder)
+//        let media = UIImageView(frame: CGRect(x: 73, y: OPComment.layer.bounds.maxY + 10, width: 75, height: 75))
+//        media.image = UIImage(named: "profile-pic")
+//        commentFrame.addSubview(media)
+//        OPComment.removeFromSuperview()
+        
         
         // Do any additional setup after loading the view.
     }

@@ -11,7 +11,7 @@ import UIKit
 import SlackTextViewController
 
 class CommentViewController: SLKTextViewController {
-    var messages: [String] = ["This is a message", "Hey, cool message!"]
+    var messages: [String] = ["This is a message", "Hey, this is a really really long message. I sure hope that all of this text shows up! If not I am really bad at what I do :("]
     override init(tableViewStyle style: UITableViewStyle) {
         super.init(tableViewStyle: .plain)
     }
@@ -42,6 +42,8 @@ class CommentViewController: SLKTextViewController {
         tableView?.rowHeight = UITableViewAutomaticDimension
        // self.textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         tableView?.allowsSelection = false
+        tableView?.setNeedsLayout()
+        tableView?.layoutIfNeeded()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -124,21 +126,15 @@ class CommentViewController: SLKTextViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
         cell.transform = (self.tableView?.transform)!
-        cell.userName.text = "Name"
+        cell.userName.text = "Max"
         cell.commentBody.text = messages[indexPath.section]
         cell.profilePic.image = UIImage(named: "profile-pic")
+//        let chatBubble = UIView(frame: CGRect(x:  cell.commentBody.frame.minX, y: cell.commentBody.frame.minY, width:  cell.commentBody.frame.width, height:  cell.commentBody.frame.height))
+//        chatBubble.layer.cornerRadius = 19;
+//        chatBubble.backgroundColor = UIColor(red: 220/255, green:220/255, blue: 220/255, alpha: 1.0)
+//        cell.addSubview(chatBubble)
         return cell
     }
     
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
-        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
-        label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.font = font
-        label.text = text
-        label.sizeToFit()
-        
-        return label.frame.height
-    }
 
 }

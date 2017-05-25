@@ -11,7 +11,6 @@ import TextFieldEffects
 class PodTitleViewController: UIViewController {
 
     @IBOutlet weak var questionLabel: UILabel!
-    @IBOutlet weak var nextButton: UIButton!
     var textField: HoshiTextField!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +39,16 @@ class PodTitleViewController: UIViewController {
         textField.resignFirstResponder()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if(segue.identifier == "toPrivacyScene"){
+            if let nextVC = segue.destination as? PodPrivacyViewController {
+                nextVC.podTitle = textField.text!
+            }
+        }
+    }
+
+    
+
 
     /*
     // MARK: - Navigation

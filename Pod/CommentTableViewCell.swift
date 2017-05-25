@@ -32,6 +32,7 @@ class CommentTableViewCell: UITableViewCell {
         commentBody.font = UIFont.systemFont(ofSize: 18)
         commentBody.sizeToFit()
         commentBody.backgroundColor = UIColor.clear
+        
         chatBubble.sizeToFit()
     }
 
