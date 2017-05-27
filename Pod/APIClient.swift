@@ -11,7 +11,8 @@ import UIKit
 import CoreLocation
 import AWSAPIGateway
 import AWSMobileHubHelper
-
+import AWSCognitoIdentityProvider
+import AWSFacebookSignIn
 
 class APIClient {
     static var sharedInstance = APIClient()
@@ -23,7 +24,6 @@ class APIClient {
         let lat = location.latitude
         let long = location.longitude
         
-      
         let httpMethodName = "POST"
         let URLString = "/Pod_GetNeighboringPods"
         let queryStringParameters = ["lang": "en"]
@@ -102,21 +102,19 @@ class APIClient {
     func getProfileImage() -> UIImage? {
         let identityManager = AWSIdentityManager.default()
 
-        if profilePicture != nil {
-            return profilePicture!
-        } else {
-            if let imageURL = identityManager.identityProfile?.imageURL {
-                let imageData = try! Data(contentsOf: imageURL)
-                if let profileImage = UIImage(data: imageData) {
-                    profilePicture = profileImage
-                    return profileImage
-                } else {
-                    return UIImage(named: "UserIcon")!
-                    profilePicture = UIImage(named: "UserIcon")
-                }
+        if let imageURL = identityManager.identityProfile?.imageURL {
+            let imageData = try! Data(contentsOf: imageURL)
+            if let profileImage = UIImage(data: imageData) {
+                profilePicture = profileImage
+                return profileImage
+            } else {
+                profilePicture = UIImage(named: "UserIcon")
+                return UIImage(named: "UserIcon")!
             }
+        } else {
+            profilePicture = UIImage(named: "UserIcon")
+            return UIImage(named: "UserIcon")!
         }
-        return nil
     }
     
 }

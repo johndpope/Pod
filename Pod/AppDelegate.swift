@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Present initial VC depedning on if user is logged in
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if(AWSSignInManager.sharedInstance().isLoggedIn){
-            if let tabBarVC = storyboard.instantiateViewController(withIdentifier: "PodTabBarController") as? UITabBarController {
+            if let tabBarVC = storyboard.instantiateViewController(withIdentifier: "PodCarouselViewController") as? UIViewController {
                 APIClient.sharedInstance.initClientInfo()
                 window?.rootViewController = tabBarVC
             }

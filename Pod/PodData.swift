@@ -38,3 +38,29 @@ func getTestData() -> [Pod] {
     arr.append(p1)
     return arr
 }
+
+class PostDetails {
+    var posterName: String?
+    var postText: String?
+    var numHearts: Int?
+    var numComments: Int?
+    
+    init(posterName: String, postText: String, numHearts: Int, numComments: Int) {
+        self.postText = postText
+        self.posterName = posterName
+        self.numComments = numComments
+        self.numHearts = numHearts
+    }
+}
+
+class PodStruct {
+    var title: String?
+    var postData: [PostDetails?]
+    
+    init(title: String, postData: [PostDetails]) {
+        self.title = title
+        self.postData = postData
+    }
+    
+    
+}

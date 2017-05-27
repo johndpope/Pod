@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PodViewController: UIViewController {
+class PodViewController: UIViewController, PostCreationDelegate {
     
     // MARK: - Properties
     
@@ -68,7 +68,6 @@ class PodViewController: UIViewController {
         // Automatic dimensions to tell the table view to use dynamic height
         tableView.rowHeight = UITableViewAutomaticDimension
         // self.textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
-        tableView.allowsSelection = false
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
         setupConstraints()
@@ -114,6 +113,24 @@ class PodViewController: UIViewController {
     func closePod() {
         dismiss(animated: true, completion: nil)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if(segue.identifier == "toPostComments"){
+            if let nextVC = segue.destination as? CommentHeaderViewController {
+                nextVC.postData = sender as! PostDetails
+            }
+        } else if(segue.identifier == "toNewPost"){
+            if let nextVC = segue.destination as? NewPostViewController {
+                nextVC.delegate = self
+            }
+        }
+    }
+    
+    func postCreated(post: PostDetails){
+        print("post created")
+        self.podData?.postData.append(post)
+        tableView.reloadData()
+    }
 }
 
 // MARK: - UITableView Methods
@@ -131,6 +148,12 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
         return (podData?.postData.count)!
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("selected!")
+        let postData = self.podData?.postData[indexPath.row]
+        performSegue(withIdentifier: "toPostComments", sender: postData)
+    }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PodPostTableViewCell") as! PodPostTableViewCell
@@ -139,10 +162,10 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         
-        cell.posterName.text = postData?["name"] as? String
-        cell.posterBody.text = postData?["postBody"] as? String
-        cell.postLikes.text = String(describing: postData?["numHearts"]! as! Int)
-        cell.postComments.text = String(describing: postData?["numComments"]! as! Int)
+        cell.posterName.text = postData?.posterName
+        cell.posterBody.text = postData?.postText
+        cell.postLikes.text = String(describing: (postData?.numHearts!)!)
+        cell.postComments.text = String(describing: (postData?.numComments!)!)
         if(APIClient.sharedInstance.profilePicture == nil){
             cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
         } else {

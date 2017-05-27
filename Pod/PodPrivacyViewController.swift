@@ -42,6 +42,9 @@ class PodPrivacyViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func cancelCreation(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

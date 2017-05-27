@@ -69,7 +69,7 @@ class PodView: UIView {
         //addSubview(joinButton.usingAutolayout())
         let nib = UINib(nibName: "PodPostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+     //   tableView.separatorStyle = UITableViewCellSeparatorStyle.
         tableView.estimatedRowHeight = 60.0 // Replace with your actual estimation
         // Automatic dimensions to tell the table view to use dynamic height
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -149,10 +149,10 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         
-        cell.posterName.text = postData?["name"] as? String
-        cell.posterBody.text = postData?["postBody"] as? String
-        cell.postLikes.text = String(describing: postData?["numHearts"]! as! Int)
-        cell.postComments.text = String(describing: postData?["numComments"]! as! Int)
+        cell.posterName.text = postData?.posterName
+        cell.posterBody.text = postData?.postText
+        cell.postLikes.text = String(describing: (postData?.numHearts!)!)
+        cell.postComments.text = String(describing: (postData?.numComments!)!)
         if(APIClient.sharedInstance.profilePicture == nil){
             cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
         } else {

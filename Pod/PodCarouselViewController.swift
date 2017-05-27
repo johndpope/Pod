@@ -17,17 +17,20 @@ class PodCarouselViewController: UIViewController {
     
     var items: [PodStruct] = []
     @IBOutlet var carousel: iCarousel!
+    @IBOutlet var addButton: UIButton!
 
     @IBAction func signOut(_ sender: Any) {
         if (AWSSignInManager.sharedInstance().isLoggedIn) {
             AWSSignInManager.sharedInstance().logout(completionHandler: {(result: Any?, authState: AWSIdentityManagerAuthState, error: Error?) in
-                print("go to sign in view controller")
+                print("logged out")
             })
             // print("Logout Successful: \(signInProvider.getDisplayName)");
         } else {
             assert(false)
         }
     }
+    
+
     // MARK: - PodCarouselViewController
     
     override func awakeFromNib() {
@@ -35,14 +38,15 @@ class PodCarouselViewController: UIViewController {
         //for i in 0 ... 99 {
          //   items.append(i)
         //}
-        let content = ["name":"Adah M.","postBody":"Come to the lougne for the hosue meeting!", "numHearts": 26, "numComments": 6] as Dictionary<String, Any>
-        let content1 = ["name":"Mohammed S.","postBody":"Push me to the edge! All my friends are dead! Push me to the edge! all my friends are dead! 2017 .....", "numHearts": 26, "numComments": 6] as Dictionary<String, Any>
-        let content2 = ["name":"Marjory B.","postBody":"I'm selling two tickets to see XXXTENTACION if anyone is interested! $40/each :)", "numHearts": 26, "numComments": 6] as Dictionary<String, Any>
+        let content = PostDetails(posterName: "Adad M.", postText: "Push me to the edge! All my friends are dead! Push me to the edge! all my friends are dead! 2017", numHearts: 26, numComments: 6)
+        let content1 = PostDetails(posterName: "Mohammaed S.", postText: "Come to the lougne for the hosue meeting!", numHearts: 13, numComments: 4)
+        let content2 = PostDetails(posterName: "Marjory B.", postText: "I'm selling two tickets to see XXXTENTACION if anyone is interested! $40/each :)", numHearts: 51, numComments: 21)
 
-        let p1 = PodStruct(title: "Arroyo Dorm", postData: [content as NSDictionary, content1 as NSDictionary, content2 as NSDictionary])
-        let p2 = PodStruct(title: "Arroyo Dorm", postData: [content as NSDictionary, content1 as NSDictionary, content2 as NSDictionary])
-        let p3 = PodStruct(title: "Arroyo Dorm", postData: [content as NSDictionary, content1 as NSDictionary, content2 as NSDictionary])
-        let p4 = PodStruct(title: "Arroyo Dorm", postData: [content as NSDictionary, content1 as NSDictionary, content2 as NSDictionary])
+
+        let p1 = PodStruct(title: "Arroyo Dorm", postData: [content, content1, content2])
+        let p2 = PodStruct(title: "680", postData: [content, content1, content2])
+        let p3 = PodStruct(title: "Gates", postData: [content, content1, content2])
+        let p4 = PodStruct(title: "Old Union", postData: [content, content1, content2])
 
         items.append(p1)
         items.append(p2)
@@ -63,7 +67,9 @@ class PodCarouselViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         carousel.type = .rotary
-        print(AWSSignInManager.sharedInstance().isLoggedIn)
+        addButton.setImage(UIImage(named:"addIcon"), for: UIControlState.normal)
+        addButton.setTitleColor(UIColor.white, for: UIControlState.normal)
+        addButton.tintColor = UIColor.white
         let client = APIClient()
         let location = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
         client.getNearbyPods(location: location) { 
@@ -111,18 +117,5 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
 extension PodCarouselViewController: PodViewDelegate {
     func toSinglePod(_ podView: PodStruct) {
         performSegue(withIdentifier: Constants.Storyboard.SinglePodSegueId, sender: podView)
-
     }
-}
-
-class PodStruct {
-    var title: String?
-    var postData: [NSDictionary?]
-    
-    init(title: String, postData: [NSDictionary]) {
-        self.title = title
-        self.postData = postData
-    }
-    
-    
 }

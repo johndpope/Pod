@@ -26,7 +26,7 @@ class PodTitleViewController: UIViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tapGesture)
-
+        self.navigationController?.isNavigationBarHidden = true
         // Do any additional setup after loading the view.
     }
 
@@ -37,6 +37,10 @@ class PodTitleViewController: UIViewController {
     
     func tap(gesture: UITapGestureRecognizer) {
         textField.resignFirstResponder()
+    }
+    
+    @IBAction func cancelCreation(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){

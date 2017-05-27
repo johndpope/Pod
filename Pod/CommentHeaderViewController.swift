@@ -19,6 +19,7 @@ class CommentHeaderViewController: UIViewController {
     
     var messages: [String] = []
     var likedComment: Bool = false
+    var postData: PostDetails?
     override func viewDidLoad() {
         super.viewDidLoad()
         setOPDetails()
@@ -29,13 +30,18 @@ class CommentHeaderViewController: UIViewController {
         lowerBorder.backgroundColor = UIColor.gray.cgColor
         lowerBorder.frame = CGRect(x: commentFrame.frame.minX, y: commentFrame.layer.bounds.maxY, width: commentFrame.frame.width, height: 1.0)
         commentFrame.layer.addSublayer(lowerBorder)
-//        let media = UIImageView(frame: CGRect(x: 73, y: OPComment.layer.bounds.maxY + 10, width: 75, height: 75))
-//        media.image = UIImage(named: "profile-pic")
-//        commentFrame.addSubview(media)
-//        OPComment.removeFromSuperview()
         
-        
-        // Do any additional setup after loading the view.
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(CommentHeaderViewController.swiped(_:)))
+        self.view.addGestureRecognizer(swipeRight)
+
+    }
+    
+    func swiped(_ gesture: UIGestureRecognizer){
+        if let nav = self.navigationController {
+            nav.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,16 +59,16 @@ class CommentHeaderViewController: UIViewController {
         OPImage.clipsToBounds = true
 
         //Set Name
-        OPTitle.text = "Max Freundlich"
+        OPTitle.text = postData?.posterName
         OPTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
 
         //Set Comment Text
-        OPComment.text = "Come to the lounge for house meeting!"
+        OPComment.text =  postData?.postText
     }
     
     func setCommentDetails(){
-        numHearts.text = "26"
-        numComments.text = "5"
+        numHearts.text =  String(describing: (postData?.numHearts!)!)
+        numComments.text = String(describing: (postData?.numComments!)!)
         
         //Set heart to clickable
         heartImage.isUserInteractionEnabled = true

@@ -18,7 +18,7 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var postPhotoButton: UIImageView!
     
     let imagePicker = UIImagePickerController()
-
+    var delegate: PostCreationDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightBlue
@@ -140,6 +140,7 @@ class NewPostViewController: UIViewController {
     }
     
     @IBAction func createNewPost(_ sender: UIButton) {
+        self.delegate?.postCreated(post: PostDetails(posterName: APIClient.sharedInstance.userName!, postText: textView.text, numHearts: 0, numComments: 0))
         dismiss(animated: true, completion: nil)
     }
 
@@ -254,4 +255,8 @@ extension UITextView: UITextViewDelegate {
         self.delegate = self
     }
     
+}
+
+protocol PostCreationDelegate {
+    func postCreated(post: PostDetails)
 }
