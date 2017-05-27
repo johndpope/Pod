@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if(AWSSignInManager.sharedInstance().isLoggedIn){
             if let tabBarVC = storyboard.instantiateViewController(withIdentifier: "PodTabBarController") as? UITabBarController {
+                APIClient.sharedInstance.initClientInfo()
                 window?.rootViewController = tabBarVC
             }
         } else {

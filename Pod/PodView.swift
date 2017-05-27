@@ -153,6 +153,11 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         cell.posterBody.text = postData?["postBody"] as? String
         cell.postLikes.text = String(describing: postData?["numHearts"]! as! Int)
         cell.postComments.text = String(describing: postData?["numComments"]! as! Int)
+        if(APIClient.sharedInstance.profilePicture == nil){
+            cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
+        } else {
+            cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
+        }
         return cell
     }
 }

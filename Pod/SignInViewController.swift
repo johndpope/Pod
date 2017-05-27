@@ -53,7 +53,7 @@ extension SignInViewController: AWSSignInDelegate {
                  authState: AWSIdentityManagerAuthState,
                  error: Error?) {
         if result != nil {
-            print(AWSIdentityManager.default().identityId!)
+            APIClient.sharedInstance.initClientInfo()
             self.performSegue(withIdentifier: "toTabBar", sender: nil)
             // handle success here
 //            AWSFacebookSignInProvider.sharedInstance().login({ (result: Any?, authState: AWSIdentityManagerAuthState, error: Error?) in

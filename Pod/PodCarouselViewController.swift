@@ -69,6 +69,7 @@ class PodCarouselViewController: UIViewController {
         client.getNearbyPods(location: location) { 
             print("done")
         }
+        APIClient.sharedInstance.initClientInfo()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){

@@ -10,9 +10,14 @@ import Foundation
 import UIKit
 import CoreLocation
 import AWSAPIGateway
+import AWSMobileHubHelper
 
 
 class APIClient {
+    static var sharedInstance = APIClient()
+    var userName: String?
+    var userID: String?
+    var profilePicture: UIImage?
     
     func getNearbyPods(location: CLLocationCoordinate2D, completion: @escaping () ->()){
         let lat = location.latitude
@@ -28,16 +33,7 @@ class APIClient {
             "Latitude":"37.4204870",
             "Longitude":"-122.1714210"
         ]
-        let httpBody = "{ \n  \"Latitude\":\"\(37.4204870)\", \n  \"Longitude\":\"\(-122.1714210)\"}"
         let jsonObject: [String: AnyObject]  = ["Latitude": 37.4204870 as AnyObject, "Longitude": -122.1714210 as AnyObject]
-        do {
-            let data1 =  try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions.prettyPrinted) // first of all convert json to the data
-            let convertedString = String(data: data1, encoding: String.Encoding.utf8) // the data will be converted to the string
-            print(convertedString) // <-- here is ur string
-            
-        } catch let myJSONError {
-            print(myJSONError)
-        }
         
         
         
@@ -62,10 +58,65 @@ class APIClient {
             let result = task.result!
             let responseString = String(data: result.responseData!, encoding: .utf8)
             
-            print(responseString)
-            print(result.statusCode)
+            //print(responseString!)
+            // convert String to NSData
+            let dict = self.convertToDictionary(text: responseString!)
+            //print(dict)
+
             
             return nil
         }
     }
+    
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+    
+    func initClientInfo(){
+        let identityManager = AWSIdentityManager.default()
+        
+        if let identityUserName = identityManager.identityProfile?.userName {
+            userName = identityUserName
+        } else {
+            userName = NSLocalizedString("Guest User", comment: "Placeholder text for the guest user.")
+        }
+        
+        userID = identityManager.identityId
+        if let imageURL = identityManager.identityProfile?.imageURL {
+            let imageData = try! Data(contentsOf: imageURL)
+            if let profileImage = UIImage(data: imageData) {
+                profilePicture = profileImage
+            } else {
+                profilePicture = UIImage(named: "UserIcon")
+            }
+        }
+    }
+    
+    func getProfileImage() -> UIImage? {
+        let identityManager = AWSIdentityManager.default()
+
+        if profilePicture != nil {
+            return profilePicture!
+        } else {
+            if let imageURL = identityManager.identityProfile?.imageURL {
+                let imageData = try! Data(contentsOf: imageURL)
+                if let profileImage = UIImage(data: imageData) {
+                    profilePicture = profileImage
+                    return profileImage
+                } else {
+                    return UIImage(named: "UserIcon")!
+                    profilePicture = UIImage(named: "UserIcon")
+                }
+            }
+        }
+        return nil
+    }
+    
 }
