@@ -81,6 +81,9 @@ class AWSMobileClient: NSObject {
         // Register the sign in provider instances with their unique identifier
         AWSSignInManager.sharedInstance().register(signInProvider: AWSFacebookSignInProvider.sharedInstance())
         AWSIdentityProfileManager.sharedInstance().register(FacebookIdentityProfile.sharedInstance(), forProviderKey: AWSFacebookSignInProvider.sharedInstance().identityProviderName)
+        
+        // set up Cloud Logic API invocation clients
+        setupCloudLogicAPI()
 
             
         let didFinishLaunching: Bool = AWSSignInManager.sharedInstance().interceptApplication(application, didFinishLaunchingWithOptions: launchOptions)
@@ -94,6 +97,11 @@ class AWSMobileClient: NSObject {
         }
 
         return didFinishLaunching
+    }
+    
+    func setupCloudLogicAPI() {
+        let serviceConfiguration = AWSServiceConfiguration(region: AWSCloudLogicDefaultRegion, credentialsProvider: AWSIdentityManager.default().credentialsProvider)
+        AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.register(with: serviceConfiguration!, forKey: AWSCloudLogicDefaultConfigurationKey)
     }
 
 }

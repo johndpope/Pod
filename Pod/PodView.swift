@@ -45,7 +45,7 @@ class PodView: UIView {
     }()
     
     var lockedPod = false
-    
+    var podData: PodStruct?
     weak var delegate: PodViewDelegate?
     
     private lazy var lockImageView: UIImageView = {
@@ -65,9 +65,18 @@ class PodView: UIView {
         
         addSubview(tableView.usingAutolayout())
         addSubview(blurEffectView.usingAutolayout())
-        addSubview(lockImageView.usingAutolayout())
-        addSubview(joinButton.usingAutolayout())
-        
+        //addSubview(lockImageView.usingAutolayout())
+        //addSubview(joinButton.usingAutolayout())
+        let nib = UINib(nibName: "PodPostTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tableView.estimatedRowHeight = 60.0 // Replace with your actual estimation
+        // Automatic dimensions to tell the table view to use dynamic height
+        tableView.rowHeight = UITableViewAutomaticDimension
+        // self.textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        tableView.allowsSelection = false
+        tableView.setNeedsLayout()
+        tableView.layoutIfNeeded()
         setupConstraints()
     }
     
@@ -96,25 +105,25 @@ class PodView: UIView {
             ])
         
         /// Lock ImageView
-        NSLayoutConstraint.activate([
-            lockImageView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: -46.0),
-            lockImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            lockImageView.widthAnchor.constraint(equalToConstant: 67.0),
-            lockImageView.heightAnchor.constraint(equalToConstant: 87.0)
-            ])
+//        NSLayoutConstraint.activate([
+//            lockImageView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: -46.0),
+//            lockImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            lockImageView.widthAnchor.constraint(equalToConstant: 67.0),
+//            lockImageView.heightAnchor.constraint(equalToConstant: 87.0)
+//            ])
         
         // Join Button
-        NSLayoutConstraint.activate([
-            joinButton.topAnchor.constraint(equalTo: centerYAnchor, constant: 24.5),
-            joinButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            joinButton.widthAnchor.constraint(equalToConstant: 191.0),
-            joinButton.heightAnchor.constraint(equalToConstant: 34.0)
-            ])
+//        NSLayoutConstraint.activate([
+//            joinButton.topAnchor.constraint(equalTo: centerYAnchor, constant: 24.5),
+//            joinButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            joinButton.widthAnchor.constraint(equalToConstant: 191.0),
+//            joinButton.heightAnchor.constraint(equalToConstant: 34.0)
+//            ])
     }
     
     func toSinglePod() {
         if let delegate = delegate {
-            delegate.toSinglePod(tableView.copyView())
+            delegate.toSinglePod(podData!)
         }
     }
 }
@@ -126,19 +135,28 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        if(podData?.postData.count == nil){
+            return 0
+        }
+        return (podData?.postData.count)!
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55.0
-    }
+
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PodPostTableViewCell") as! PodPostTableViewCell
+        let postData = self.podData?.postData[indexPath.row]
+        if podData == nil {
+            return cell
+        }
+        
+        cell.posterName.text = postData?["name"] as? String
+        cell.posterBody.text = postData?["postBody"] as? String
+        cell.postLikes.text = String(describing: postData?["numHearts"]! as! Int)
+        cell.postComments.text = String(describing: postData?["numComments"]! as! Int)
         return cell
     }
 }
 
 protocol PodViewDelegate: class {
-    func toSinglePod(_ podView: UITableView)
+    func toSinglePod(_ podView: PodStruct)
 }

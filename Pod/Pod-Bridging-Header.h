@@ -9,3 +9,4 @@
 #import <Google/SignIn.h>
 #import "iCarousel.h"
 #import "SlackTextViewController/SLKTextViewController.h"
+#import "AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.h"

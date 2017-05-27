@@ -8,20 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		9511220E1ED65AF10056BE16 /* PodTitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9511220D1ED65AF10056BE16 /* PodTitleViewController.swift */; };
+		9517685B1ED7A62A00FF6456 /* AWSLambda.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9517685A1ED7A62A00FF6456 /* AWSLambda.framework */; };
+		9517685C1ED7A62A00FF6456 /* AWSLambda.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9517685A1ED7A62A00FF6456 /* AWSLambda.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		951768671ED7A7B200FF6456 /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 951768601ED7A7B200FF6456 /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m */; };
+		951768681ED7A7B200FF6456 /* AWSConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951768611ED7A7B200FF6456 /* AWSConfiguration.swift */; };
+		951768691ED7A7B200FF6456 /* AWSFacebookSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 951768621ED7A7B200FF6456 /* AWSFacebookSignIn.framework */; };
+		9517686A1ED7A7B200FF6456 /* AWSFacebookSignInResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 951768631ED7A7B200FF6456 /* AWSFacebookSignInResources.bundle */; };
+		9517686B1ED7A7B200FF6456 /* AWSMobileClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951768641ED7A7B200FF6456 /* AWSMobileClient.swift */; };
+		9517686C1ED7A7B200FF6456 /* AWSMobileHubHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 951768651ED7A7B200FF6456 /* AWSMobileHubHelper.framework */; };
+		9517686E1ED7A7DC00FF6456 /* AWSAPIGateway.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9517686D1ED7A7DC00FF6456 /* AWSAPIGateway.framework */; };
+		9517686F1ED7A7DC00FF6456 /* AWSAPIGateway.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9517686D1ED7A7DC00FF6456 /* AWSAPIGateway.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		95309FEA1ED67B41008A7A7F /* Sdk in Resources */ = {isa = PBXBuildFile; fileRef = 95309FE91ED67B41008A7A7F /* Sdk */; };
 		95309FEC1ED67B58008A7A7F /* AWSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FEB1ED67B58008A7A7F /* AWSCore.framework */; };
 		95309FED1ED67B58008A7A7F /* AWSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FEB1ED67B58008A7A7F /* AWSCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		95309FF51ED67B82008A7A7F /* AWSFacebookSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FF11ED67B82008A7A7F /* AWSFacebookSignIn.framework */; };
-		95309FF61ED67B82008A7A7F /* AWSFacebookSignInResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 95309FF21ED67B82008A7A7F /* AWSFacebookSignInResources.bundle */; };
-		95309FF71ED67B82008A7A7F /* AWSMobileClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95309FF31ED67B82008A7A7F /* AWSMobileClient.swift */; };
-		95309FF81ED67B82008A7A7F /* AWSMobileHubHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FF41ED67B82008A7A7F /* AWSMobileHubHelper.framework */; };
 		95309FFA1ED67BB8008A7A7F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FF91ED67BB8008A7A7F /* libz.tbd */; };
 		95309FFC1ED67BBE008A7A7F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FFB1ED67BBE008A7A7F /* libsqlite3.tbd */; };
 		95309FFE1ED67C27008A7A7F /* FacebookIdentityProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95309FFD1ED67C27008A7A7F /* FacebookIdentityProfile.swift */; };
 		9530A0001ED67D30008A7A7F /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95309FFF1ED67D30008A7A7F /* SignInViewController.swift */; };
 		9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */; };
 		9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */; };
+		957741B71ED7911F00FB8739 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957741B61ED7911F00FB8739 /* APIClient.swift */; };
 		9578B5941ED3E4370096A518 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B5931ED3E4370096A518 /* NewPostViewController.swift */; };
+		95902ACC1ED8EA810008792A /* PodPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95902ACA1ED8EA810008792A /* PodPostTableViewCell.swift */; };
+		95902ACD1ED8EA810008792A /* PodPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95902ACB1ED8EA810008792A /* PodPostTableViewCell.xib */; };
 		9599E2801ED68FB40078328A /* PodPrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9599E27F1ED68FB40078328A /* PodPrivacyViewController.swift */; };
 		95C8C3A31ED39ABC004A2A29 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */; };
 		95C8C3A81ED3A00F004A2A29 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */; };
@@ -54,7 +63,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				9517686F1ED7A7DC00FF6456 /* AWSAPIGateway.framework in Embed Frameworks */,
 				95309FED1ED67B58008A7A7F /* AWSCore.framework in Embed Frameworks */,
+				9517685C1ED7A62A00FF6456 /* AWSLambda.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,12 +75,18 @@
 /* Begin PBXFileReference section */
 		6D44DA30209E359384E89016 /* Pods-Pod.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pod.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pod/Pods-Pod.release.xcconfig"; sourceTree = "<group>"; };
 		9511220D1ED65AF10056BE16 /* PodTitleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTitleViewController.swift; sourceTree = "<group>"; };
+		9517685A1ED7A62A00FF6456 /* AWSLambda.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSLambda.framework; path = Pod/Sdk/Aws/AWSLambda.framework; sourceTree = "<group>"; };
+		9517685F1ED7A7B200FF6456 /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.h; sourceTree = "<group>"; };
+		951768601ED7A7B200FF6456 /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m; sourceTree = "<group>"; };
+		951768611ED7A7B200FF6456 /* AWSConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSConfiguration.swift; sourceTree = "<group>"; };
+		951768621ED7A7B200FF6456 /* AWSFacebookSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSFacebookSignIn.framework; sourceTree = "<group>"; };
+		951768631ED7A7B200FF6456 /* AWSFacebookSignInResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AWSFacebookSignInResources.bundle; sourceTree = "<group>"; };
+		951768641ED7A7B200FF6456 /* AWSMobileClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSMobileClient.swift; sourceTree = "<group>"; };
+		951768651ED7A7B200FF6456 /* AWSMobileHubHelper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSMobileHubHelper.framework; sourceTree = "<group>"; };
+		951768661ED7A7B200FF6456 /* Bridging_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bridging_Header.h; sourceTree = "<group>"; };
+		9517686D1ED7A7DC00FF6456 /* AWSAPIGateway.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSAPIGateway.framework; path = Pod/Sdk/Aws/AWSAPIGateway.framework; sourceTree = "<group>"; };
 		95309FE91ED67B41008A7A7F /* Sdk */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sdk; sourceTree = "<group>"; };
 		95309FEB1ED67B58008A7A7F /* AWSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCore.framework; path = Pod/Sdk/Aws/AWSCore.framework; sourceTree = "<group>"; };
-		95309FF11ED67B82008A7A7F /* AWSFacebookSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSFacebookSignIn.framework; sourceTree = "<group>"; };
-		95309FF21ED67B82008A7A7F /* AWSFacebookSignInResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AWSFacebookSignInResources.bundle; sourceTree = "<group>"; };
-		95309FF31ED67B82008A7A7F /* AWSMobileClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSMobileClient.swift; sourceTree = "<group>"; };
-		95309FF41ED67B82008A7A7F /* AWSMobileHubHelper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSMobileHubHelper.framework; sourceTree = "<group>"; };
 		95309FF91ED67BB8008A7A7F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		95309FFB1ED67BBE008A7A7F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		95309FFD1ED67C27008A7A7F /* FacebookIdentityProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookIdentityProfile.swift; sourceTree = "<group>"; };
@@ -77,7 +94,10 @@
 		9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCarouselViewController.swift; sourceTree = "<group>"; };
 		9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		9559D0731EC8F1E800BAC3F5 /* iCarousel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		957741B61ED7911F00FB8739 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		9578B5931ED3E4370096A518 /* NewPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
+		95902ACA1ED8EA810008792A /* PodPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodPostTableViewCell.swift; sourceTree = "<group>"; };
+		95902ACB1ED8EA810008792A /* PodPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PodPostTableViewCell.xib; sourceTree = "<group>"; };
 		9599E27F1ED68FB40078328A /* PodPrivacyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodPrivacyViewController.swift; sourceTree = "<group>"; };
 		95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -112,11 +132,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				951768691ED7A7B200FF6456 /* AWSFacebookSignIn.framework in Frameworks */,
 				95309FFC1ED67BBE008A7A7F /* libsqlite3.tbd in Frameworks */,
+				9517686E1ED7A7DC00FF6456 /* AWSAPIGateway.framework in Frameworks */,
 				95309FFA1ED67BB8008A7A7F /* libz.tbd in Frameworks */,
-				95309FF51ED67B82008A7A7F /* AWSFacebookSignIn.framework in Frameworks */,
 				C807AC9F9F51908EF23D61C2 /* Pods_Pod.framework in Frameworks */,
-				95309FF81ED67B82008A7A7F /* AWSMobileHubHelper.framework in Frameworks */,
+				9517685B1ED7A62A00FF6456 /* AWSLambda.framework in Frameworks */,
+				9517686C1ED7A7B200FF6456 /* AWSMobileHubHelper.framework in Frameworks */,
 				95309FEC1ED67B58008A7A7F /* AWSCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,6 +149,8 @@
 		75B3EF7C8AD1162361520E4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9517686D1ED7A7DC00FF6456 /* AWSAPIGateway.framework */,
+				9517685A1ED7A62A00FF6456 /* AWSLambda.framework */,
 				95309FEB1ED67B58008A7A7F /* AWSCore.framework */,
 				95309FFB1ED67BBE008A7A7F /* libsqlite3.tbd */,
 				95309FF91ED67BB8008A7A7F /* libz.tbd */,
@@ -155,15 +179,27 @@
 			name = Comments;
 			sourceTree = "<group>";
 		};
-		95309FF01ED67B82008A7A7F /* AmazonAws */ = {
+		9517685D1ED7A7B200FF6456 /* AmazonAws */ = {
 			isa = PBXGroup;
 			children = (
-				95309FF11ED67B82008A7A7F /* AWSFacebookSignIn.framework */,
-				95309FF21ED67B82008A7A7F /* AWSFacebookSignInResources.bundle */,
-				95309FF31ED67B82008A7A7F /* AWSMobileClient.swift */,
-				95309FF41ED67B82008A7A7F /* AWSMobileHubHelper.framework */,
+				9517685E1ED7A7B200FF6456 /* Api */,
+				951768611ED7A7B200FF6456 /* AWSConfiguration.swift */,
+				951768621ED7A7B200FF6456 /* AWSFacebookSignIn.framework */,
+				951768631ED7A7B200FF6456 /* AWSFacebookSignInResources.bundle */,
+				951768641ED7A7B200FF6456 /* AWSMobileClient.swift */,
+				951768651ED7A7B200FF6456 /* AWSMobileHubHelper.framework */,
+				951768661ED7A7B200FF6456 /* Bridging_Header.h */,
 			);
 			path = AmazonAws;
+			sourceTree = "<group>";
+		};
+		9517685E1ED7A7B200FF6456 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				9517685F1ED7A7B200FF6456 /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.h */,
+				951768601ED7A7B200FF6456 /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m */,
+			);
+			path = Api;
 			sourceTree = "<group>";
 		};
 		9559D0681EC8F0FA00BAC3F5 /* iCarousel */ = {
@@ -216,8 +252,8 @@
 		F4BECB2E1EBD682D00B98BA8 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
+				9517685D1ED7A7B200FF6456 /* AmazonAws */,
 				95309FFD1ED67C27008A7A7F /* FacebookIdentityProfile.swift */,
-				95309FF01ED67B82008A7A7F /* AmazonAws */,
 				95309FE91ED67B41008A7A7F /* Sdk */,
 				9511220F1ED65D150056BE16 /* Comments */,
 				9511220C1ED65AA80056BE16 /* Pod Creation */,
@@ -241,6 +277,9 @@
 				95D14F2B1EBEA0A70049C58A /* Constants.swift */,
 				9578B5931ED3E4370096A518 /* NewPostViewController.swift */,
 				95309FFF1ED67D30008A7A7F /* SignInViewController.swift */,
+				957741B61ED7911F00FB8739 /* APIClient.swift */,
+				95902ACA1ED8EA810008792A /* PodPostTableViewCell.swift */,
+				95902ACB1ED8EA810008792A /* PodPostTableViewCell.xib */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -313,7 +352,8 @@
 				F4BECB3A1EBD682D00B98BA8 /* LaunchScreen.storyboard in Resources */,
 				95C8C3A91ED3A00F004A2A29 /* CommentTableViewCell.xib in Resources */,
 				95CF56071ECBC9BD00B1751E /* Main.storyboard in Resources */,
-				95309FF61ED67B82008A7A7F /* AWSFacebookSignInResources.bundle in Resources */,
+				95902ACD1ED8EA810008792A /* PodPostTableViewCell.xib in Resources */,
+				9517686A1ED7A7B200FF6456 /* AWSFacebookSignInResources.bundle in Resources */,
 				95309FEA1ED67B41008A7A7F /* Sdk in Resources */,
 				F4BECB441EBD738800B98BA8 /* GoogleService-Info.plist in Resources */,
 				F4BECB371EBD682D00B98BA8 /* Assets.xcassets in Resources */,
@@ -392,14 +432,15 @@
 				F44AB6341ED3DEB0001B5E69 /* PodViewController.swift in Sources */,
 				F4BECB471EBE660900B98BA8 /* UIView+Autolayout.swift in Sources */,
 				9599E2801ED68FB40078328A /* PodPrivacyViewController.swift in Sources */,
-				95309FF71ED67B82008A7A7F /* AWSMobileClient.swift in Sources */,
 				95CF55941ECBABEC00B1751E /* CommentHeaderViewController.swift in Sources */,
+				951768671ED7A7B200FF6456 /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m in Sources */,
 				9511220E1ED65AF10056BE16 /* PodTitleViewController.swift in Sources */,
 				F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */,
 				F4BECB491EBE6D3D00B98BA8 /* UIColor+Pod.swift in Sources */,
 				F4A3BE381ECBAC180032B3E3 /* PodView.swift in Sources */,
 				95D14F211EBD7F580049C58A /* PodTableViewSectionHeader.swift in Sources */,
 				95C8C3A81ED3A00F004A2A29 /* CommentTableViewCell.swift in Sources */,
+				957741B71ED7911F00FB8739 /* APIClient.swift in Sources */,
 				9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */,
 				95309FFE1ED67C27008A7A7F /* FacebookIdentityProfile.swift in Sources */,
 				95D14F291EBE9A5F0049C58A /* PodCreationViewController.swift in Sources */,
@@ -410,6 +451,9 @@
 				95D14F191EBD738A0049C58A /* PodTableViewController.swift in Sources */,
 				95D14F2C1EBEA0A70049C58A /* Constants.swift in Sources */,
 				9578B5941ED3E4370096A518 /* NewPostViewController.swift in Sources */,
+				9517686B1ED7A7B200FF6456 /* AWSMobileClient.swift in Sources */,
+				951768681ED7A7B200FF6456 /* AWSConfiguration.swift in Sources */,
+				95902ACC1ED8EA810008792A /* PodPostTableViewCell.swift in Sources */,
 				9530A0001ED67D30008A7A7F /* SignInViewController.swift in Sources */,
 				95D14F1B1EBD773C0049C58A /* PodTableViewCell.swift in Sources */,
 			);

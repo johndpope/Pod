@@ -49,7 +49,7 @@ class PodViewController: UIViewController {
     let postButtonHeight: CGFloat = 50.0
     let titleTopMargin: CGFloat = 11.0 + UIApplication.shared.statusBarFrame.height
     let titleBottomMargin: CGFloat = 6.0
-    
+    var podData: PodStruct?
     // MARK: - PodViewController
 
     override func viewDidLoad() {
@@ -61,6 +61,16 @@ class PodViewController: UIViewController {
         view.addSubview(tableView.usingAutolayout())
         view.addSubview(postButton.usingAutolayout())
         view.addSubview(closeButton.usingAutolayout())
+        let nib = UINib(nibName: "PodPostTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tableView.estimatedRowHeight = 60.0 // Replace with your actual estimation
+        // Automatic dimensions to tell the table view to use dynamic height
+        tableView.rowHeight = UITableViewAutomaticDimension
+        // self.textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        tableView.allowsSelection = false
+        tableView.setNeedsLayout()
+        tableView.layoutIfNeeded()
         setupConstraints()
     }
     
@@ -115,15 +125,24 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        if(podData?.postData.count == nil){
+            return 0
+        }
+        return (podData?.postData.count)!
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55.0
-    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PodPostTableViewCell") as! PodPostTableViewCell
+        let postData = self.podData?.postData[indexPath.row]
+        if podData == nil {
+            return cell
+        }
+        
+        cell.posterName.text = postData?["name"] as? String
+        cell.posterBody.text = postData?["postBody"] as? String
+        cell.postLikes.text = String(describing: postData?["numHearts"]! as! Int)
+        cell.postComments.text = String(describing: postData?["numComments"]! as! Int)
         return cell
     }
     
