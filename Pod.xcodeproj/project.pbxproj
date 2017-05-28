@@ -353,7 +353,7 @@
 				TargetAttributes = {
 					F4BECB2B1EBD682D00B98BA8 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = ALM4357QZ2;
+						DevelopmentTeam = F42N7QJG3C;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -607,7 +607,7 @@
 			baseConfigurationReference = DB37B267B5709340ACC441C6 /* Pods-Pod.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ALM4357QZ2;
+				DEVELOPMENT_TEAM = F42N7QJG3C;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sdk/Aws",
@@ -702,7 +702,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194b.Pod;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.Pod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -714,7 +714,7 @@
 			baseConfigurationReference = 6D44DA30209E359384E89016 /* Pods-Pod.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ALM4357QZ2;
+				DEVELOPMENT_TEAM = F42N7QJG3C;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sdk/Aws",
@@ -809,7 +809,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194b.Pod;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.Pod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

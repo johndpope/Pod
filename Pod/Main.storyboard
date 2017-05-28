@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3lu-pK-83l">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3lu-pK-83l">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,51 +9,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Sign In View Controller-->
-        <scene sceneID="RfZ-U9-JpX">
-            <objects>
-                <viewController storyboardIdentifier="SignInViewController" id="PSr-z4-d9K" customClass="SignInViewController" customModule="Pod" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="aqj-xv-qe7"/>
-                        <viewControllerLayoutGuide type="bottom" id="YYp-ca-gzX"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="JJi-99-EgE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZlI-i7-PhW" customClass="AWSFacebookSignInButton">
-                                <rect key="frame" x="57" y="457" width="260" height="50"/>
-                                <color key="backgroundColor" red="0.59607843140000005" green="0.83529411760000005" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="260" id="NXz-tX-9po"/>
-                                    <constraint firstAttribute="height" constant="50" id="h68-Zs-aQG"/>
-                                </constraints>
-                            </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo+name" translatesAutoresizingMaskIntoConstraints="NO" id="cTi-W9-lzW">
-                                <rect key="frame" x="51" y="60" width="272" height="334"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="272" id="OBE-tl-hgY"/>
-                                    <constraint firstAttribute="height" constant="334" id="v4S-Fl-Bdm"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.59607843140000005" green="0.83529411760000005" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="cTi-W9-lzW" firstAttribute="top" secondItem="aqj-xv-qe7" secondAttribute="bottom" constant="40" id="1Tw-fk-2yD"/>
-                            <constraint firstItem="YYp-ca-gzX" firstAttribute="top" secondItem="ZlI-i7-PhW" secondAttribute="bottom" constant="160" id="1VG-ls-xpk"/>
-                            <constraint firstItem="ZlI-i7-PhW" firstAttribute="centerX" secondItem="JJi-99-EgE" secondAttribute="centerX" id="IgV-a1-uIt"/>
-                            <constraint firstItem="cTi-W9-lzW" firstAttribute="centerX" secondItem="JJi-99-EgE" secondAttribute="centerX" id="oQF-kD-aK5"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="facebookButton" destination="ZlI-i7-PhW" id="EcO-nR-2zA"/>
-                        <segue destination="A1Q-b5-Mkq" kind="show" identifier="toMainView" id="1Rp-rL-GDN"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="92a-uI-6j0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="229.59999999999999" y="902.69865067466276"/>
-        </scene>
         <!--New Pod Map View Controller-->
         <scene sceneID="me9-HK-QF1">
             <objects>
@@ -328,7 +283,7 @@
         <scene sceneID="tC1-6R-RsQ">
             <objects>
                 <navigationController id="3lu-pK-83l" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="caX-fG-lLc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="caX-fG-lLc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -606,7 +561,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zeV-Dj-Nr0" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Dnq-uV-iJY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dnq-uV-iJY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
