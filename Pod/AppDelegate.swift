@@ -29,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        // var configureError: NSError?
         //GGLContext.sharedInstance().configureWithError(&configureError)
        // assert(configureError == nil, "Error configuring Google services: \(configureError)")
-        let clientfinished = AWSMobileClient.sharedInstance.didFinishLaunching(application, withOptions: launchOptions)
         // Present initial VC depedning on if user is logged in
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if(AWSSignInManager.sharedInstance().isLoggedIn){
@@ -43,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     
-        return clientfinished
+        return AWSMobileClient.sharedInstance.didFinishLaunching(application, withOptions: launchOptions)
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
@@ -54,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation]) || GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
     }
-        
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

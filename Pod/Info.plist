@@ -2,32 +2,32 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>AWS</key>
-    <dict>
-        <key>IdentityManager</key>
-        <dict>
-            <key>Default</key>
-            <dict/>
-        </dict>
-        <key>CredentialsProvider</key>
-        <dict>
-            <key>CognitoIdentity</key>
-            <dict>
-                <key>Default</key>
-                <dict>
-                    <key>PoolId</key>
-                    <string>us-east-1:52f72125-90a0-42ed-b34e-4a5c8fbb0212</string>
-                    <key>Region</key>
-                    <string>us-east-1</string>
-                </dict>
-            </dict>
-        </dict>
-        <key>MobileHub</key>
-        <dict>
-            <key>ProjectClientId</key>
-            <string>MobileHub 83b7d861-8f45-4d7a-8e20-fbeb2e972cab aws-my-sample-app-ios-swift-v0.16</string>
-        </dict>
-    </dict>
+	<key>AWS</key>
+	<dict>
+		<key>CredentialsProvider</key>
+		<dict>
+			<key>CognitoIdentity</key>
+			<dict>
+				<key>Default</key>
+				<dict>
+					<key>PoolId</key>
+					<string>us-east-1:52f72125-90a0-42ed-b34e-4a5c8fbb0212</string>
+					<key>Region</key>
+					<string>us-east-1</string>
+				</dict>
+			</dict>
+		</dict>
+		<key>IdentityManager</key>
+		<dict>
+			<key>Default</key>
+			<dict/>
+		</dict>
+		<key>MobileHub</key>
+		<dict>
+			<key>ProjectClientId</key>
+			<string>MobileHub 83b7d861-8f45-4d7a-8e20-fbeb2e972cab aws-my-sample-app-ios-swift-v0.16</string>
+		</dict>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -56,7 +56,7 @@
 	<key>FacebookAppID</key>
 	<string>1907061016230360</string>
 	<key>FacebookDisplayName</key>
-	<string> Insert you project name here. </string>
+	<string> Pod </string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -66,6 +66,51 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>akamaihd.net</key>
+			<dict>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>amazonaws.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+			<key>cloudfront.net</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+			<key>facebook.com</key>
+			<dict>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>fbcdn.net</key>
+			<dict>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>We use your camera so you can post photos to Pods</string>
 	<key>NSPhotoLibraryUsageDescription</key>
