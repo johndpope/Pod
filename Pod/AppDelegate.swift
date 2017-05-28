@@ -30,18 +30,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //GGLContext.sharedInstance().configureWithError(&configureError)
        // assert(configureError == nil, "Error configuring Google services: \(configureError)")
         // Present initial VC depedning on if user is logged in
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if(AWSSignInManager.sharedInstance().isLoggedIn){
-            if let tabBarVC = storyboard.instantiateViewController(withIdentifier: "PodCarouselViewController") as? UIViewController {
-                APIClient.sharedInstance.initClientInfo()
-                window?.rootViewController = tabBarVC
-            }
-        } else {
-            if let loginVC = storyboard.instantiateViewController(withIdentifier: "SignInViewController") as? SignInViewController {
-                window?.rootViewController = loginVC
-            }
-        }
-    
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        if(AWSSignInManager.sharedInstance().isLoggedIn){
+//            if let tabBarVC = storyboard.instantiateViewController(withIdentifier: "PodCarouselViewController") as? UIViewController {
+//                APIClient.sharedInstance.initClientInfo()
+//                window?.rootViewController = tabBarVC
+//            }
+//        } else {
+//            if let loginVC = storyboard.instantiateViewController(withIdentifier: "SignInViewController") as? SignInViewController {
+//                window?.rootViewController = loginVC
+//            }
+//        }
+//    
         return AWSMobileClient.sharedInstance.didFinishLaunching(application, withOptions: launchOptions)
     }
     

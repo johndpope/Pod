@@ -23,10 +23,11 @@
 		95309FED1ED67B58008A7A7F /* AWSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FEB1ED67B58008A7A7F /* AWSCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		95309FFA1ED67BB8008A7A7F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FF91ED67BB8008A7A7F /* libz.tbd */; };
 		95309FFC1ED67BBE008A7A7F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FFB1ED67BBE008A7A7F /* libsqlite3.tbd */; };
-		95309FFE1ED67C27008A7A7F /* FacebookIdentityProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95309FFD1ED67C27008A7A7F /* FacebookIdentityProfile.swift */; };
-		9530A0001ED67D30008A7A7F /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95309FFF1ED67D30008A7A7F /* SignInViewController.swift */; };
 		9534F4CF1EDB4C680094A007 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9534F4CE1EDB4C680094A007 /* Bolts.framework */; };
 		9534F4D11EDB4C7C0094A007 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9534F4D01EDB4C7C0094A007 /* FBSDKShareKit.framework */; };
+		9534F4DD1EDB50050094A007 /* FacebookIdentityProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9534F4DA1EDB50050094A007 /* FacebookIdentityProfile.swift */; };
+		9534F4DE1EDB50050094A007 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9534F4DB1EDB50050094A007 /* SignIn.storyboard */; };
+		9534F4DF1EDB50050094A007 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9534F4DC1EDB50050094A007 /* SignInViewController.swift */; };
 		9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */; };
 		9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */; };
 		957741B71ED7911F00FB8739 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957741B61ED7911F00FB8739 /* APIClient.swift */; };
@@ -91,10 +92,11 @@
 		95309FEB1ED67B58008A7A7F /* AWSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCore.framework; path = Pod/Sdk/Aws/AWSCore.framework; sourceTree = "<group>"; };
 		95309FF91ED67BB8008A7A7F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		95309FFB1ED67BBE008A7A7F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		95309FFD1ED67C27008A7A7F /* FacebookIdentityProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookIdentityProfile.swift; sourceTree = "<group>"; };
-		95309FFF1ED67D30008A7A7F /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		9534F4CE1EDB4C680094A007 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		9534F4D01EDB4C7C0094A007 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		9534F4DA1EDB50050094A007 /* FacebookIdentityProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookIdentityProfile.swift; sourceTree = "<group>"; };
+		9534F4DB1EDB50050094A007 /* SignIn.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
+		9534F4DC1EDB50050094A007 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCarouselViewController.swift; sourceTree = "<group>"; };
 		9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		9559D0731EC8F1E800BAC3F5 /* iCarousel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
@@ -214,6 +216,16 @@
 			path = Api;
 			sourceTree = "<group>";
 		};
+		9534F4D91EDB50050094A007 /* signin */ = {
+			isa = PBXGroup;
+			children = (
+				9534F4DA1EDB50050094A007 /* FacebookIdentityProfile.swift */,
+				9534F4DB1EDB50050094A007 /* SignIn.storyboard */,
+				9534F4DC1EDB50050094A007 /* SignInViewController.swift */,
+			);
+			path = signin;
+			sourceTree = "<group>";
+		};
 		9559D0681EC8F0FA00BAC3F5 /* iCarousel */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,8 +277,8 @@
 			isa = PBXGroup;
 			children = (
 				9517685D1ED7A7B200FF6456 /* AmazonAws */,
-				95309FFD1ED67C27008A7A7F /* FacebookIdentityProfile.swift */,
 				95309FE91ED67B41008A7A7F /* Sdk */,
+				9534F4D91EDB50050094A007 /* signin */,
 				9511220F1ED65D150056BE16 /* Comments */,
 				9511220C1ED65AA80056BE16 /* Pod Creation */,
 				9559D0681EC8F0FA00BAC3F5 /* iCarousel */,
@@ -288,7 +300,6 @@
 				95D14F281EBE9A5F0049C58A /* PodCreationViewController.swift */,
 				95D14F2B1EBEA0A70049C58A /* Constants.swift */,
 				9578B5931ED3E4370096A518 /* NewPostViewController.swift */,
-				95309FFF1ED67D30008A7A7F /* SignInViewController.swift */,
 				957741B61ED7911F00FB8739 /* APIClient.swift */,
 				95902ACA1ED8EA810008792A /* PodPostTableViewCell.swift */,
 				95902ACB1ED8EA810008792A /* PodPostTableViewCell.xib */,
@@ -367,6 +378,7 @@
 				95902ACD1ED8EA810008792A /* PodPostTableViewCell.xib in Resources */,
 				9517686A1ED7A7B200FF6456 /* AWSFacebookSignInResources.bundle in Resources */,
 				95309FEA1ED67B41008A7A7F /* Sdk in Resources */,
+				9534F4DE1EDB50050094A007 /* SignIn.storyboard in Resources */,
 				F4BECB441EBD738800B98BA8 /* GoogleService-Info.plist in Resources */,
 				F4BECB371EBD682D00B98BA8 /* Assets.xcassets in Resources */,
 				95D14F231EBD7F6B0049C58A /* PodTableViewSectionHeader.xib in Resources */,
@@ -441,6 +453,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9534F4DF1EDB50050094A007 /* SignInViewController.swift in Sources */,
 				F44AB6341ED3DEB0001B5E69 /* PodViewController.swift in Sources */,
 				F4BECB471EBE660900B98BA8 /* UIView+Autolayout.swift in Sources */,
 				9599E2801ED68FB40078328A /* PodPrivacyViewController.swift in Sources */,
@@ -454,7 +467,7 @@
 				95C8C3A81ED3A00F004A2A29 /* CommentTableViewCell.swift in Sources */,
 				957741B71ED7911F00FB8739 /* APIClient.swift in Sources */,
 				9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */,
-				95309FFE1ED67C27008A7A7F /* FacebookIdentityProfile.swift in Sources */,
+				9534F4DD1EDB50050094A007 /* FacebookIdentityProfile.swift in Sources */,
 				95D14F291EBE9A5F0049C58A /* PodCreationViewController.swift in Sources */,
 				95C8C3A31ED39ABC004A2A29 /* CommentViewController.swift in Sources */,
 				95D14F251EBE8C410049C58A /* PodData.swift in Sources */,
@@ -466,7 +479,6 @@
 				9517686B1ED7A7B200FF6456 /* AWSMobileClient.swift in Sources */,
 				951768681ED7A7B200FF6456 /* AWSConfiguration.swift in Sources */,
 				95902ACC1ED8EA810008792A /* PodPostTableViewCell.swift in Sources */,
-				9530A0001ED67D30008A7A7F /* SignInViewController.swift in Sources */,
 				95D14F1B1EBD773C0049C58A /* PodTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

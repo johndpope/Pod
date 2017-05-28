@@ -97,9 +97,4 @@ class FacebookIdentityProfile : AWSIdentityProfile {
         userConnection.start()
     }
     // Set any additional proflie attributes here. This method is called after a user signs in with a provider.
-    
-    func getFriends(){
-        let friendGraphRequetst = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "picture.type(large)"])
-
-    }
 }

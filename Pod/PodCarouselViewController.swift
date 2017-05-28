@@ -23,7 +23,8 @@ class PodCarouselViewController: UIViewController {
     @IBAction func signOut(_ sender: Any) {
         if (AWSSignInManager.sharedInstance().isLoggedIn) {
             AWSSignInManager.sharedInstance().logout(completionHandler: {(result: Any?, authState: AWSIdentityManagerAuthState, error: Error?) in
-                print("logged out")
+                self.navigationController!.popToRootViewController(animated: false)
+                self.presentSignInViewController()
             })
             // print("Logout Successful: \(signInProvider.getDisplayName)");
         } else {
@@ -62,17 +63,12 @@ class PodCarouselViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        presentSignInViewController()
+        self.navigationController?.isNavigationBarHidden = true
         carousel.type = .rotary
         addButton.setImage(UIImage(named:"addIcon"), for: UIControlState.normal)
         addButton.setTitleColor(UIColor.white, for: UIControlState.normal)
         addButton.tintColor = UIColor.white
-        let client = APIClient()
-        let location = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
-        client.getNearbyPods(location: location) { 
-            print("done")
-        }
-        APIClient.sharedInstance.initClientInfo()
-        self.podTitle.text = items[0].title
 
     }
     
@@ -84,6 +80,33 @@ class PodCarouselViewController: UIViewController {
             }
         }
     }
+    
+    func onSignIn (_ success: Bool) {
+        // handle successful sign in
+        if (success) {
+            let client = APIClient()
+            let location = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
+            client.getNearbyPods(location: location) {
+                print("done")
+            }
+            APIClient.sharedInstance.initClientInfo()
+            self.podTitle.text = items[0].title
+        } else {
+            // handle cancel operation from user
+        }
+    }
+    
+    func presentSignInViewController() {
+        if !AWSSignInManager.sharedInstance().isLoggedIn {
+            let loginStoryboard = UIStoryboard(name: "SignIn", bundle: nil)
+            let loginController: SignInViewController = loginStoryboard.instantiateViewController(withIdentifier: "SignIn") as! SignInViewController
+            loginController.canCancel = false
+            loginController.didCompleteSignIn = onSignIn
+            let navController = UINavigationController(rootViewController: loginController)
+            navigationController?.present(navController, animated: true, completion: nil)
+        }
+    }
+    
 
 }
 

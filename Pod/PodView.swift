@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AWSFacebookSignIn
+import AWSCognitoIdentityProvider
 
 class PodView: UIView {
     
@@ -153,10 +155,21 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         cell.posterBody.text = postData?.postText
         cell.postLikes.text = String(describing: (postData?.numHearts!)!)
         cell.postComments.text = String(describing: (postData?.numComments!)!)
-        if(APIClient.sharedInstance.profilePicture == nil){
-            cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
-        } else {
-            cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
+//        if(APIClient.sharedInstance.profilePicture == nil){
+//            cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
+//        } else {
+//            cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
+//        }
+        
+        let identityManager = AWSIdentityManager.default()
+        
+        if let imageURL = identityManager.identityProfile?.imageURL {
+            let imageData = try! Data(contentsOf: imageURL)
+            if let profileImage = UIImage(data: imageData) {
+                cell.posterPhoto.image = profileImage
+            } else {
+                cell.posterPhoto.image = UIImage(named: "UserIcon")
+            }
         }
         return cell
     }
