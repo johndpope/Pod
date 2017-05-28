@@ -40,26 +40,6 @@ class PodCarouselViewController: UIViewController {
         //for i in 0 ... 99 {
          //   items.append(i)
         //}
-        let arroyoContent = PostDetails(posterName: "Arroyo", postText: "Come to the lougne for the hosue meeting!", numHearts: 13, numComments: 4)
-        let sixEightyContent = PostDetails(posterName: "680", postText: "Come to the lougne for the hosue meeting!", numHearts: 13, numComments: 4)
-        let gatesContent = PostDetails(posterName: "Gates", postText: "Come to the lougne for the hosue meeting!", numHearts: 13, numComments: 4)
-        let oldUnionContent = PostDetails(posterName: "Old Union", postText: "Come to the lougne for the hosue meeting!", numHearts: 13, numComments: 4)
-
-        let content = PostDetails(posterName: "Adad M.", postText: "Push me to the edge! All my friends are dead! Push me to the edge! all my friends are dead! 2017", numHearts: 26, numComments: 6)
-        let content1 = PostDetails(posterName: "Mohammaed S.", postText: "Come to the lougne for the hosue meeting!", numHearts: 13, numComments: 4)
-        let content2 = PostDetails(posterName: "Marjory B.", postText: "I'm selling two tickets to see XXXTENTACION if anyone is interested! $40/each :)", numHearts: 51, numComments: 21)
-        
-        let photoPost = PostDetails(posterName: "Max Freundlich", photo: UIImage(named: "profile-pic")!, postText: "Check out this dank picture of me", numHearts: 100, numComments: 50)
-
-        let p1 = PodStruct(title: "Arroyo Dorm", postData: [arroyoContent, photoPost, content, content1, content2])
-        let p2 = PodStruct(title: "680", postData: [sixEightyContent, content, content1, content2])
-        let p3 = PodStruct(title: "Gates", postData: [gatesContent, content, content1, content2])
-        let p4 = PodStruct(title: "Old Union", postData: [oldUnionContent, content, content1, content2])
-
-        items.append(p1)
-        items.append(p2)
-        items.append(p3)
-        items.append(p4)
     }
 
     override func viewDidLoad() {
@@ -70,7 +50,20 @@ class PodCarouselViewController: UIViewController {
         addButton.setImage(UIImage(named:"addIcon"), for: UIControlState.normal)
         addButton.setTitleColor(UIColor.white, for: UIControlState.normal)
         addButton.tintColor = UIColor.white
-
+    }
+    
+    func getAllPods(){
+//        client.getNearbyPods(location: location) {
+//            print("done")
+//        }
+        
+        let client = APIClient()
+        let location = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
+        client.getNearbyPods(location: location) { (pods) in
+            self.items = pods!
+            self.carousel.reloadData()
+        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -82,16 +75,16 @@ class PodCarouselViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getAllPods()
+    }
+    
     func onSignIn (_ success: Bool) {
         // handle successful sign in
         if (success) {
-            let client = APIClient()
-            let location = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
-            client.getNearbyPods(location: location) {
-                print("done")
-            }
             APIClient.sharedInstance.initClientInfo()
-            self.podTitle.text = items[0].title
+            getAllPods()
         } else {
             // handle cancel operation from user
         }
@@ -144,7 +137,10 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
     
     func carouselCurrentItemIndexDidChange(_ carousel: iCarousel) {
         let index = carousel.currentItemIndex
-        self.podTitle.text = items[index].title
+        if(items.isEmpty != true){
+            self.podTitle.text = items[index].title
+
+        }
     }
     
 }

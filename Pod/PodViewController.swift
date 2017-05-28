@@ -72,6 +72,7 @@ class PodViewController: UIViewController, PostCreationDelegate {
         // self.textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
+        titleLabel.text = podData?.title
         setupConstraints()
     }
     

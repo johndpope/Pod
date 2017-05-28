@@ -20,7 +20,7 @@ class APIClient {
     var userID: String?
     var profilePicture: UIImage?
     
-    func getNearbyPods(location: CLLocationCoordinate2D, completion: @escaping () ->()){
+    func getNearbyPods(location: CLLocationCoordinate2D, completion: @escaping ([PodStruct]?) ->()){
         let lat = location.latitude
         let long = location.longitude
         
@@ -61,7 +61,21 @@ class APIClient {
             //print(responseString!)
             // convert String to NSData
             let dict = self.convertToDictionary(text: responseString!)
-            print(dict)
+            print(result.statusCode)
+            var podList: [PodStruct]? = []
+
+            for (_, val) in dict! {
+                let curPod = val as! Dictionary<String, Any>
+                //Create fake post details
+                let arroyoContent = PostDetails(posterName: "Arroyo", postText: "Come to the lougne for the hosue meeting!", numHearts: 13, numComments: 4)
+                let content = PostDetails(posterName: "Adad M.", postText: "Push me to the edge! All my friends are dead! Push me to the edge! all my friends are dead! 2017", numHearts: 26, numComments: 6)
+                let photoContent = PostDetails(posterName: "Max Freundlich", photo: UIImage(named: "profile-pic")!, postText: "Check out this dank pic of me", numHearts: 100, numComments: 12)
+                let pod = PodStruct(title: curPod["Name"] as! String, postData: [arroyoContent, content, photoContent])
+                podList?.append(pod)
+            }
+            completion(podList)
+
+            
 
             
             return nil
