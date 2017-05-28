@@ -57,6 +57,9 @@
 		F4BECB441EBD738800B98BA8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB431EBD738800B98BA8 /* GoogleService-Info.plist */; };
 		F4BECB471EBE660900B98BA8 /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BECB461EBE660900B98BA8 /* UIView+Autolayout.swift */; };
 		F4BECB491EBE6D3D00B98BA8 /* UIColor+Pod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BECB481EBE6D3D00B98BA8 /* UIColor+Pod.swift */; };
+		F4E9DE371EDB4A0E0089BA13 /* PodMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE361EDB4A0E0089BA13 /* PodMapViewController.swift */; };
+		F4E9DE391EDB51D80089BA13 /* NewPodMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE381EDB51D80089BA13 /* NewPodMapViewController.swift */; };
+		F4E9DE3D1EDB7FF30089BA13 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE3C1EDB7FF30089BA13 /* OverlayView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -132,6 +135,9 @@
 		F4BECB451EBD760600B98BA8 /* Pod-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pod-Bridging-Header.h"; sourceTree = "<group>"; };
 		F4BECB461EBE660900B98BA8 /* UIView+Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Autolayout.swift"; sourceTree = "<group>"; };
 		F4BECB481EBE6D3D00B98BA8 /* UIColor+Pod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Pod.swift"; sourceTree = "<group>"; };
+		F4E9DE361EDB4A0E0089BA13 /* PodMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodMapViewController.swift; sourceTree = "<group>"; };
+		F4E9DE381EDB51D80089BA13 /* NewPodMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPodMapViewController.swift; sourceTree = "<group>"; };
+		F4E9DE3C1EDB7FF30089BA13 /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pod.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -284,6 +290,9 @@
 				9559D0681EC8F0FA00BAC3F5 /* iCarousel */,
 				95D14F2A1EBE9A630049C58A /* Pod Table View */,
 				F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */,
+				F4E9DE361EDB4A0E0089BA13 /* PodMapViewController.swift */,
+				F4E9DE381EDB51D80089BA13 /* NewPodMapViewController.swift */,
+				F4E9DE3C1EDB7FF30089BA13 /* OverlayView.swift */,
 				F4BECB451EBD760600B98BA8 /* Pod-Bridging-Header.h */,
 				F4BECB481EBE6D3D00B98BA8 /* UIColor+Pod.swift */,
 				9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */,
@@ -458,6 +467,7 @@
 				F4BECB471EBE660900B98BA8 /* UIView+Autolayout.swift in Sources */,
 				9599E2801ED68FB40078328A /* PodPrivacyViewController.swift in Sources */,
 				95CF55941ECBABEC00B1751E /* CommentHeaderViewController.swift in Sources */,
+				F4E9DE3D1EDB7FF30089BA13 /* OverlayView.swift in Sources */,
 				951768671ED7A7B200FF6456 /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m in Sources */,
 				9511220E1ED65AF10056BE16 /* PodTitleViewController.swift in Sources */,
 				F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */,
@@ -468,8 +478,10 @@
 				957741B71ED7911F00FB8739 /* APIClient.swift in Sources */,
 				9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */,
 				9534F4DD1EDB50050094A007 /* FacebookIdentityProfile.swift in Sources */,
+				F4E9DE371EDB4A0E0089BA13 /* PodMapViewController.swift in Sources */,
 				95D14F291EBE9A5F0049C58A /* PodCreationViewController.swift in Sources */,
 				95C8C3A31ED39ABC004A2A29 /* CommentViewController.swift in Sources */,
+				F4E9DE391EDB51D80089BA13 /* NewPodMapViewController.swift in Sources */,
 				95D14F251EBE8C410049C58A /* PodData.swift in Sources */,
 				95D14F271EBE993E0049C58A /* PodTabBarController.swift in Sources */,
 				9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */,
