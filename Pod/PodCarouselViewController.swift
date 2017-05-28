@@ -72,6 +72,8 @@ class PodCarouselViewController: UIViewController {
             print("done")
         }
         APIClient.sharedInstance.initClientInfo()
+        self.podTitle.text = items[0].title
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -113,9 +115,12 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         podView.delegate = self
         podView.podData = items[index]
         self.podTitle.text = items[index].title
-        print(index)
-        print(carousel.currentItemIndex)
         return podView
+    }
+    
+    func carouselCurrentItemIndexDidChange(_ carousel: iCarousel) {
+        let index = carousel.currentItemIndex
+        self.podTitle.text = items[index].title
     }
     
 }
