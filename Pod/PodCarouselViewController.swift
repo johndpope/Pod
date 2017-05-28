@@ -18,6 +18,7 @@ class PodCarouselViewController: UIViewController {
     var items: [PodStruct] = []
     @IBOutlet var carousel: iCarousel!
     @IBOutlet var addButton: UIButton!
+    @IBOutlet weak var podTitle: UILabel!
 
     @IBAction func signOut(_ sender: Any) {
         if (AWSSignInManager.sharedInstance().isLoggedIn) {
@@ -38,30 +39,25 @@ class PodCarouselViewController: UIViewController {
         //for i in 0 ... 99 {
          //   items.append(i)
         //}
+        let arroyoContent = PostDetails(posterName: "Arroyo", postText: "Come to the lougne for the hosue meeting!", numHearts: 13, numComments: 4)
+        let sixEightyContent = PostDetails(posterName: "680", postText: "Come to the lougne for the hosue meeting!", numHearts: 13, numComments: 4)
+        let gatesContent = PostDetails(posterName: "Gates", postText: "Come to the lougne for the hosue meeting!", numHearts: 13, numComments: 4)
+        let oldUnionContent = PostDetails(posterName: "Old Union", postText: "Come to the lougne for the hosue meeting!", numHearts: 13, numComments: 4)
+
         let content = PostDetails(posterName: "Adad M.", postText: "Push me to the edge! All my friends are dead! Push me to the edge! all my friends are dead! 2017", numHearts: 26, numComments: 6)
         let content1 = PostDetails(posterName: "Mohammaed S.", postText: "Come to the lougne for the hosue meeting!", numHearts: 13, numComments: 4)
         let content2 = PostDetails(posterName: "Marjory B.", postText: "I'm selling two tickets to see XXXTENTACION if anyone is interested! $40/each :)", numHearts: 51, numComments: 21)
 
 
-        let p1 = PodStruct(title: "Arroyo Dorm", postData: [content, content1, content2])
-        let p2 = PodStruct(title: "680", postData: [content, content1, content2])
-        let p3 = PodStruct(title: "Gates", postData: [content, content1, content2])
-        let p4 = PodStruct(title: "Old Union", postData: [content, content1, content2])
+        let p1 = PodStruct(title: "Arroyo Dorm", postData: [arroyoContent, content, content1, content2])
+        let p2 = PodStruct(title: "680", postData: [sixEightyContent, content, content1, content2])
+        let p3 = PodStruct(title: "Gates", postData: [gatesContent, content, content1, content2])
+        let p4 = PodStruct(title: "Old Union", postData: [oldUnionContent, content, content1, content2])
 
         items.append(p1)
         items.append(p2)
         items.append(p3)
         items.append(p4)
-        items.append(p4)
-        items.append(p4)
-        items.append(p4)
-        items.append(p4)
-        items.append(p4)
-        items.append(p4)
-        items.append(p4)
-        items.append(p4)
-        items.append(p4)
-
     }
 
     override func viewDidLoad() {
@@ -104,12 +100,24 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         return value
     }
     
+    func carouselDidEndScrollingAnimation(_ carousel: iCarousel) {
+        self.podTitle.isHidden = false
+    }
+    
+    func carouselWillBeginScrollingAnimation(_ carousel: iCarousel) {
+        self.podTitle.isHidden = true
+    }
+    
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
         let podView = (view as? PodView != nil) ? view as! PodView : PodView(frame: CGRect(x: 0, y: 0, width: 255, height: 453))
         podView.delegate = self
         podView.podData = items[index]
+        self.podTitle.text = items[index].title
+        print(index)
+        print(carousel.currentItemIndex)
         return podView
     }
+    
 }
 
 // MARK: - PodView Methods
