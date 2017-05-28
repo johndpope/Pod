@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
        // GMSPlacesClient.provideAPIKey(Constants.APIServices.GMSPlacesKey)
-        //GMSServices.provideAPIKey(Constants.APIServices.GMSMapKey)
+        GMSServices.provideAPIKey(Constants.APIServices.GMSMapKey)
         //FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         // Allow Google sign-in
