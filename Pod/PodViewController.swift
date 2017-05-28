@@ -63,6 +63,8 @@ class PodViewController: UIViewController, PostCreationDelegate {
         view.addSubview(closeButton.usingAutolayout())
         let nib = UINib(nibName: "PodPostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
+        let photoNib = UINib(nibName: "PhotoPostTableViewCell", bundle: nil)
+        tableView.register(photoNib, forCellReuseIdentifier: "PhotoPostTableViewCell")
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.estimatedRowHeight = 60.0 // Replace with your actual estimation
         // Automatic dimensions to tell the table view to use dynamic height
@@ -111,7 +113,8 @@ class PodViewController: UIViewController, PostCreationDelegate {
     }
     
     func closePod() {
-        dismiss(animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -156,22 +159,43 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PodPostTableViewCell") as! PodPostTableViewCell
         let postData = self.podData?.postData[indexPath.row]
-        if podData == nil {
+        if podData == nil ||  postData == nil{
+            return UITableViewCell()
+        }
+        if(postData?.postType == PostType.text){
+            //handle text
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PodPostTableViewCell") as! PodPostTableViewCell
+            
+            cell.posterName.text = postData?.posterName
+            cell.posterBody.text = postData?.postText
+            cell.postLikes.text = String(describing: (postData?.numHearts!)!)
+            cell.postComments.text = String(describing: (postData?.numComments!)!)
+            if(APIClient.sharedInstance.profilePicture == nil){
+                cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
+            } else {
+                cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
+            }
             return cell
+        } else if(postData?.postType == PostType.photo){
+            //handle photos
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoPostTableViewCell") as! PhotoPostTableViewCell
+            
+            cell.posterName.text = postData?.posterName
+            cell.posterBody.text = postData?.postText
+            cell.postLikes.text = String(describing: (postData?.numHearts!)!)
+            cell.postComments.text = String(describing: (postData?.numComments!)!)
+            if(APIClient.sharedInstance.profilePicture == nil){
+                cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
+            } else {
+                cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
+            }
+            cell.photoContent.image = postData?.postPhoto
+            return cell
+        } else if(postData?.postType == PostType.poll){
+            //handle polls
         }
-        
-        cell.posterName.text = postData?.posterName
-        cell.posterBody.text = postData?.postText
-        cell.postLikes.text = String(describing: (postData?.numHearts!)!)
-        cell.postComments.text = String(describing: (postData?.numComments!)!)
-        if(APIClient.sharedInstance.profilePicture == nil){
-            cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
-        } else {
-            cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
-        }
-        return cell
+        return UITableViewCell()
     }
     
 }

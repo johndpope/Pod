@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSFacebookSignIn
 
 class NewPostViewController: UIViewController {
 
@@ -19,6 +20,7 @@ class NewPostViewController: UIViewController {
     
     let imagePicker = UIImagePickerController()
     var delegate: PostCreationDelegate?
+    var postedImage: UIImage?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightBlue
@@ -140,7 +142,43 @@ class NewPostViewController: UIViewController {
     }
     
     @IBAction func createNewPost(_ sender: UIButton) {
-        self.delegate?.postCreated(post: PostDetails(posterName: APIClient.sharedInstance.userName!, postText: textView.text, numHearts: 0, numComments: 0))
+        var hasImage = false
+        let range = NSRange(location: 0, length: textView.attributedText.length)
+        if (textView.textStorage.containsAttachments(in: range)) {
+            let attrString = textView.attributedText
+            var location = 0
+            while location < range.length {
+                var r = NSRange()
+                let attrDictionary = attrString?.attributes(at: location, effectiveRange: &r)
+                if attrDictionary != nil {
+                    // Swift.print(attrDictionary!)
+                    let attachment = attrDictionary![NSAttachmentAttributeName] as? NSTextAttachment
+                    if attachment != nil {
+                        if attachment!.image != nil {
+                            // your code to use attachment!.image as appropriate
+                            print("IMAGE!")
+                            hasImage = true
+                        }
+                    }
+                    location += r.length
+                }
+            }
+        }
+        let identityManager = AWSIdentityManager.default()
+        var userName: String?
+        if let identityUserName = identityManager.identityProfile?.userName {
+            userName = identityUserName
+        } else {
+            userName = NSLocalizedString("Guest User", comment: "Placeholder text for the guest user.")
+        }
+        var postDetails: PostDetails?
+        if(hasImage){
+            postDetails = PostDetails(posterName: userName!, photo: postedImage!, postText: textView.text, numHearts: 0, numComments: 0)
+        } else {
+            postDetails = PostDetails(posterName: userName!, postText: textView.text, numHearts: 0, numComments: 0)
+        }
+        self.delegate?.postCreated(post: postDetails!)
+
         dismiss(animated: true, completion: nil)
     }
 
@@ -172,6 +210,7 @@ extension NewPostViewController: UIImagePickerControllerDelegate, UINavigationCo
             } else {
                 textAttachment.image = UIImage(cgImage: (textAttachment.image?.cgImage)!, scale: scaleFactor, orientation: UIImageOrientation.up)
             }
+            postedImage = textAttachment.image
             let attrStringWithImage = NSAttributedString(attachment: textAttachment)
             attributedString.replaceCharacters(in: NSMakeRange(0, 0), with: attrStringWithImage)
             textView.attributedText = attributedString;

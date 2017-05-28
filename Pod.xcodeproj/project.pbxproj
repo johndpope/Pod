@@ -28,6 +28,8 @@
 		9534F4DD1EDB50050094A007 /* FacebookIdentityProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9534F4DA1EDB50050094A007 /* FacebookIdentityProfile.swift */; };
 		9534F4DE1EDB50050094A007 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9534F4DB1EDB50050094A007 /* SignIn.storyboard */; };
 		9534F4DF1EDB50050094A007 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9534F4DC1EDB50050094A007 /* SignInViewController.swift */; };
+		9534F4E41EDB79C70094A007 /* PhotoPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */; };
+		9534F4E51EDB79C70094A007 /* PhotoPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9534F4E31EDB79C70094A007 /* PhotoPostTableViewCell.xib */; };
 		9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */; };
 		9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */; };
 		957741B71ED7911F00FB8739 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957741B61ED7911F00FB8739 /* APIClient.swift */; };
@@ -97,6 +99,8 @@
 		9534F4DA1EDB50050094A007 /* FacebookIdentityProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookIdentityProfile.swift; sourceTree = "<group>"; };
 		9534F4DB1EDB50050094A007 /* SignIn.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
 		9534F4DC1EDB50050094A007 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPostTableViewCell.swift; sourceTree = "<group>"; };
+		9534F4E31EDB79C70094A007 /* PhotoPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoPostTableViewCell.xib; sourceTree = "<group>"; };
 		9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCarouselViewController.swift; sourceTree = "<group>"; };
 		9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		9559D0731EC8F1E800BAC3F5 /* iCarousel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
@@ -303,6 +307,8 @@
 				957741B61ED7911F00FB8739 /* APIClient.swift */,
 				95902ACA1ED8EA810008792A /* PodPostTableViewCell.swift */,
 				95902ACB1ED8EA810008792A /* PodPostTableViewCell.xib */,
+				9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */,
+				9534F4E31EDB79C70094A007 /* PhotoPostTableViewCell.xib */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -377,6 +383,7 @@
 				95CF56071ECBC9BD00B1751E /* Main.storyboard in Resources */,
 				95902ACD1ED8EA810008792A /* PodPostTableViewCell.xib in Resources */,
 				9517686A1ED7A7B200FF6456 /* AWSFacebookSignInResources.bundle in Resources */,
+				9534F4E51EDB79C70094A007 /* PhotoPostTableViewCell.xib in Resources */,
 				95309FEA1ED67B41008A7A7F /* Sdk in Resources */,
 				9534F4DE1EDB50050094A007 /* SignIn.storyboard in Resources */,
 				F4BECB441EBD738800B98BA8 /* GoogleService-Info.plist in Resources */,
@@ -459,6 +466,7 @@
 				9599E2801ED68FB40078328A /* PodPrivacyViewController.swift in Sources */,
 				95CF55941ECBABEC00B1751E /* CommentHeaderViewController.swift in Sources */,
 				951768671ED7A7B200FF6456 /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m in Sources */,
+				9534F4E41EDB79C70094A007 /* PhotoPostTableViewCell.swift in Sources */,
 				9511220E1ED65AF10056BE16 /* PodTitleViewController.swift in Sources */,
 				F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */,
 				F4BECB491EBE6D3D00B98BA8 /* UIColor+Pod.swift in Sources */,

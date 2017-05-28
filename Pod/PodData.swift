@@ -39,17 +39,35 @@ func getTestData() -> [Pod] {
     return arr
 }
 
+enum PostType {
+    case text
+    case photo
+    case poll
+}
+
 class PostDetails {
     var posterName: String?
     var postText: String?
     var numHearts: Int?
     var numComments: Int?
+    var postType: PostType?
+    var postPhoto: UIImage?
     
     init(posterName: String, postText: String, numHearts: Int, numComments: Int) {
         self.postText = postText
         self.posterName = posterName
         self.numComments = numComments
         self.numHearts = numHearts
+        self.postType = PostType.text
+    }
+    
+    init(posterName: String, photo: UIImage, postText: String, numHearts: Int, numComments: Int){
+        self.postText = postText
+        self.posterName = posterName
+        self.numComments = numComments
+        self.numHearts = numHearts
+        self.postType = PostType.photo
+        self.postPhoto = photo
     }
 }
 

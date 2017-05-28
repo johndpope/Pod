@@ -1,20 +1,22 @@
 //
-//  PodPostTableViewCell.swift
+//  PhotoPostTableViewCell.swift
 //  Pod
 //
-//  Created by Max Freundlich on 5/26/17.
+//  Created by Max Freundlich on 5/28/17.
 //  Copyright © 2017 cs194. All rights reserved.
 //
 
 import UIKit
 
-class PodPostTableViewCell: UITableViewCell {
+class PhotoPostTableViewCell: UITableViewCell {
 
     @IBOutlet weak var posterName: UILabel!
     @IBOutlet weak var posterBody: UILabel!
     @IBOutlet weak var posterPhoto: UIImageView!
     @IBOutlet weak var postLikes: UILabel!
     @IBOutlet weak var postComments: UILabel!
+    @IBOutlet weak var photoContent: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

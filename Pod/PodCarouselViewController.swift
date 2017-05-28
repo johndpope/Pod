@@ -48,9 +48,10 @@ class PodCarouselViewController: UIViewController {
         let content = PostDetails(posterName: "Adad M.", postText: "Push me to the edge! All my friends are dead! Push me to the edge! all my friends are dead! 2017", numHearts: 26, numComments: 6)
         let content1 = PostDetails(posterName: "Mohammaed S.", postText: "Come to the lougne for the hosue meeting!", numHearts: 13, numComments: 4)
         let content2 = PostDetails(posterName: "Marjory B.", postText: "I'm selling two tickets to see XXXTENTACION if anyone is interested! $40/each :)", numHearts: 51, numComments: 21)
+        
+        let photoPost = PostDetails(posterName: "Max Freundlich", photo: UIImage(named: "profile-pic")!, postText: "Check out this dank picture of me", numHearts: 100, numComments: 50)
 
-
-        let p1 = PodStruct(title: "Arroyo Dorm", postData: [arroyoContent, content, content1, content2])
+        let p1 = PodStruct(title: "Arroyo Dorm", postData: [arroyoContent, photoPost, content, content1, content2])
         let p2 = PodStruct(title: "680", postData: [sixEightyContent, content, content1, content2])
         let p3 = PodStruct(title: "Gates", postData: [gatesContent, content, content1, content2])
         let p4 = PodStruct(title: "Old Union", postData: [oldUnionContent, content, content1, content2])

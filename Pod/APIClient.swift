@@ -61,7 +61,7 @@ class APIClient {
             //print(responseString!)
             // convert String to NSData
             let dict = self.convertToDictionary(text: responseString!)
-            //print(dict)
+            print(dict)
 
             
             return nil
