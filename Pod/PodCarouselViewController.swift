@@ -102,13 +102,13 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         return value
     }
     
-    func carouselDidEndScrollingAnimation(_ carousel: iCarousel) {
-        self.podTitle.isHidden = false
-    }
-    
-    func carouselWillBeginScrollingAnimation(_ carousel: iCarousel) {
-        self.podTitle.isHidden = true
-    }
+//    func carouselDidEndScrollingAnimation(_ carousel: iCarousel) {
+//        self.podTitle.isHidden = false
+//    }
+//    
+//    func carouselWillBeginScrollingAnimation(_ carousel: iCarousel) {
+//        self.podTitle.isHidden = true
+//    }
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
         let podView = (view as? PodView != nil) ? view as! PodView : PodView(frame: CGRect(x: 0, y: 0, width: 255, height: 453))
