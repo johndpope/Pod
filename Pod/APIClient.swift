@@ -32,8 +32,8 @@ class APIClient {
         let headerParameters = [
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "Latitude":"37.4204870",
-            "Longitude":"-122.1714210"
+            "Latitude":"37.4204868",
+            "Longitude":"-122.1714205"
         ]
         let jsonObject: [String: AnyObject]  = ["Latitude": 37.4204870 as AnyObject, "Longitude": -122.1714210 as AnyObject]
         
@@ -78,6 +78,7 @@ class APIClient {
             //            completion(podList)
             
             var nearbyPods: [Pod]? = []
+            print(dict!)
             for(_, val) in dict! {
                 let curPod = val as! Dictionary<String, Any>
                 let podName = curPod["Name"] as! String
@@ -87,7 +88,8 @@ class APIClient {
                 let userList = curPod["UserList"] as! [String]
                 let numPeople = userList.count
                 let podID = curPod["PodId"] as! Int
-                let pod = Pod(podID: podID, name: podName, coordinates: coordinates, radius: radius, numPeople: numPeople, postData: [])
+                let isLocked = curPod["IsPrivate"] as! Bool
+                let pod = Pod(podID: podID, name: podName, coordinates: coordinates, radius: radius, numPeople: numPeople, postData: [], isLocked: isLocked)
                 nearbyPods?.append(pod)
             }
             completion(nearbyPods)
@@ -164,7 +166,6 @@ class APIClient {
         let post2 = Posts()
         post2?._posterName = "Chenye Zhu"
         post2?._podId = withId as NSNumber
-        post2?._postId = UUID().uuidString
         post2?._numLikes = 26
         post2?._numComments = 9
         post2?._postType = PostType.text.hashValue as NSNumber
@@ -189,8 +190,8 @@ class APIClient {
             print("post saved")
         }
     }
-    
-    func getPostForPod(withId: Int, completion: @escaping (Posts?) ->()){
+        
+    func getPostForPod(withId: Int, index: Int, completion: @escaping (_ posts: [Posts?], _ index: Int) ->()){
         let queryExpression = AWSDynamoDBQueryExpression()
         queryExpression.keyConditionExpression = "PodId = :PodId"
         
@@ -201,16 +202,25 @@ class APIClient {
             } else {
                 if let result = task.result {//(task.result != nil) {
                     if result.items.count == 0 {
-                        completion(nil)
+                        completion([], 0)
                     } else {
-                        for r in result.items as! [Posts]{
-                            completion(r)
-                        }
+                        completion(result.items as! [Posts], index)
                     }
                 }
             }
             return nil
         })
+    }
+    
+    func createNewPostForPod(withId: Int, post: Posts) {
+        post._postId = UUID().uuidString
+        dynamoDBObjectMapper.save(post) { (err) in
+            if let error = err {
+                print("Amazin DynamoDB Save Error: \(error)")
+                return
+            }
+            print("post saved")
+        }
     }
     
     

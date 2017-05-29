@@ -126,6 +126,7 @@ class PodViewController: UIViewController, PostCreationDelegate {
         } else if(segue.identifier == "toNewPost"){
             if let nextVC = segue.destination as? NewPostViewController {
                 nextVC.delegate = self
+                nextVC.pod = self.podData
             }
         }
     }

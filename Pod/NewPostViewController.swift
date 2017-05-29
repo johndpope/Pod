@@ -21,6 +21,7 @@ class NewPostViewController: UIViewController {
     let imagePicker = UIImagePickerController()
     var delegate: PostCreationDelegate?
     var postedImage: UIImage?
+    var pod: Pod?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightBlue
@@ -172,21 +173,25 @@ class NewPostViewController: UIViewController {
             userName = NSLocalizedString("Guest User", comment: "Placeholder text for the guest user.")
         }
         let post = Posts()
-        post?._posterName = "Max Freundlich"
-        post?._podId = 5
-        post?._postId = UUID().uuidString
-        post?._numLikes = 10
-        post?._numComments = 6
+        post?._posterName = userName
+        post?._podId = self.pod?.podID as NSNumber?
+        post?._numLikes = 0
+        post?._numComments = 0
         post?._postType = PostType.text.hashValue as NSNumber
-        post?._postContent = "What up its Chaz"
+        post?._postContent = textView.text
         post?._postedDate = NSDate().timeIntervalSince1970 as NSNumber
         post?._postPoll = ["none":"none"]
-        post?._postImage = "No Image"
-//        if(hasImage){
-//            postDetails = PostDetails(posterName: userName!, photo: postedImage!, postText: textView.text, numHearts: 0, numComments: 0)
-//        } else {
-//            postDetails = PostDetails(posterName: userName!, postText: textView.text, numHearts: 0, numComments: 0)
-//        }
+        if(hasImage){
+            post?._postType = PostType.photo.hashValue as NSNumber
+            //post?._postImage = postedImage
+            post?._postImage = "profile-pic"
+        } else {
+            post?._postType = PostType.text.hashValue as NSNumber
+            post?._postImage = "No Image"
+        }
+        
+        APIClient().createNewPostForPod(withId: (self.pod?.podID)!, post: post!)
+        
         self.delegate?.postCreated(post: post!)
 
         dismiss(animated: true, completion: nil)

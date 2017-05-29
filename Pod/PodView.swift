@@ -67,13 +67,12 @@ class PodView: UIView {
         
         addSubview(tableView.usingAutolayout())
         addSubview(blurEffectView.usingAutolayout())
-        //addSubview(lockImageView.usingAutolayout())
-        //addSubview(joinButton.usingAutolayout())
+
         let nib = UINib(nibName: "PodPostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
         let photoNib = UINib(nibName: "PhotoPostTableViewCell", bundle: nil)
         tableView.register(photoNib, forCellReuseIdentifier: "PhotoPostTableViewCell")
-        //   tableView.separatorStyle = UITableViewCellSeparatorStyle.
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.estimatedRowHeight = 60.0 // Replace with your actual estimation
         // Automatic dimensions to tell the table view to use dynamic height
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -82,12 +81,36 @@ class PodView: UIView {
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
         setupConstraints()
+
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    override func awakeFromNib() {
+        lockedPod = (podData?.isLocked)!
+        addSubview(lockImageView.usingAutolayout())
+        addSubview(joinButton.usingAutolayout())
+        if lockedPod {
+            /// Lock ImageView
+            NSLayoutConstraint.activate([
+                lockImageView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: -46.0),
+                lockImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                lockImageView.widthAnchor.constraint(equalToConstant: 67.0),
+                lockImageView.heightAnchor.constraint(equalToConstant: 87.0)
+                ])
+            
+            // Join Button
+            NSLayoutConstraint.activate([
+                joinButton.topAnchor.constraint(equalTo: centerYAnchor, constant: 24.5),
+                joinButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+                joinButton.widthAnchor.constraint(equalToConstant: 191.0),
+                joinButton.heightAnchor.constraint(equalToConstant: 34.0)
+                ])
+        }
+    }
     // MARK: - Helper Methods
     
     private func setupConstraints() {
@@ -107,22 +130,6 @@ class PodView: UIView {
             blurEffectView.rightAnchor.constraint(equalTo: rightAnchor),
             blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
-        
-        /// Lock ImageView
-        //        NSLayoutConstraint.activate([
-        //            lockImageView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: -46.0),
-        //            lockImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-        //            lockImageView.widthAnchor.constraint(equalToConstant: 67.0),
-        //            lockImageView.heightAnchor.constraint(equalToConstant: 87.0)
-        //            ])
-        
-        // Join Button
-        //        NSLayoutConstraint.activate([
-        //            joinButton.topAnchor.constraint(equalTo: centerYAnchor, constant: 24.5),
-        //            joinButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-        //            joinButton.widthAnchor.constraint(equalToConstant: 191.0),
-        //            joinButton.heightAnchor.constraint(equalToConstant: 34.0)
-        //            ])
     }
     
     func toSinglePod() {

@@ -56,13 +56,26 @@ class PodCarouselViewController: UIViewController {
         let client = APIClient()
         let location = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
         client.getNearbyPods(location: location) { (pods) in
-            self.items = pods!
-            for pod in self.items {
+            for pod in pods! {
                 //APIClient().uploadTestPostsToPod(withId: pod.podID)
+                if !self.items.contains(where: { $0.podID == pod.podID }) {
+                    self.items.append(pod)
+                }
             }
-            self.carousel.reloadData()
+            self.getLimitedPostsForPods()
         }
         
+    }
+    
+    func getLimitedPostsForPods(){
+        for i in 0..<self.items.count{
+            let pod = self.items[i]
+            APIClient().getPostForPod(withId: (pod.podID), index: i, completion: { (posts, index) in
+                self.items[index].postData = posts as! [Posts]
+                self.carousel.reloadData()
+            })
+        }
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -97,6 +110,8 @@ class PodCarouselViewController: UIViewController {
             loginController.didCompleteSignIn = onSignIn
             let navController = UINavigationController(rootViewController: loginController)
             navigationController?.present(navController, animated: true, completion: nil)
+        } else {
+            FacebookIdentityProfile().getFriendsOnApp()
         }
     }
     

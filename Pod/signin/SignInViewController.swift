@@ -42,7 +42,7 @@ class SignInViewController : UIViewController {
 
     
     func setUpFacebookButton() {
-        AWSFacebookSignInProvider.sharedInstance().setPermissions(["public_profile"])
+        AWSFacebookSignInProvider.sharedInstance().setPermissions(["public_profile", "email", "user_friends"])
         // Facebook UI Setup
         let facebookComponent = AWSFacebookSignInButton(frame: CGRect(x: 0, y: 0, width: facebookButton.frame.size.width, height: facebookButton.frame.size.height))
         facebookComponent.buttonStyle = .large // use the large button style

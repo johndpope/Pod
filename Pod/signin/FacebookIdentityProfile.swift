@@ -97,4 +97,24 @@ class FacebookIdentityProfile : AWSIdentityProfile {
         userConnection.start()
     }
     // Set any additional proflie attributes here. This method is called after a user signs in with a provider.
+    
+    func getFriendsOnApp(){
+        let params = ["fields": "id, first_name, last_name, name, email, picture"]
+        
+        let graphRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: params)
+        let connection = FBSDKGraphRequestConnection()
+        connection.add(graphRequest, completionHandler: { (connection, result, error) in
+            if error == nil {
+                if let userData = result as? [String:Any] {
+                    print("Getting facebook friends ... ")
+                    print(userData["data"] as! [NSDictionary])
+                }
+            } else {
+                print("Error Getting Friends \(error)");
+            }
+            
+        })
+        
+        connection.start()
+    }
 }

@@ -17,14 +17,16 @@ class Pod {
     let radius: Double
     let numPeople: Int
     var postData: [Posts]
+    let isLocked: Bool
     
-    init(podID: Int, name:String, coordinates: CLLocationCoordinate2D, radius: Double, numPeople: Int, postData: [Posts]) {
+    init(podID: Int, name:String, coordinates: CLLocationCoordinate2D, radius: Double, numPeople: Int, postData: [Posts], isLocked: Bool) {
         self.podID = podID
         self.name = name
         self.coordinates = coordinates
         self.radius = radius
         self.numPeople = numPeople
         self.postData = postData
+        self.isLocked = isLocked
     }
     
 }
