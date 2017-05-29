@@ -19,7 +19,7 @@ class CommentHeaderViewController: UIViewController {
     
     var messages: [String] = []
     var likedComment: Bool = false
-    var postData: PostDetails?
+    var postData: Posts?
     override func viewDidLoad() {
         super.viewDidLoad()
         setOPDetails()
@@ -59,16 +59,16 @@ class CommentHeaderViewController: UIViewController {
         OPImage.clipsToBounds = true
 
         //Set Name
-        OPTitle.text = postData?.posterName
+        OPTitle.text = postData?._posterName
         OPTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
 
         //Set Comment Text
-        OPComment.text =  postData?.postText
+        OPComment.text =  postData?._postContent
     }
     
     func setCommentDetails(){
-        numHearts.text =  String(describing: (postData?.numHearts!)!)
-        numComments.text = String(describing: (postData?.numComments!)!)
+        numHearts.text =  String(describing: (postData?._numLikes!)!)
+        numComments.text = String(describing: (postData?._numComments!)!)
         
         //Set heart to clickable
         heartImage.isUserInteractionEnabled = true

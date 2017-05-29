@@ -47,7 +47,7 @@ class PodView: UIView {
     }()
     
     var lockedPod = false
-    var podData: PodStruct?
+    var podData: Pod?
     weak var delegate: PodViewDelegate?
     
     private lazy var lockImageView: UIImageView = {
@@ -73,7 +73,7 @@ class PodView: UIView {
         tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
         let photoNib = UINib(nibName: "PhotoPostTableViewCell", bundle: nil)
         tableView.register(photoNib, forCellReuseIdentifier: "PhotoPostTableViewCell")
-     //   tableView.separatorStyle = UITableViewCellSeparatorStyle.
+        //   tableView.separatorStyle = UITableViewCellSeparatorStyle.
         tableView.estimatedRowHeight = 60.0 // Replace with your actual estimation
         // Automatic dimensions to tell the table view to use dynamic height
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -109,20 +109,20 @@ class PodView: UIView {
             ])
         
         /// Lock ImageView
-//        NSLayoutConstraint.activate([
-//            lockImageView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: -46.0),
-//            lockImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            lockImageView.widthAnchor.constraint(equalToConstant: 67.0),
-//            lockImageView.heightAnchor.constraint(equalToConstant: 87.0)
-//            ])
+        //        NSLayoutConstraint.activate([
+        //            lockImageView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: -46.0),
+        //            lockImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+        //            lockImageView.widthAnchor.constraint(equalToConstant: 67.0),
+        //            lockImageView.heightAnchor.constraint(equalToConstant: 87.0)
+        //            ])
         
         // Join Button
-//        NSLayoutConstraint.activate([
-//            joinButton.topAnchor.constraint(equalTo: centerYAnchor, constant: 24.5),
-//            joinButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            joinButton.widthAnchor.constraint(equalToConstant: 191.0),
-//            joinButton.heightAnchor.constraint(equalToConstant: 34.0)
-//            ])
+        //        NSLayoutConstraint.activate([
+        //            joinButton.topAnchor.constraint(equalTo: centerYAnchor, constant: 24.5),
+        //            joinButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+        //            joinButton.widthAnchor.constraint(equalToConstant: 191.0),
+        //            joinButton.heightAnchor.constraint(equalToConstant: 34.0)
+        //            ])
     }
     
     func toSinglePod() {
@@ -144,21 +144,21 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         }
         return (podData?.postData.count)!
     }
-
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let postData = self.podData?.postData[indexPath.row]
         if podData == nil ||  postData == nil{
             return UITableViewCell()
         }
-        if(postData?.postType == PostType.text){
+        if(postData?._postType as! Int == PostType.text.hashValue){
             //handle text
             let cell = tableView.dequeueReusableCell(withIdentifier: "PodPostTableViewCell") as! PodPostTableViewCell
             
-            cell.posterName.text = postData?.posterName
-            cell.posterBody.text = postData?.postText
-            cell.postLikes.text = String(describing: (postData?.numHearts!)!)
-            cell.postComments.text = String(describing: (postData?.numComments!)!)
+            cell.posterName.text = postData?._posterName
+            cell.posterBody.text = postData?._postContent
+            cell.postLikes.text = String(describing: (postData?._numLikes!)!)
+            cell.postComments.text = String(describing: (postData?._numComments!)!)
             //        if(APIClient.sharedInstance.profilePicture == nil){
             //            cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
             //        } else {
@@ -176,15 +176,15 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             return cell
-        } else if(postData?.postType == PostType.photo){
+        } else if(postData?._postType as! Int == PostType.photo.hashValue){
             //handle photos
             let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoPostTableViewCell") as! PhotoPostTableViewCell
             
-            cell.posterName.text = postData?.posterName
-            cell.posterBody.text = postData?.postText
-            cell.postLikes.text = String(describing: (postData?.numHearts!)!)
-            cell.postComments.text = String(describing: (postData?.numComments!)!)
-
+            cell.posterName.text = postData?._posterName
+            cell.posterBody.text = postData?._postContent
+            cell.postLikes.text = String(describing: (postData?._numLikes!)!)
+            cell.postComments.text = String(describing: (postData?._numComments!)!)
+            
             let identityManager = AWSIdentityManager.default()
             
             if let imageURL = identityManager.identityProfile?.imageURL {
@@ -196,9 +196,9 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            cell.photoContent.image = postData?.postPhoto
+            cell.photoContent.image = UIImage(named: "profile-pic")
             return cell
-        } else if(postData?.postType == PostType.poll){
+        } else if(postData?._postType as! Int == PostType.poll.hashValue){
             //handle polls
         }
         return UITableViewCell()
@@ -206,5 +206,5 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
 }
 
 protocol PodViewDelegate: class {
-    func toSinglePod(_ podView: PodStruct)
+    func toSinglePod(_ podView: Pod)
 }

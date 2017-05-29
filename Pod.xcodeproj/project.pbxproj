@@ -17,7 +17,6 @@
 		95309FED1ED67B58008A7A7F /* AWSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FEB1ED67B58008A7A7F /* AWSCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		95309FFA1ED67BB8008A7A7F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FF91ED67BB8008A7A7F /* libz.tbd */; };
 		95309FFC1ED67BBE008A7A7F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FFB1ED67BBE008A7A7F /* libsqlite3.tbd */; };
-		9534F4CF1EDB4C680094A007 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9534F4CE1EDB4C680094A007 /* Bolts.framework */; };
 		9534F4D11EDB4C7C0094A007 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9534F4D01EDB4C7C0094A007 /* FBSDKShareKit.framework */; };
 		9534F4DD1EDB50050094A007 /* FacebookIdentityProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9534F4DA1EDB50050094A007 /* FacebookIdentityProfile.swift */; };
 		9534F4DE1EDB50050094A007 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9534F4DB1EDB50050094A007 /* SignIn.storyboard */; };
@@ -165,7 +164,6 @@
 				C807AC9F9F51908EF23D61C2 /* Pods_Pod.framework in Frameworks */,
 				9517685B1ED7A62A00FF6456 /* AWSLambda.framework in Frameworks */,
 				9534F4FB1EDB990A0094A007 /* AWSMobileHubHelper.framework in Frameworks */,
-				9534F4CF1EDB4C680094A007 /* Bolts.framework in Frameworks */,
 				95309FEC1ED67B58008A7A7F /* AWSCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -503,7 +501,6 @@
 				95CF55941ECBABEC00B1751E /* CommentHeaderViewController.swift in Sources */,
 				9534F4E41EDB79C70094A007 /* PhotoPostTableViewCell.swift in Sources */,
 				F4E9DE3D1EDB7FF30089BA13 /* OverlayView.swift in Sources */,
-				951768671ED7A7B200FF6456 /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m in Sources */,
 				9511220E1ED65AF10056BE16 /* PodTitleViewController.swift in Sources */,
 				F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */,
 				F4BECB491EBE6D3D00B98BA8 /* UIColor+Pod.swift in Sources */,

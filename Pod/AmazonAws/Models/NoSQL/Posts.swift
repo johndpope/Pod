@@ -22,10 +22,10 @@ class Posts: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _numComments: NSNumber?
     var _numLikes: NSNumber?
     var _postContent: String?
-    var _postId: NSNumber?
+    var _postId: String?
     var _postImage: String?
     var _postPoll: [String: String]?
-    var _postType: String?
+    var _postType: NSNumber?
     var _posterName: String?
     
     class func dynamoDBTableName() -> String {

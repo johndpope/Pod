@@ -11,74 +11,26 @@ import UIKit
 import GoogleMaps
 
 class Pod {
+    let podID: Int
     let name: String
     let coordinates: CLLocationCoordinate2D
     let radius: Double
     let numPeople: Int
+    var postData: [Posts]
     
-    init(name:String, coordinates: CLLocationCoordinate2D, radius: Double, numPeople: Int) {
+    init(podID: Int, name:String, coordinates: CLLocationCoordinate2D, radius: Double, numPeople: Int, postData: [Posts]) {
+        self.podID = podID
         self.name = name
         self.coordinates = coordinates
         self.radius = radius
         self.numPeople = numPeople
+        self.postData = postData
     }
     
-}
-
-func getTestData() -> [Pod] {
-    var arr = [Pod]();
-    var coordinates = CLLocationCoordinate2D(latitude: 37.420487, longitude: -122.171421)
-    var p1 = Pod(name: "680 Lomita Pod", coordinates: coordinates, radius: 100, numPeople: 9)
-    arr.append(p1)
-    coordinates = CLLocationCoordinate2D(latitude: 37.425076, longitude: -122.170186)
-    p1 = Pod(name: "Old Union Pod", coordinates: coordinates, radius: 100, numPeople: 15)
-    arr.append(p1)
-    coordinates = CLLocationCoordinate2D(latitude: 37.424305, longitude: -122.170842)
-    p1 = Pod(name: "Tressider Pod", coordinates: coordinates, radius: 100, numPeople: 43)
-    arr.append(p1)
-    return arr
 }
 
 enum PostType {
     case text
     case photo
     case poll
-}
-
-class PostDetails {
-    var posterName: String?
-    var postText: String?
-    var numHearts: Int?
-    var numComments: Int?
-    var postType: PostType?
-    var postPhoto: UIImage?
-    
-    init(posterName: String, postText: String, numHearts: Int, numComments: Int) {
-        self.postText = postText
-        self.posterName = posterName
-        self.numComments = numComments
-        self.numHearts = numHearts
-        self.postType = PostType.text
-    }
-    
-    init(posterName: String, photo: UIImage, postText: String, numHearts: Int, numComments: Int){
-        self.postText = postText
-        self.posterName = posterName
-        self.numComments = numComments
-        self.numHearts = numHearts
-        self.postType = PostType.photo
-        self.postPhoto = photo
-    }
-}
-
-class PodStruct {
-    var title: String?
-    var postData: [PostDetails?]
-    
-    init(title: String, postData: [PostDetails]) {
-        self.title = title
-        self.postData = postData
-    }
-    
-    
 }

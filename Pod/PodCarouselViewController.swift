@@ -15,11 +15,11 @@ class PodCarouselViewController: UIViewController {
     
     // MARK: - Properties
     
-    var items: [PodStruct] = []
+    var items: [Pod] = []
     @IBOutlet var carousel: iCarousel!
     @IBOutlet var addButton: UIButton!
     @IBOutlet weak var podTitle: UILabel!
-
+    
     @IBAction func signOut(_ sender: Any) {
         if (AWSSignInManager.sharedInstance().isLoggedIn) {
             AWSSignInManager.sharedInstance().logout(completionHandler: {(result: Any?, authState: AWSIdentityManagerAuthState, error: Error?) in
@@ -32,16 +32,16 @@ class PodCarouselViewController: UIViewController {
         }
     }
     
-
+    
     // MARK: - PodCarouselViewController
     
     override func awakeFromNib() {
         super.awakeFromNib()
         //for i in 0 ... 99 {
-         //   items.append(i)
+        //   items.append(i)
         //}
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         presentSignInViewController()
@@ -53,14 +53,13 @@ class PodCarouselViewController: UIViewController {
     }
     
     func getAllPods(){
-//        client.getNearbyPods(location: location) {
-//            print("done")
-//        }
-        
         let client = APIClient()
         let location = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
         client.getNearbyPods(location: location) { (pods) in
             self.items = pods!
+            for pod in self.items {
+                //APIClient().uploadTestPostsToPod(withId: pod.podID)
+            }
             self.carousel.reloadData()
         }
         
@@ -69,7 +68,7 @@ class PodCarouselViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if(segue.identifier == Constants.Storyboard.SinglePodSegueId){
             if let nextVC = segue.destination as? PodViewController {
-                let podView = sender as! PodStruct
+                let podView = sender as! Pod
                 nextVC.podData = podView
             }
         }
@@ -101,7 +100,7 @@ class PodCarouselViewController: UIViewController {
         }
     }
     
-
+    
 }
 
 // MARK: - iCarousel Methods
@@ -119,27 +118,27 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         return value
     }
     
-//    func carouselDidEndScrollingAnimation(_ carousel: iCarousel) {
-//        self.podTitle.isHidden = false
-//    }
-//    
-//    func carouselWillBeginScrollingAnimation(_ carousel: iCarousel) {
-//        self.podTitle.isHidden = true
-//    }
+    //    func carouselDidEndScrollingAnimation(_ carousel: iCarousel) {
+    //        self.podTitle.isHidden = false
+    //    }
+    //
+    //    func carouselWillBeginScrollingAnimation(_ carousel: iCarousel) {
+    //        self.podTitle.isHidden = true
+    //    }
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
         let podView = (view as? PodView != nil) ? view as! PodView : PodView(frame: CGRect(x: 0, y: 0, width: 255, height: 453))
         podView.delegate = self
         podView.podData = items[index]
-        self.podTitle.text = items[index].title
+        self.podTitle.text = items[index].name
         return podView
     }
     
     func carouselCurrentItemIndexDidChange(_ carousel: iCarousel) {
         let index = carousel.currentItemIndex
         if(items.isEmpty != true){
-            self.podTitle.text = items[index].title
-
+            self.podTitle.text = items[index].name
+            
         }
     }
     
@@ -148,7 +147,7 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
 // MARK: - PodView Methods
 
 extension PodCarouselViewController: PodViewDelegate {
-    func toSinglePod(_ podView: PodStruct) {
+    func toSinglePod(_ podView: Pod) {
         performSegue(withIdentifier: Constants.Storyboard.SinglePodSegueId, sender: podView)
     }
 }

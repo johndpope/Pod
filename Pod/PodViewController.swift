@@ -49,12 +49,12 @@ class PodViewController: UIViewController, PostCreationDelegate {
     let postButtonHeight: CGFloat = 50.0
     let titleTopMargin: CGFloat = 11.0 + UIApplication.shared.statusBarFrame.height
     let titleBottomMargin: CGFloat = 6.0
-    var podData: PodStruct?
+    var podData: Pod?
     // MARK: - PodViewController
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .lightBlue
         
         view.addSubview(titleLabel.usingAutolayout())
@@ -72,7 +72,7 @@ class PodViewController: UIViewController, PostCreationDelegate {
         // self.textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
-        titleLabel.text = podData?.title
+        titleLabel.text = podData?.name
         setupConstraints()
     }
     
@@ -121,7 +121,7 @@ class PodViewController: UIViewController, PostCreationDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if(segue.identifier == "toPostComments"){
             if let nextVC = segue.destination as? CommentHeaderViewController {
-                nextVC.postData = sender as! PostDetails
+                nextVC.postData = sender as! Posts
             }
         } else if(segue.identifier == "toNewPost"){
             if let nextVC = segue.destination as? NewPostViewController {
@@ -130,7 +130,7 @@ class PodViewController: UIViewController, PostCreationDelegate {
         }
     }
     
-    func postCreated(post: PostDetails){
+    func postCreated(post: Posts){
         print("post created")
         self.podData?.postData.append(post)
         tableView.reloadData()
@@ -164,36 +164,36 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
         if podData == nil ||  postData == nil{
             return UITableViewCell()
         }
-        if(postData?.postType == PostType.text){
+        if(postData?._postType as! Int == PostType.text.hashValue){
             //handle text
             let cell = tableView.dequeueReusableCell(withIdentifier: "PodPostTableViewCell") as! PodPostTableViewCell
             
-            cell.posterName.text = postData?.posterName
-            cell.posterBody.text = postData?.postText
-            cell.postLikes.text = String(describing: (postData?.numHearts!)!)
-            cell.postComments.text = String(describing: (postData?.numComments!)!)
+            cell.posterName.text = postData?._posterName
+            cell.posterBody.text = postData?._postContent
+            cell.postLikes.text = String(describing: (postData?._numLikes!)!)
+            cell.postComments.text = String(describing: (postData?._numComments!)!)
             if(APIClient.sharedInstance.profilePicture == nil){
                 cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
             } else {
                 cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
             }
             return cell
-        } else if(postData?.postType == PostType.photo){
+        } else if(postData?._postType as! Int == PostType.photo.hashValue){
             //handle photos
             let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoPostTableViewCell") as! PhotoPostTableViewCell
             
-            cell.posterName.text = postData?.posterName
-            cell.posterBody.text = postData?.postText
-            cell.postLikes.text = String(describing: (postData?.numHearts!)!)
-            cell.postComments.text = String(describing: (postData?.numComments!)!)
+            cell.posterName.text = postData?._posterName
+            cell.posterBody.text = postData?._postContent
+            cell.postLikes.text = String(describing: (postData?._numLikes!)!)
+            cell.postComments.text = String(describing: (postData?._numComments!)!)
             if(APIClient.sharedInstance.profilePicture == nil){
                 cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
             } else {
                 cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
             }
-            cell.photoContent.image = postData?.postPhoto
+            cell.photoContent.image = UIImage(named: "profile-pic")
             return cell
-        } else if(postData?.postType == PostType.poll){
+        } else if(postData?._postType as! Int == PostType.poll.hashValue){
             //handle polls
         }
         return UITableViewCell()

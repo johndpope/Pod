@@ -171,13 +171,23 @@ class NewPostViewController: UIViewController {
         } else {
             userName = NSLocalizedString("Guest User", comment: "Placeholder text for the guest user.")
         }
-        var postDetails: PostDetails?
-        if(hasImage){
-            postDetails = PostDetails(posterName: userName!, photo: postedImage!, postText: textView.text, numHearts: 0, numComments: 0)
-        } else {
-            postDetails = PostDetails(posterName: userName!, postText: textView.text, numHearts: 0, numComments: 0)
-        }
-        self.delegate?.postCreated(post: postDetails!)
+        let post = Posts()
+        post?._posterName = "Max Freundlich"
+        post?._podId = 5
+        post?._postId = UUID().uuidString
+        post?._numLikes = 10
+        post?._numComments = 6
+        post?._postType = PostType.text.hashValue as NSNumber
+        post?._postContent = "What up its Chaz"
+        post?._postedDate = NSDate().timeIntervalSince1970 as NSNumber
+        post?._postPoll = ["none":"none"]
+        post?._postImage = "No Image"
+//        if(hasImage){
+//            postDetails = PostDetails(posterName: userName!, photo: postedImage!, postText: textView.text, numHearts: 0, numComments: 0)
+//        } else {
+//            postDetails = PostDetails(posterName: userName!, postText: textView.text, numHearts: 0, numComments: 0)
+//        }
+        self.delegate?.postCreated(post: post!)
 
         dismiss(animated: true, completion: nil)
     }
@@ -297,5 +307,5 @@ extension UITextView: UITextViewDelegate {
 }
 
 protocol PostCreationDelegate {
-    func postCreated(post: PostDetails)
+    func postCreated(post: Posts)
 }
