@@ -283,7 +283,7 @@
         <scene sceneID="tC1-6R-RsQ">
             <objects>
                 <navigationController id="3lu-pK-83l" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="caX-fG-lLc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="caX-fG-lLc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -328,18 +328,11 @@
                                     <action selector="signOut:" destination="A1Q-b5-Mkq" eventType="touchUpInside" id="blU-Vo-PQa"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="searchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="1iH-Ct-1Ju">
-                                <rect key="frame" x="16" y="607" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="IlW-51-xRa"/>
-                                    <constraint firstAttribute="width" constant="50" id="Sfn-vX-c58"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3nf-8O-1IM">
-                                <rect key="frame" x="299" y="597" width="60" height="60"/>
+                                <rect key="frame" x="319" y="617" width="40" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="C7Z-sO-hfL"/>
-                                    <constraint firstAttribute="height" constant="60" id="m87-iO-3ZM"/>
+                                    <constraint firstAttribute="width" constant="40" id="C7Z-sO-hfL"/>
+                                    <constraint firstAttribute="height" constant="40" id="m87-iO-3ZM"/>
                                 </constraints>
                                 <state key="normal" title="Add">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -355,30 +348,38 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YuC-kk-xa9">
-                                <rect key="frame" x="157" y="597" width="60" height="60"/>
+                                <rect key="frame" x="16" y="617" width="40" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="AG7-fX-M73"/>
-                                    <constraint firstAttribute="height" constant="60" id="k9T-8h-yBg"/>
+                                    <constraint firstAttribute="width" constant="40" id="AG7-fX-M73"/>
+                                    <constraint firstAttribute="height" constant="40" id="k9T-8h-yBg"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="mapIcon"/>
                                 <connections>
                                     <segue destination="zeV-Dj-Nr0" kind="presentation" id="YP1-sZ-RaT"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Finding Pods..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaN-Td-Yqh">
+                                <rect key="frame" x="56" y="577" width="263" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.59607843137254901" green="0.83529411764705885" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="aaN-Td-Yqh" firstAttribute="leading" secondItem="YS4-vR-opX" secondAttribute="leadingMargin" constant="40" id="DGb-g3-Iuz"/>
                             <constraint firstItem="0sT-1M-pmp" firstAttribute="top" secondItem="YuC-kk-xa9" secondAttribute="bottom" constant="10" id="GpB-6s-Drq"/>
-                            <constraint firstItem="1iH-Ct-1Ju" firstAttribute="leading" secondItem="YS4-vR-opX" secondAttribute="leadingMargin" id="J72-yK-6sf"/>
                             <constraint firstItem="rki-0Z-7Ye" firstAttribute="top" secondItem="17M-oY-DiQ" secondAttribute="bottom" constant="8" id="M99-92-D9b"/>
-                            <constraint firstItem="0sT-1M-pmp" firstAttribute="top" secondItem="1iH-Ct-1Ju" secondAttribute="bottom" constant="10" id="Pcd-CX-djT"/>
                             <constraint firstAttribute="leadingMargin" secondItem="rki-0Z-7Ye" secondAttribute="leading" id="SXc-2E-IVd"/>
+                            <constraint firstItem="aaN-Td-Yqh" firstAttribute="centerX" secondItem="YS4-vR-opX" secondAttribute="centerX" id="XDm-cE-SaG"/>
                             <constraint firstItem="jC4-y4-ydE" firstAttribute="trailing" secondItem="YS4-vR-opX" secondAttribute="trailingMargin" id="XWQ-84-cD9"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rki-0Z-7Ye" secondAttribute="trailing" id="XqE-YQ-Ju8"/>
+                            <constraint firstItem="YuC-kk-xa9" firstAttribute="leading" secondItem="YS4-vR-opX" secondAttribute="leadingMargin" id="Y6g-NX-sJ8"/>
                             <constraint firstItem="0sT-1M-pmp" firstAttribute="top" secondItem="3nf-8O-1IM" secondAttribute="bottom" constant="10" id="Zoh-g3-ISJ"/>
                             <constraint firstItem="3nf-8O-1IM" firstAttribute="trailing" secondItem="YS4-vR-opX" secondAttribute="trailingMargin" id="a6V-cw-lmU"/>
                             <constraint firstItem="jC4-y4-ydE" firstAttribute="top" secondItem="Rgu-sx-eag" secondAttribute="bottom" id="aoP-Ru-aYg"/>
-                            <constraint firstItem="YuC-kk-xa9" firstAttribute="centerX" secondItem="YS4-vR-opX" secondAttribute="centerX" id="kcq-tc-kvg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aaN-Td-Yqh" secondAttribute="trailing" constant="40" id="b72-MU-P6f"/>
+                            <constraint firstItem="aaN-Td-Yqh" firstAttribute="top" secondItem="rki-0Z-7Ye" secondAttribute="bottom" constant="30" id="gLk-mj-o4h"/>
                             <constraint firstItem="17M-oY-DiQ" firstAttribute="centerX" secondItem="YS4-vR-opX" secondAttribute="centerX" id="nh5-vW-Adl"/>
                             <constraint firstItem="0sT-1M-pmp" firstAttribute="top" secondItem="rki-0Z-7Ye" secondAttribute="bottom" constant="120" id="pP5-Ra-B6I"/>
                         </constraints>
@@ -389,6 +390,7 @@
                         <outlet property="addButton" destination="3nf-8O-1IM" id="ywV-rn-oNH"/>
                         <outlet property="carousel" destination="rki-0Z-7Ye" id="iuq-SU-ddC"/>
                         <outlet property="podTitle" destination="17M-oY-DiQ" id="3ju-E9-DpB"/>
+                        <outlet property="podsNearbyLabel" destination="aaN-Td-Yqh" id="sf0-Q6-36L"/>
                         <segue destination="Lc6-eU-uf8" kind="show" identifier="toSinglePod" id="rMW-Zx-ooX"/>
                     </connections>
                 </viewController>
@@ -466,7 +468,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bri-3H-icn" id="g68-5Y-NPp">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aid-CS-EmZ">
@@ -626,7 +628,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J2i-ww-2kp" id="5kF-wa-oH6">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Yr-ga-Z05">
@@ -810,7 +812,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zeV-Dj-Nr0" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dnq-uV-iJY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Dnq-uV-iJY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -828,7 +830,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d9f-ko-NdH" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6aW-rp-Fkx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6aW-rp-Fkx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -885,7 +887,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z52-QR-qyO" id="xoZ-K6-m9j">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gLL-ep-XJL">
@@ -957,7 +959,6 @@
         <image name="icons8-hearts" width="100" height="100"/>
         <image name="icons8-unlock" width="100" height="100"/>
         <image name="mapIcon" width="100" height="100"/>
-        <image name="searchIcon" width="100" height="100"/>
         <image name="select-graph" width="100" height="100"/>
         <image name="select-photo" width="100" height="100"/>
     </resources>

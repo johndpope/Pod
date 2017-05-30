@@ -19,6 +19,7 @@ class PodCarouselViewController: UIViewController {
     @IBOutlet var carousel: iCarousel!
     @IBOutlet var addButton: UIButton!
     @IBOutlet weak var podTitle: UILabel!
+    @IBOutlet weak var podsNearbyLabel: UILabel!
     
     var isPresentingForFirstTime = true
     
@@ -60,6 +61,9 @@ class PodCarouselViewController: UIViewController {
         let client = APIClient()
         let location = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
         client.getNearbyPods(location: location) { (pods) in
+            DispatchQueue.main.async {
+                self.podsNearbyLabel.text = "\((pods?.count)!) Pods near you"
+            }
             for pod in pods! {
                 //APIClient().uploadTestPostsToPod(withId: pod.podID)
                 if !self.items.contains(where: { $0.podID == pod.podID }) {
