@@ -156,6 +156,7 @@ class NewPostViewController: UIViewController {
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
                 (result : UIAlertAction) -> Void in
                 APIClient.sharedInstance.getPod(withId: (self.pod?.podID)!, geoHash: (self.pod?.geoHash)!, completion: { (pod_db) in
+                    
                     let identityManager = AWSIdentityManager.default()
                     var userName: String?
                     if let identityUserName = identityManager.identityProfile?.userName {
@@ -163,12 +164,14 @@ class NewPostViewController: UIViewController {
                     } else {
                         userName = NSLocalizedString("Guest User", comment: "Placeholder text for the guest user.")
                     }
+                    self.pod?.userIdList.append(AWSIdentityManager.default().identityId!)
                     pod_db?._userIdList?.append(AWSIdentityManager.default().identityId!)
                     pod_db?._usernameList?.append(userName!)
                     APIClient.sharedInstance.updatePod(pod: pod_db!)
                     self.createPost()
                     
-                })            }
+                })
+            }
             
             alertController.addAction(DestructiveAction)
             alertController.addAction(okAction)

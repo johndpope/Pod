@@ -19,7 +19,7 @@ class Pod {
     var postData: [Posts]
     let isLocked: Bool
     let userNameList: [String]
-    let userIdList: [String]
+    var userIdList: [String]
     let geoHash: String
     
     init(podID: Int, name:String, coordinates: CLLocationCoordinate2D, radius: Double, numPeople: Int, postData: [Posts], isLocked: Bool, userNameList: [String], userIdList: [String], geoHash: String) {

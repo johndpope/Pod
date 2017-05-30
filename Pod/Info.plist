@@ -4,14 +4,6 @@
 <dict>
 	<key>AWS</key>
 	<dict>
-        <key>DynamoDBObjectMapper</key>
-        <dict>
-            <key>Default</key>
-            <dict>
-                <key>Region</key>
-                <string>us-east-1</string>
-            </dict>
-        </dict>
 		<key>CredentialsProvider</key>
 		<dict>
 			<key>CognitoIdentity</key>
@@ -23,6 +15,14 @@
 					<key>Region</key>
 					<string>us-east-1</string>
 				</dict>
+			</dict>
+		</dict>
+		<key>DynamoDBObjectMapper</key>
+		<dict>
+			<key>Default</key>
+			<dict>
+				<key>Region</key>
+				<string>us-east-1</string>
 			</dict>
 		</dict>
 		<key>IdentityManager</key>
