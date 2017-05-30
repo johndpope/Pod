@@ -174,6 +174,7 @@ class NewPostViewController: UIViewController {
         }
         let post = Posts()
         post?._posterName = userName
+        post?._posterImageURL = FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString
         post?._podId = self.pod?.podID as NSNumber?
         post?._numLikes = 0
         post?._numComments = 0

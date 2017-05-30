@@ -27,7 +27,7 @@ class Posts: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _postPoll: [String: String]?
     var _postType: NSNumber?
     var _posterName: String?
-    
+    var _posterImageURL: String?
     class func dynamoDBTableName() -> String {
 
         return "pod-mobilehub-1901037061-Posts"
@@ -55,6 +55,7 @@ class Posts: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                "_postPoll" : "PostPoll",
                "_postType" : "PostType",
                "_posterName" : "PosterName",
+               "_posterImageURL" : "PosterImageURL",
         ]
     }
 }

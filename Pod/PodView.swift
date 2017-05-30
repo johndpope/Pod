@@ -172,16 +172,25 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             //            cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
             //        }
             
-            let identityManager = AWSIdentityManager.default()
-            
-            if let imageURL = identityManager.identityProfile?.imageURL {
-                let imageData = try! Data(contentsOf: imageURL)
-                if let profileImage = UIImage(data: imageData) {
-                    cell.posterPhoto.image = profileImage
-                } else {
-                    cell.posterPhoto.image = UIImage(named: "UserIcon")
-                }
+            let url = URL(string: (postData?._posterImageURL)!)
+            var data = Data()
+            do {
+                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                cell.posterPhoto.image = UIImage(data: data)
+            } catch {
+                cell.posterPhoto.image = UIImage(named: "UserIcon")
             }
+            
+//            let identityManager = AWSIdentityManager.default()
+            
+//            if let imageURL = identityManager.identityProfile?.imageURL {
+//                let imageData = try! Data(contentsOf: imageURL)
+//                if let profileImage = UIImage(data: imageData) {
+//                    cell.posterPhoto.image = profileImage
+//                } else {
+//                    cell.posterPhoto.image = UIImage(named: "UserIcon")
+//                }
+//            }
             return cell
         } else if(postData?._postType as! Int == PostType.photo.hashValue){
             //handle photos

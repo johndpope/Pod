@@ -106,7 +106,6 @@ class FacebookIdentityProfile : AWSIdentityProfile {
         connection.add(graphRequest, completionHandler: { (connection, result, error) in
             if error == nil {
                 if let userData = result as? [String:Any] {
-                    print("Getting facebook friends ... ")
                     print(userData["data"] as! [NSDictionary])
                 }
             } else {

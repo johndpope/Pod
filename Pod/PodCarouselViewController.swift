@@ -20,6 +20,8 @@ class PodCarouselViewController: UIViewController {
     @IBOutlet var addButton: UIButton!
     @IBOutlet weak var podTitle: UILabel!
     
+    var isPresentingForFirstTime = true
+    
     @IBAction func signOut(_ sender: Any) {
         if (AWSSignInManager.sharedInstance().isLoggedIn) {
             AWSSignInManager.sharedInstance().logout(completionHandler: {(result: Any?, authState: AWSIdentityManagerAuthState, error: Error?) in
@@ -50,6 +52,7 @@ class PodCarouselViewController: UIViewController {
         addButton.setImage(UIImage(named:"addIcon"), for: UIControlState.normal)
         addButton.setTitleColor(UIColor.white, for: UIControlState.normal)
         addButton.tintColor = UIColor.white
+        FacebookIdentityProfile._sharedInstance.load()
     }
     
     func getAllPods(){
@@ -97,6 +100,7 @@ class PodCarouselViewController: UIViewController {
         if (success) {
             APIClient.sharedInstance.initClientInfo()
             getAllPods()
+            FacebookIdentityProfile._sharedInstance.load()
         } else {
             // handle cancel operation from user
         }
@@ -133,19 +137,11 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         return value
     }
     
-    //    func carouselDidEndScrollingAnimation(_ carousel: iCarousel) {
-    //        self.podTitle.isHidden = false
-    //    }
-    //
-    //    func carouselWillBeginScrollingAnimation(_ carousel: iCarousel) {
-    //        self.podTitle.isHidden = true
-    //    }
-    
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
         let podView = (view as? PodView != nil) ? view as! PodView : PodView(frame: CGRect(x: 0, y: 0, width: 255, height: 453))
         podView.delegate = self
         podView.podData = items[index]
-        self.podTitle.text = items[index].name
+        self.podTitle.text = self.items[self.carousel.currentItemIndex].name
         return podView
     }
     
@@ -153,7 +149,6 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         let index = carousel.currentItemIndex
         if(items.isEmpty != true){
             self.podTitle.text = items[index].name
-            
         }
     }
     

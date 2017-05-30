@@ -173,11 +173,19 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
             cell.posterBody.text = postData?._postContent
             cell.postLikes.text = String(describing: (postData?._numLikes!)!)
             cell.postComments.text = String(describing: (postData?._numComments!)!)
-            if(APIClient.sharedInstance.profilePicture == nil){
-                cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
-            } else {
-                cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
+            let url = URL(string: (postData?._posterImageURL)!)
+            var data = Data()
+            do {
+                data = try! Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                cell.posterPhoto.image = UIImage(data: data)
+            } catch {
+                cell.posterPhoto.image = UIImage(named: "UserIcon")
             }
+//            if(APIClient.sharedInstance.profilePicture == nil){
+//                cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
+//            } else {
+//                cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
+//            }
             return cell
         } else if(postData?._postType as! Int == PostType.photo.hashValue){
             //handle photos
@@ -187,12 +195,20 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
             cell.posterBody.text = postData?._postContent
             cell.postLikes.text = String(describing: (postData?._numLikes!)!)
             cell.postComments.text = String(describing: (postData?._numComments!)!)
-            if(APIClient.sharedInstance.profilePicture == nil){
-                cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
-            } else {
-                cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
+            let url = URL(string: (postData?._posterImageURL)!)
+            var data = Data()
+            do {
+                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                cell.posterPhoto.image = UIImage(data: data)
+            } catch {
+                cell.posterPhoto.image = UIImage(named: "UserIcon")
             }
-            cell.photoContent.image = UIImage(named: "profile-pic")
+//            if(APIClient.sharedInstance.profilePicture == nil){
+//                cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
+//            } else {
+//                cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
+//            }
+             cell.photoContent.image = UIImage(named: "profile-pic")
             return cell
         } else if(postData?._postType as! Int == PostType.poll.hashValue){
             //handle polls
