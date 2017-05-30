@@ -208,6 +208,16 @@ class APIClient {
         }
     }
     
+    func updatePostInfo(post: Posts){
+        dynamoDBObjectMapper.save(post) { (err) in
+            if let error = err {
+                print("Amazin DynamoDB Save Error: \(error)")
+                return
+            }
+            print("post saved")
+        }
+    }
+    
     func getPod(withId: Int, geoHash: String, completion: @escaping (_ pod: PodList?) ->()){
         let queryExpression = AWSDynamoDBQueryExpression()
         queryExpression.keyConditionExpression = "GeoHashCode = :GeoHashCode AND PodId = :PodId"
@@ -280,5 +290,41 @@ class APIClient {
         })
     }
     
+    func createCommentForPost(withID: String, commentBody: String, completion: @escaping (_ comments: Comments?)->()){
+        let comment = Comments()
+        comment?._userId = AWSIdentityManager.default().identityId
+        comment?._photoURL = FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString
+        comment?._commentBody = commentBody
+        comment?._postId = withID
+        comment?._postDateGMT = NSDate().timeIntervalSince1970 as NSNumber
+        dynamoDBObjectMapper.save(comment!) { (err) in
+            if let error = err {
+                print("Amazin DynamoDB Save Error: \(error)")
+                return
+            }
+            print("comment saved")
+            completion(comment)
+        }
+    }
     
+    func getCommentsForPost(withId: String, completion: @escaping (_ comments: [Comments?])->()){
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.keyConditionExpression = "postId = :postId"
+        
+        queryExpression.expressionAttributeValues = [":postId" : withId]
+        dynamoDBObjectMapper .query(Comments.self, expression: queryExpression) .continueWith(executor: AWSExecutor.mainThread(), block: { (task:AWSTask!) -> AnyObject! in
+            if let error = task.error as NSError? {
+                print("Error: \(error)")
+            } else {
+                if let result = task.result {//(task.result != nil) {
+                    if result.items.count == 0 {
+                        completion([])
+                    } else {
+                        completion(result.items as! [Comments])
+                    }
+                }
+            }
+            return nil
+        })
+    }
 }

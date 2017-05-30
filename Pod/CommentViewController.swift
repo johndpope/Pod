@@ -11,7 +11,10 @@ import UIKit
 import SlackTextViewController
 
 class CommentViewController: SLKTextViewController {
-    var messages: [String] = ["This is a message", "Hey, this is a really really long message. I sure hope that all of this text shows up! If not I am really bad at what I do :("]
+
+    var postData: Posts?
+    var comments: [Comments?] = []
+
     override init(tableViewStyle style: UITableViewStyle) {
         super.init(tableViewStyle: .plain)
     }
@@ -44,6 +47,13 @@ class CommentViewController: SLKTextViewController {
         tableView?.allowsSelection = false
         tableView?.setNeedsLayout()
         tableView?.layoutIfNeeded()
+        
+        APIClient.sharedInstance.getCommentsForPost(withId: (postData?._postId)!) { (comment_arr) in
+            self.comments = comment_arr
+            DispatchQueue.main.async {
+                self.tableView?.reloadData()
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -63,9 +73,18 @@ class CommentViewController: SLKTextViewController {
         if(textView.text == "" ){
             return
         }
-        messages.append(textView.text)
-        tableView?.reloadData()
-        self.tableView!.slk_scrollToBottom(animated: true)
+
+        APIClient.sharedInstance.createCommentForPost(withID: (postData?._postId)!, commentBody: textView.text) { (com) in
+            self.comments.append(com)
+            DispatchQueue.main.async {
+                self.tableView?.reloadData()
+                self.tableView!.slk_scrollToBottom(animated: true)
+            }
+            var numComments : Int = Int((self.postData?._numComments)!)
+            numComments += 1
+            self.postData?._numComments = NSNumber(integerLiteral: numComments)
+            APIClient.sharedInstance.updatePostInfo(post: self.postData!)
+        }
         super.didPressRightButton(sender)
     }
     
@@ -88,17 +107,13 @@ class CommentViewController: SLKTextViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("clicked")
-    }
-    
     // -----------------------
     // TABLE VIEW DATA METHODS
     // -----------------------
     
     //these four functions are a hacky way of setting the cell spacing
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return self.messages.count
+        return self.comments.count
     }
     
     // There is just one row in every section
@@ -127,8 +142,17 @@ class CommentViewController: SLKTextViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
         cell.transform = (self.tableView?.transform)!
         cell.userName.text = "Max"
-        cell.commentBody.text = messages[indexPath.section]
-        cell.profilePic.image = UIImage(named: "profile-pic")
+        let curComment = comments[indexPath.section]
+        cell.commentBody.text = curComment?._commentBody
+        let url = URL(string: (curComment?._photoURL)!)
+        var data = Data()
+        do {
+            
+            data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+            cell.profilePic.image = UIImage(data: data)
+        } catch {
+            cell.profilePic.image = UIImage(named: "UserIcon")
+        }
 //        let chatBubble = UIView(frame: CGRect(x:  cell.commentBody.frame.minX, y: cell.commentBody.frame.minY, width:  cell.commentBody.frame.width, height:  cell.commentBody.frame.height))
 //        chatBubble.layer.cornerRadius = 19;
 //        chatBubble.backgroundColor = UIColor(red: 220/255, green:220/255, blue: 220/255, alpha: 1.0)
