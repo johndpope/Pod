@@ -83,23 +83,20 @@ extension AddMembersViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selected")
+        let cell = tableView.cellForRow(at: indexPath) as! AddMemberTableViewCell
+        if(cell.checkedImage.isHidden){
+            cell.backgroundColor = UIColor(red: 202/255, green: 234/255, blue: 249/255, alpha: 1)
+            cell.checkedImage.image = UIImage(named: "checkMark")
+            cell.checkedImage.isHidden = false
+        } else {
+            cell.backgroundColor = .lightBlue
+            cell.checkedImage.isHidden = true
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
-    }
-    
-    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        var cell = tableView.cellForRow(at: indexPath)
-        cell?.backgroundColor = UIColor(red: 202/255, green: 234/255, blue: 249/255, alpha: 1)
-    }
-    
-    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        var cell = tableView.cellForRow(at: indexPath)
-        cell?.backgroundColor = .lightBlue
-    }
-    
+    }   
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddMemberTableViewCell") as! AddMemberTableViewCell
