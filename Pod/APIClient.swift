@@ -189,7 +189,7 @@ class APIClient {
             } else {
                 if let result = task.result {//(task.result != nil) {
                     if result.items.count == 0 {
-                        completion([], 0)
+                        completion([], -1)
                     } else {
                         completion(result.items as! [Posts], index)
                     }

@@ -73,10 +73,11 @@ class PodCarouselViewController: UIViewController {
     func getLimitedPostsForPods(){
         for i in 0..<self.items.count{
             let pod = self.items[i]
-            APIClient().getPostForPod(withId: (pod.podID), index: i, completion: { (posts, index) in
-                self.items[index].postData = posts as! [Posts]
-                self.carousel.reloadData()
-
+            APIClient().getPostForPod(withId: (pod.podID), index: i, completion: { (posts, j) in
+                if(j != -1){
+                    self.items[j].postData = posts as! [Posts]
+                    self.carousel.reloadData()
+                }
             })
         }
     }
