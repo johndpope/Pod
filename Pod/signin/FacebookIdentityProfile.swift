@@ -27,6 +27,10 @@ class FacebookIdentityProfile : AWSIdentityProfile {
      */
     public var userName: String?
     /**
+     The User Id of a user.
+     */
+    public var userId: String?
+    /**
      The url of the users profile
      */
     public var facebookURL: String?
@@ -105,6 +109,9 @@ class FacebookIdentityProfile : AWSIdentityProfile {
                 if let profileURL = userResult.value(forKey: "link") as? String {
                     self.facebookURL = profileURL
                 }
+                if let userId = userResult.value(forKey: "id") as? String {
+                    self.userId = userId
+                }
         })
         userConnection.start()
     }
@@ -123,7 +130,7 @@ class FacebookIdentityProfile : AWSIdentityProfile {
                         if let user = friend as? [String:Any] {
                             let userInfo = UserInformation()
                             userInfo?._profileURL = user["link"] as! String
-                            userInfo?._userId = user["id"] as! String
+                            userInfo?._facebookId = user["id"] as! String
                             userInfo?._username = user["name"] as! String
                             userInfo?._photoURL = ((user["picture"]as? [String:Any])?["data"] as? [String:Any])?["url"] as! String
                             self.inAppFriends?.append(userInfo!)

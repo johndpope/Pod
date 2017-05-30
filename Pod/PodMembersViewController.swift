@@ -66,6 +66,7 @@ class PodMembersViewController: UIViewController {
         } else if(segue.identifier == "toAddMembersView"){
             if let nextVC = segue.destination as? AddMembersViewController {
                 nextVC.pod = self.pod
+                nextVC.members = self.members
             }
         }
     }

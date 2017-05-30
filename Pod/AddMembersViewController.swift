@@ -15,6 +15,8 @@ class AddMembersViewController: UIViewController {
     
     var pod: Pod?
     var friends: [UserInformation] = []
+    var members: [UserInformation] = []
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +28,8 @@ class AddMembersViewController: UIViewController {
         friendTableView.backgroundColor = .lightBlue
         view.backgroundColor = .lightBlue
         for friend in FacebookIdentityProfile._sharedInstance.inAppFriends!{
-            if(!(pod?.userIdList.contains(friend._userId!))!){
-                self.friends.append(friend)
-                self.friendTableView.reloadData()
+            if !members.contains(where: { $0._facebookId == friend._facebookId }) {
+                friends.append(friend)
             }
         }
         
