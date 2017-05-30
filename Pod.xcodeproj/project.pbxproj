@@ -43,6 +43,7 @@
 		95B9C3761EDD336F00954D4C /* PodList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3751EDD336F00954D4C /* PodList.swift */; };
 		95B9C3791EDD518900954D4C /* PodMembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3781EDD518900954D4C /* PodMembersViewController.swift */; };
 		95B9C37E1EDD52FA00954D4C /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C37C1EDD52FA00954D4C /* MemberTableViewCell.swift */; };
+		95B9C3811EDD5D2800954D4C /* UserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3801EDD5D2800954D4C /* UserInformation.swift */; };
 		95C8C3A31ED39ABC004A2A29 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */; };
 		95C8C3A81ED3A00F004A2A29 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */; };
 		95C8C3A91ED3A00F004A2A29 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C8C3A71ED3A00F004A2A29 /* CommentTableViewCell.xib */; };
@@ -127,6 +128,7 @@
 		95B9C3751EDD336F00954D4C /* PodList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodList.swift; sourceTree = "<group>"; };
 		95B9C3781EDD518900954D4C /* PodMembersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodMembersViewController.swift; sourceTree = "<group>"; };
 		95B9C37C1EDD52FA00954D4C /* MemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
+		95B9C3801EDD5D2800954D4C /* UserInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInformation.swift; sourceTree = "<group>"; };
 		95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		95C8C3A71ED3A00F004A2A29 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			children = (
 				9534F4F51EDB990A0094A007 /* Posts.swift */,
 				95B9C3751EDD336F00954D4C /* PodList.swift */,
+				95B9C3801EDD5D2800954D4C /* UserInformation.swift */,
 			);
 			path = NoSQL;
 			sourceTree = "<group>";
@@ -536,6 +539,7 @@
 				9534F4DD1EDB50050094A007 /* FacebookIdentityProfile.swift in Sources */,
 				F4E9DE371EDB4A0E0089BA13 /* PodMapViewController.swift in Sources */,
 				95D14F291EBE9A5F0049C58A /* PodCreationViewController.swift in Sources */,
+				95B9C3811EDD5D2800954D4C /* UserInformation.swift in Sources */,
 				95C8C3A31ED39ABC004A2A29 /* CommentViewController.swift in Sources */,
 				F4E9DE391EDB51D80089BA13 /* NewPodMapViewController.swift in Sources */,
 				95D14F251EBE8C410049C58A /* PodData.swift in Sources */,

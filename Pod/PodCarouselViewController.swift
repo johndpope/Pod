@@ -102,6 +102,7 @@ class PodCarouselViewController: UIViewController {
             APIClient.sharedInstance.initClientInfo()
             getAllPods()
             FacebookIdentityProfile._sharedInstance.load()
+            APIClient.sharedInstance.createUser(withId: AWSIdentityManager.default().identityId!, name: FacebookIdentityProfile._sharedInstance.userName!, photoURL: (FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString)!)
         } else {
             // handle cancel operation from user
         }

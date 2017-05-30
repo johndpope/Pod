@@ -60,13 +60,11 @@ class APIClient {
             let result = task.result!
             let responseString = String(data: result.responseData!, encoding: .utf8)
             
-            print(responseString!)
             // convert String to NSData
             let dict = self.convertToDictionary(text: responseString!)
 
             
             var nearbyPods: [Pod	]? = []
-            print(dict)
             for(_, val) in dict! {
                 let curPod = val as! Dictionary<String, Any>
                 let podName = curPod["Name"] as! String
@@ -241,6 +239,43 @@ class APIClient {
             }
             print("post saved")
         }
+    }
+    
+    func createUser(withId: String, name: String, photoURL: String){
+        let userInfo = UserInformation()
+        userInfo?._userId = withId
+        userInfo?._photoURL = photoURL
+        userInfo?._username = name
+        dynamoDBObjectMapper.save(userInfo!) { (err) in
+            if let error = err {
+                print("Amazin DynamoDB Save Error: \(error)")
+                return
+            }
+            print("post saved")
+        }
+    }
+    
+    func getUser(withId: String, completion: @escaping (_ pod: UserInformation?) ->()){
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.keyConditionExpression = "userId = :userId"
+        
+        queryExpression.expressionAttributeValues = [":userId" : withId]
+        dynamoDBObjectMapper .query(UserInformation.self, expression: queryExpression) .continueWith(executor: AWSExecutor.mainThread(), block: { (task:AWSTask!) -> AnyObject! in
+            if let error = task.error as NSError? {
+                print("Error: \(error)")
+            } else {
+                if let result = task.result {//(task.result != nil) {
+                    if result.items.count == 0 {
+                        completion(nil)
+                    } else {
+                        for r in result.items as! [UserInformation]{
+                            completion(r)
+                        }
+                    }
+                }
+            }
+            return nil
+        })
     }
     
     

@@ -14,6 +14,7 @@ class PodMembersViewController: UIViewController {
     @IBOutlet weak var podTitle: UILabel!
     
     var pod: Pod?
+    var members: [UserInformation] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,13 @@ class PodMembersViewController: UIViewController {
         tableView.layoutIfNeeded()
         tableView.backgroundColor = .lightBlue
         view.backgroundColor = .lightBlue
+        for id in (pod?.userIdList)!{
+            APIClient().getUser(withId: id, completion: { (uinfo) in
+                self.members.append(uinfo!)
+                self.tableView.reloadData()
+            })
+        }
+        
         // Do any additional setup after loading the view.
     }
 
@@ -66,7 +74,7 @@ extension PodMembersViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (pod?.userNameList.count)!
+        return members.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -76,8 +84,16 @@ extension PodMembersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MemberTableViewCell") as! MemberTableViewCell
-        cell.name.text = pod?.userNameList[indexPath.row]
-        cell.profilePic.image = UIImage(named: "profile-pic")
+        cell.name.text = members[indexPath.row]._username
+        
+        let url = URL(string: members[indexPath.row]._photoURL!)
+        var data = Data()
+        do {
+            data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+            cell.profilePic.image = UIImage(data: data)
+        } catch {
+            cell.profilePic.image = UIImage(named: "UserIcon")
+        }
         return cell
     }
     
