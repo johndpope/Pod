@@ -76,9 +76,9 @@ class PodCarouselViewController: UIViewController {
             APIClient().getPostForPod(withId: (pod.podID), index: i, completion: { (posts, index) in
                 self.items[index].postData = posts as! [Posts]
                 self.carousel.reloadData()
+
             })
         }
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){

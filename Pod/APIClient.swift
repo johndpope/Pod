@@ -60,42 +60,29 @@ class APIClient {
             let result = task.result!
             let responseString = String(data: result.responseData!, encoding: .utf8)
             
-            //print(responseString!)
+            print(responseString!)
             // convert String to NSData
             let dict = self.convertToDictionary(text: responseString!)
-            //            var podList: [PodStruct]? = []
-            //
-            //            for (_, val) in dict! {
-            //                let curPod = val as! Dictionary<String, Any>
-            //                print(curPod)
-            //                //Create fake post details
-            //                let arroyoContent = PostDetails(posterName: "Arroyo", postText: "Come to the lougne for the hosue meeting!", numHearts: 13, numComments: 4)
-            //                let content = PostDetails(posterName: "Adad M.", postText: "Push me to the edge! All my friends are dead! Push me to the edge! all my friends are dead! 2017", numHearts: 26, numComments: 6)
-            //                let photoContent = PostDetails(posterName: "Max Freundlich", photo: UIImage(named: "profile-pic")!, postText: "Check out this dank pic of me", numHearts: 100, numComments: 12)
-            //                let pod = PodStruct(title: curPod["Name"] as! String, postData: [arroyoContent, content, photoContent])
-            //                podList?.append(pod)
-            //            }
-            //            completion(podList)
+
             
-            var nearbyPods: [Pod]? = []
-            print(dict!)
+            var nearbyPods: [Pod	]? = []
+            print(dict)
             for(_, val) in dict! {
                 let curPod = val as! Dictionary<String, Any>
                 let podName = curPod["Name"] as! String
                 let coordinates = CLLocationCoordinate2D(latitude: curPod["Latitude"] as! Double, longitude: curPod["Longitude"] as! Double)
                 // NOTE: gotta implement this
                 let radius = 5.0
-                let userList = curPod["UserList"] as! [String]
-                let numPeople = userList.count
+                let userIdList = curPod["UserIdList"] as! [String]
+                let numPeople = userIdList.count
                 let podID = curPod["PodId"] as! Int
                 let isLocked = curPod["IsPrivate"] as! Bool
-                let pod = Pod(podID: podID, name: podName, coordinates: coordinates, radius: radius, numPeople: numPeople, postData: [], isLocked: isLocked)
+                let userNameList = curPod["UserList"] as! [String]
+                let geoHash = curPod["GeoHash"] as! String
+                let pod = Pod(podID: podID, name: podName, coordinates: coordinates, radius: radius, numPeople: numPeople, postData: [], isLocked: isLocked, userNameList: userNameList, userIdList: userIdList, geoHash: geoHash)
                 nearbyPods?.append(pod)
             }
             completion(nearbyPods)
-            
-            
-            
             
             return nil
         }
@@ -215,6 +202,39 @@ class APIClient {
     func createNewPostForPod(withId: Int, post: Posts) {
         post._postId = UUID().uuidString
         dynamoDBObjectMapper.save(post) { (err) in
+            if let error = err {
+                print("Amazin DynamoDB Save Error: \(error)")
+                return
+            }
+            print("post saved")
+        }
+    }
+    
+    func getPod(withId: Int, geoHash: String, completion: @escaping (_ pod: PodList?) ->()){
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.keyConditionExpression = "GeoHashCode = :GeoHashCode AND PodId = :PodId"
+        
+        queryExpression.expressionAttributeValues = [":PodId" : withId, ":GeoHashCode": geoHash ]
+        dynamoDBObjectMapper .query(PodList.self, expression: queryExpression) .continueWith(executor: AWSExecutor.mainThread(), block: { (task:AWSTask!) -> AnyObject! in
+            if let error = task.error as NSError? {
+                print("Error: \(error)")
+            } else {
+                if let result = task.result {//(task.result != nil) {
+                    if result.items.count == 0 {
+                        completion(nil)
+                    } else {
+                        for r in result.items as! [PodList]{
+                            completion(r)
+                        }
+                    }
+                }
+            }
+            return nil
+        })
+    }
+    
+    func updatePod(pod: PodList){
+        dynamoDBObjectMapper.save(pod) { (err) in
             if let error = err {
                 print("Amazin DynamoDB Save Error: \(error)")
                 return

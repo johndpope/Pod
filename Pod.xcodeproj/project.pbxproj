@@ -39,6 +39,10 @@
 		95902ACC1ED8EA810008792A /* PodPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95902ACA1ED8EA810008792A /* PodPostTableViewCell.swift */; };
 		95902ACD1ED8EA810008792A /* PodPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95902ACB1ED8EA810008792A /* PodPostTableViewCell.xib */; };
 		9599E2801ED68FB40078328A /* PodPrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9599E27F1ED68FB40078328A /* PodPrivacyViewController.swift */; };
+		95B9C3721EDCF1ED00954D4C /* CreatePollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3711EDCF1ED00954D4C /* CreatePollViewController.swift */; };
+		95B9C3761EDD336F00954D4C /* PodList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3751EDD336F00954D4C /* PodList.swift */; };
+		95B9C3791EDD518900954D4C /* PodMembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3781EDD518900954D4C /* PodMembersViewController.swift */; };
+		95B9C37E1EDD52FA00954D4C /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C37C1EDD52FA00954D4C /* MemberTableViewCell.swift */; };
 		95C8C3A31ED39ABC004A2A29 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */; };
 		95C8C3A81ED3A00F004A2A29 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */; };
 		95C8C3A91ED3A00F004A2A29 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C8C3A71ED3A00F004A2A29 /* CommentTableViewCell.xib */; };
@@ -119,6 +123,10 @@
 		95902ACE1EDA89E90008792A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = Pod/Sdk/Facebook/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		95902ACF1EDA89E90008792A /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = Pod/Sdk/Facebook/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		9599E27F1ED68FB40078328A /* PodPrivacyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodPrivacyViewController.swift; sourceTree = "<group>"; };
+		95B9C3711EDCF1ED00954D4C /* CreatePollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePollViewController.swift; sourceTree = "<group>"; };
+		95B9C3751EDD336F00954D4C /* PodList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodList.swift; sourceTree = "<group>"; };
+		95B9C3781EDD518900954D4C /* PodMembersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodMembersViewController.swift; sourceTree = "<group>"; };
+		95B9C37C1EDD52FA00954D4C /* MemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
 		95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		95C8C3A71ED3A00F004A2A29 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
@@ -255,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				9534F4F51EDB990A0094A007 /* Posts.swift */,
+				95B9C3751EDD336F00954D4C /* PodList.swift */,
 			);
 			path = NoSQL;
 			sourceTree = "<group>";
@@ -266,6 +275,18 @@
 				9559D0731EC8F1E800BAC3F5 /* iCarousel.h */,
 			);
 			path = iCarousel;
+			sourceTree = "<group>";
+		};
+		95B9C3771EDD514F00954D4C /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				9578B5931ED3E4370096A518 /* NewPostViewController.swift */,
+				95902ACA1ED8EA810008792A /* PodPostTableViewCell.swift */,
+				95902ACB1ED8EA810008792A /* PodPostTableViewCell.xib */,
+				9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */,
+				9534F4E31EDB79C70094A007 /* PhotoPostTableViewCell.xib */,
+			);
+			name = Posts;
 			sourceTree = "<group>";
 		};
 		95D14F2A1EBE9A630049C58A /* Pod Table View */ = {
@@ -309,6 +330,7 @@
 		F4BECB2E1EBD682D00B98BA8 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
+				95B9C3771EDD514F00954D4C /* Posts */,
 				9534F4E91EDB990A0094A007 /* AmazonAws */,
 				95309FE91ED67B41008A7A7F /* Sdk */,
 				9534F4D91EDB50050094A007 /* signin */,
@@ -335,12 +357,10 @@
 				95D14F261EBE993E0049C58A /* PodTabBarController.swift */,
 				95D14F281EBE9A5F0049C58A /* PodCreationViewController.swift */,
 				95D14F2B1EBEA0A70049C58A /* Constants.swift */,
-				9578B5931ED3E4370096A518 /* NewPostViewController.swift */,
 				957741B61ED7911F00FB8739 /* APIClient.swift */,
-				95902ACA1ED8EA810008792A /* PodPostTableViewCell.swift */,
-				95902ACB1ED8EA810008792A /* PodPostTableViewCell.xib */,
-				9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */,
-				9534F4E31EDB79C70094A007 /* PhotoPostTableViewCell.xib */,
+				95B9C3711EDCF1ED00954D4C /* CreatePollViewController.swift */,
+				95B9C3781EDD518900954D4C /* PodMembersViewController.swift */,
+				95B9C37C1EDD52FA00954D4C /* MemberTableViewCell.swift */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -492,6 +512,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95B9C3721EDCF1ED00954D4C /* CreatePollViewController.swift in Sources */,
 				9534F4DF1EDB50050094A007 /* SignInViewController.swift in Sources */,
 				9534F4F71EDB990A0094A007 /* AWSConfiguration.swift in Sources */,
 				9534F4FA1EDB990A0094A007 /* AWSMobileClient.swift in Sources */,
@@ -505,6 +526,8 @@
 				F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */,
 				F4BECB491EBE6D3D00B98BA8 /* UIColor+Pod.swift in Sources */,
 				F4A3BE381ECBAC180032B3E3 /* PodView.swift in Sources */,
+				95B9C3791EDD518900954D4C /* PodMembersViewController.swift in Sources */,
+				95B9C3761EDD336F00954D4C /* PodList.swift in Sources */,
 				95D14F211EBD7F580049C58A /* PodTableViewSectionHeader.swift in Sources */,
 				95C8C3A81ED3A00F004A2A29 /* CommentTableViewCell.swift in Sources */,
 				957741B71ED7911F00FB8739 /* APIClient.swift in Sources */,
@@ -520,6 +543,7 @@
 				9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */,
 				95D14F191EBD738A0049C58A /* PodTableViewController.swift in Sources */,
 				95D14F2C1EBEA0A70049C58A /* Constants.swift in Sources */,
+				95B9C37E1EDD52FA00954D4C /* MemberTableViewCell.swift in Sources */,
 				9578B5941ED3E4370096A518 /* NewPostViewController.swift in Sources */,
 				95902ACC1ED8EA810008792A /* PodPostTableViewCell.swift in Sources */,
 				9534F4F61EDB990A0094A007 /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m in Sources */,

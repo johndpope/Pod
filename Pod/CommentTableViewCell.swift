@@ -21,9 +21,6 @@ class CommentTableViewCell: UITableViewCell {
         // Initialization code
         super.awakeFromNib()
         // Initialization code
-        profilePic.layer.borderWidth = 1
-        profilePic.layer.masksToBounds = false
-        profilePic.layer.borderColor = UIColor.black.cgColor
         profilePic.layer.cornerRadius = profilePic.frame.height/2
         profilePic.clipsToBounds = true
         userName.font = UIFont.systemFont(ofSize: 11)

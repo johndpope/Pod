@@ -143,6 +143,40 @@ class NewPostViewController: UIViewController {
     }
     
     @IBAction func createNewPost(_ sender: UIButton) {
+        if(pod?.userIdList.contains(AWSIdentityManager.default().identityId!))!{
+            createPost()
+        } else {
+            let alertController = UIAlertController(title: "Join Pod?", message: "To post to this pod you have to join first. Click 'Join' to join the conversation", preferredStyle: UIAlertControllerStyle.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
+            let DestructiveAction = UIAlertAction(title: "Leave", style: UIAlertActionStyle.destructive) {
+                (result : UIAlertAction) -> Void in
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+            // Replace UIAlertActionStyle.Default by UIAlertActionStyle.default
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+                (result : UIAlertAction) -> Void in
+                APIClient.sharedInstance.getPod(withId: (self.pod?.podID)!, geoHash: (self.pod?.geoHash)!, completion: { (pod_db) in
+                    let identityManager = AWSIdentityManager.default()
+                    var userName: String?
+                    if let identityUserName = identityManager.identityProfile?.userName {
+                        userName = identityUserName
+                    } else {
+                        userName = NSLocalizedString("Guest User", comment: "Placeholder text for the guest user.")
+                    }
+                    pod_db?._userIdList?.append(AWSIdentityManager.default().identityId!)
+                    pod_db?._usernameList?.append(userName!)
+                    APIClient.sharedInstance.updatePod(pod: pod_db!)
+                    self.createPost()
+                    
+                })            }
+            
+            alertController.addAction(DestructiveAction)
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func createPost(){
         var hasImage = false
         let range = NSRange(location: 0, length: textView.attributedText.length)
         if (textView.textStorage.containsAttachments(in: range)) {
@@ -157,7 +191,6 @@ class NewPostViewController: UIViewController {
                     if attachment != nil {
                         if attachment!.image != nil {
                             // your code to use attachment!.image as appropriate
-                            print("IMAGE!")
                             hasImage = true
                         }
                     }
@@ -194,7 +227,7 @@ class NewPostViewController: UIViewController {
         APIClient().createNewPostForPod(withId: (self.pod?.podID)!, post: post!)
         
         self.delegate?.postCreated(post: post!)
-
+        
         dismiss(animated: true, completion: nil)
     }
 

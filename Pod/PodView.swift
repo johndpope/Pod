@@ -22,7 +22,7 @@ class PodView: UIView {
         return tableView
     }()
     
-    private lazy var joinButton: UIButton = {
+    lazy var joinButton: UIButton = {
         let joinButton = UIButton()
         joinButton.backgroundColor = .lightBlue
         joinButton.layer.cornerRadius = 7.0
@@ -33,7 +33,7 @@ class PodView: UIView {
         return joinButton
     }()
     
-    private lazy var blurEffectView: UIView = {
+    lazy var blurEffectView: UIView = {
         if self.lockedPod && !UIAccessibilityIsReduceTransparencyEnabled() {
             let blurEffect = UIBlurEffect(style: .light)
             let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -46,11 +46,12 @@ class PodView: UIView {
         }
     }()
     
+    var viewLoaded = false
     var lockedPod = false
     var podData: Pod?
     weak var delegate: PodViewDelegate?
     
-    private lazy var lockImageView: UIImageView = {
+    lazy var lockImageView: UIImageView = {
         let lockImageView = UIImageView(image: UIImage(named: "lock"))
         return lockImageView
     }()
@@ -67,6 +68,9 @@ class PodView: UIView {
         
         addSubview(tableView.usingAutolayout())
         addSubview(blurEffectView.usingAutolayout())
+        //self.addSubview(self.lockImageView)
+        //self.addSubview(self.joinButton)
+        //setUpLockedView()
 
         let nib = UINib(nibName: "PodPostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
@@ -80,49 +84,26 @@ class PodView: UIView {
         tableView.allowsSelection = false
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
+        setupTableViewContraints()
         setupConstraints()
-
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    override func awakeFromNib() {
-        lockedPod = (podData?.isLocked)!
-        addSubview(lockImageView.usingAutolayout())
-        addSubview(joinButton.usingAutolayout())
-        if lockedPod {
-            /// Lock ImageView
-            NSLayoutConstraint.activate([
-                lockImageView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: -46.0),
-                lockImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-                lockImageView.widthAnchor.constraint(equalToConstant: 67.0),
-                lockImageView.heightAnchor.constraint(equalToConstant: 87.0)
-                ])
-            
-            // Join Button
-            NSLayoutConstraint.activate([
-                joinButton.topAnchor.constraint(equalTo: centerYAnchor, constant: 24.5),
-                joinButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-                joinButton.widthAnchor.constraint(equalToConstant: 191.0),
-                joinButton.heightAnchor.constraint(equalToConstant: 34.0)
-                ])
-        }
-    }
     // MARK: - Helper Methods
     
-    private func setupConstraints() {
-        
-        // Table View
+    private func setupTableViewContraints(){
+    // Table View
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topAnchor),
             tableView.leftAnchor.constraint(equalTo: leftAnchor),
             tableView.rightAnchor.constraint(equalTo: rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
-            ])
-        
+        ])
+    }
+    
+    private func setupBlurConstraints(){
         // Blur View
         NSLayoutConstraint.activate([
             blurEffectView.topAnchor.constraint(equalTo: topAnchor),
@@ -132,9 +113,61 @@ class PodView: UIView {
             ])
     }
     
+    private func setupConstraints() {
+        
+        
+        // Blur View
+        NSLayoutConstraint.activate([
+            blurEffectView.topAnchor.constraint(equalTo: topAnchor),
+            blurEffectView.leftAnchor.constraint(equalTo: leftAnchor),
+            blurEffectView.rightAnchor.constraint(equalTo: rightAnchor),
+            blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            ])
+        
+//        NSLayoutConstraint.activate([
+//            lockImageView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: -46.0),
+//            lockImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            lockImageView.widthAnchor.constraint(equalToConstant: 67.0),
+//            lockImageView.heightAnchor.constraint(equalToConstant: 87.0)
+//            ])
+//        
+//        // Join Button
+//        NSLayoutConstraint.activate([
+//            joinButton.topAnchor.constraint(equalTo: centerYAnchor, constant: 24.5),
+//            joinButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            joinButton.widthAnchor.constraint(equalToConstant: 191.0),
+//            joinButton.heightAnchor.constraint(equalToConstant: 34.0)
+//            ])
+    }
+    
     func toSinglePod() {
         if let delegate = delegate {
             delegate.toSinglePod(podData!)
+        }
+    }
+    var setupSubViews = false
+    
+    func setUpLockedView(){
+        DispatchQueue.global(qos: .userInitiated).async {
+            while(self.setupSubViews == false){
+                if(self.podData != nil){
+                    self.setupSubViews = true
+                    // Bounce back to the main thread to update the UI
+                    if(self.podData?.isLocked)!{
+                        DispatchQueue.main.async {
+                            self.addSubview(self.blurEffectView)
+                            self.addSubview(self.lockImageView)
+                            self.addSubview(self.joinButton)
+                            self.setupConstraints()
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.addSubview(self.blurEffectView)
+                            self.setupBlurConstraints()
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -158,6 +191,7 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         if podData == nil ||  postData == nil{
             return UITableViewCell()
         }
+        
         if(postData?._postType as! Int == PostType.text.hashValue){
             //handle text
             let cell = tableView.dequeueReusableCell(withIdentifier: "PodPostTableViewCell") as! PodPostTableViewCell

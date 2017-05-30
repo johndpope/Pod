@@ -46,6 +46,14 @@ class PodViewController: UIViewController, PostCreationDelegate {
         return closeButton
     }()
     
+    private lazy var membersButton: UIButton = {
+        let membersButton = UIButton()
+        membersButton.setImage(UIImage(named: "members-icon"), for: UIControlState.normal)
+        membersButton.setTitleColor(.white, for: .normal)
+        membersButton.addTarget(self, action: #selector(viewMembers), for: .touchUpInside)
+        return membersButton
+    }()
+    
     let postButtonHeight: CGFloat = 50.0
     let titleTopMargin: CGFloat = 11.0 + UIApplication.shared.statusBarFrame.height
     let titleBottomMargin: CGFloat = 6.0
@@ -61,6 +69,7 @@ class PodViewController: UIViewController, PostCreationDelegate {
         view.addSubview(tableView.usingAutolayout())
         view.addSubview(postButton.usingAutolayout())
         view.addSubview(closeButton.usingAutolayout())
+        view.addSubview(membersButton.usingAutolayout())
         let nib = UINib(nibName: "PodPostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
         let photoNib = UINib(nibName: "PhotoPostTableViewCell", bundle: nil)
@@ -104,13 +113,26 @@ class PodViewController: UIViewController, PostCreationDelegate {
         
         // Close Button
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 8.0),
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20.0),
             closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8.0)
+            ])
+        
+        NSLayoutConstraint.activate([
+            membersButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20.0),
+            membersButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8.0),
+            membersButton.heightAnchor.constraint(equalToConstant: 40),
+            membersButton.widthAnchor.constraint(equalToConstant: 40)
             ])
     }
     
     func toNewPost() {
         performSegue(withIdentifier: "toNewPost", sender: nil)
+    }
+    
+    func viewMembers() {
+        //dismiss(animated: true, completion: nil)
+        //self.navigationController?.popViewController(animated: true)
+        performSegue(withIdentifier: "toMemberView", sender: nil)
     }
     
     func closePod() {
@@ -126,6 +148,10 @@ class PodViewController: UIViewController, PostCreationDelegate {
         } else if(segue.identifier == "toNewPost"){
             if let nextVC = segue.destination as? NewPostViewController {
                 nextVC.delegate = self
+                nextVC.pod = self.podData
+            }
+        } else if(segue.identifier == "toMemberView"){
+            if let nextVC = segue.destination as? PodMembersViewController {
                 nextVC.pod = self.podData
             }
         }
@@ -181,11 +207,6 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
             } catch {
                 cell.posterPhoto.image = UIImage(named: "UserIcon")
             }
-//            if(APIClient.sharedInstance.profilePicture == nil){
-//                cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
-//            } else {
-//                cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
-//            }
             return cell
         } else if(postData?._postType as! Int == PostType.photo.hashValue){
             //handle photos
@@ -203,11 +224,6 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
             } catch {
                 cell.posterPhoto.image = UIImage(named: "UserIcon")
             }
-//            if(APIClient.sharedInstance.profilePicture == nil){
-//                cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
-//            } else {
-//                cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
-//            }
              cell.photoContent.image = UIImage(named: "profile-pic")
             return cell
         } else if(postData?._postType as! Int == PostType.poll.hashValue){
