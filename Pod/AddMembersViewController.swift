@@ -36,6 +36,13 @@ class AddMembersViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        friends.removeAll()
+        members.removeAll()
+        friendTableView.reloadData()
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
