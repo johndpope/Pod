@@ -53,6 +53,7 @@ class PodCarouselViewController: UIViewController {
         addButton.setTitleColor(UIColor.white, for: UIControlState.normal)
         addButton.tintColor = UIColor.white
         FacebookIdentityProfile._sharedInstance.load()
+        FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
     }
     
     func getAllPods(){
@@ -102,7 +103,8 @@ class PodCarouselViewController: UIViewController {
             APIClient.sharedInstance.initClientInfo()
             getAllPods()
             FacebookIdentityProfile._sharedInstance.load()
-            APIClient.sharedInstance.createUser(withId: AWSIdentityManager.default().identityId!, name: FacebookIdentityProfile._sharedInstance.userName!, photoURL: (FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString)!)
+            FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
+            APIClient.sharedInstance.createUser(withId: AWSIdentityManager.default().identityId!, name: FacebookIdentityProfile._sharedInstance.userName!, photoURL: (FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString)!, profileURL: FacebookIdentityProfile._sharedInstance.facebookURL!)
         } else {
             // handle cancel operation from user
         }
@@ -117,7 +119,7 @@ class PodCarouselViewController: UIViewController {
             let navController = UINavigationController(rootViewController: loginController)
             navigationController?.present(navController, animated: true, completion: nil)
         } else {
-            FacebookIdentityProfile().getFriendsOnApp()
+
         }
     }
     

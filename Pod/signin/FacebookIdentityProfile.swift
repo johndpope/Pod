@@ -26,6 +26,15 @@ class FacebookIdentityProfile : AWSIdentityProfile {
      The User Name of a user.
      */
     public var userName: String?
+    /**
+     The url of the users profile
+     */
+    public var facebookURL: String?
+    /**
+     In app friends
+     */
+    public var inAppFriends: [UserInformation]? = []
+    
     fileprivate var facebookProfileAttributes : [String : Any]
     
     init() {
@@ -86,12 +95,15 @@ class FacebookIdentityProfile : AWSIdentityProfile {
         })
         imageConnection.start()
         
-        let userGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, email"])
+        let userGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, email, link"])
         let userConnection = FBSDKGraphRequestConnection()
         userConnection.add(userGraphRequest, completionHandler: { (connection, result, error) in
             guard let userResult = result as? NSDictionary else { return }
                 if let userName = userResult.value(forKey: "name")  as? String {
                     self.userName = userName
+                }
+                if let profileURL = userResult.value(forKey: "link") as? String {
+                    self.facebookURL = profileURL
                 }
         })
         userConnection.start()
@@ -99,14 +111,24 @@ class FacebookIdentityProfile : AWSIdentityProfile {
     // Set any additional proflie attributes here. This method is called after a user signs in with a provider.
     
     func getFriendsOnApp(){
-        let params = ["fields": "id, first_name, last_name, name, email, picture"]
+        let params = ["fields": "id, first_name, last_name, name, email, picture, link"]
         
         let graphRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: params)
         let connection = FBSDKGraphRequestConnection()
         connection.add(graphRequest, completionHandler: { (connection, result, error) in
             if error == nil {
                 if let userData = result as? [String:Any] {
-                    //print(userData["data"] as! [NSDictionary])
+                    let data = userData["data"] as! [NSDictionary]
+                    for friend in data {
+                        if let user = friend as? [String:Any] {
+                            let userInfo = UserInformation()
+                            userInfo?._profileURL = user["link"] as! String
+                            userInfo?._userId = user["id"] as! String
+                            userInfo?._username = user["name"] as! String
+                            userInfo?._photoURL = ((user["picture"]as? [String:Any])?["data"] as? [String:Any])?["url"] as! String
+                            self.inAppFriends?.append(userInfo!)
+                        }
+                    }
                 }
             } else {
                 print("Error Getting Friends \(error)");

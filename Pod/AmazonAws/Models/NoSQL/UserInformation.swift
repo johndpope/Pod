@@ -20,6 +20,7 @@ class UserInformation: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _userId: String?
     var _photoURL: String?
     var _username: String?
+    var _profileURL: String?
     
     class func dynamoDBTableName() -> String {
 
@@ -36,6 +37,7 @@ class UserInformation: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                "_userId" : "userId",
                "_photoURL" : "photoURL",
                "_username" : "username",
+               "_profileURL" : "profileURL",
         ]
     }
 }

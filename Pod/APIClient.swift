@@ -241,11 +241,12 @@ class APIClient {
         }
     }
     
-    func createUser(withId: String, name: String, photoURL: String){
+    func createUser(withId: String, name: String, photoURL: String, profileURL: String){
         let userInfo = UserInformation()
         userInfo?._userId = withId
         userInfo?._photoURL = photoURL
         userInfo?._username = name
+        userInfo?._profileURL = profileURL
         dynamoDBObjectMapper.save(userInfo!) { (err) in
             if let error = err {
                 print("Amazin DynamoDB Save Error: \(error)")

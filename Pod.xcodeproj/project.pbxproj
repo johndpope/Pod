@@ -44,6 +44,9 @@
 		95B9C3791EDD518900954D4C /* PodMembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3781EDD518900954D4C /* PodMembersViewController.swift */; };
 		95B9C37E1EDD52FA00954D4C /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C37C1EDD52FA00954D4C /* MemberTableViewCell.swift */; };
 		95B9C3811EDD5D2800954D4C /* UserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3801EDD5D2800954D4C /* UserInformation.swift */; };
+		95B9C3831EDE090800954D4C /* MemberProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3821EDE090800954D4C /* MemberProfileViewController.swift */; };
+		95B9C3851EDE11FB00954D4C /* AddMembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3841EDE11FB00954D4C /* AddMembersViewController.swift */; };
+		95B9C3871EDE12AB00954D4C /* AddMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3861EDE12AB00954D4C /* AddMemberTableViewCell.swift */; };
 		95C8C3A31ED39ABC004A2A29 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */; };
 		95C8C3A81ED3A00F004A2A29 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */; };
 		95C8C3A91ED3A00F004A2A29 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C8C3A71ED3A00F004A2A29 /* CommentTableViewCell.xib */; };
@@ -129,6 +132,9 @@
 		95B9C3781EDD518900954D4C /* PodMembersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodMembersViewController.swift; sourceTree = "<group>"; };
 		95B9C37C1EDD52FA00954D4C /* MemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
 		95B9C3801EDD5D2800954D4C /* UserInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInformation.swift; sourceTree = "<group>"; };
+		95B9C3821EDE090800954D4C /* MemberProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberProfileViewController.swift; sourceTree = "<group>"; };
+		95B9C3841EDE11FB00954D4C /* AddMembersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMembersViewController.swift; sourceTree = "<group>"; };
+		95B9C3861EDE12AB00954D4C /* AddMemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMemberTableViewCell.swift; sourceTree = "<group>"; };
 		95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		95C8C3A71ED3A00F004A2A29 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
@@ -364,6 +370,9 @@
 				95B9C3711EDCF1ED00954D4C /* CreatePollViewController.swift */,
 				95B9C3781EDD518900954D4C /* PodMembersViewController.swift */,
 				95B9C37C1EDD52FA00954D4C /* MemberTableViewCell.swift */,
+				95B9C3821EDE090800954D4C /* MemberProfileViewController.swift */,
+				95B9C3841EDE11FB00954D4C /* AddMembersViewController.swift */,
+				95B9C3861EDE12AB00954D4C /* AddMemberTableViewCell.swift */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -526,13 +535,16 @@
 				9534F4E41EDB79C70094A007 /* PhotoPostTableViewCell.swift in Sources */,
 				F4E9DE3D1EDB7FF30089BA13 /* OverlayView.swift in Sources */,
 				9511220E1ED65AF10056BE16 /* PodTitleViewController.swift in Sources */,
+				95B9C3871EDE12AB00954D4C /* AddMemberTableViewCell.swift in Sources */,
 				F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */,
 				F4BECB491EBE6D3D00B98BA8 /* UIColor+Pod.swift in Sources */,
 				F4A3BE381ECBAC180032B3E3 /* PodView.swift in Sources */,
 				95B9C3791EDD518900954D4C /* PodMembersViewController.swift in Sources */,
 				95B9C3761EDD336F00954D4C /* PodList.swift in Sources */,
 				95D14F211EBD7F580049C58A /* PodTableViewSectionHeader.swift in Sources */,
+				95B9C3851EDE11FB00954D4C /* AddMembersViewController.swift in Sources */,
 				95C8C3A81ED3A00F004A2A29 /* CommentTableViewCell.swift in Sources */,
+				95B9C3831EDE090800954D4C /* MemberProfileViewController.swift in Sources */,
 				957741B71ED7911F00FB8739 /* APIClient.swift in Sources */,
 				9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */,
 				9534F4FC1EDB990A0094A007 /* Posts.swift in Sources */,
