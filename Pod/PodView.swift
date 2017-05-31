@@ -10,6 +10,8 @@ import UIKit
 import AWSFacebookSignIn
 import AWSCognitoIdentityProvider
 import AWSS3
+import Haneke
+
 class PodView: UIView {
     
     // MARK: - Properties
@@ -153,7 +155,16 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 initialized = true
                 for (i,post) in (podData?.postData)!.enumerated(){
                     if(Int(post._postType!) == PostType.photo.hashValue){
-                        downloadContent(key: post._postImage, postID: post._postId!, index: i)
+                        let cache = Shared.dataCache
+                        cache.fetch(key: post._postImage!).onFailure({ (err) in
+                            self.downloadContent(key: post._postImage, postID: post._postId!, index: i)
+                        }).onSuccess({ (data) in
+                            let img = UIImage(data: data as Data)
+                            self.podData?.postData[i].image = img
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                        })
                     }
                 }
             }
@@ -204,11 +215,12 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             } catch {
                 cell.posterPhoto.image = UIImage(named: "UserIcon")
             }
-            
-            if(postData?.image == nil ){
+            let cache = Shared.dataCache
+            cache.fetch(key: (postData?._postImage)!).onSuccess({ (data) in
+                cell.photoContent.image = postData?.image
+            }).onFailure({ (err) in
                 postData?.image = UIImage(named: "placeholder")
-            }
-            cell.photoContent.image = postData?.image
+            })
             return cell
         } else if(postData?._postType as! Int == PostType.poll.hashValue){
             //handle polls
@@ -246,12 +258,13 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             let _ = task.result
             
             if let data = NSData(contentsOf: downloadingFileURL) {
+                let cache = Shared.dataCache
+                cache.set(value: data as Data, key: "\(key!)")
                 let img = UIImage(data: data as Data)
                     self.podData?.postData[index].image = img
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
-
             }
             return nil
         })
