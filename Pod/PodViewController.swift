@@ -111,7 +111,7 @@ class PodViewController: UIViewController, PostCreationDelegate {
             tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: titleBottomMargin),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: postButton.topAnchor)
             ])
         
         // Close Button

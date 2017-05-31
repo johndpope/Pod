@@ -19,6 +19,8 @@ class PodCarouselViewController: UIViewController {
     @IBOutlet var carousel: iCarousel!
     @IBOutlet var addButton: UIButton!
     @IBOutlet weak var podTitle: UILabel!
+    @IBOutlet weak var podsNearbyLabel: UILabel!
+    @IBOutlet weak var peopleInPod: UILabel!
     
     var isPresentingForFirstTime = true
     
@@ -54,12 +56,16 @@ class PodCarouselViewController: UIViewController {
         addButton.setTitleColor(UIColor.white, for: UIControlState.normal)
         addButton.tintColor = UIColor.white
         FacebookIdentityProfile._sharedInstance.load()
+        FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
     }
     
     func getAllPods(){
         let client = APIClient()
         let location = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
         client.getNearbyPods(location: location) { (pods) in
+            DispatchQueue.main.async {
+                self.podsNearbyLabel.text = "\((pods?.count)!) Pods near you"
+            }
             for pod in pods! {
                 //APIClient().uploadTestPostsToPod(withId: pod.podID)
                 if !self.items.contains(where: { $0.podID == pod.podID }) {
@@ -103,7 +109,8 @@ class PodCarouselViewController: UIViewController {
             APIClient.sharedInstance.initClientInfo()
             getAllPods()
             FacebookIdentityProfile._sharedInstance.load()
-            APIClient.sharedInstance.createUser(withId: AWSIdentityManager.default().identityId!, name: FacebookIdentityProfile._sharedInstance.userName!, photoURL: (FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString)!)
+            FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
+            APIClient.sharedInstance.createUser(withId: AWSIdentityManager.default().identityId!, name: FacebookIdentityProfile._sharedInstance.userName!, photoURL: (FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString)!, profileURL: FacebookIdentityProfile._sharedInstance.facebookURL!, faecbookId: FacebookIdentityProfile._sharedInstance.userId!)
         } else {
             // handle cancel operation from user
         }
@@ -118,7 +125,7 @@ class PodCarouselViewController: UIViewController {
             let navController = UINavigationController(rootViewController: loginController)
             navigationController?.present(navController, animated: true, completion: nil)
         } else {
-            FacebookIdentityProfile().getFriendsOnApp()
+
         }
     }
     
@@ -147,6 +154,11 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         podView.delegate = self
         podView.podData = items[index]
         self.podTitle.text = self.items[self.carousel.currentItemIndex].name
+        if self.items[self.carousel.currentItemIndex].userIdList.count > 1 || self.items[self.carousel.currentItemIndex].userIdList.count == 0{
+            self.peopleInPod.text = "\(self.items[self.carousel.currentItemIndex].userIdList.count) people"
+        } else {
+            self.peopleInPod.text = "\(self.items[self.carousel.currentItemIndex].userIdList.count) person"
+        }
         return podView
     }
     
@@ -154,6 +166,11 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         let index = carousel.currentItemIndex
         if(items.isEmpty != true){
             self.podTitle.text = items[index].name
+            if self.items[index].userIdList.count == 0 || self.items[index].userIdList.count > 1{
+                self.peopleInPod.text = "\(self.items[index].userIdList.count) people"
+            } else {
+                self.peopleInPod.text = "\(self.items[index].userIdList.count) person"
+            }
         }
     }
     

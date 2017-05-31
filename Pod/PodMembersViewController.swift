@@ -19,15 +19,16 @@ class PodMembersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         podTitle.text = pod?.name
+        podTitle.font = UIFont.boldSystemFont(ofSize: 18)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        tableView.estimatedRowHeight = 20.0 // Replace with your actual estimation
+       // tableView.estimatedRowHeight = 40.0 // Replace with your actual estimation
         // Automatic dimensions to tell the table view to use dynamic height
-        tableView.rowHeight = UITableViewAutomaticDimension
+       // tableView.rowHeight = UITableViewAutomaticDimension
         // self.textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
-        tableView.setNeedsLayout()
-        tableView.layoutIfNeeded()
+       // tableView.setNeedsLayout()
+        //tableView.layoutIfNeeded()
         tableView.backgroundColor = .lightBlue
         view.backgroundColor = .lightBlue
         for id in (pod?.userIdList)!{
@@ -54,7 +55,20 @@ class PodMembersViewController: UIViewController {
         }
     }
     @IBAction func addMembers(_ sender: Any) {
-        print("add members")
+        self.performSegue(withIdentifier: "toAddMembersView", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if(segue.identifier == "toMemberProfileView"){
+            if let nextVC = segue.destination as? MemberProfileViewController {
+                nextVC.member = sender as! UserInformation
+            }
+        } else if(segue.identifier == "toAddMembersView"){
+            if let nextVC = segue.destination as? AddMembersViewController {
+                nextVC.pod = self.pod
+                nextVC.members = self.members
+            }
+        }
     }
     /*
     // MARK: - Navigation
@@ -78,14 +92,33 @@ extension PodMembersViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selected!")
+        
+        self.performSegue(withIdentifier: "toMemberProfileView", sender: members[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60.0
+    }
+    
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        var cell = tableView.cellForRow(at: indexPath)
+        cell?.backgroundColor = UIColor(red: 202/255, green: 234/255, blue: 249/255, alpha: 1)
+    }
+    
+    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+        var cell = tableView.cellForRow(at: indexPath)
+        cell?.backgroundColor = .lightBlue
+    }
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MemberTableViewCell") as! MemberTableViewCell
         cell.name.text = members[indexPath.row]._username
-        
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         let url = URL(string: members[indexPath.row]._photoURL!)
         var data = Data()
         do {

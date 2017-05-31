@@ -208,6 +208,16 @@ class APIClient {
         }
     }
     
+    func updatePostInfo(post: Posts){
+        dynamoDBObjectMapper.save(post) { (err) in
+            if let error = err {
+                print("Amazin DynamoDB Save Error: \(error)")
+                return
+            }
+            print("post saved")
+        }
+    }
+    
     func getPod(withId: Int, geoHash: String, completion: @escaping (_ pod: PodList?) ->()){
         let queryExpression = AWSDynamoDBQueryExpression()
         queryExpression.keyConditionExpression = "GeoHashCode = :GeoHashCode AND PodId = :PodId"
@@ -241,11 +251,13 @@ class APIClient {
         }
     }
     
-    func createUser(withId: String, name: String, photoURL: String){
+    func createUser(withId: String, name: String, photoURL: String, profileURL: String, faecbookId: String){
         let userInfo = UserInformation()
         userInfo?._userId = withId
         userInfo?._photoURL = photoURL
         userInfo?._username = name
+        userInfo?._profileURL = profileURL
+        userInfo?._facebookId = faecbookId
         dynamoDBObjectMapper.save(userInfo!) { (err) in
             if let error = err {
                 print("Amazin DynamoDB Save Error: \(error)")
@@ -278,5 +290,73 @@ class APIClient {
         })
     }
     
+    func createCommentForPost(withID: String, commentBody: String, completion: @escaping (_ comments: Comments?)->()){
+        let comment = Comments()
+        comment?._userId = AWSIdentityManager.default().identityId
+        comment?._photoURL = FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString
+        comment?._commentBody = commentBody
+        comment?._postId = withID
+        comment?._postDateGMT = NSDate().timeIntervalSince1970 as NSNumber
+        dynamoDBObjectMapper.save(comment!) { (err) in
+            if let error = err {
+                print("Amazin DynamoDB Save Error: \(error)")
+                return
+            }
+            print("comment saved")
+            completion(comment)
+        }
+    }
     
+    func getCommentsForPost(withId: String, completion: @escaping (_ comments: [Comments?])->()){
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.keyConditionExpression = "postId = :postId"
+        
+        queryExpression.expressionAttributeValues = [":postId" : withId]
+        dynamoDBObjectMapper .query(Comments.self, expression: queryExpression) .continueWith(executor: AWSExecutor.mainThread(), block: { (task:AWSTask!) -> AnyObject! in
+            if let error = task.error as NSError? {
+                print("Error: \(error)")
+            } else {
+                if let result = task.result {//(task.result != nil) {
+                    if result.items.count == 0 {
+                        completion([])
+                    } else {
+                        completion(result.items as! [Comments])
+                    }
+                }
+            }
+            return nil
+        })
+    }
+    
+    func getUserPodIds(completion: @escaping (_ pods: [UserPods?])->()){
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.keyConditionExpression = "userId= :userId"
+        
+        queryExpression.expressionAttributeValues = [":userId" : AWSIdentityManager.default().identityId!]
+        dynamoDBObjectMapper .query(Comments.self, expression: queryExpression) .continueWith(executor: AWSExecutor.mainThread(), block: { (task:AWSTask!) -> AnyObject! in
+            if let error = task.error as NSError? {
+                print("Error: \(error)")
+            } else {
+                if let result = task.result {//(task.result != nil) {
+                    if result.items.count == 0 {
+                        completion([])
+                    } else {
+                        completion(result.items as! [UserPods])
+                    }
+                }
+            }
+            return nil
+        })
+    }
+
+    
+    func addPodToUsersList(podId: Int, geoHash: String){
+        getUserPodIds { (pods) in
+            let uPod = UserPods()
+            uPod?._podId = podId as NSNumber
+            uPod?._userId = AWSIdentityManager.default().identityId!
+            uPod?._geoHash = geoHash
+            self.dynamoDBObjectMapper.save(uPod!)
+        }
+    }
 }

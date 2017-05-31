@@ -80,9 +80,17 @@ class CommentHeaderViewController: UIViewController {
         if(likedComment){
             heartImage.image = UIImage(named: "icons8-hearts")
             numHearts.text = String((Int(numHearts.text!)! - 1))
+            var numLikes : Int = Int((postData?._numLikes)!)
+            numLikes -= 1
+            postData?._numLikes = NSNumber(integerLiteral: numLikes)
+            APIClient.sharedInstance.updatePostInfo(post: postData!)
         } else {
             heartImage.image = UIImage(named: "icons8-hearts_filled")
             numHearts.text = String((Int(numHearts.text!)! + 1))
+            var numLikes : Int = Int((postData?._numLikes)!)
+            numLikes += 1
+            postData?._numLikes = NSNumber(integerLiteral: numLikes)
+            APIClient.sharedInstance.updatePostInfo(post: postData!)
         }
         likedComment = !likedComment
     }
@@ -96,5 +104,12 @@ class CommentHeaderViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "containerViewSegue" {
+            let containerViewController = segue.destination as? CommentViewController
+            containerViewController?.postData = self.postData
+        }
+    }
 
 }
