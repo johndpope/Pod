@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InviteRequestViewController: UIViewController {
+class InviteRequestViewController: UIViewController, InviteTableViewAcceptDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var requests: [PodRequests] = []
@@ -57,6 +57,23 @@ class InviteRequestViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
+    func didPressAccept(_ tag: Int) {
+        //Wait half a second to show UI changes
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1) , execute: {
+            APIClient.sharedInstance.acceptPodInvitation(request: self.requests[tag])
+            self.requests.remove(at: tag)
+            self.tableView.reloadData()
+        })
+    }
+    
+    func didPressCancel(_ tag: Int) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1) , execute: {
+            APIClient.sharedInstance.declinePodInvitation(request: self.requests[tag])
+            self.requests.remove(at: tag)
+            self.tableView.reloadData()
+        })
+    }
 
 }
 
@@ -81,6 +98,8 @@ extension InviteRequestViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "InviteTableViewCell") as! InviteTableViewCell
+        cell.cellDelegate = self
+        cell.tag = indexPath.row
         let req = self.requests[indexPath.row]
         if(Int(req._requestType!) == RequestType.invite.hashValue){
             cell.requestLabel.text = "\(req._requesterName!) invited you to join \(req._podName!)!"

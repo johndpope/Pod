@@ -82,6 +82,17 @@ class MyPodsCarouselViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getMyPods()
+        APIClient.sharedInstance.getPodRequestsForCurrentUser { (requests) in
+            var buttonText = ""
+            if(requests.count == 0){
+                buttonText = "No Requests"
+            } else if requests.count == 1 {
+                buttonText = "1 Request"
+            } else {
+                buttonText = "\(requests.count) Requests"
+            }
+            self.invitesButton.setTitle(buttonText, for: UIControlState.normal)
+        }
     }
     
     @IBAction func returnFromSegueActions(_ sender: UIStoryboardSegue) {

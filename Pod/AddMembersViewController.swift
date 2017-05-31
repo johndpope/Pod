@@ -55,7 +55,7 @@ class AddMembersViewController: UIViewController {
         for i in inviteList {
             invites.append(friends[i])
         }
-        APIClient.sharedInstance.sendInviteRequest(to: invites, podId: Int((pod?._podId)!), podName: (pod?._name)!)
+        APIClient.sharedInstance.sendInviteRequest(to: invites, podId: Int((pod?._podId)!), podName: (pod?._name)!, geoHash: (pod?._geoHashCode)!)
     }
 
     @IBAction func goBack(_ sender: Any) {

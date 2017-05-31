@@ -389,7 +389,7 @@ class APIClient {
     
 
     
-    func sendJoinRequest(to: String, from: UserInformation, podId: Int){
+    func sendJoinRequest(to: String, from: UserInformation, podId: Int, geoHash: String){
         let request = PodRequests()
         request?._podId = podId as NSNumber
         request?._userId = to
@@ -397,10 +397,11 @@ class APIClient {
         request?._requesterName = from._username
         request?._requesterPhotoURL = from._photoURL
         request?._requestType = RequestType.join.hashValue as NSNumber
+        request?._podGeoHash = geoHash
         dynamoDBObjectMapper.save(request!)
     }
     
-    func sendInviteRequest(to: [UserInformation], podId: Int, podName: String){
+    func sendInviteRequest(to: [UserInformation], podId: Int, podName: String, geoHash: String){
         for user in to {
             
             let request = PodRequests()
@@ -411,6 +412,7 @@ class APIClient {
             request?._requesterID = FacebookIdentityProfile._sharedInstance.userId
             request?._requesterPhotoURL = FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString
             request?._requestType = RequestType.invite.hashValue as NSNumber
+            request?._podGeoHash = geoHash
             dynamoDBObjectMapper.save(request!, completionHandler: { (err) in
                 if let error = err {
                     print("Amazin DynamoDB Save Error: \(error)")
@@ -419,6 +421,24 @@ class APIClient {
                 print("request saved")
             })
         }
+    }
+    
+    func acceptPodInvitation(request: PodRequests){
+        dynamoDBObjectMapper.remove(request)
+        let userPod = UserPods()
+        userPod?._userId = AWSIdentityManager.default().identityId
+        userPod?._podId = request._podId
+        userPod?._geoHash = request._podGeoHash
+        dynamoDBObjectMapper.save(userPod!)
+        getPod(withId: request._podId as! Int, geoHash: request._podGeoHash!) { (pod) in
+            pod?._userIdList?.append(AWSIdentityManager.default().identityId!)
+            pod?._usernameList?.append(FacebookIdentityProfile._sharedInstance.userName!)
+            self.dynamoDBObjectMapper.save(pod!)
+        }
+    }
+    
+    func declinePodInvitation(request: PodRequests){
+        dynamoDBObjectMapper.remove(request)
     }
 
 }

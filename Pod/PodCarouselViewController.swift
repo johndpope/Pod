@@ -61,7 +61,6 @@ class PodCarouselViewController: UIViewController {
         addButton.tintColor = UIColor.white
         FacebookIdentityProfile._sharedInstance.load()
         FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
-        addRedDotNotificationIndicator()
     }
     
     func getAllPods(){
@@ -104,13 +103,35 @@ class PodCarouselViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getAllPods()
+        if(FacebookIdentityProfile._sharedInstance.userId != nil ){
+            getNotifications()
+        } else {
+            //Try 5 times, every second
+            for _ in 0..<5 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                    if(FacebookIdentityProfile._sharedInstance.userId != nil ){
+                        self.getNotifications()
+                        return
+                    }
+                })
+            }
+        }
+    }
+    
+    func getNotifications(){
+        APIClient.sharedInstance.getPodRequestsForCurrentUser { (requests) in
+            if(requests.count > 0){
+                self.addRedDotNotificationIndicator(show: true)
+            } else {
+                self.addRedDotNotificationIndicator(show: false)
+            }
+        }
     }
     
     func onSignIn (_ success: Bool) {
         // handle successful sign in
         if (success) {
             APIClient.sharedInstance.initClientInfo()
-            getAllPods()
             FacebookIdentityProfile._sharedInstance.load()
             FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
             APIClient.sharedInstance.createUser(withId: AWSIdentityManager.default().identityId!, name: FacebookIdentityProfile._sharedInstance.userName!, photoURL: (FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString)!, profileURL: FacebookIdentityProfile._sharedInstance.facebookURL!, faecbookId: FacebookIdentityProfile._sharedInstance.userId!)
@@ -136,9 +157,12 @@ class PodCarouselViewController: UIViewController {
     
     }
     
-    func addRedDotNotificationIndicator(){
-        
-        redDot.isHidden = false
+    func addRedDotNotificationIndicator(show: Bool){
+        if(show) {
+            redDot.isHidden = false
+        } else {
+            redDot.isHidden = true
+        }
     }
 }
 

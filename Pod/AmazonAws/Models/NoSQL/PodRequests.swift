@@ -24,6 +24,7 @@ class PodRequests: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _requesterID: String?
     var _requesterPhotoURL: String?
     var _requesterName: String?
+    var _podGeoHash: String?
 
     
     class func dynamoDBTableName() -> String {
@@ -49,7 +50,8 @@ class PodRequests: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                "_requesterID" : "requesterID",
                "_requesterPhotoURL" : "requesterPhotoURL",
                "_podName" : "podName",
-               "_requesterName" : "requesterName"
+               "_requesterName" : "requesterName",
+               "_podGeoHash" : "podGeoHash",
         ]
     }
 }
