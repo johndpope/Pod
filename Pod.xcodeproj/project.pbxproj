@@ -410,8 +410,8 @@
 				F4BECB2A1EBD682D00B98BA8 /* Resources */,
 				09D60DA96CFB0D82638AA4F3 /* [CP] Embed Pods Frameworks */,
 				4CD3306A44AB436DF1B401DF /* [CP] Copy Pods Resources */,
-				95309FEF1ED67B63008A7A7F /* ShellScript */,
 				95D728391EDE485200987AA3 /* Embed Frameworks */,
+				95309FEF1ED67B63008A7A7F /* ShellScript */,
 			);
 			buildRules = (
 			);

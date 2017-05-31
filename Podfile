@@ -13,4 +13,5 @@ target 'Pod' do
   pod "SlackTextViewController"
   pod 'SnapKit', '~> 3.0'
   pod 'TextFieldEffects', '~> 1.3'
+  pod "HanekeSwift", :git => 'https://github.com/Haneke/HanekeSwift.git', :branch => 'feature/swift-3'  
 end

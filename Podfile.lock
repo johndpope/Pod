@@ -51,6 +51,7 @@ PODS:
   - GTMSessionFetcher/Core (1.1.9)
   - GTMSessionFetcher/Full (1.1.9):
     - GTMSessionFetcher/Core (= 1.1.9)
+  - HanekeSwift (0.10.1)
   - SlackTextViewController (1.9.5)
   - SnapKit (3.2.0)
   - TextFieldEffects (1.3.2)
@@ -60,9 +61,20 @@ DEPENDENCIES:
   - Google/SignIn
   - GoogleMaps
   - GooglePlaces
+  - HanekeSwift (from `https://github.com/Haneke/HanekeSwift.git`, branch `feature/swift-3`)
   - SlackTextViewController
   - SnapKit (~> 3.0)
   - TextFieldEffects (~> 1.3)
+
+EXTERNAL SOURCES:
+  HanekeSwift:
+    :branch: feature/swift-3
+    :git: https://github.com/Haneke/HanekeSwift.git
+
+CHECKOUT OPTIONS:
+  HanekeSwift:
+    :commit: 2f6d87f1f725d204d85cb34492e8c399cd5a200f
+    :git: https://github.com/Haneke/HanekeSwift.git
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -78,10 +90,11 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
+  HanekeSwift: 4113367892828e7700d24a384027de6ebc79aad1
   SlackTextViewController: fbcdadbb8090673f604484ff5b6eb8d77baed42a
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   TextFieldEffects: 9e5cce561ea39c75b86e9d3637601727a67e8b23
 
-PODFILE CHECKSUM: 4660c6ab59a9cc520977f074c6a96a0fe1d228c6
+PODFILE CHECKSUM: f6708115f351e4b97815d3078a1d92021885de05
 
 COCOAPODS: 1.2.1
