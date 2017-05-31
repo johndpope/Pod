@@ -25,25 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
        // GMSPlacesClient.provideAPIKey(Constants.APIServices.GMSPlacesKey)
         GMSServices.provideAPIKey(Constants.APIServices.GMSMapKey)
-        //FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
-        // Allow Google sign-in
-       // var configureError: NSError?
-        //GGLContext.sharedInstance().configureWithError(&configureError)
-       // assert(configureError == nil, "Error configuring Google services: \(configureError)")
-        // Present initial VC depedning on if user is logged in
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        if(AWSSignInManager.sharedInstance().isLoggedIn){
-//            if let tabBarVC = storyboard.instantiateViewController(withIdentifier: "PodCarouselViewController") as? UIViewController {
-//                APIClient.sharedInstance.initClientInfo()
-//                window?.rootViewController = tabBarVC
-//            }
-//        } else {
-//            if let loginVC = storyboard.instantiateViewController(withIdentifier: "SignInViewController") as? SignInViewController {
-//                window?.rootViewController = loginVC
-//            }
-//        }
-//    
+
         let credentialProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: "us-east-1:52f72125-90a0-42ed-b34e-4a5c8fbb0212")
         let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: credentialProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration

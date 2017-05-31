@@ -198,7 +198,6 @@ class APIClient {
     }
     
     func createNewPostForPod(withId: Int, post: Posts) {
-        post._postId = UUID().uuidString
         dynamoDBObjectMapper.save(post) { (err) in
             if let error = err {
                 print("Amazin DynamoDB Save Error: \(error)")

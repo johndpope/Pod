@@ -224,23 +224,30 @@ class NewPostViewController: UIViewController {
         post?._postContent = textView.text
         post?._postedDate = NSDate().timeIntervalSince1970 as NSNumber
         post?._postPoll = ["none":"none"]
+        post?._postId = UUID().uuidString
         if(hasImage){
             post?._postType = PostType.photo.hashValue as NSNumber
             //post?._postImage = postedImage
-            post?._postImage = "profile-pic"
+            let uuid = UUID().uuidString
+            post?._postImage = "\(uuid).jpg"
+            let data = UIImagePNGRepresentation(postedImage!)
+            let key = "\(uuid).jpg"
+            uploadWithData(data: data!, forKey: key) { () -> (AWSS3TransferUtilityUploadCompletionHandlerBlock?) in
+                APIClient().createNewPostForPod(withId: (self.pod?.podID)!, post: post!)
+                self.delegate?.postCreated(post: post!)
+                self.dismiss(animated: true, completion: nil)
+                return nil
+            }
         } else {
             post?._postType = PostType.text.hashValue as NSNumber
             post?._postImage = "No Image"
+            APIClient().createNewPostForPod(withId: (self.pod?.podID)!, post: post!)
+            
+            self.delegate?.postCreated(post: post!)
+            self.dismiss(animated: true, completion: nil)
         }
-        let data = UIImagePNGRepresentation(postedImage!)
-        let key = "testPath/\(AWSIdentityManager.default().identityId!).jpg"
-        uploadWithData(data: data!, forKey: key)
+
         
-        APIClient().createNewPostForPod(withId: (self.pod?.podID)!, post: post!)
-        
-        self.delegate?.postCreated(post: post!)
-        
-        dismiss(animated: true, completion: nil)
     }
     
     func completionHandler() -> AWSS3TransferUtilityUploadCompletionHandlerBlock? {
@@ -250,7 +257,7 @@ class NewPostViewController: UIViewController {
         return nil
     }
     
-    fileprivate func uploadWithData(data: Data, forKey key: String) {
+    fileprivate func uploadWithData(data: Data, forKey key: String, completion: @escaping ()->(AWSS3TransferUtilityUploadCompletionHandlerBlock?)) {
         let expression = AWSS3TransferUtilityUploadExpression()
         expression.progressBlock = {(task, progress) in DispatchQueue.main.async(execute: {
             // Do something e.g. Update a progress bar.
@@ -259,17 +266,15 @@ class NewPostViewController: UIViewController {
         }
         
         let  transferUtility = AWSS3TransferUtility.default()
-        
         transferUtility.uploadData(data,
                                    bucket: "pod-postphotos",
                                    key: key,
                                    contentType: "image/png",
                                    expression: expression,
-                                   completionHandler: completionHandler()).continueWith { (task) -> AnyObject! in
+                                   completionHandler: completion()).continueWith { (task) -> AnyObject! in
                                     if let error = task.error {
                                         print("Error: \(error.localizedDescription)")
                                     }
-                                    
                                     if let _ = task.result {
                                         // Do something with uploadTask.
                                     }

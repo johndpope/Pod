@@ -9,12 +9,12 @@
 import UIKit
 import AWSFacebookSignIn
 import AWSCognitoIdentityProvider
-
+import AWSS3
 class PodView: UIView {
     
     // MARK: - Properties
     
-    private lazy var tableView: UITableView = {
+    fileprivate lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
@@ -135,31 +135,6 @@ class PodView: UIView {
             delegate.toSinglePod(podData!)
         }
     }
-//    var setupSubViews = false
-//    
-//    func setUpLockedView(){
-//        DispatchQueue.global(qos: .userInitiated).async {
-//            while(self.setupSubViews == false){
-//                if(self.podData != nil){
-//                    self.setupSubViews = true
-//                    // Bounce back to the main thread to update the UI
-//                    if(self.podData?.isLocked)!{
-//                        DispatchQueue.main.async {
-//                            self.addSubview(self.blurEffectView)
-//                            self.addSubview(self.lockImageView)
-//                            self.addSubview(self.joinButton)
-//                            self.setupConstraints()
-//                        }
-//                    } else {
-//                        DispatchQueue.main.async {
-//                            self.addSubview(self.blurEffectView)
-//                            self.setupBlurConstraints()
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
 
 extension PodView: UITableViewDelegate, UITableViewDataSource {
@@ -176,6 +151,11 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 self.lockedPod = (podData?.isLocked)!
                 self.setUpLockConstraints()
                 initialized = true
+                for (i,post) in (podData?.postData)!.enumerated(){
+                    if(Int(post._postType!) == PostType.photo.hashValue){
+                        downloadContent(key: post._postImage, postID: post._postId!, index: i)
+                    }
+                }
             }
         }
         return (podData?.postData.count)!
@@ -196,12 +176,7 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             cell.posterBody.text = postData?._postContent
             cell.postLikes.text = String(describing: (postData?._numLikes!)!)
             cell.postComments.text = String(describing: (postData?._numComments!)!)
-            //        if(APIClient.sharedInstance.profilePicture == nil){
-            //            cell.posterPhoto.image = APIClient.sharedInstance.getProfileImage()
-            //        } else {
-            //            cell.posterPhoto.image = APIClient.sharedInstance.profilePicture
-            //        }
-            
+
             let url = URL(string: (postData?._posterImageURL)!)
             var data = Data()
             do {
@@ -210,17 +185,7 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             } catch {
                 cell.posterPhoto.image = UIImage(named: "UserIcon")
             }
-            
-//            let identityManager = AWSIdentityManager.default()
-            
-//            if let imageURL = identityManager.identityProfile?.imageURL {
-//                let imageData = try! Data(contentsOf: imageURL)
-//                if let profileImage = UIImage(data: imageData) {
-//                    cell.posterPhoto.image = profileImage
-//                } else {
-//                    cell.posterPhoto.image = UIImage(named: "UserIcon")
-//                }
-//            }
+        
             return cell
         } else if(postData?._postType as! Int == PostType.photo.hashValue){
             //handle photos
@@ -240,13 +205,58 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 cell.posterPhoto.image = UIImage(named: "UserIcon")
             }
             
-            cell.photoContent.image = UIImage(named: "profile-pic")
+            if(postData?.image == nil ){
+                postData?.image = UIImage(named: "placeholder")
+            }
+            cell.photoContent.image = postData?.image
             return cell
         } else if(postData?._postType as! Int == PostType.poll.hashValue){
             //handle polls
         }
         return UITableViewCell()
     }
+    
+    fileprivate func downloadContent(key: String?, postID: String, index: Int) {
+        let transferManager = AWSS3TransferManager.default()
+        
+        let downloadingFileURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("profile_pic.jpg")
+        
+        let downloadRequest = AWSS3TransferManagerDownloadRequest()
+        
+        downloadRequest?.bucket = "pod-postphotos"
+        downloadRequest?.key =  "\(key!)"
+        downloadRequest?.downloadingFileURL = downloadingFileURL
+        
+        transferManager.download(downloadRequest!).continueWith(executor: AWSExecutor.mainThread(), block: { (task:AWSTask<AnyObject>) -> Any? in
+            
+            if let error = task.error as NSError? {
+                if error.domain == AWSS3TransferManagerErrorDomain, let code = AWSS3TransferManagerErrorType(rawValue: error.code) {
+                    switch code {
+                    case .cancelled, .paused:
+                        break
+                    default:
+                        print("Error downloading: \(String(describing: downloadRequest?.key)) Error: \(error)")
+                    }
+                } else {
+                    print("Error downloading: \(String(describing: downloadRequest?.key)) Error: \(error)")
+                }
+                return nil
+            }
+            print("Download complete for: \(String(describing: downloadRequest?.key))")
+            let _ = task.result
+            
+            if let data = NSData(contentsOf: downloadingFileURL) {
+                let img = UIImage(data: data as Data)
+                    self.podData?.postData[index].image = img
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+
+            }
+            return nil
+        })
+    }
+    
 }
 
 protocol PodViewDelegate: class {

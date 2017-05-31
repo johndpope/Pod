@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSS3
 
 class PodViewController: UIViewController, PostCreationDelegate {
     
@@ -20,7 +21,7 @@ class PodViewController: UIViewController, PostCreationDelegate {
         return titleLabel
     }()
     
-    private lazy var tableView: UITableView = {
+    fileprivate lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
@@ -59,6 +60,7 @@ class PodViewController: UIViewController, PostCreationDelegate {
     let titleBottomMargin: CGFloat = 6.0
     var podData: Pod?
     // MARK: - PodViewController
+    var initialized = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -175,6 +177,13 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(podData?.postData.count == nil){
             return 0
+        }  else if(initialized == false){
+            initialized = true
+//            for (i,post) in (podData?.postData)!.enumerated(){
+//                if(Int(post._postType!) == PostType.photo.hashValue){
+//                    downloadContent(key: post._postImage, postID: post._postId!, index: i)
+//                }
+            
         }
         return (podData?.postData.count)!
     }
@@ -224,12 +233,58 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
             } catch {
                 cell.posterPhoto.image = UIImage(named: "UserIcon")
             }
-             cell.photoContent.image = UIImage(named: "profile-pic")
+            if(postData?.image == nil ){
+                postData?.image = UIImage(named: "placeholder")
+            }
+            cell.photoContent.image = postData?.image
+            
             return cell
         } else if(postData?._postType as! Int == PostType.poll.hashValue){
             //handle polls
         }
         return UITableViewCell()
+    }
+    
+    
+    fileprivate func downloadContent(key: String?, postID: String, index: Int) {
+        let transferManager = AWSS3TransferManager.default()
+        
+        let downloadingFileURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("profile_pic.jpg")
+        
+        let downloadRequest = AWSS3TransferManagerDownloadRequest()
+        
+        downloadRequest?.bucket = "pod-postphotos"
+        downloadRequest?.key =  "\(key!)"
+        downloadRequest?.downloadingFileURL = downloadingFileURL
+        
+        transferManager.download(downloadRequest!).continueWith(executor: AWSExecutor.mainThread(), block: { (task:AWSTask<AnyObject>) -> Any? in
+            
+            if let error = task.error as NSError? {
+                if error.domain == AWSS3TransferManagerErrorDomain, let code = AWSS3TransferManagerErrorType(rawValue: error.code) {
+                    switch code {
+                    case .cancelled, .paused:
+                        break
+                    default:
+                        print("Error downloading: \(String(describing: downloadRequest?.key)) Error: \(error)")
+                    }
+                } else {
+                    print("Error downloading: \(String(describing: downloadRequest?.key)) Error: \(error)")
+                }
+                return nil
+            }
+            print("Download complete for: \(String(describing: downloadRequest?.key))")
+            let _ = task.result
+            
+            if let data = NSData(contentsOf: downloadingFileURL) {
+                let img = UIImage(data: data as Data)
+                self.podData?.postData[index].image = img
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
+            }
+            return nil
+        })
     }
     
 }
