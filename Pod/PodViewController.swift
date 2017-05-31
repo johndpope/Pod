@@ -25,7 +25,9 @@ class PodViewController: UIViewController, PostCreationDelegate {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.layer.cornerRadius = 26.0
+        tableView.layer.borderColor = UIColor.darkGray.cgColor
+        tableView.layer.borderWidth = 1.0
+        
         return tableView
     }()
     
@@ -55,10 +57,13 @@ class PodViewController: UIViewController, PostCreationDelegate {
         return membersButton
     }()
     
+    var postButtonBottomConstraint: NSLayoutConstraint!
+    
     let postButtonHeight: CGFloat = 50.0
     let titleTopMargin: CGFloat = 11.0 + UIApplication.shared.statusBarFrame.height
     let titleBottomMargin: CGFloat = 6.0
     var podData: Pod?
+    
     // MARK: - PodViewController
     var initialized = false
     
@@ -87,6 +92,19 @@ class PodViewController: UIViewController, PostCreationDelegate {
         setupConstraints()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let newConstraint = postButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        UIView.animate(withDuration: 0.3) {
+            self.view.removeConstraint(self.postButtonBottomConstraint)
+            self.view.addConstraint(newConstraint)
+            
+            self.view.layoutIfNeeded()
+        }
+        postButtonBottomConstraint = newConstraint
+    }
+    
     // MARK: - Helper Methods
     
     private func setupConstraints() {
@@ -98,10 +116,11 @@ class PodViewController: UIViewController, PostCreationDelegate {
             ])
         
         // Post Button
+        postButtonBottomConstraint = postButton.topAnchor.constraint(equalTo: view.bottomAnchor)
         NSLayoutConstraint.activate([
             postButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             postButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            postButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            postButtonBottomConstraint,
             postButton.heightAnchor.constraint(equalToConstant: postButtonHeight)
             ])
         
@@ -115,10 +134,11 @@ class PodViewController: UIViewController, PostCreationDelegate {
         
         // Close Button
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20.0),
+            closeButton.centerYAnchor.constraint(equalTo: membersButton.centerYAnchor),
             closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8.0)
             ])
         
+        // Members Button
         NSLayoutConstraint.activate([
             membersButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20.0),
             membersButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8.0),
@@ -139,13 +159,26 @@ class PodViewController: UIViewController, PostCreationDelegate {
     
     func closePod() {
         //dismiss(animated: true, completion: nil)
-        self.navigationController?.popViewController(animated: true)
+        //self.navigationController?.popViewController(animated: true)
+        self.performSegue(withIdentifier: "unwindToCarousel", sender: nil)
+    }
+    
+    override func segueForUnwinding(to toViewController: UIViewController, from fromViewController: UIViewController, identifier: String?) -> UIStoryboardSegue? {
+        if let id = identifier,
+            id == "unwindToCarousel" {
+            let unwindSegue = PodViewSegueUnwind(identifier: id, source: fromViewController, destination: toViewController, performHandler: { 
+                // glah
+            })
+            return unwindSegue
+        }
+        
+        return super.segueForUnwinding(to: toViewController, from: fromViewController, identifier: identifier)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if(segue.identifier == "toPostComments"){
             if let nextVC = segue.destination as? CommentHeaderViewController {
-                nextVC.postData = sender as! Posts
+                nextVC.postData = sender as? Posts
             }
         } else if(segue.identifier == "toNewPost"){
             if let nextVC = segue.destination as? NewPostViewController {

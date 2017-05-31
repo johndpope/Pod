@@ -48,6 +48,7 @@ class PodCarouselViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .lightBlue
         presentSignInViewController()
         self.navigationController?.isNavigationBarHidden = true
         carousel.type = .rotary
@@ -128,7 +129,9 @@ class PodCarouselViewController: UIViewController {
         }
     }
     
+    @IBAction func returnFromSegueActions(_ sender: UIStoryboardSegue) {
     
+    }
 }
 
 // MARK: - iCarousel Methods
