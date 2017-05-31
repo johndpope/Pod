@@ -13,6 +13,8 @@ import GoogleMaps
 import AWSCore
 import AWSMobileHubHelper
 import AWSFacebookSignIn
+import AWSS3
+import AWSCognitoIdentityProvider
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -42,7 +44,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            }
 //        }
 //    
+        let credentialProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: "us-east-1:52f72125-90a0-42ed-b34e-4a5c8fbb0212")
+        let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: credentialProvider)
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
         return AWSMobileClient.sharedInstance.didFinishLaunching(application, withOptions: launchOptions)
+    }
+    
+    func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
+        // Store the completion handler.
+        AWSS3TransferUtility.interceptApplication(application, handleEventsForBackgroundURLSession: identifier, completionHandler: completionHandler)
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {

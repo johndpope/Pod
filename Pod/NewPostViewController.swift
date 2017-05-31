@@ -8,6 +8,12 @@
 
 import UIKit
 import AWSFacebookSignIn
+import AWSS3
+import AWSCognitoIdentityProvider
+import AWSMobileHubHelper
+import AWSCore
+import AWSCognito
+
 
 class NewPostViewController: UIViewController {
 
@@ -226,12 +232,50 @@ class NewPostViewController: UIViewController {
             post?._postType = PostType.text.hashValue as NSNumber
             post?._postImage = "No Image"
         }
+        let data = UIImagePNGRepresentation(postedImage!)
+        let key = "testPath/\(AWSIdentityManager.default().identityId!).jpg"
+        uploadWithData(data: data!, forKey: key)
         
         APIClient().createNewPostForPod(withId: (self.pod?.podID)!, post: post!)
         
         self.delegate?.postCreated(post: post!)
         
         dismiss(animated: true, completion: nil)
+    }
+    
+    func completionHandler() -> AWSS3TransferUtilityUploadCompletionHandlerBlock? {
+        DispatchQueue.main.async {
+            print("done")
+        }
+        return nil
+    }
+    
+    fileprivate func uploadWithData(data: Data, forKey key: String) {
+        let expression = AWSS3TransferUtilityUploadExpression()
+        expression.progressBlock = {(task, progress) in DispatchQueue.main.async(execute: {
+            // Do something e.g. Update a progress bar.
+            print(progress.fractionCompleted)
+        })
+        }
+        
+        let  transferUtility = AWSS3TransferUtility.default()
+        
+        transferUtility.uploadData(data,
+                                   bucket: "pod-postphotos",
+                                   key: key,
+                                   contentType: "image/png",
+                                   expression: expression,
+                                   completionHandler: completionHandler()).continueWith { (task) -> AnyObject! in
+                                    if let error = task.error {
+                                        print("Error: \(error.localizedDescription)")
+                                    }
+                                    
+                                    if let _ = task.result {
+                                        // Do something with uploadTask.
+                                    }
+                                    
+                                    return nil;
+        }
     }
 
     /*

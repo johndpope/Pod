@@ -20,8 +20,8 @@ class Comments: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _postId: String?
     var _postDateGMT: NSNumber?
     var _commentBody: String?
-    var _userId: String?
     var _photoURL: String?
+    var _userId: String?
     
     class func dynamoDBTableName() -> String {
 
@@ -43,8 +43,8 @@ class Comments: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                "_postId" : "postId",
                "_postDateGMT" : "postDateGMT",
                "_commentBody" : "commentBody",
-               "_userId" : "userId",
                "_photoURL" : "photoURL",
+               "_userId" : "userId",
         ]
     }
 }

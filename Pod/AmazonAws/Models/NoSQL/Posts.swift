@@ -1,5 +1,6 @@
 //
 //  Posts.swift
+//  MySampleApp
 //
 //
 // Copyright 2017 Amazon.com, Inc. or its affiliates (Amazon). All Rights Reserved.
@@ -25,8 +26,9 @@ class Posts: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _postImage: String?
     var _postPoll: [String: String]?
     var _postType: NSNumber?
-    var _posterName: String?
     var _posterImageURL: String?
+    var _posterName: String?
+    
     class func dynamoDBTableName() -> String {
 
         return "pod-mobilehub-1901037061-Posts"
@@ -53,8 +55,8 @@ class Posts: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                "_postImage" : "PostImage",
                "_postPoll" : "PostPoll",
                "_postType" : "PostType",
-               "_posterName" : "PosterName",
                "_posterImageURL" : "PosterImageURL",
+               "_posterName" : "PosterName",
         ]
     }
 }
