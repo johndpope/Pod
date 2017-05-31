@@ -28,6 +28,8 @@ class PodList: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _userIdList: [String]?
     var _usernameList: [String]?
     
+    var postData: [Posts]?
+    
     class func dynamoDBTableName() -> String {
 
         return "pod-mobilehub-1901037061-PodList"

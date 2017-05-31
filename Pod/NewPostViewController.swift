@@ -27,7 +27,7 @@ class NewPostViewController: UIViewController {
     let imagePicker = UIImagePickerController()
     var delegate: PostCreationDelegate?
     var postedImage: UIImage?
-    var pod: Pod?
+    var pod: PodList?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightBlue
@@ -149,7 +149,7 @@ class NewPostViewController: UIViewController {
     }
     
     @IBAction func createNewPost(_ sender: UIButton) {
-        if(pod?.userIdList.contains(AWSIdentityManager.default().identityId!))!{
+        if(pod?._userIdList?.contains(AWSIdentityManager.default().identityId!))!{
             createPost()
         } else {
             let alertController = UIAlertController(title: "Join Pod?", message: "To post to this pod you have to join first. Click 'Join' to join the conversation", preferredStyle: UIAlertControllerStyle.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
@@ -161,7 +161,7 @@ class NewPostViewController: UIViewController {
             // Replace UIAlertActionStyle.Default by UIAlertActionStyle.default
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
                 (result : UIAlertAction) -> Void in
-                APIClient.sharedInstance.getPod(withId: (self.pod?.podID)!, geoHash: (self.pod?.geoHash)!, completion: { (pod_db) in
+                APIClient.sharedInstance.getPod(withId: Int((self.pod?._podId)!), geoHash: (self.pod?._geoHashCode)!, completion: { (pod_db) in
                     
                     let identityManager = AWSIdentityManager.default()
                     var userName: String?
@@ -170,9 +170,10 @@ class NewPostViewController: UIViewController {
                     } else {
                         userName = NSLocalizedString("Guest User", comment: "Placeholder text for the guest user.")
                     }
-                    self.pod?.userIdList.append(AWSIdentityManager.default().identityId!)
+                    self.pod?._userIdList?.append((AWSIdentityManager.default().identityId!))
                     pod_db?._userIdList?.append(AWSIdentityManager.default().identityId!)
                     pod_db?._usernameList?.append(userName!)
+                    APIClient.sharedInstance.addPodToUsersList(podId: Int((self.pod?._podId)!), geoHash: (self.pod?._geoHashCode!)!)
                     APIClient.sharedInstance.updatePod(pod: pod_db!)
                     self.createPost()
                     
@@ -217,7 +218,7 @@ class NewPostViewController: UIViewController {
         let post = Posts()
         post?._posterName = userName
         post?._posterImageURL = FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString
-        post?._podId = self.pod?.podID as NSNumber?
+        post?._podId = self.pod?._podId as NSNumber?
         post?._numLikes = 0
         post?._numComments = 0
         post?._postType = PostType.text.hashValue as NSNumber
@@ -233,7 +234,7 @@ class NewPostViewController: UIViewController {
             let data = UIImagePNGRepresentation(postedImage!)
             let key = "\(uuid).jpg"
             uploadWithData(data: data!, forKey: key) { () -> (AWSS3TransferUtilityUploadCompletionHandlerBlock?) in
-                APIClient().createNewPostForPod(withId: (self.pod?.podID)!, post: post!)
+                APIClient().createNewPostForPod(withId: Int((self.pod?._podId)!), post: post!)
                 self.delegate?.postCreated(post: post!)
                 self.dismiss(animated: true, completion: nil)
                 return nil
@@ -241,7 +242,7 @@ class NewPostViewController: UIViewController {
         } else {
             post?._postType = PostType.text.hashValue as NSNumber
             post?._postImage = "No Image"
-            APIClient().createNewPostForPod(withId: (self.pod?.podID)!, post: post!)
+            APIClient().createNewPostForPod(withId: Int((self.pod?._podId)!), post: post!)
             
             self.delegate?.postCreated(post: post!)
             self.dismiss(animated: true, completion: nil)

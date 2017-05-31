@@ -22,7 +22,7 @@ class APIClient {
     var userID: String?
     var profilePicture: UIImage?
     
-    func getNearbyPods(location: CLLocationCoordinate2D, completion: @escaping ([Pod]?) ->()){
+    func getNearbyPods(location: CLLocationCoordinate2D, completion: @escaping ([PodList]?) ->()){
         let lat = location.latitude
         let long = location.longitude
         
@@ -32,8 +32,8 @@ class APIClient {
         let headerParameters = [
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "Latitude":"37.4204868",
-            "Longitude":"-122.1714205"
+            "Latitude":"\(lat)",
+            "Longitude":"\(long)"
         ]
         let jsonObject: [String: AnyObject]  = ["Latitude": 37.4204870 as AnyObject, "Longitude": -122.1714210 as AnyObject]
         
@@ -64,7 +64,7 @@ class APIClient {
             let dict = self.convertToDictionary(text: responseString!)
 
             
-            var nearbyPods: [Pod	]? = []
+            var nearbyPods: [PodList]? = []
             for(_, val) in dict! {
                 let curPod = val as! Dictionary<String, Any>
                 let podName = curPod["Name"] as! String
@@ -72,13 +72,21 @@ class APIClient {
                 // NOTE: gotta implement this
                 let radius = 5.0
                 let userIdList = curPod["UserIdList"] as! [String]
-                let numPeople = userIdList.count
                 let podID = curPod["PodId"] as! Int
                 let isLocked = curPod["IsPrivate"] as! Bool
                 let userNameList = curPod["UserList"] as! [String]
                 let geoHash = curPod["GeoHash"] as! String
-                let pod = Pod(podID: podID, name: podName, coordinates: coordinates, radius: radius, numPeople: numPeople, postData: [], isLocked: isLocked, userNameList: userNameList, userIdList: userIdList, geoHash: geoHash)
-                nearbyPods?.append(pod)
+                let pod = PodList()
+                pod?._podId = podID as NSNumber
+                pod?._userIdList = userIdList
+                pod?._isPrivate = isLocked as NSNumber
+                pod?._usernameList = userNameList
+                pod?._name = podName
+                pod?._radius = radius as NSNumber
+                pod?._geoHashCode = geoHash
+                pod?._latitude = coordinates.latitude as NSNumber
+                pod?._longitude = coordinates.longitude as NSNumber
+                nearbyPods?.append(pod!)
             }
             completion(nearbyPods)
             
@@ -332,7 +340,7 @@ class APIClient {
         queryExpression.keyConditionExpression = "userId= :userId"
         
         queryExpression.expressionAttributeValues = [":userId" : AWSIdentityManager.default().identityId!]
-        dynamoDBObjectMapper .query(Comments.self, expression: queryExpression) .continueWith(executor: AWSExecutor.mainThread(), block: { (task:AWSTask!) -> AnyObject! in
+        dynamoDBObjectMapper .query(UserPods.self, expression: queryExpression) .continueWith(executor: AWSExecutor.mainThread(), block: { (task:AWSTask!) -> AnyObject! in
             if let error = task.error as NSError? {
                 print("Error: \(error)")
             } else {

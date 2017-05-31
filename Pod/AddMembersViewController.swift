@@ -13,14 +13,14 @@ class AddMembersViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var friendTableView: UITableView!
     
-    var pod: Pod?
+    var pod: PodList?
     var friends: [UserInformation] = []
     var members: [UserInformation] = []
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = pod?.name
+        titleLabel.text = pod?._name
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
         friendTableView.delegate = self
         friendTableView.dataSource = self

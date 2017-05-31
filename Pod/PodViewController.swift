@@ -62,7 +62,7 @@ class PodViewController: UIViewController, PostCreationDelegate {
     let postButtonHeight: CGFloat = 50.0
     let titleTopMargin: CGFloat = 11.0 + UIApplication.shared.statusBarFrame.height
     let titleBottomMargin: CGFloat = 6.0
-    var podData: Pod?
+    var podData: PodList?
     
     // MARK: - PodViewController
     var initialized = false
@@ -88,7 +88,7 @@ class PodViewController: UIViewController, PostCreationDelegate {
         // self.textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
-        titleLabel.text = podData?.name
+        titleLabel.text = podData?._name
         setupConstraints()
     }
     
@@ -194,7 +194,7 @@ class PodViewController: UIViewController, PostCreationDelegate {
     
     func postCreated(post: Posts){
         print("post created")
-        self.podData?.postData.append(post)
+        self.podData?.postData?.append(post)
         tableView.reloadData()
     }
 }
@@ -208,7 +208,7 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(podData?.postData.count == nil){
+        if(podData?.postData?.count == nil){
             return 0
         }  else if(initialized == false){
             initialized = true
@@ -218,18 +218,18 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
 //                }
             
         }
-        return (podData?.postData.count)!
+        return (podData?.postData!.count)!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected!")
-        let postData = self.podData?.postData[indexPath.row]
+        let postData = self.podData?.postData?[indexPath.row]
         performSegue(withIdentifier: "toPostComments", sender: postData)
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let postData = self.podData?.postData[indexPath.row]
+        let postData = self.podData?.postData?[indexPath.row]
         if podData == nil ||  postData == nil{
             return UITableViewCell()
         }
@@ -310,7 +310,7 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
             
             if let data = NSData(contentsOf: downloadingFileURL) {
                 let img = UIImage(data: data as Data)
-                self.podData?.postData[index].image = img
+                self.podData?.postData?[index].image = img
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }

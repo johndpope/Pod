@@ -15,13 +15,16 @@ class PodCarouselViewController: UIViewController {
     
     // MARK: - Properties
     
-    var items: [Pod] = []
+    var items: [PodList] = []
     @IBOutlet var carousel: iCarousel!
     @IBOutlet var addButton: UIButton!
     @IBOutlet weak var podTitle: UILabel!
     @IBOutlet weak var podsNearbyLabel: UILabel!
     @IBOutlet weak var peopleInPod: UILabel!
     
+    @IBOutlet weak var myPodsButton: UIButton!
+    
+    @IBOutlet weak var redDot: UIImageView!
     var isPresentingForFirstTime = true
     
     @IBAction func signOut(_ sender: Any) {
@@ -49,6 +52,7 @@ class PodCarouselViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightBlue
+        redDot.isHidden = true
         presentSignInViewController()
         self.navigationController?.isNavigationBarHidden = true
         carousel.type = .rotary
@@ -57,6 +61,7 @@ class PodCarouselViewController: UIViewController {
         addButton.tintColor = UIColor.white
         FacebookIdentityProfile._sharedInstance.load()
         FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
+        addRedDotNotificationIndicator()
     }
     
     func getAllPods(){
@@ -68,7 +73,7 @@ class PodCarouselViewController: UIViewController {
             }
             for pod in pods! {
                 //APIClient().uploadTestPostsToPod(withId: pod.podID)
-                if !self.items.contains(where: { $0.podID == pod.podID }) {
+                if !self.items.contains(where: { $0._podId == pod._podId }) {
                     self.items.append(pod)
                 }
             }
@@ -80,7 +85,7 @@ class PodCarouselViewController: UIViewController {
     func getLimitedPostsForPods(){
         for i in 0..<self.items.count{
             let pod = self.items[i]
-            APIClient().getPostForPod(withId: (pod.podID), index: i, completion: { (posts, j) in
+            APIClient().getPostForPod(withId: (pod._podId as! Int), index: i, completion: { (posts, j) in
                 if(j != -1){
                     self.items[j].postData = posts as! [Posts]
                     self.carousel.reloadData()
@@ -92,7 +97,7 @@ class PodCarouselViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if(segue.identifier == Constants.Storyboard.SinglePodSegueId){
             if let nextVC = segue.destination as? PodViewController {
-                let podView = sender as! Pod
+                let podView = sender as! PodList
                 nextVC.podData = podView
             }
         }
@@ -132,6 +137,11 @@ class PodCarouselViewController: UIViewController {
     @IBAction func returnFromSegueActions(_ sender: UIStoryboardSegue) {
     
     }
+    
+    func addRedDotNotificationIndicator(){
+        
+        redDot.isHidden = false
+    }
 }
 
 // MARK: - iCarousel Methods
@@ -153,11 +163,11 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         let podView = (view as? PodView != nil) ? view as! PodView : PodView(frame: CGRect(x: 0, y: 0, width: 255, height: 453))
         podView.delegate = self
         podView.podData = items[index]
-        self.podTitle.text = self.items[self.carousel.currentItemIndex].name
-        if self.items[self.carousel.currentItemIndex].userIdList.count > 1 || self.items[self.carousel.currentItemIndex].userIdList.count == 0{
-            self.peopleInPod.text = "\(self.items[self.carousel.currentItemIndex].userIdList.count) people"
+        self.podTitle.text = self.items[self.carousel.currentItemIndex]._name
+        if self.items[self.carousel.currentItemIndex]._userIdList!.count > 1 || self.items[self.carousel.currentItemIndex]._userIdList?.count == 0{
+            self.peopleInPod.text = "\(String(describing: self.items[self.carousel.currentItemIndex]._userIdList?.count)) people"
         } else {
-            self.peopleInPod.text = "\(self.items[self.carousel.currentItemIndex].userIdList.count) person"
+            self.peopleInPod.text = "\(String(describing: self.items[self.carousel.currentItemIndex]._userIdList?.count)) person"
         }
         return podView
     }
@@ -165,11 +175,11 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
     func carouselCurrentItemIndexDidChange(_ carousel: iCarousel) {
         let index = carousel.currentItemIndex
         if(items.isEmpty != true){
-            self.podTitle.text = items[index].name
-            if self.items[index].userIdList.count == 0 || self.items[index].userIdList.count > 1{
-                self.peopleInPod.text = "\(self.items[index].userIdList.count) people"
+            self.podTitle.text = items[index]._name
+            if (self.items[index]._userIdList?.count)! == 0 || (self.items[index]._userIdList?.count)! > 1{
+                self.peopleInPod.text = "\(String(describing: self.items[index]._userIdList?.count)) people"
             } else {
-                self.peopleInPod.text = "\(self.items[index].userIdList.count) person"
+                self.peopleInPod.text = "\(String(describing: self.items[index]._userIdList?.count)) person"
             }
         }
     }
@@ -179,7 +189,7 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
 // MARK: - PodView Methods
 
 extension PodCarouselViewController: PodViewDelegate {
-    func toSinglePod(_ podView: Pod) {
+    func toSinglePod(_ podView: PodList) {
         performSegue(withIdentifier: Constants.Storyboard.SinglePodSegueId, sender: podView)
     }
 }

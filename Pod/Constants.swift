@@ -18,5 +18,6 @@ class Constants {
     
     struct Storyboard {
         static let SinglePodSegueId = "toSinglePod"
+        static let MySinglePodSegueId = "toMySinglePod"
     }
 }

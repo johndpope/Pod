@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "icons8-lock.png",
+      "filename" : "unlocked.png",
       "scale" : "1x"
     },
     {

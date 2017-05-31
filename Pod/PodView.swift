@@ -50,7 +50,7 @@ class PodView: UIView {
     
     var initialized = false
     var lockedPod = false
-    var podData: Pod?
+    var podData: PodList?
     weak var delegate: PodViewDelegate?
     
     lazy var lockImageView: UIImageView = {
@@ -146,11 +146,11 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(podData?.postData.count == nil){
+        if(podData?.postData?.count == nil){
             return 0
         } else {
             if(initialized == false){
-                self.lockedPod = (podData?.isLocked)!
+                self.lockedPod = (podData?._isPrivate)! as! Bool
                 self.setUpLockConstraints()
                 initialized = true
                 for (i,post) in (podData?.postData)!.enumerated(){
@@ -160,7 +160,7 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                             self.downloadContent(key: post._postImage, postID: post._postId!, index: i)
                         }).onSuccess({ (data) in
                             let img = UIImage(data: data as Data)
-                            self.podData?.postData[i].image = img
+                            self.podData?.postData?[i].image = img
                             DispatchQueue.main.async {
                                 self.tableView.reloadData()
                             }
@@ -169,12 +169,12 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
-        return (podData?.postData.count)!
+        return (podData?.postData!.count)!
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let postData = self.podData?.postData[indexPath.row]
+        let postData = self.podData?.postData?[indexPath.row]
         if podData == nil ||  postData == nil{
             return UITableViewCell()
         }
@@ -261,7 +261,7 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 let cache = Shared.dataCache
                 cache.set(value: data as Data, key: "\(key!)")
                 let img = UIImage(data: data as Data)
-                    self.podData?.postData[index].image = img
+                    self.podData?.postData?[index].image = img
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
@@ -273,5 +273,5 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
 }
 
 protocol PodViewDelegate: class {
-    func toSinglePod(_ podView: Pod)
+    func toSinglePod(_ podView: PodList)
 }

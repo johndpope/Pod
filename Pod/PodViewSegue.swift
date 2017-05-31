@@ -22,6 +22,10 @@ class PodViewSegue: UIStoryboardSegue {
             let podView = podCarouselVC.carousel.currentItemView as? PodView {
             self.podView = podView
             self.oldPodViewFrame = podCarouselVC.view.convert(podView.frame, from: podView)
+        } else if let podCarouselVC = source as? MyPodsCarouselViewController,
+            let podView = podCarouselVC.carousel.currentItemView as? PodView {
+            self.podView = podView
+            self.oldPodViewFrame = podCarouselVC.view.convert(podView.frame, from: podView)
         } else {
             self.podView = nil
             self.oldPodViewFrame = nil

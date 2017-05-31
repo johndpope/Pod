@@ -68,6 +68,7 @@
 		95D7283F1EDE485B00987AA3 /* AWSLambda.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 95D7283B1EDE485B00987AA3 /* AWSLambda.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		95D728411EDE4C6C00987AA3 /* AWSCognito.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D728401EDE4C6C00987AA3 /* AWSCognito.framework */; };
 		95D728421EDE4C6C00987AA3 /* AWSCognito.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 95D728401EDE4C6C00987AA3 /* AWSCognito.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		95E1E4C81EDF4122009A7546 /* MyPodsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1E4C71EDF4122009A7546 /* MyPodsViewController.swift */; };
 		C807AC9F9F51908EF23D61C2 /* Pods_Pod.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */; };
 		F44AB6341ED3DEB0001B5E69 /* PodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44AB6331ED3DEB0001B5E69 /* PodViewController.swift */; };
 		F4A3BE381ECBAC180032B3E3 /* PodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A3BE371ECBAC180032B3E3 /* PodView.swift */; };
@@ -164,6 +165,7 @@
 		95D7283A1EDE485B00987AA3 /* AWSCognitoIdentityProvider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCognitoIdentityProvider.framework; path = Pod/Sdk3/Aws/AWSCognitoIdentityProvider.framework; sourceTree = "<group>"; };
 		95D7283B1EDE485B00987AA3 /* AWSLambda.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSLambda.framework; path = Pod/Sdk3/Aws/AWSLambda.framework; sourceTree = "<group>"; };
 		95D728401EDE4C6C00987AA3 /* AWSCognito.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCognito.framework; path = Pod/Sdk3/Aws/AWSCognito.framework; sourceTree = "<group>"; };
+		95E1E4C71EDF4122009A7546 /* MyPodsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPodsViewController.swift; sourceTree = "<group>"; };
 		DB37B267B5709340ACC441C6 /* Pods-Pod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pod.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pod/Pods-Pod.debug.xcconfig"; sourceTree = "<group>"; };
 		F44AB6331ED3DEB0001B5E69 /* PodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodViewController.swift; sourceTree = "<group>"; };
 		F4A3BE371ECBAC180032B3E3 /* PodView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodView.swift; sourceTree = "<group>"; };
@@ -399,6 +401,7 @@
 				95B9C3821EDE090800954D4C /* MemberProfileViewController.swift */,
 				95B9C3841EDE11FB00954D4C /* AddMembersViewController.swift */,
 				95B9C3861EDE12AB00954D4C /* AddMemberTableViewCell.swift */,
+				95E1E4C71EDF4122009A7546 /* MyPodsViewController.swift */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 				95D14F2C1EBEA0A70049C58A /* Constants.swift in Sources */,
 				95B9C37E1EDD52FA00954D4C /* MemberTableViewCell.swift in Sources */,
 				95B9C3A91EDE467700954D4C /* UserInformation.swift in Sources */,
+				95E1E4C81EDF4122009A7546 /* MyPodsViewController.swift in Sources */,
 				9578B5941ED3E4370096A518 /* NewPostViewController.swift in Sources */,
 				F4E9DE441EDE14BC0089BA13 /* PodViewSegue.swift in Sources */,
 				95902ACC1ED8EA810008792A /* PodPostTableViewCell.swift in Sources */,

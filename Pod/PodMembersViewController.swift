@@ -13,12 +13,12 @@ class PodMembersViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var podTitle: UILabel!
     
-    var pod: Pod?
+    var pod: PodList?
     var members: [UserInformation] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        podTitle.text = pod?.name
+        podTitle.text = pod?._name
         podTitle.font = UIFont.boldSystemFont(ofSize: 18)
         tableView.delegate = self
         tableView.dataSource = self
@@ -31,7 +31,7 @@ class PodMembersViewController: UIViewController {
         //tableView.layoutIfNeeded()
         tableView.backgroundColor = .lightBlue
         view.backgroundColor = .lightBlue
-        for id in (pod?.userIdList)!{
+        for id in (pod?._userIdList)!{
             APIClient().getUser(withId: id, completion: { (uinfo) in
                 self.members.append(uinfo!)
                 self.tableView.reloadData()

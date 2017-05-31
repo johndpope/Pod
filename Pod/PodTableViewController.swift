@@ -10,7 +10,7 @@ import UIKit
 
 class PodTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var podList = [Pod]()
+    var podList = [PodList]()
 
     @IBOutlet weak var podTableView: UITableView!
     override func viewDidLoad() {
@@ -46,9 +46,9 @@ class PodTableViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PodCell", for: indexPath) as! PodTableViewCell
         let pod = podList[indexPath.row]
-        cell.podTitle.text = pod.name
+        cell.podTitle.text = pod._name
         cell.podLastPost.text = "Last post 5 mins ago"
-        cell.peopleInPod.text = String(pod.numPeople)
+        cell.peopleInPod.text = String(describing: pod._userIdList?.count)
         return cell
     }
     

@@ -26,11 +26,11 @@ class PodPrivacyViewController: UIViewController {
 
     func setPrivacy(gesture: UITapGestureRecognizer) {
         if(isPrivate){
-            privacyImage.image = UIImage(named: "icons8-unlock")
+            privacyImage.image = UIImage(named: "unlocked")
             privacyText.text = "Tap the lock to make this pod public"
             isPrivate = false;
         } else {
-            privacyImage.image = UIImage(named: "icons8-lock")
+            privacyImage.image = UIImage(named: "locked")
             privacyText.text = "Tap the lock to make this pod private"
             isPrivate = true;
         }
