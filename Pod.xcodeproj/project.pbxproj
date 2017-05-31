@@ -69,6 +69,8 @@
 		F4E9DE371EDB4A0E0089BA13 /* PodMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE361EDB4A0E0089BA13 /* PodMapViewController.swift */; };
 		F4E9DE391EDB51D80089BA13 /* NewPodMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE381EDB51D80089BA13 /* NewPodMapViewController.swift */; };
 		F4E9DE3D1EDB7FF30089BA13 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE3C1EDB7FF30089BA13 /* OverlayView.swift */; };
+		F4E9DE441EDE14BC0089BA13 /* PodViewSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE431EDE14BC0089BA13 /* PodViewSegue.swift */; };
+		F4E9DE461EDE36A90089BA13 /* PodViewSegueUnwind.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE451EDE36A90089BA13 /* PodViewSegueUnwind.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -157,6 +159,8 @@
 		F4E9DE361EDB4A0E0089BA13 /* PodMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodMapViewController.swift; sourceTree = "<group>"; };
 		F4E9DE381EDB51D80089BA13 /* NewPodMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPodMapViewController.swift; sourceTree = "<group>"; };
 		F4E9DE3C1EDB7FF30089BA13 /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		F4E9DE431EDE14BC0089BA13 /* PodViewSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodViewSegue.swift; sourceTree = "<group>"; };
+		F4E9DE451EDE36A90089BA13 /* PodViewSegueUnwind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodViewSegueUnwind.swift; sourceTree = "<group>"; };
 		FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pod.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -349,6 +353,8 @@
 				F4BECB481EBE6D3D00B98BA8 /* UIColor+Pod.swift */,
 				9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */,
 				F4A3BE371ECBAC180032B3E3 /* PodView.swift */,
+				F4E9DE431EDE14BC0089BA13 /* PodViewSegue.swift */,
+				F4E9DE451EDE36A90089BA13 /* PodViewSegueUnwind.swift */,
 				F4BECB461EBE660900B98BA8 /* UIView+Autolayout.swift */,
 				95CF56061ECBC9BD00B1751E /* Main.storyboard */,
 				F44AB6331ED3DEB0001B5E69 /* PodViewController.swift */,
@@ -545,10 +551,12 @@
 				95D14F251EBE8C410049C58A /* PodData.swift in Sources */,
 				95D14F271EBE993E0049C58A /* PodTabBarController.swift in Sources */,
 				9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */,
+				F4E9DE461EDE36A90089BA13 /* PodViewSegueUnwind.swift in Sources */,
 				95D14F191EBD738A0049C58A /* PodTableViewController.swift in Sources */,
 				95D14F2C1EBEA0A70049C58A /* Constants.swift in Sources */,
 				95B9C37E1EDD52FA00954D4C /* MemberTableViewCell.swift in Sources */,
 				9578B5941ED3E4370096A518 /* NewPostViewController.swift in Sources */,
+				F4E9DE441EDE14BC0089BA13 /* PodViewSegue.swift in Sources */,
 				95902ACC1ED8EA810008792A /* PodPostTableViewCell.swift in Sources */,
 				9534F4F61EDB990A0094A007 /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m in Sources */,
 				95D14F1B1EBD773C0049C58A /* PodTableViewCell.swift in Sources */,

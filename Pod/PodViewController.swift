@@ -25,6 +25,9 @@ class PodViewController: UIViewController, PostCreationDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.layer.cornerRadius = 26.0
+        tableView.layer.borderColor = UIColor.darkGray.cgColor
+        tableView.layer.borderWidth = 1.0
+        tableView.layer.masksToBounds = true
         return tableView
     }()
     
@@ -137,7 +140,20 @@ class PodViewController: UIViewController, PostCreationDelegate {
     
     func closePod() {
         //dismiss(animated: true, completion: nil)
-        self.navigationController?.popViewController(animated: true)
+        //self.navigationController?.popViewController(animated: true)
+        self.performSegue(withIdentifier: "unwindToCarousel", sender: nil)
+    }
+    
+    override func segueForUnwinding(to toViewController: UIViewController, from fromViewController: UIViewController, identifier: String?) -> UIStoryboardSegue? {
+        if let id = identifier,
+            id == "unwindToCarousel" {
+            let unwindSegue = PodViewSegueUnwind(identifier: id, source: fromViewController, destination: toViewController, performHandler: { 
+                // glah
+            })
+            return unwindSegue
+        }
+        
+        return super.segueForUnwinding(to: toViewController, from: fromViewController, identifier: identifier)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
