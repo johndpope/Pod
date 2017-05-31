@@ -46,19 +46,6 @@ class MyPodsCarouselViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
-    func getAllPods(){
-        let client = APIClient()
-        let location = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
-        client.getNearbyPods(location: location) { (pods) in
-            for pod in pods! {
-                //APIClient().uploadTestPostsToPod(withId: pod.podID)
-                if !self.items.contains(where: { $0._podId == pod._podId }) {
-                    self.items.append(pod)
-                }
-            }
-            self.getLimitedPostsForPods()
-        }
-    }
     
     func getMyPods(){
         APIClient.sharedInstance.getUserPodIds { (userPods) in
@@ -84,17 +71,6 @@ class MyPodsCarouselViewController: UIViewController {
         })
     }
     
-    func getLimitedPostsForPods(){
-        for i in 0..<self.items.count{
-            let pod = self.items[i]
-            APIClient().getPostForPod(withId: (pod._podId as! Int), index: i, completion: { (posts, j) in
-                if(j != -1){
-                    self.items[j].postData = posts as! [Posts]
-                    self.carousel.reloadData()
-                }
-            })
-        }
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if(segue.identifier == Constants.Storyboard.MySinglePodSegueId){
