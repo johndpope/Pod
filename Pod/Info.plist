@@ -4,6 +4,14 @@
 <dict>
 	<key>AWS</key>
 	<dict>
+		<key>Cognito</key>
+		<dict>
+			<key>Default</key>
+			<dict>
+				<key>Region</key>
+				<string>us-east-1</string>
+			</dict>
+		</dict>
 		<key>CredentialsProvider</key>
 		<dict>
 			<key>CognitoIdentity</key>
@@ -35,24 +43,16 @@
 			<key>ProjectClientId</key>
 			<string>MobileHub 83b7d861-8f45-4d7a-8e20-fbeb2e972cab aws-my-sample-app-ios-swift-v0.16</string>
 		</dict>
-        <key>UserFileManager</key>
-        <dict>
-            <key>Default</key>
-            <dict>
-                <key>S3Bucket</key>
-                <string>pod-userfiles-mobilehub-1901037061</string>
-                <key>Region</key>
-                <string>us-east-1</string>
-            </dict>
-        </dict>
-        <key>Cognito</key>
-        <dict>
-            <key>Default</key>
-            <dict>
-                <key>Region</key>
-                <string>us-east-1</string>
-            </dict>
-        </dict>
+		<key>UserFileManager</key>
+		<dict>
+			<key>Default</key>
+			<dict>
+				<key>Region</key>
+				<string>us-east-1</string>
+				<key>S3Bucket</key>
+				<string>pod-userfiles-mobilehub-1901037061</string>
+			</dict>
+		</dict>
 	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
@@ -114,15 +114,15 @@
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
 			</dict>
-            <key>amazonaws.com.cn</key>
-            <dict>
-                <key>NSIncludesSubdomains</key>
-                <true/>
-                <key>NSThirdPartyExceptionMinimumTLSVersion</key>
-                <string>TLSv1.0</string>
-                <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
-                <false/>
-            </dict>
+			<key>amazonaws.com.cn</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
 			<key>cloudfront.net</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
