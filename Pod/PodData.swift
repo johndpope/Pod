@@ -42,3 +42,8 @@ enum PostType {
     case photo
     case poll
 }
+
+enum RequestType {
+    case join
+    case invite
+}

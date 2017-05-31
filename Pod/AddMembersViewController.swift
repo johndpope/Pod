@@ -16,6 +16,7 @@ class AddMembersViewController: UIViewController {
     var pod: PodList?
     var friends: [UserInformation] = []
     var members: [UserInformation] = []
+    var inviteList: Set<Int> = []
 
 
     override func viewDidLoad() {
@@ -50,7 +51,11 @@ class AddMembersViewController: UIViewController {
     }
     
     @IBAction func sendInvites(_ sender: Any) {
-        print("send out invites")
+        var invites: [UserInformation] = []
+        for i in inviteList {
+            invites.append(friends[i])
+        }
+        APIClient.sharedInstance.sendInviteRequest(to: invites, podId: Int((pod?._podId)!), podName: (pod?._name)!)
     }
 
     @IBAction func goBack(_ sender: Any) {
@@ -88,9 +93,11 @@ extension AddMembersViewController: UITableViewDelegate, UITableViewDataSource {
             cell.backgroundColor = UIColor(red: 202/255, green: 234/255, blue: 249/255, alpha: 1)
             cell.checkedImage.image = UIImage(named: "checkMark")
             cell.checkedImage.isHidden = false
+            inviteList.insert(indexPath.row)
         } else {
             cell.backgroundColor = .lightBlue
             cell.checkedImage.isHidden = true
+            inviteList.remove(indexPath.row)
         }
     }
     

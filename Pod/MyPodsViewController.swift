@@ -18,8 +18,8 @@ class MyPodsCarouselViewController: UIViewController {
     var items: [PodList] = []
     @IBOutlet var carousel: iCarousel!
     @IBOutlet weak var podTitle: UILabel!
-    @IBOutlet weak var invitesLabel: UILabel!
 
+    @IBOutlet weak var invitesButton: UIButton!
     var isPresentingForFirstTime = true
     
     // MARK: - PodCarouselViewController

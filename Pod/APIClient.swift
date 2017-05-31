@@ -366,4 +366,59 @@ class APIClient {
             self.dynamoDBObjectMapper.save(uPod!)
         }
     }
+    
+    func getPodRequestsForCurrentUser(completion: @escaping (_ requests: [PodRequests?])->()){
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.keyConditionExpression = "userId= :userId"
+        queryExpression.expressionAttributeValues = [":userId" : FacebookIdentityProfile._sharedInstance.userId!]
+        dynamoDBObjectMapper .query(PodRequests.self, expression: queryExpression) .continueWith(executor: AWSExecutor.mainThread(), block: { (task:AWSTask!) -> AnyObject! in
+            if let error = task.error as NSError? {
+                print("Error: \(error)")
+            } else {
+                if let result = task.result {//(task.result != nil) {
+                    if result.items.count == 0 {
+                        completion([])
+                    } else {
+                        completion(result.items as! [PodRequests])
+                    }
+                }
+            }
+            return nil
+        })
+    }
+    
+
+    
+    func sendJoinRequest(to: String, from: UserInformation, podId: Int){
+        let request = PodRequests()
+        request?._podId = podId as NSNumber
+        request?._userId = to
+        request?._requesterID = from._facebookId
+        request?._requesterName = from._username
+        request?._requesterPhotoURL = from._photoURL
+        request?._requestType = RequestType.join.hashValue as NSNumber
+        dynamoDBObjectMapper.save(request!)
+    }
+    
+    func sendInviteRequest(to: [UserInformation], podId: Int, podName: String){
+        for user in to {
+            
+            let request = PodRequests()
+            request?._podId = podId as NSNumber
+            request?._podName = podName
+            request?._userId = user._facebookId
+            request?._requesterName = FacebookIdentityProfile._sharedInstance.userName
+            request?._requesterID = FacebookIdentityProfile._sharedInstance.userId
+            request?._requesterPhotoURL = FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString
+            request?._requestType = RequestType.invite.hashValue as NSNumber
+            dynamoDBObjectMapper.save(request!, completionHandler: { (err) in
+                if let error = err {
+                    print("Amazin DynamoDB Save Error: \(error)")
+                    return
+                }
+                print("request saved")
+            })
+        }
+    }
+
 }
