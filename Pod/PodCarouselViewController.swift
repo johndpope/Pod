@@ -165,9 +165,9 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         podView.podData = items[index]
         self.podTitle.text = self.items[self.carousel.currentItemIndex]._name
         if self.items[self.carousel.currentItemIndex]._userIdList!.count > 1 || self.items[self.carousel.currentItemIndex]._userIdList?.count == 0{
-            self.peopleInPod.text = "\(String(describing: self.items[self.carousel.currentItemIndex]._userIdList?.count)) people"
+            self.peopleInPod.text = "\(String(describing: (self.items[self.carousel.currentItemIndex]._userIdList?.count)!)) people"
         } else {
-            self.peopleInPod.text = "\(String(describing: self.items[self.carousel.currentItemIndex]._userIdList?.count)) person"
+            self.peopleInPod.text = "\(String(describing: (self.items[self.carousel.currentItemIndex]._userIdList?.count)!)) person"
         }
         return podView
     }
@@ -177,9 +177,9 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         if(items.isEmpty != true){
             self.podTitle.text = items[index]._name
             if (self.items[index]._userIdList?.count)! == 0 || (self.items[index]._userIdList?.count)! > 1{
-                self.peopleInPod.text = "\(String(describing: self.items[index]._userIdList?.count)) people"
+                self.peopleInPod.text = "\(String(describing: (self.items[index]._userIdList?.count)!)) people"
             } else {
-                self.peopleInPod.text = "\(String(describing: self.items[index]._userIdList?.count)) person"
+                self.peopleInPod.text = "\(String(describing: (self.items[index]._userIdList?.count)!)) person"
             }
         }
     }

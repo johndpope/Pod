@@ -56,7 +56,6 @@ class MyPodsCarouselViewController: UIViewController {
                     self.items.append(pod)
                 }
             }
-            print(self.items)
             self.getLimitedPostsForPods()
         }
     }
@@ -64,11 +63,25 @@ class MyPodsCarouselViewController: UIViewController {
     func getMyPods(){
         APIClient.sharedInstance.getUserPodIds { (userPods) in
             for pod in userPods {
-                APIClient.sharedInstance.getPod(withId: pod?._podId as! Int, geoHash: (pod?._geoHash)!, completion: { (podList) in
-                    //self.items.append(podList)
-                })
+                if !self.items.contains(where: { $0._podId == pod?._podId }) {
+                    APIClient.sharedInstance.getPod(withId: pod?._podId as! Int, geoHash: (pod?._geoHash)!, completion: { (podList) in
+                        let index = self.items.count
+                        self.items.append(podList!)
+                        self.getPostsforPod(index: index)
+                    })
+                }
             }
         }
+    }
+    
+    func getPostsforPod(index: Int){
+        let pod = self.items[index]
+        APIClient().getPostForPod(withId: (pod._podId as! Int), index: index, completion: { (posts, j) in
+            if(j != -1){
+                self.items[j].postData = posts as? [Posts]
+                self.carousel.reloadData()
+            }
+        })
     }
     
     func getLimitedPostsForPods(){
@@ -94,7 +107,7 @@ class MyPodsCarouselViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getAllPods()
+        getMyPods()
     }
     
     @IBAction func returnFromSegueActions(_ sender: UIStoryboardSegue) {
