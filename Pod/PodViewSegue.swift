@@ -38,12 +38,14 @@ class PodViewSegue: UIStoryboardSegue {
             let oldPodViewFrame = self.oldPodViewFrame {
             let topMargin = podVC.titleTopMargin + podVC.titleBottomMargin + 29.0 // Size of title label
             
-            UIView.animate(withDuration: 0.4, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 podView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight - topMargin)
                 podView.transform = CGAffineTransform(translationX: -oldPodViewFrame.minX, y: topMargin - oldPodViewFrame.minY)
+                podView.addCornerRadiusAnimation(from: 26.0, to: 0, duration: 0.3)
             }, completion: { (completed) in
                 self.source.present(self.destination, animated: false) {
                     podView.frame = CGRect(x: 0, y: 0, width: oldPodViewFrame.size.width, height: oldPodViewFrame.size.height)
+                    podView.layer.cornerRadius = 26.0
                 }
             })
         }
