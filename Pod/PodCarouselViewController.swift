@@ -20,6 +20,7 @@ class PodCarouselViewController: UIViewController {
     @IBOutlet var addButton: UIButton!
     @IBOutlet weak var podTitle: UILabel!
     @IBOutlet weak var podsNearbyLabel: UILabel!
+    @IBOutlet weak var peopleInPod: UILabel!
     
     var isPresentingForFirstTime = true
     
@@ -150,6 +151,11 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         podView.delegate = self
         podView.podData = items[index]
         self.podTitle.text = self.items[self.carousel.currentItemIndex].name
+        if self.items[self.carousel.currentItemIndex].userIdList.count > 1 || self.items[self.carousel.currentItemIndex].userIdList.count == 0{
+            self.peopleInPod.text = "\(self.items[self.carousel.currentItemIndex].userIdList.count) people"
+        } else {
+            self.peopleInPod.text = "\(self.items[self.carousel.currentItemIndex].userIdList.count) person"
+        }
         return podView
     }
     
@@ -157,6 +163,11 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         let index = carousel.currentItemIndex
         if(items.isEmpty != true){
             self.podTitle.text = items[index].name
+            if self.items[index].userIdList.count == 0 || self.items[index].userIdList.count > 1{
+                self.peopleInPod.text = "\(self.items[index].userIdList.count) people"
+            } else {
+                self.peopleInPod.text = "\(self.items[index].userIdList.count) person"
+            }
         }
     }
     

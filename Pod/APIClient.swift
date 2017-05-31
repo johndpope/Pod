@@ -327,4 +327,36 @@ class APIClient {
             return nil
         })
     }
+    
+    func getUserPodIds(completion: @escaping (_ pods: [UserPods?])->()){
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.keyConditionExpression = "userId= :userId"
+        
+        queryExpression.expressionAttributeValues = [":userId" : AWSIdentityManager.default().identityId!]
+        dynamoDBObjectMapper .query(Comments.self, expression: queryExpression) .continueWith(executor: AWSExecutor.mainThread(), block: { (task:AWSTask!) -> AnyObject! in
+            if let error = task.error as NSError? {
+                print("Error: \(error)")
+            } else {
+                if let result = task.result {//(task.result != nil) {
+                    if result.items.count == 0 {
+                        completion([])
+                    } else {
+                        completion(result.items as! [UserPods])
+                    }
+                }
+            }
+            return nil
+        })
+    }
+
+    
+    func addPodToUsersList(podId: Int, geoHash: String){
+        getUserPodIds { (pods) in
+            let uPod = UserPods()
+            uPod?._podId = podId as NSNumber
+            uPod?._userId = AWSIdentityManager.default().identityId!
+            uPod?._geoHash = geoHash
+            self.dynamoDBObjectMapper.save(uPod!)
+        }
+    }
 }
