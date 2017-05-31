@@ -137,6 +137,12 @@ class PodView: UIView {
             delegate.toSinglePod(podData!)
         }
     }
+    
+    func checkIfInPod(){
+        if (podData?._userIdList?.contains(AWSIdentityManager.default().identityId!))! {
+            layer.borderColor = UIColor.green.cgColor
+        }
+    }
 }
 
 extension PodView: UITableViewDelegate, UITableViewDataSource {
@@ -150,6 +156,7 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             return 0
         } else {
             if(initialized == false){
+                self.checkIfInPod()
                 self.lockedPod = (podData?._isPrivate)! as! Bool
                 self.setUpLockConstraints()
                 initialized = true

@@ -401,6 +401,26 @@ class APIClient {
         dynamoDBObjectMapper.save(request!)
     }
     
+    func removePossibleRequests(podId: Int){
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.keyConditionExpression = "userId= :userId AND podId= :podId"
+        queryExpression.expressionAttributeValues = [":userId" : FacebookIdentityProfile._sharedInstance.userId!, ":podID":podId]
+        dynamoDBObjectMapper .query(PodRequests.self, expression: queryExpression) .continueWith(executor: AWSExecutor.mainThread(), block: { (task:AWSTask!) -> AnyObject! in
+            if let error = task.error as NSError? {
+                print("Error: \(error)")
+            } else {
+                if let result = task.result {//(task.result != nil) {
+                    if result.items.count != 0 {
+                        for pod in result.items as! [PodRequests]{
+                            self.dynamoDBObjectMapper.remove(pod)
+                        }
+                    }
+                }
+            }
+            return nil
+        })
+    }
+    
     func sendInviteRequest(to: [UserInformation], podId: Int, podName: String, geoHash: String){
         for user in to {
             

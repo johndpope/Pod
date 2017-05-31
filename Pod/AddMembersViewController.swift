@@ -56,6 +56,11 @@ class AddMembersViewController: UIViewController {
             invites.append(friends[i])
         }
         APIClient.sharedInstance.sendInviteRequest(to: invites, podId: Int((pod?._podId)!), podName: (pod?._name)!, geoHash: (pod?._geoHashCode)!)
+        if let nav = self.navigationController {
+            nav.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 
     @IBAction func goBack(_ sender: Any) {

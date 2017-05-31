@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AWSMobileHubHelper
 
 class PodMembersViewController: UIViewController {
 
@@ -16,6 +17,7 @@ class PodMembersViewController: UIViewController {
     var pod: PodList?
     var members: [UserInformation] = []
 
+    @IBOutlet weak var addMembersButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         podTitle.text = pod?._name
@@ -23,6 +25,7 @@ class PodMembersViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        addMembersButton.isHidden = true
        // tableView.estimatedRowHeight = 40.0 // Replace with your actual estimation
         // Automatic dimensions to tell the table view to use dynamic height
        // tableView.rowHeight = UITableViewAutomaticDimension
@@ -32,6 +35,9 @@ class PodMembersViewController: UIViewController {
         tableView.backgroundColor = .lightBlue
         view.backgroundColor = .lightBlue
         for id in (pod?._userIdList)!{
+            if(id == AWSIdentityManager.default().identityId){
+                addMembersButton.isHidden = false
+            }
             APIClient().getUser(withId: id, completion: { (uinfo) in
                 self.members.append(uinfo!)
                 self.tableView.reloadData()

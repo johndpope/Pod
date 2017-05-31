@@ -654,7 +654,7 @@
                                     <constraint firstAttribute="width" constant="35" id="Hyz-e1-Mnx"/>
                                     <constraint firstAttribute="height" constant="22" id="Q3p-Zd-hb2"/>
                                 </constraints>
-                                <state key="normal" title="Add" image="add_members">
+                                <state key="normal" image="add_members">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -717,6 +717,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addMembersButton" destination="4Ya-wk-zCU" id="Brp-Gy-b4G"/>
                         <outlet property="podTitle" destination="fHR-X3-WMy" id="i4E-zj-VGZ"/>
                         <outlet property="tableView" destination="qlk-gX-wJH" id="RLr-N5-F6S"/>
                         <segue destination="G4a-Hu-qnP" kind="showDetail" identifier="toMemberProfileView" id="cr0-Hl-tO3"/>
