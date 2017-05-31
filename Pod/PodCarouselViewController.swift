@@ -86,10 +86,8 @@ class PodCarouselViewController: UIViewController {
         for i in 0..<self.items.count{
             let pod = self.items[i]
             APIClient().getPostForPod(withId: (pod._podId as! Int), index: i, completion: { (posts, j) in
-                if(j != -1){
-                    self.items[j].postData = posts as! [Posts]
-                    self.carousel.reloadData()
-                }
+                self.items[j].postData = posts as! [Posts]
+                self.carousel.reloadData()
             })
         }
     }
