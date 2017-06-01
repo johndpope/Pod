@@ -87,8 +87,11 @@ class CommentViewController: SLKTextViewController {
             self.postData?._numComments = NSNumber(integerLiteral: numComments)
             APIClient.sharedInstance.updatePostInfo(post: self.postData!)
             self.commentDelegate?.commentCreated(post: self.postData!)
+            let scrollPoint = CGPoint(x: 0, y: (self.tableView?.contentSize.height)! - (self.tableView?.frame.size.height)!)
+            self.tableView?.setContentOffset(scrollPoint, animated: true)
         }
         super.didPressRightButton(sender)
+
     }
     
     override func textViewDidBeginEditing(_ textView: UITextView) {
