@@ -9,7 +9,7 @@
 import UIKit
 import AWSS3
 
-class PodViewController: UIViewController, PostCreationDelegate {
+class PodViewController: UIViewController, PostCreationDelegate, CommentCreationDelegate {
     
     // MARK: - Properties
     
@@ -206,6 +206,7 @@ class PodViewController: UIViewController, PostCreationDelegate {
         if(segue.identifier == "toPostComments"){
             if let nextVC = segue.destination as? CommentHeaderViewController {
                 nextVC.postData = sender as? Posts
+                nextVC.commentDelegate = self
             }
         } else if(segue.identifier == "toNewPost"){
             if let nextVC = segue.destination as? NewPostViewController {
@@ -226,6 +227,16 @@ class PodViewController: UIViewController, PostCreationDelegate {
             emptyPodView.removeFromSuperview()
         }
         tableView.reloadData()
+    }
+    
+    func commentCreated(post: Posts) {
+        for (i, p) in (self.podData?.postData?.enumerated())! {
+            if p._podId == post._podId {
+                self.podData?.postData?[i]._numComments = post._numComments
+                tableView.reloadData()
+                return
+            }
+        }
     }
 }
 

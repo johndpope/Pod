@@ -38,7 +38,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="26" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HL3-yN-ej4">
-                        <rect key="frame" x="40.5" y="73.5" width="15.5" height="21"/>
+                        <rect key="frame" x="40.5" y="73.5" width="20.5" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.97254901959999995" green="0.0" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -78,8 +78,6 @@
                     <constraint firstItem="7Bq-eP-Xfw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="eNW-WC-JRP"/>
                     <constraint firstItem="vja-Q8-1va" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="fad-PR-g28"/>
                     <constraint firstItem="uNu-mZ-4ah" firstAttribute="leading" secondItem="W6B-qQ-1Bu" secondAttribute="trailing" constant="2" id="icT-nu-jNe"/>
-                    <constraint firstItem="mZa-vi-o12" firstAttribute="leading" secondItem="HL3-yN-ej4" secondAttribute="trailing" constant="8" id="jSx-Gi-HrH"/>
-                    <constraint firstItem="mZa-vi-o12" firstAttribute="leading" secondItem="HL3-yN-ej4" secondAttribute="trailing" constant="8" id="lD0-ps-Hma"/>
                     <constraint firstAttribute="bottom" secondItem="uNu-mZ-4ah" secondAttribute="bottom" constant="8" id="nxU-qt-hc5"/>
                     <constraint firstAttribute="trailingMargin" secondItem="7Bq-eP-Xfw" secondAttribute="trailing" constant="8" id="oiJ-1Q-oxZ"/>
                     <constraint firstAttribute="bottom" secondItem="BAq-FP-Z7e" secondAttribute="bottom" constant="8" id="rfh-Ue-sP0"/>

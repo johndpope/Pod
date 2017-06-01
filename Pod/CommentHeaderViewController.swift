@@ -8,61 +8,54 @@
 
 import UIKit
 
-class CommentHeaderViewController: UIViewController {
-    @IBOutlet weak var OPImage: UIImageView!
-    @IBOutlet weak var heartImage: UIImageView!
-    @IBOutlet weak var OPTitle: UILabel!
-    @IBOutlet weak var OPComment: UILabel!
-    @IBOutlet weak var numHearts: UILabel!
-    @IBOutlet weak var numComments: UILabel!
-    @IBOutlet weak var commentFrame: UIView!
-    
+class CommentHeaderViewController: UIViewController, CommentCreationDelegate {
     let containerView = UIView()
     var messages: [String] = []
     var likedComment: Bool = false
     var postData: Posts?
+    let photoCell: ThumbnailPostTableViewCell? = nil
+    let textCell: PodPostTableViewCell? = nil
+    var commentDelegate: CommentCreationDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setOPDetails()
-       // setCommentDetails()
-       // commentFrame.layer.borderWidth = 1
-       // commentFrame.layer.borderColor = UIColor.gray.cgColor
-//        let lowerBorder = CALayer()
-//        lowerBorder.backgroundColor = UIColor.gray.cgColor
-//        lowerBorder.frame = CGRect(x: commentFrame.frame.minX, y: commentFrame.layer.bounds.maxY, width: commentFrame.frame.width, height: 1.0)
-//        commentFrame.layer.addSublayer(lowerBorder)
+
         if(Int((postData?._postType)!) == PostType.photo.hashValue){
-            let cell : ThumbnailPostTableViewCell? = Bundle.main.loadNibNamed("ThumbnailPostTableViewCell",owner: nil, options: nil)?.first as! ThumbnailPostTableViewCell
-            cell?.frame = CGRect(x: 0, y: 8, width: view.frame.width, height: (cell?.frame.height)!-8)
-            cell?.posterName.text = postData?._posterName
-            cell?.posterBody.text = postData?._postContent
+            let photoCell =  Bundle.main.loadNibNamed("ThumbnailPostTableViewCell",owner: nil, options: nil)?.first as! ThumbnailPostTableViewCell
+            photoCell.frame = CGRect(x: 0, y: 8, width: view.frame.width, height: (photoCell.frame.height)-8)
+            photoCell.posterName.text = postData?._posterName
+            photoCell.posterBody.text = postData?._postContent
             let url = URL(string: (postData?._posterImageURL)!)
             var data = Data()
             do {
                 data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                cell?.posterPhoto.image = UIImage(data: data)
+                photoCell.posterPhoto.image = UIImage(data: data)
             } catch {
-                cell?.posterPhoto.image = UIImage(named: "UserIcon")
+                photoCell.posterPhoto.image = UIImage(named: "UserIcon")
             }
-            cell?.photoContent.image = postData?.image
-            cell?.backgroundColor = .white
-            containerView.frame = CGRect(x: (cell?.frame.minX)!, y: (cell?.frame.maxY)!, width: view.frame.width, height: view.frame.height - (cell?.frame.height)!-8)
+            photoCell.photoContent.image = postData?.image
+            photoCell.backgroundColor = .white
+            photoCell.postLikes.text = String(describing: (postData?._numLikes!)!)
+            photoCell.postComments.text = String(describing: (postData?._numComments!))
+            containerView.frame = CGRect(x: (photoCell.frame.minX), y: (photoCell.frame.maxY), width: view.frame.width, height: view.frame.height - (photoCell.frame.height)-8)
             view.addSubview(containerView)
-            view.addSubview(cell!)
+            view.addSubview(photoCell)
 
         } else if (Int((postData?._postType)!) == PostType.text.hashValue) {
-            let cell : PodPostTableViewCell? = Bundle.main.loadNibNamed("PodPostTableViewCell",owner: nil, options: nil)?.first as! PodPostTableViewCell
-            cell?.frame = CGRect(x: 0, y: 8, width: view.frame.width, height: (cell?.frame.height)!)
-            cell?.posterName.text = postData?._posterName
-            cell?.posterBody.text = postData?._postContent
-            cell?.backgroundColor = .white
-            containerView.frame = CGRect(x: (cell?.frame.minX)!, y: (cell?.frame.maxY)!, width: view.frame.width, height: view.frame.height - (cell?.frame.height)!-8)
+            let textCell = Bundle.main.loadNibNamed("PodPostTableViewCell",owner: nil, options: nil)?.first as! PodPostTableViewCell
+            textCell.frame = CGRect(x: 0, y: 8, width: view.frame.width, height: (textCell.frame.height))
+            textCell.posterName.text = postData?._posterName
+            textCell.posterBody.text = postData?._postContent
+            textCell.postLikes.text = String(describing: (postData?._numLikes!)!)
+            textCell.postComments.text = String(describing: (postData?._numComments!)!)
+            textCell.backgroundColor = .white
+            containerView.frame = CGRect(x: (textCell.frame.minX), y: (textCell.frame.maxY), width: view.frame.width, height: view.frame.height - (textCell.frame.height)-8)
             view.addSubview(containerView)
-            view.addSubview(cell!)
+            view.addSubview(textCell)
 
         }
         let controller = storyboard!.instantiateViewController(withIdentifier: "CommentViewController") as! CommentViewController
         controller.postData = postData
+        controller.commentDelegate = self
         addChildViewController(controller)
         controller.view.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(controller.view.usingAutolayout())
@@ -92,51 +85,26 @@ class CommentHeaderViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func setOPDetails(){
-        //Set Image
-        OPImage.image = UIImage(named: "profile-pic")
-        OPImage.layer.borderWidth = 1
-        OPImage.layer.masksToBounds = false
-        OPImage.layer.borderColor = UIColor.black.cgColor
-        OPImage.layer.cornerRadius = OPImage.frame.height/2
-        OPImage.clipsToBounds = true
 
-        //Set Name
-        OPTitle.text = postData?._posterName
-        OPTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
-
-        //Set Comment Text
-        OPComment.text =  postData?._postContent
-    }
     
-    func setCommentDetails(){
-        numHearts.text =  String(describing: (postData?._numLikes!)!)
-        numComments.text = String(describing: (postData?._numComments!)!)
-        
-        //Set heart to clickable
-        heartImage.isUserInteractionEnabled = true
-        let tapRecognizer = UITapGestureRecognizer(target: self, action:#selector(heartTapped))
-        heartImage.addGestureRecognizer(tapRecognizer)
-    }
-    
-    func heartTapped(){
-        if(likedComment){
-            heartImage.image = UIImage(named: "heart_gray")
-            numHearts.text = String((Int(numHearts.text!)! - 1))
-            var numLikes : Int = Int((postData?._numLikes)!)
-            numLikes -= 1
-            postData?._numLikes = NSNumber(integerLiteral: numLikes)
-            APIClient.sharedInstance.updatePostInfo(post: postData!)
-        } else {
-            heartImage.image = UIImage(named: "heart_red")
-            numHearts.text = String((Int(numHearts.text!)! + 1))
-            var numLikes : Int = Int((postData?._numLikes)!)
-            numLikes += 1
-            postData?._numLikes = NSNumber(integerLiteral: numLikes)
-            APIClient.sharedInstance.updatePostInfo(post: postData!)
-        }
-        likedComment = !likedComment
-    }
+//    func heartTapped(){
+//        if(likedComment){
+//            heartImage.image = UIImage(named: "heart_gray")
+//            numHearts.text = String((Int(numHearts.text!)! - 1))
+//            var numLikes : Int = Int((postData?._numLikes)!)
+//            numLikes -= 1
+//            postData?._numLikes = NSNumber(integerLiteral: numLikes)
+//            APIClient.sharedInstance.updatePostInfo(post: postData!)
+//        } else {
+//            heartImage.image = UIImage(named: "heart_red")
+//            numHearts.text = String((Int(numHearts.text!)! + 1))
+//            var numLikes : Int = Int((postData?._numLikes)!)
+//            numLikes += 1
+//            postData?._numLikes = NSNumber(integerLiteral: numLikes)
+//            APIClient.sharedInstance.updatePostInfo(post: postData!)
+//        }
+//        likedComment = !likedComment
+//    }
 
     /*
     // MARK: - Navigation
@@ -153,6 +121,25 @@ class CommentHeaderViewController: UIViewController {
             let containerViewController = segue.destination as? CommentViewController
             containerViewController?.postData = self.postData
         }
+    }
+    
+    func commentCreated(post: Posts){
+        self.postData = post
+        if(Int((postData?._postType)!) == PostType.photo.hashValue){
+            photoCell?.postComments.text = String(describing: (postData?._numComments!))
+        } else {
+            textCell?.postComments.text = String(describing: (postData?._numComments!)!)
+            textCell?.postComments.setNeedsLayout()
+            textCell?.postComments.setNeedsDisplay()
+            textCell?.postComments.layoutIfNeeded()
+            view.setNeedsLayout()
+            view.setNeedsDisplay()
+            view.layoutIfNeeded()
+            view.setNeedsFocusUpdate()
+            view.updateFocusIfNeeded()
+            view.reloadInputViews()
+        }
+        commentDelegate?.commentCreated(post: post)
     }
 
 }

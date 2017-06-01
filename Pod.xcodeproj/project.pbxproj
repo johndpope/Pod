@@ -832,7 +832,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194b.Pod;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194b.PodApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -943,7 +943,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194b.Pod;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194b.PodApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

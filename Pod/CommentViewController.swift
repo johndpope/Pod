@@ -14,6 +14,8 @@ class CommentViewController: SLKTextViewController {
 
     var postData: Posts?
     var comments: [Comments?] = []
+    
+    var commentDelegate: CommentCreationDelegate?
 
     override init(tableViewStyle style: UITableViewStyle) {
         super.init(tableViewStyle: .plain)
@@ -84,6 +86,7 @@ class CommentViewController: SLKTextViewController {
             numComments += 1
             self.postData?._numComments = NSNumber(integerLiteral: numComments)
             APIClient.sharedInstance.updatePostInfo(post: self.postData!)
+            self.commentDelegate?.commentCreated(post: self.postData!)
         }
         super.didPressRightButton(sender)
     }
@@ -161,4 +164,8 @@ class CommentViewController: SLKTextViewController {
     }
     
 
+}
+
+protocol CommentCreationDelegate {
+    func commentCreated(post: Posts)
 }
