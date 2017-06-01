@@ -32,8 +32,8 @@ class CommentHeaderViewController: UIViewController {
 //        lowerBorder.frame = CGRect(x: commentFrame.frame.minX, y: commentFrame.layer.bounds.maxY, width: commentFrame.frame.width, height: 1.0)
 //        commentFrame.layer.addSublayer(lowerBorder)
         if(Int((postData?._postType)!) == PostType.photo.hashValue){
-            let cell : PhotoPostTableViewCell? = Bundle.main.loadNibNamed("PhotoPostTableViewCell",owner: nil, options: nil)?.first as! PhotoPostTableViewCell
-            cell?.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: (cell?.frame.height)!)
+            let cell : ThumbnailPostTableViewCell? = Bundle.main.loadNibNamed("ThumbnailPostTableViewCell",owner: nil, options: nil)?.first as! ThumbnailPostTableViewCell
+            cell?.frame = CGRect(x: 0, y: 8, width: view.frame.width, height: (cell?.frame.height)!)
             cell?.posterName.text = postData?._posterName
             cell?.posterBody.text = postData?._postContent
             let url = URL(string: (postData?._posterImageURL)!)
@@ -52,7 +52,7 @@ class CommentHeaderViewController: UIViewController {
 
         } else if (Int((postData?._postType)!) == PostType.text.hashValue) {
             let cell : PodPostTableViewCell? = Bundle.main.loadNibNamed("PodPostTableViewCell",owner: nil, options: nil)?.first as! PodPostTableViewCell
-            cell?.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: (cell?.frame.height)!)
+            cell?.frame = CGRect(x: 0, y: 8, width: view.frame.width, height: (cell?.frame.height)!)
             cell?.posterName.text = postData?._posterName
             cell?.posterBody.text = postData?._postContent
             cell?.backgroundColor = .white

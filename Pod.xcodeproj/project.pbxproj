@@ -72,6 +72,8 @@
 		95E1E4CA1EDF5C62009A7546 /* InviteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1E4C91EDF5C62009A7546 /* InviteTableViewCell.swift */; };
 		95E1E4CC1EDF5CF6009A7546 /* InviteRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1E4CB1EDF5CF6009A7546 /* InviteRequestViewController.swift */; };
 		95E1E4CE1EDF5F83009A7546 /* PodRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1E4CD1EDF5F83009A7546 /* PodRequests.swift */; };
+		95E1E4D11EDFEFCF009A7546 /* ThumbnailPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1E4CF1EDFEFCF009A7546 /* ThumbnailPostTableViewCell.swift */; };
+		95E1E4D21EDFEFCF009A7546 /* ThumbnailPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95E1E4D01EDFEFCF009A7546 /* ThumbnailPostTableViewCell.xib */; };
 		C807AC9F9F51908EF23D61C2 /* Pods_Pod.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */; };
 		F44AB6341ED3DEB0001B5E69 /* PodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44AB6331ED3DEB0001B5E69 /* PodViewController.swift */; };
 		F4A3BE381ECBAC180032B3E3 /* PodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A3BE371ECBAC180032B3E3 /* PodView.swift */; };
@@ -172,6 +174,8 @@
 		95E1E4C91EDF5C62009A7546 /* InviteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteTableViewCell.swift; sourceTree = "<group>"; };
 		95E1E4CB1EDF5CF6009A7546 /* InviteRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteRequestViewController.swift; sourceTree = "<group>"; };
 		95E1E4CD1EDF5F83009A7546 /* PodRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodRequests.swift; sourceTree = "<group>"; };
+		95E1E4CF1EDFEFCF009A7546 /* ThumbnailPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailPostTableViewCell.swift; sourceTree = "<group>"; };
+		95E1E4D01EDFEFCF009A7546 /* ThumbnailPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThumbnailPostTableViewCell.xib; sourceTree = "<group>"; };
 		DB37B267B5709340ACC441C6 /* Pods-Pod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pod.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pod/Pods-Pod.debug.xcconfig"; sourceTree = "<group>"; };
 		F44AB6331ED3DEB0001B5E69 /* PodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodViewController.swift; sourceTree = "<group>"; };
 		F4A3BE371ECBAC180032B3E3 /* PodView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodView.swift; sourceTree = "<group>"; };
@@ -282,6 +286,8 @@
 				95902ACB1ED8EA810008792A /* PodPostTableViewCell.xib */,
 				9534F4E31EDB79C70094A007 /* PhotoPostTableViewCell.xib */,
 				9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */,
+				95E1E4CF1EDFEFCF009A7546 /* ThumbnailPostTableViewCell.swift */,
+				95E1E4D01EDFEFCF009A7546 /* ThumbnailPostTableViewCell.xib */,
 			);
 			name = Posts;
 			sourceTree = "<group>";
@@ -480,6 +486,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95E1E4D21EDFEFCF009A7546 /* ThumbnailPostTableViewCell.xib in Resources */,
 				F4BECB3A1EBD682D00B98BA8 /* LaunchScreen.storyboard in Resources */,
 				95C8C3A91ED3A00F004A2A29 /* CommentTableViewCell.xib in Resources */,
 				95CF56071ECBC9BD00B1751E /* Main.storyboard in Resources */,
@@ -598,6 +605,7 @@
 				F4E9DE391EDB51D80089BA13 /* NewPodMapViewController.swift in Sources */,
 				95D14F251EBE8C410049C58A /* PodData.swift in Sources */,
 				95D14F271EBE993E0049C58A /* PodTabBarController.swift in Sources */,
+				95E1E4D11EDFEFCF009A7546 /* ThumbnailPostTableViewCell.swift in Sources */,
 				95B9C3A11EDE467700954D4C /* AWSConfiguration.swift in Sources */,
 				9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */,
 				F4E9DE461EDE36A90089BA13 /* PodViewSegueUnwind.swift in Sources */,
