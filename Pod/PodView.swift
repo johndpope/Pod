@@ -243,7 +243,9 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 cell.photoContent.image = postData?.image
             }).onFailure({ (err) in
                 postData?.image = UIImage(named: "placeholder")
+                cell.photoContent.image = postData?.image
             })
+
             return cell
         } else if(postData?._postType as! Int == PostType.poll.hashValue){
             //handle polls

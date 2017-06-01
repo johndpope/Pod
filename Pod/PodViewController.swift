@@ -245,10 +245,6 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
             if(!((podData?.postData?.isEmpty)!)){
                 emptyPodView.removeFromSuperview()
             }
-//            for (i,post) in (podData?.postData)!.enumerated(){
-//                if(Int(post._postType!) == PostType.photo.hashValue){
-//                    downloadContent(key: post._postImage, postID: post._postId!, index: i)
-//                }
             
         }
         return (podData?.postData!.count)!

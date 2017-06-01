@@ -281,6 +281,7 @@
 				95902ACA1ED8EA810008792A /* PodPostTableViewCell.swift */,
 				95902ACB1ED8EA810008792A /* PodPostTableViewCell.xib */,
 				9534F4E31EDB79C70094A007 /* PhotoPostTableViewCell.xib */,
+				9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */,
 			);
 			name = Posts;
 			sourceTree = "<group>";
@@ -373,7 +374,6 @@
 			children = (
 				95B9C38F1EDE467700954D4C /* AmazonAws */,
 				95B9C3771EDD514F00954D4C /* Posts */,
-				9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */,
 				95B9C3C31EDE47FD00954D4C /* Sdk3 */,
 				9534F4D91EDB50050094A007 /* signin */,
 				9511220F1ED65D150056BE16 /* Comments */,
