@@ -75,6 +75,14 @@ class PodCarouselViewController: UIViewController {
                 //APIClient().uploadTestPostsToPod(withId: pod.podID)
                 if !self.items.contains(where: { $0._podId == pod._podId }) {
                     self.items.append(pod)
+                } else {
+                    for (i,p) in self.items.enumerated() {
+                        if p._podId == pod._podId{
+                            self.items[i] = pod
+                            continue
+                        }
+                    }
+                    
                 }
             }
             self.getLimitedPostsForPods()

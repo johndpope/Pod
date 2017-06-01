@@ -59,4 +59,5 @@ class PodList: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                "_usernameList" : "UsernameList",
         ]
     }
+
 }

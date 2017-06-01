@@ -40,7 +40,7 @@ class CommentViewController: SLKTextViewController {
         self.shouldScrollToBottomAfterKeyboardShows = true
         self.automaticallyAdjustsScrollViewInsets = false
         
-        tableView?.estimatedRowHeight = 60.0 // Replace with your actual estimation
+        tableView?.estimatedRowHeight = 20.0 // Replace with your actual estimation
         // Automatic dimensions to tell the table view to use dynamic height
         tableView?.rowHeight = UITableViewAutomaticDimension
        // self.textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
@@ -113,19 +113,19 @@ class CommentViewController: SLKTextViewController {
     
     //these four functions are a hacky way of setting the cell spacing
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return self.comments.count
+        return 1
     }
     
     // There is just one row in every section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.comments.count
     }
     
     // Set the spacing between sections
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 4
-    }
-    
+//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 4
+//    }
+//    
     // Make the background color show through
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
@@ -142,7 +142,7 @@ class CommentViewController: SLKTextViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
         cell.transform = (self.tableView?.transform)!
         cell.userName.text = "Max"
-        let curComment = comments[indexPath.section]
+        let curComment = comments[indexPath.row]
         cell.commentBody.text = curComment?._commentBody
         let url = URL(string: (curComment?._photoURL)!)
         var data = Data()
