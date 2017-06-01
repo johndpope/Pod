@@ -17,20 +17,41 @@ class CommentHeaderViewController: UIViewController {
     @IBOutlet weak var numComments: UILabel!
     @IBOutlet weak var commentFrame: UIView!
     
+    @IBOutlet weak var containerView: UIView!
     var messages: [String] = []
     var likedComment: Bool = false
     var postData: Posts?
     override func viewDidLoad() {
         super.viewDidLoad()
-        setOPDetails()
-        setCommentDetails()
+        //setOPDetails()
+       // setCommentDetails()
        // commentFrame.layer.borderWidth = 1
        // commentFrame.layer.borderColor = UIColor.gray.cgColor
-        let lowerBorder = CALayer()
-        lowerBorder.backgroundColor = UIColor.gray.cgColor
-        lowerBorder.frame = CGRect(x: commentFrame.frame.minX, y: commentFrame.layer.bounds.maxY, width: commentFrame.frame.width, height: 1.0)
-        commentFrame.layer.addSublayer(lowerBorder)
-        
+//        let lowerBorder = CALayer()
+//        lowerBorder.backgroundColor = UIColor.gray.cgColor
+//        lowerBorder.frame = CGRect(x: commentFrame.frame.minX, y: commentFrame.layer.bounds.maxY, width: commentFrame.frame.width, height: 1.0)
+//        commentFrame.layer.addSublayer(lowerBorder)
+        if(Int((postData?._postType)!) == PostType.photo.hashValue){
+            let cell : PhotoPostTableViewCell? = Bundle.main.loadNibNamed("PhotoPostTableViewCell",owner: nil, options: nil)?.first as! PhotoPostTableViewCell
+            cell?.posterName.text = postData?._posterName
+            cell?.posterBody.text = postData?._postContent
+            let url = URL(string: (postData?._posterImageURL)!)
+            var data = Data()
+            do {
+                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                cell?.posterPhoto.image = UIImage(data: data)
+            } catch {
+                cell?.posterPhoto.image = UIImage(named: "UserIcon")
+            }
+            cell?.photoContent.image = postData?.image
+            containerView.addSubview(cell!)
+        } else if (Int((postData?._postType)!) == PostType.text.hashValue) {
+            let cell : PodPostTableViewCell? = Bundle.main.loadNibNamed("PodPostTableViewCell",owner: nil, options: nil)?.first as! PodPostTableViewCell
+            cell?.posterName.text = postData?._posterName
+            cell?.posterBody.text = postData?._postContent
+            containerView.addSubview(cell!)
+        }
+
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(CommentHeaderViewController.swiped(_:)))
         self.view.addGestureRecognizer(swipeRight)
 
