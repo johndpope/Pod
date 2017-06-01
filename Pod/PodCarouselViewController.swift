@@ -62,9 +62,6 @@ class PodCarouselViewController: UIViewController {
         FacebookIdentityProfile._sharedInstance.load()
         FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
         carousel.scrollSpeed = 0.5
-        print(carousel.bounces)
-        print(carousel.bounceDistance)
-        print(carousel.scrollOffset)
     }
     
     func getAllPods(){

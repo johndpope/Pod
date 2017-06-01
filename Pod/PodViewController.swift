@@ -57,6 +57,12 @@ class PodViewController: UIViewController, PostCreationDelegate {
         return membersButton
     }()
     
+    lazy var emptyPodView: UIImageView = {
+        let dolphinImage = UIImageView()
+        dolphinImage.image = UIImage(named: "dolphins_blue_no_posts")
+        return dolphinImage
+    }()
+    
     var postButtonBottomConstraint: NSLayoutConstraint!
     
     let postButtonHeight: CGFloat = 50.0
@@ -77,6 +83,10 @@ class PodViewController: UIViewController, PostCreationDelegate {
         view.addSubview(postButton.usingAutolayout())
         view.addSubview(closeButton.usingAutolayout())
         view.addSubview(membersButton.usingAutolayout())
+        if(podData?.postData?.isEmpty)!{
+            view.addSubview(emptyPodView.usingAutolayout())
+        }
+
         let nib = UINib(nibName: "PodPostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
         let photoNib = UINib(nibName: "PhotoPostTableViewCell", bundle: nil)
@@ -153,6 +163,15 @@ class PodViewController: UIViewController, PostCreationDelegate {
             membersButton.heightAnchor.constraint(equalToConstant: 40),
             membersButton.widthAnchor.constraint(equalToConstant: 40)
             ])
+        if(podData?.postData?.isEmpty)!{
+            //empty pod
+            NSLayoutConstraint.activate([
+                emptyPodView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+                emptyPodView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50),
+                emptyPodView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -50),
+                emptyPodView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+                ])
+        }
     }
     
     func toNewPost() {
@@ -203,6 +222,9 @@ class PodViewController: UIViewController, PostCreationDelegate {
     func postCreated(post: Posts){
         print("post created")
         self.podData?.postData?.append(post)
+        if(!((podData?.postData?.isEmpty)!)){
+            emptyPodView.removeFromSuperview()
+        }
         tableView.reloadData()
     }
 }
@@ -220,6 +242,9 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
             return 0
         }  else if(initialized == false){
             initialized = true
+            if(!((podData?.postData?.isEmpty)!)){
+                emptyPodView.removeFromSuperview()
+            }
 //            for (i,post) in (podData?.postData)!.enumerated(){
 //                if(Int(post._postType!) == PostType.photo.hashValue){
 //                    downloadContent(key: post._postImage, postID: post._postId!, index: i)

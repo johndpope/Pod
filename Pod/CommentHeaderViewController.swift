@@ -78,14 +78,14 @@ class CommentHeaderViewController: UIViewController {
     
     func heartTapped(){
         if(likedComment){
-            heartImage.image = UIImage(named: "icons8-hearts")
+            heartImage.image = UIImage(named: "heart_gray")
             numHearts.text = String((Int(numHearts.text!)! - 1))
             var numLikes : Int = Int((postData?._numLikes)!)
             numLikes -= 1
             postData?._numLikes = NSNumber(integerLiteral: numLikes)
             APIClient.sharedInstance.updatePostInfo(post: postData!)
         } else {
-            heartImage.image = UIImage(named: "icons8-hearts_filled")
+            heartImage.image = UIImage(named: "heart_red")
             numHearts.text = String((Int(numHearts.text!)! + 1))
             var numLikes : Int = Int((postData?._numLikes)!)
             numLikes += 1

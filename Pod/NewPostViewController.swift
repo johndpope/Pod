@@ -106,7 +106,7 @@ class NewPostViewController: UIViewController {
     
     
     func postPhoto(gesture: UITapGestureRecognizer) {
-
+        self.postPhotoButton.image = UIImage(named: "add_photo_blue")
         let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
             self.openCamera()

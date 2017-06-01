@@ -48,6 +48,12 @@ class PodView: UIView {
         }
     }()
     
+    lazy var emptyPodView: UIImageView = {
+        let dolphinImage = UIImageView()
+        dolphinImage.image = UIImage(named: "dolphins_blue_no_posts")
+        return dolphinImage
+    }()
+    
     var initialized = false
     var lockedPod = false
     var podData: PodList?
@@ -69,7 +75,7 @@ class PodView: UIView {
         layer.masksToBounds = true
         
         addSubview(tableView.usingAutolayout())
-
+        addSubview(emptyPodView.usingAutolayout())
 
         let nib = UINib(nibName: "PodPostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
@@ -99,6 +105,13 @@ class PodView: UIView {
             tableView.rightAnchor.constraint(equalTo: rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            emptyPodView.topAnchor.constraint(equalTo: topAnchor, constant: 100),
+            emptyPodView.leftAnchor.constraint(equalTo: leftAnchor, constant: 50),
+            emptyPodView.rightAnchor.constraint(equalTo: rightAnchor, constant: -50),
+            emptyPodView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100)
+            ])
     }
     
     func setUpLockConstraints(){
@@ -160,6 +173,9 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 self.lockedPod = (podData?._isPrivate)! as! Bool
                 self.setUpLockConstraints()
                 initialized = true
+                if(!(podData?.postData?.isEmpty)!){
+                    emptyPodView.removeFromSuperview()
+                }
                 for (i,post) in (podData?.postData)!.enumerated(){
                     if(Int(post._postType!) == PostType.photo.hashValue){
                         let cache = Shared.dataCache
