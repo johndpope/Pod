@@ -17,7 +17,7 @@ class CommentHeaderViewController: UIViewController {
     @IBOutlet weak var numComments: UILabel!
     @IBOutlet weak var commentFrame: UIView!
     
-    @IBOutlet weak var containerView: UIView!
+    let containerView = UIView()
     var messages: [String] = []
     var likedComment: Bool = false
     var postData: Posts?
@@ -33,6 +33,7 @@ class CommentHeaderViewController: UIViewController {
 //        commentFrame.layer.addSublayer(lowerBorder)
         if(Int((postData?._postType)!) == PostType.photo.hashValue){
             let cell : PhotoPostTableViewCell? = Bundle.main.loadNibNamed("PhotoPostTableViewCell",owner: nil, options: nil)?.first as! PhotoPostTableViewCell
+            cell?.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: (cell?.frame.height)!)
             cell?.posterName.text = postData?._posterName
             cell?.posterBody.text = postData?._postContent
             let url = URL(string: (postData?._posterImageURL)!)
@@ -44,14 +45,35 @@ class CommentHeaderViewController: UIViewController {
                 cell?.posterPhoto.image = UIImage(named: "UserIcon")
             }
             cell?.photoContent.image = postData?.image
-            containerView.addSubview(cell!)
+            cell?.backgroundColor = .white
+            containerView.frame = CGRect(x: (cell?.frame.minX)!, y: (cell?.frame.maxY)!, width: view.frame.width, height: view.frame.height - (cell?.frame.height)!)
+            view.addSubview(containerView)
+            view.addSubview(cell!)
+
         } else if (Int((postData?._postType)!) == PostType.text.hashValue) {
             let cell : PodPostTableViewCell? = Bundle.main.loadNibNamed("PodPostTableViewCell",owner: nil, options: nil)?.first as! PodPostTableViewCell
+            cell?.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: (cell?.frame.height)!)
             cell?.posterName.text = postData?._posterName
             cell?.posterBody.text = postData?._postContent
-            containerView.addSubview(cell!)
-        }
+            cell?.backgroundColor = .white
+            containerView.frame = CGRect(x: (cell?.frame.minX)!, y: (cell?.frame.maxY)!, width: view.frame.width, height: view.frame.height - (cell?.frame.height)!)
+            view.addSubview(containerView)
+            view.addSubview(cell!)
 
+        }
+        let controller = storyboard!.instantiateViewController(withIdentifier: "CommentViewController") as! CommentViewController
+        controller.postData = postData
+        addChildViewController(controller)
+        controller.view.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(controller.view.usingAutolayout())
+        NSLayoutConstraint.activate([
+            controller.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            controller.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            controller.view.topAnchor.constraint(equalTo: containerView.topAnchor),
+            controller.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            ])
+        
+        controller.didMove(toParentViewController: self)
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(CommentHeaderViewController.swiped(_:)))
         self.view.addGestureRecognizer(swipeRight)
 
