@@ -76,7 +76,7 @@ class PodView: UIView {
         
         addSubview(tableView.usingAutolayout())
         addSubview(emptyPodView.usingAutolayout())
-
+        emptyPodView.isHidden = true
         let nib = UINib(nibName: "PodPostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
         let photoNib = UINib(nibName: "PhotoPostTableViewCell", bundle: nil)
@@ -175,6 +175,8 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 initialized = true
                 if(!(podData?.postData?.isEmpty)!){
                     emptyPodView.removeFromSuperview()
+                } else {
+                    emptyPodView.isHidden = false
                 }
                 for (i,post) in (podData?.postData)!.enumerated(){
                     if(Int(post._postType!) == PostType.photo.hashValue){
