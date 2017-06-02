@@ -94,7 +94,8 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         for i in 0..<self.items.count{
             let pod = self.items[i]
             APIClient().getPostForPod(withId: (pod._podId as! Int), index: i, completion: { (posts, j) in
-                self.items[j].postData = posts as! [Posts]
+                let rev = Array(posts.reversed())
+                self.items[j].postData = rev as! [Posts]
                 self.carousel.reloadData()
             })
         }

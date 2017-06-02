@@ -222,7 +222,8 @@ class PodViewController: UIViewController, PostCreationDelegate, CommentCreation
     
     func postCreated(post: Posts){
         print("post created")
-        self.podData?.postData?.append(post)
+        self.podData?.postData?.insert(post, at: 0)
+        //self.podData?.postData?.append(post)
         if(!((podData?.postData?.isEmpty)!)){
             emptyPodView.removeFromSuperview()
         }
