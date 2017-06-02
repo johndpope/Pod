@@ -58,7 +58,7 @@ class PodView: UIView {
     var lockedPod = false
     var podData: PodList?
     weak var delegate: PodViewDelegate?
-    
+    var joinDelegate: JoinPodDelegate?
     lazy var lockImageView: UIImageView = {
         let lockImageView = UIImageView(image: UIImage(named: "lock"))
         return lockImageView
@@ -90,6 +90,14 @@ class PodView: UIView {
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
         setUpConstraints()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(triggerDelegate))
+        self.joinButton.addGestureRecognizer(tapGesture)
+        
+    }
+    
+    func triggerDelegate(){
+        joinDelegate?.showJoinPodAlert(podView: self)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -156,6 +164,8 @@ class PodView: UIView {
             layer.borderColor = UIColor.green.cgColor
         }
     }
+    
+    
 }
 
 extension PodView: UITableViewDelegate, UITableViewDataSource {

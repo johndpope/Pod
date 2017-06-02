@@ -27,6 +27,7 @@ class PodList: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _radius: NSNumber?
     var _userIdList: [String]?
     var _usernameList: [String]?
+    var _userRequestList: [String]?
     
     var postData: [Posts]?
     
@@ -57,6 +58,7 @@ class PodList: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                "_radius" : "Radius",
                "_userIdList" : "UserIdList",
                "_usernameList" : "UsernameList",
+               "_userRequestList" : "UserRequestList",
         ]
     }
 

@@ -77,6 +77,7 @@ class APIClient {
                 let userNameList = curPod["UserList"] as! [String]
                 let geoHash = curPod["GeoHash"] as! String
                 let pod = PodList()
+                let userID = curPod["CreatedByUserId"] as! String
                 pod?._podId = podID as NSNumber
                 pod?._userIdList = userIdList
                 pod?._isPrivate = isLocked as NSNumber
@@ -86,6 +87,7 @@ class APIClient {
                 pod?._geoHashCode = geoHash
                 pod?._latitude = coordinates.latitude as NSNumber
                 pod?._longitude = coordinates.longitude as NSNumber
+                pod?._createdByUserId = userID
                 nearbyPods?.append(pod!)
             }
             completion(nearbyPods)
@@ -389,15 +391,16 @@ class APIClient {
     
 
     
-    func sendJoinRequest(to: String, from: UserInformation, podId: Int, geoHash: String){
+    func sendJoinRequest(to: String, podId: Int, geoHash: String, podName: String){
         let request = PodRequests()
         request?._podId = podId as NSNumber
         request?._userId = to
-        request?._requesterID = from._facebookId
-        request?._requesterName = from._username
-        request?._requesterPhotoURL = from._photoURL
+        request?._requesterName = FacebookIdentityProfile._sharedInstance.userName
+        request?._requesterID = FacebookIdentityProfile._sharedInstance.userId
+        request?._requesterPhotoURL = FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString
         request?._requestType = RequestType.join.hashValue as NSNumber
         request?._podGeoHash = geoHash
+        request?._podName = podName
         dynamoDBObjectMapper.save(request!)
     }
     
@@ -460,5 +463,7 @@ class APIClient {
     func declinePodInvitation(request: PodRequests){
         dynamoDBObjectMapper.remove(request)
     }
+    
+
 
 }
