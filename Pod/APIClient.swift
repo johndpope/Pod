@@ -102,7 +102,7 @@ class APIClient {
         let long = location.longitude
         
         let httpMethodName = "POST"
-        let URLString = "/CREATE POD ENDPOINT" //NOTE CHANGE THIS
+        let URLString = "/CreateNewPods" //NOTE CHANGE THIS
         let queryStringParameters = ["lang": "en"]
         var isPrivateStr = "F"
         if isPrivate {
@@ -111,14 +111,15 @@ class APIClient {
         let headerParameters = [
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "Latitude":"\(lat)",
-            "Longitude":"\(long)",
+            "latitude":"\(lat)",
+            "longitude":"\(long)",
             "name": "\(name)",
             "radius": "\(radius)",
-            "isPrivate": "\(isPrivateStr)",
+            "isPrivate": isPrivateStr,
             "userId": "\(FacebookIdentityProfile._sharedInstance.userId!)",
             "userName": "\(FacebookIdentityProfile._sharedInstance.userName!)"
         ]
+        print(headerParameters)
         let jsonObject: [String: AnyObject]  = ["Latitude": 37.4204870 as AnyObject, "Longitude": -122.1714210 as AnyObject]
         
         
@@ -142,9 +143,13 @@ class APIClient {
             // Handle successful result here
             let result = task.result!
             let responseString = String(data: result.responseData!, encoding: .utf8)
-            
+            print("===============")
+            print("===============")
+
            print(responseString)
-            
+            print("===============")
+            print("===============")
+
             return nil
         }
         
