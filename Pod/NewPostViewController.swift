@@ -191,7 +191,7 @@ class NewPostViewController: UIViewController {
     }
     
     @IBAction func createNewPost(_ sender: UIButton) {
-        if(pod?._userIdList?.contains(AWSIdentityManager.default().identityId!))!{
+        if(pod?._userIdList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
             createPost()
         } else {
             let alertController = UIAlertController(title: "Join Pod?", message: "To post to this pod you have to join first. Click 'Join' to join the conversation", preferredStyle: UIAlertControllerStyle.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
@@ -212,8 +212,8 @@ class NewPostViewController: UIViewController {
                     } else {
                         userName = NSLocalizedString("Guest User", comment: "Placeholder text for the guest user.")
                     }
-                    self.pod?._userIdList?.append((AWSIdentityManager.default().identityId!))
-                    pod_db?._userIdList?.append(AWSIdentityManager.default().identityId!)
+                    self.pod?._userIdList?.append(FacebookIdentityProfile._sharedInstance.userId!)
+                    pod_db?._userIdList?.append(FacebookIdentityProfile._sharedInstance.userId!)
                     pod_db?._usernameList?.append(userName!)
                     APIClient.sharedInstance.addPodToUsersList(podId: Int((self.pod?._podId)!), geoHash: (self.pod?._geoHashCode!)!)
                     APIClient.sharedInstance.updatePod(pod: pod_db!)
@@ -344,7 +344,7 @@ extension NewPostViewController: UIImagePickerControllerDelegate, UINavigationCo
         
         // TODO: Send profile image to backend
         if let selectedImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-            let attributedString = NSMutableAttributedString(string: "")
+            let attributedString = NSMutableAttributedString(string: " \(textView.text!) \n")
             let textAttachment = NSTextAttachment()
             textAttachment.image = selectedImage
             let oldWidth = textAttachment.image!.size.width;
@@ -357,7 +357,8 @@ extension NewPostViewController: UIImagePickerControllerDelegate, UINavigationCo
             }
             postedImage = textAttachment.image
             let attrStringWithImage = NSAttributedString(attachment: textAttachment)
-            attributedString.replaceCharacters(in: NSMakeRange(0, 0), with: attrStringWithImage)
+            attributedString.append(attrStringWithImage)
+           // attributedString.replaceCharacters(in: NSMakeRange(numChars-1, numChars-1), with: attrStringWithImage)
             textView.attributedText = attributedString;
             textView.placeholder = ""
         }

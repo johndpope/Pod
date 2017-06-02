@@ -122,7 +122,7 @@ class PodView: UIView {
             ])
     }
     
-    func setUpLockConstraints(){
+    func setUpBlurEffect(){
         addSubview(blurEffectView.usingAutolayout())
         // Blur View
         NSLayoutConstraint.activate([
@@ -131,6 +131,10 @@ class PodView: UIView {
             blurEffectView.rightAnchor.constraint(equalTo: rightAnchor),
             blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
+    }
+    
+    func setUpLockConstraints(){
+
         
         if(lockedPod){
             addSubview(lockImageView.usingAutolayout())
@@ -160,7 +164,7 @@ class PodView: UIView {
     }
     
     func checkIfInPod(){
-        if (podData?._userIdList?.contains(AWSIdentityManager.default().identityId!))! {
+        if (podData?._userIdList?.contains(FacebookIdentityProfile._sharedInstance.userId!))! {
             layer.borderColor = UIColor.green.cgColor
         }
     }
@@ -179,34 +183,52 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             return 0
         } else {
             if(initialized == false){
-                self.checkIfInPod()
-                self.lockedPod = (podData?._isPrivate)! as! Bool
-                self.setUpLockConstraints()
-                initialized = true
-                if(!(podData?.postData?.isEmpty)!){
-                    emptyPodView.removeFromSuperview()
-                } else {
-                    emptyPodView.isHidden = false
-                }
-                for (i,post) in (podData?.postData)!.enumerated(){
-                    if(Int(post._postType!) == PostType.photo.hashValue){
-                        let cache = Shared.dataCache
-                        cache.fetch(key: post._postImage!).onFailure({ (err) in
-                            self.downloadContent(key: post._postImage, postID: post._postId!, index: i)
-                        }).onSuccess({ (data) in
-                            let img = UIImage(data: data as Data)
-                            self.podData?.postData?[i].image = img
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                            }
-                        })
-                    }
-                }
+                firstTimeSetup()
             }
         }
         return (podData?.postData!.count)!
     }
-    
+    func firstTimeSetup(){
+        self.checkIfInPod()
+        self.lockedPod = (podData?._isPrivate)! as! Bool
+        self.setUpBlurEffect()
+        initialized = true
+        if(!(podData?.postData?.isEmpty)!){
+            emptyPodView.removeFromSuperview()
+        } else {
+            emptyPodView.isHidden = false
+        }
+        if(self.lockedPod){
+            if(podData?._userIdList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                //Don't lock!
+                //Do we need to do anything here?
+            } else {
+                self.setUpLockConstraints()
+                if(podData?._userRequestList == nil){
+                    return
+                }
+                if (podData?._userRequestList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                    //Change text!
+                    joinButton.setTitle("Request Sent!", for: UIControlState.normal)
+                    joinButton.isEnabled = false
+                }
+            }
+        }
+        for (i,post) in (podData?.postData)!.enumerated(){
+            if(Int(post._postType!) == PostType.photo.hashValue){
+                let cache = Shared.dataCache
+                cache.fetch(key: post._postImage!).onFailure({ (err) in
+                    self.downloadContent(key: post._postImage, postID: post._postId!, index: i)
+                }).onSuccess({ (data) in
+                    let img = UIImage(data: data as Data)
+                    self.podData?.postData?[i].image = img
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                })
+            }
+        }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let postData = self.podData?.postData?[indexPath.row]

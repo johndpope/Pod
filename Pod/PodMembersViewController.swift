@@ -35,7 +35,7 @@ class PodMembersViewController: UIViewController {
         tableView.backgroundColor = .lightBlue
         view.backgroundColor = .lightBlue
         for id in (pod?._userIdList)!{
-            if(id == AWSIdentityManager.default().identityId){
+            if(id == FacebookIdentityProfile._sharedInstance.userId!){
                 addMembersButton.isHidden = false
             }
             APIClient().getUser(withId: id, completion: { (uinfo) in

@@ -72,11 +72,6 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
                 self.podsNearbyLabel.text = "\((pods?.count)!) Pods near you"
             }
             for pod in pods! {
-                print("===========")
-                print(pod._name)
-                print(pod._createdByUserId)
-                print("===========")
-
                 //APIClient().uploadTestPostsToPod(withId: pod.podID)
                 if !self.items.contains(where: { $0._podId == pod._podId }) {
                     self.items.append(pod)
@@ -189,7 +184,6 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         // Replace UIAlertActionStyle.Default by UIAlertActionStyle.default
         let okAction = UIAlertAction(title: "Send Request", style: UIAlertActionStyle.default) {
             (result : UIAlertAction) -> Void in
-            print("Request Sent")
             podView.joinButton.setTitle("Request Sent!", for: UIControlState.normal)
             podView.joinButton.isEnabled = false
             if(podView.podData?._userRequestList == nil){

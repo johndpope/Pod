@@ -60,11 +60,21 @@ class InviteRequestViewController: UIViewController, InviteTableViewAcceptDelega
     
     func didPressAccept(_ tag: Int) {
         //Wait half a second to show UI changes
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1) , execute: {
-            APIClient.sharedInstance.acceptPodInvitation(request: self.requests[tag])
-            self.requests.remove(at: tag)
-            self.tableView.reloadData()
-        })
+        let req = self.requests[tag]
+        if Int(req._requestType!) == RequestType.invite.hashValue{
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1) , execute: {
+                APIClient.sharedInstance.acceptPodInvitation(request: self.requests[tag])
+                self.requests.remove(at: tag)
+                self.tableView.reloadData()
+            })
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1) , execute: {
+                APIClient.sharedInstance.acceptJoinRequest(request: self.requests[tag])
+                self.requests.remove(at: tag)
+                self.tableView.reloadData()
+            })
+        }
+
     }
     
     func didPressCancel(_ tag: Int) {
