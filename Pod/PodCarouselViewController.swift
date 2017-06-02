@@ -24,6 +24,7 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     
     @IBOutlet weak var myPodsButton: UIButton!
     
+    @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var redDot: UIImageView!
     var isPresentingForFirstTime = true
     
@@ -56,12 +57,44 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         presentSignInViewController()
         self.navigationController?.isNavigationBarHidden = true
         carousel.type = .rotary
-        addButton.setImage(UIImage(named:"addIcon"), for: UIControlState.normal)
-        addButton.setTitleColor(UIColor.white, for: UIControlState.normal)
-        addButton.tintColor = UIColor.white
+        setUpButtons()
+
         FacebookIdentityProfile._sharedInstance.load()
         FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
         carousel.scrollSpeed = 0.5
+    }
+    
+    func setUpButtons(){
+        addButton.setImage(UIImage(named:"addIcon"), for: UIControlState.normal)
+        addButton.setTitleColor(UIColor.white, for: UIControlState.normal)
+        addButton.tintColor = UIColor.white
+        addButton.backgroundColor = UIColor(red: 35/255, green: 49/255, blue: 170/255, alpha: 1)
+        addButton.layer.cornerRadius = 0.5 * addButton.bounds.size.width
+        addButton.clipsToBounds = true
+        addButton.layer.shadowColor = UIColor.black.cgColor
+        addButton.layer.shadowOpacity = 0.5
+        addButton.layer.shadowOffset = CGSize(width: -1, height: 1)
+        addButton.layer.shadowRadius = 1
+        
+        myPodsButton.setTitleColor(UIColor.white, for: UIControlState.normal)
+        myPodsButton.tintColor = UIColor.white
+        myPodsButton.backgroundColor = UIColor(red: 35/255, green: 49/255, blue: 170/255, alpha: 1)
+        myPodsButton.layer.cornerRadius = 0.5 * addButton.bounds.size.width
+        myPodsButton.clipsToBounds = true
+        myPodsButton.layer.shadowColor = UIColor.black.cgColor
+        myPodsButton.layer.shadowOpacity = 0.5
+        myPodsButton.layer.shadowOffset = CGSize(width: -1, height: 1)
+        myPodsButton.layer.shadowRadius = 1
+        
+        mapButton.setTitleColor(UIColor.white, for: UIControlState.normal)
+        mapButton.tintColor = UIColor.white
+        mapButton.backgroundColor = UIColor(red: 35/255, green: 49/255, blue: 170/255, alpha: 1)
+        mapButton.layer.cornerRadius = 0.5 * addButton.bounds.size.width
+        mapButton.clipsToBounds = true
+        mapButton.layer.shadowColor = UIColor.black.cgColor
+        mapButton.layer.shadowOpacity = 0.5
+        mapButton.layer.shadowOffset = CGSize(width: -1, height: 1)
+        mapButton.layer.shadowRadius = 1
     }
     
     func getAllPods(){
