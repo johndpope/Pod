@@ -39,8 +39,10 @@ class PodMembersViewController: UIViewController {
                 addMembersButton.isHidden = false
             }
             APIClient().getUser(withId: id, completion: { (uinfo) in
-                self.members.append(uinfo!)
-                self.tableView.reloadData()
+                if(uinfo != nil){
+                    self.members.append(uinfo!)
+                    self.tableView.reloadData()
+                }
             })
         }
         

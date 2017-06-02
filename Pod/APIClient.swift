@@ -266,7 +266,7 @@ class APIClient {
     
     func createUser(withId: String, name: String, photoURL: String, profileURL: String, faecbookId: String){
         let userInfo = UserInformation()
-        userInfo?._userId = withId
+        userInfo?._awsId = withId
         userInfo?._photoURL = photoURL
         userInfo?._username = name
         userInfo?._profileURL = profileURL
@@ -282,9 +282,9 @@ class APIClient {
     
     func getUser(withId: String, completion: @escaping (_ pod: UserInformation?) ->()){
         let queryExpression = AWSDynamoDBQueryExpression()
-        queryExpression.keyConditionExpression = "userId = :userId"
+        queryExpression.keyConditionExpression = "facebookId = :facebookId"
         
-        queryExpression.expressionAttributeValues = [":userId" : withId]
+        queryExpression.expressionAttributeValues = [":facebookId" : withId]
         dynamoDBObjectMapper .query(UserInformation.self, expression: queryExpression) .continueWith(executor: AWSExecutor.mainThread(), block: { (task:AWSTask!) -> AnyObject! in
             if let error = task.error as NSError? {
                 print("Error: \(error)")

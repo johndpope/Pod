@@ -17,8 +17,8 @@ import AWSDynamoDB
 
 class UserInformation: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
-    var _userId: String?
     var _facebookId: String?
+    var _awsId: String?
     var _photoURL: String?
     var _profileURL: String?
     var _username: String?
@@ -30,12 +30,12 @@ class UserInformation: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
     class func hashKeyAttribute() -> String {
 
-        return "_userId"
+        return "_facebookId"
     }
     
     override class func jsonKeyPathsByPropertyKey() -> [AnyHashable: Any] {
         return [
-               "_userId" : "userId",
+               "_awsId" : "awsId",
                "_facebookId" : "facebookId",
                "_photoURL" : "photoURL",
                "_profileURL" : "profileURL",
