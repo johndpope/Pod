@@ -8,10 +8,12 @@
 
 import UIKit
 import TextFieldEffects
+import CoreLocation
 class PodTitleViewController: UIViewController {
 
     @IBOutlet weak var questionLabel: UILabel!
     var textField: HoshiTextField!
+    var location: CLLocationCoordinate2D?
     override func viewDidLoad() {
         super.viewDidLoad()
         textField = HoshiTextField(frame: CGRect(x: questionLabel.frame.minX, y: questionLabel.frame.maxY + 8, width: self.view.frame.width - 2*questionLabel.frame.minX , height: 60))
@@ -47,6 +49,7 @@ class PodTitleViewController: UIViewController {
         if(segue.identifier == "toPrivacyScene"){
             if let nextVC = segue.destination as? PodPrivacyViewController {
                 nextVC.podTitle = textField.text!
+                nextVC.location = location
             }
         }
     }

@@ -97,6 +97,59 @@ class APIClient {
         }
     }
     
+    func savePod(location: CLLocationCoordinate2D, name: String, radius: Double, isPrivate: Bool){
+        let lat = location.latitude
+        let long = location.longitude
+        
+        let httpMethodName = "POST"
+        let URLString = "/CREATE POD ENDPOINT" //NOTE CHANGE THIS
+        let queryStringParameters = ["lang": "en"]
+        var isPrivateStr = "F"
+        if isPrivate {
+            isPrivateStr = "T"
+        }
+        let headerParameters = [
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Latitude":"\(lat)",
+            "Longitude":"\(long)",
+            "name": "\(name)",
+            "radius": "\(radius)",
+            "isPrivate": "\(isPrivateStr)",
+            "userId": "\(FacebookIdentityProfile._sharedInstance.userId!)",
+            "userName": "\(FacebookIdentityProfile._sharedInstance.userName!)"
+        ]
+        let jsonObject: [String: AnyObject]  = ["Latitude": 37.4204870 as AnyObject, "Longitude": -122.1714210 as AnyObject]
+        
+        
+        // Construct the request object
+        let apiRequest = AWSAPIGatewayRequest(httpMethod: httpMethodName,
+                                              urlString: URLString,
+                                              queryParameters: queryStringParameters,
+                                              headerParameters: headerParameters,
+                                              httpBody: jsonObject)
+        
+        let invocationClient = AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient(forKey: AWSCloudLogicDefaultConfigurationKey)
+        
+        invocationClient.invoke(apiRequest).continueWith { (task: AWSTask<AWSAPIGatewayResponse>) -> Any? in
+            
+            if let error = task.error {
+                print("Error occurred: \(error)")
+                // Handle error here
+                return nil
+            }
+            
+            // Handle successful result here
+            let result = task.result!
+            let responseString = String(data: result.responseData!, encoding: .utf8)
+            
+           print(responseString)
+            
+            return nil
+        }
+        
+    }
+    
     func convertToDictionary(text: String) -> [String: Any]? {
         if let data = text.data(using: .utf8) {
             do {

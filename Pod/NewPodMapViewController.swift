@@ -89,6 +89,14 @@ class NewPodMapViewController: UIViewController {
     func toNamePodView() {
         performSegue(withIdentifier: "toNamePod", sender: nil)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if(segue.identifier == "toNamePod"){
+            if let nextVC = segue.destination as? PodTitleViewController {
+                nextVC.location = locationManager.location?.coordinate
+            }
+        }
+    }
 }
 
 // MARK: - GMSMapViewDelegate

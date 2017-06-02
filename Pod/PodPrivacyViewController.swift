@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class PodPrivacyViewController: UIViewController {
 
@@ -15,6 +16,7 @@ class PodPrivacyViewController: UIViewController {
     
     var podTitle: String = ""
     var isPrivate = false
+    var location: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +41,7 @@ class PodPrivacyViewController: UIViewController {
     
     @IBAction func createPod(_ sender: Any) {
         print("Creating pod: \(podTitle). Private: \(isPrivate)")
+        APIClient.sharedInstance.savePod(location: location!, name: podTitle, radius: 0.5, isPrivate: isPrivate)
         dismiss(animated: true, completion: nil)
     }
     
