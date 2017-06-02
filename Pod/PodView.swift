@@ -58,7 +58,7 @@ class PodView: UIView {
     var lockedPod = false
     var podData: PodList?
     weak var delegate: PodViewDelegate?
-    
+    var joinDelegate: JoinPodDelegate?
     lazy var lockImageView: UIImageView = {
         let lockImageView = UIImageView(image: UIImage(named: "lock"))
         return lockImageView
@@ -76,7 +76,7 @@ class PodView: UIView {
         
         addSubview(tableView.usingAutolayout())
         addSubview(emptyPodView.usingAutolayout())
-
+        emptyPodView.isHidden = true
         let nib = UINib(nibName: "PodPostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
         let photoNib = UINib(nibName: "PhotoPostTableViewCell", bundle: nil)
@@ -90,6 +90,14 @@ class PodView: UIView {
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
         setUpConstraints()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(triggerDelegate))
+        self.joinButton.addGestureRecognizer(tapGesture)
+        
+    }
+    
+    func triggerDelegate(){
+        joinDelegate?.showJoinPodAlert(podView: self)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -156,6 +164,8 @@ class PodView: UIView {
             layer.borderColor = UIColor.green.cgColor
         }
     }
+    
+    
 }
 
 extension PodView: UITableViewDelegate, UITableViewDataSource {
@@ -175,6 +185,8 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 initialized = true
                 if(!(podData?.postData?.isEmpty)!){
                     emptyPodView.removeFromSuperview()
+                } else {
+                    emptyPodView.isHidden = false
                 }
                 for (i,post) in (podData?.postData)!.enumerated(){
                     if(Int(post._postType!) == PostType.photo.hashValue){

@@ -11,7 +11,7 @@ import AWSCore
 import AWSMobileHubHelper
 import CoreLocation
 
-class PodCarouselViewController: UIViewController {
+class PodCarouselViewController: UIViewController, JoinPodDelegate {
     
     // MARK: - Properties
     
@@ -72,6 +72,11 @@ class PodCarouselViewController: UIViewController {
                 self.podsNearbyLabel.text = "\((pods?.count)!) Pods near you"
             }
             for pod in pods! {
+                print("===========")
+                print(pod._name)
+                print(pod._createdByUserId)
+                print("===========")
+
                 //APIClient().uploadTestPostsToPod(withId: pod.podID)
                 if !self.items.contains(where: { $0._podId == pod._podId }) {
                     self.items.append(pod)
@@ -173,8 +178,37 @@ class PodCarouselViewController: UIViewController {
             redDot.isHidden = true
         }
     }
+    
+    func showJoinPodAlert(podView: PodView){
+        let alertController = UIAlertController(title: "Request to Join", message: "The creator of this pod set it to private. They must accept your request to join before you can see whats going on inside.", preferredStyle: UIAlertControllerStyle.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
+        let DestructiveAction = UIAlertAction(title: "Nevermind", style: UIAlertActionStyle.destructive) {
+            (result : UIAlertAction) -> Void in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        // Replace UIAlertActionStyle.Default by UIAlertActionStyle.default
+        let okAction = UIAlertAction(title: "Send Request", style: UIAlertActionStyle.default) {
+            (result : UIAlertAction) -> Void in
+            print("Request Sent")
+            podView.joinButton.setTitle("Request Sent!", for: UIControlState.normal)
+            podView.joinButton.isEnabled = false
+            if(podView.podData?._userRequestList == nil){
+                podView.podData?._userRequestList = [FacebookIdentityProfile._sharedInstance.userId!]
+            } else {
+                podView.podData?._userRequestList?.append(FacebookIdentityProfile._sharedInstance.userId!)
+            }
+            APIClient.sharedInstance.updatePod(pod: podView.podData!)
+            APIClient.sharedInstance.sendJoinRequest(to: (podView.podData?._createdByUserId)!, podId: podView.podData?._podId as! Int, geoHash: (podView.podData?._geoHashCode)!, podName: (podView.podData?._name)!)
+        }
+        
+        alertController.addAction(DestructiveAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
-
+protocol JoinPodDelegate {
+    func showJoinPodAlert(podView: PodView)
+}
 // MARK: - iCarousel Methods
 
 extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
@@ -193,6 +227,7 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
         let podView = (view as? PodView != nil) ? view as! PodView : PodView(frame: CGRect(x: 0, y: 0, width: 255, height: 453))
         podView.delegate = self
+        podView.joinDelegate = self
         podView.podData = items[index]
         self.podTitle.text = self.items[self.carousel.currentItemIndex]._name
         if self.items[self.carousel.currentItemIndex]._userIdList!.count > 1 || self.items[self.carousel.currentItemIndex]._userIdList?.count == 0{
