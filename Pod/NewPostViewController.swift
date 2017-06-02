@@ -16,6 +16,8 @@ import AWSCognito
 
 
 class NewPostViewController: UIViewController {
+    
+    // MARK: - IBOutlets
 
     @IBOutlet weak var textBackgroundView: UIView!
     @IBOutlet weak var cancelButton: UIButton!
@@ -23,11 +25,29 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var postPhotoButton: UIImageView!
+    @IBOutlet weak var postPollButton: UIButton!
+    
+    // MARK: - Properties
+    
+    fileprivate lazy var pollTableView: UITableView = {
+        let pollTableView = UITableView()
+        pollTableView.separatorStyle = .none
+        pollTableView.allowsSelection = false
+        pollTableView.isScrollEnabled = false
+        pollTableView.delegate = self
+        pollTableView.dataSource = self
+        pollTableView.register(UINib(nibName: "PollCell", bundle: nil), forCellReuseIdentifier: "PollCell")
+        return pollTableView
+    }()
     
     let imagePicker = UIImagePickerController()
     var delegate: PostCreationDelegate?
     var postedImage: UIImage?
     var pod: PodList?
+    var pollOptions = ["", ""]
+    
+    // MARK: - NewPostViewController
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightBlue
@@ -45,12 +65,8 @@ class NewPostViewController: UIViewController {
         postPhotoButton.isUserInteractionEnabled = true
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(postPhoto))
         postPhotoButton.addGestureRecognizer(tapRecognizer)
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        postPollButton.addTarget(self, action: #selector(postPoll(_:)), for: .touchUpInside)
     }
     
     func setupBackgroundView(){
@@ -79,6 +95,8 @@ class NewPostViewController: UIViewController {
         sendButton.backgroundColor = UIColor.lightBlue
         sendButton.layer.cornerRadius = 8
         sendButton.setTitleColor(UIColor.white, for: .normal)
+        
+        postPollButton.setBackgroundImage(UIImage(named: "add_poll_blue"), for: .selected)
     }
     
     func keyboardWillShow(notification: NSNotification) {
@@ -104,6 +122,28 @@ class NewPostViewController: UIViewController {
         textView.resignFirstResponder()
     }
     
+    func postPoll(_ sender: UIButton) {
+        postPollButton.isSelected = !postPollButton.isSelected
+        if postPollButton.isSelected {
+            view.addSubview(pollTableView.usingAutolayout())
+//            let bottomConstraint = pollTableView.bottomAnchor.constraint(equalTo: postPollButton.topAnchor, constant: -10.0)
+//            let bottomInequalityConstraint = pollTableView.bottomAnchor.constraint(greaterThanOrEqualTo: postPollButton.topAnchor, constant: -10.0)
+//            bottomInequalityConstraint.priority = 1000
+            NSLayoutConstraint.activate([
+                pollTableView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 36.0),
+                pollTableView.leftAnchor.constraint(equalTo: textView.leftAnchor),
+                pollTableView.rightAnchor.constraint(equalTo: textView.rightAnchor),
+                pollTableView.bottomAnchor.constraint(equalTo: postPollButton.topAnchor, constant: -10.0)
+//                bottomConstraint,
+//                bottomInequalityConstraint
+                ])
+        } else {
+            pollOptions = ["", ""]
+            pollTableView.removeFromSuperview()
+            pollTableView.reloadData()
+        }
+        
+    }
     
     func postPhoto(gesture: UITapGestureRecognizer) {
         self.postPhotoButton.image = UIImage(named: "add_photo_blue")
@@ -116,7 +156,9 @@ class NewPostViewController: UIViewController {
             self.openGallary()
         }))
         
-        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+            self.postPhotoButton.image = UIImage(named: "add_photo_gray")
+        }))
         
         self.present(alert, animated: true, completion: nil)
     }
@@ -397,6 +439,40 @@ extension UITextView: UITextViewDelegate {
         self.delegate = self
     }
     
+}
+
+// MARK: - UITableView Methods
+
+extension NewPostViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 41.0
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return pollOptions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PollCell", for: indexPath) as! PollCell
+        cell.inputField.text = pollOptions[indexPath.row]
+        cell.delegate = self
+        if indexPath.row == pollOptions.count - 1 {
+            cell.addButton.isHidden = false
+        } else {
+            cell.addButton.isHidden = true
+        }
+        return cell
+    }
+}
+
+// MARK: - PollCell Methods
+
+extension NewPostViewController: PollCellDelegate {
+    func addNewOption() {
+        pollOptions.append("")
+        pollTableView.reloadData()
+    }
 }
 
 protocol PostCreationDelegate {
