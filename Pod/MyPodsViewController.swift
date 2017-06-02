@@ -51,6 +51,10 @@ class MyPodsCarouselViewController: UIViewController {
         APIClient.sharedInstance.getUserPodIds { (userPods) in
             for pod in userPods {
                 if !self.items.contains(where: { $0._podId == pod?._podId }) {
+                    if(pod?._geoHash == nil){
+                        print("its nil!")
+                        return
+                    }
                     APIClient.sharedInstance.getPod(withId: pod?._podId as! Int, geoHash: (pod?._geoHash)!, completion: { (podList) in
                         let index = self.items.count
                         self.items.append(podList!)
@@ -64,7 +68,8 @@ class MyPodsCarouselViewController: UIViewController {
     func getPostsforPod(index: Int){
         let pod = self.items[index]
         APIClient().getPostForPod(withId: (pod._podId as! Int), index: index, completion: { (posts, j) in
-            self.items[j].postData = posts as? [Posts]
+            let rev = Array(posts.reversed())
+            self.items[j].postData = rev as! [Posts]
             self.carousel.reloadData()
         })
     }
