@@ -86,7 +86,9 @@ class CommentViewController: SLKTextViewController {
             numComments += 1
             self.postData?._numComments = NSNumber(integerLiteral: numComments)
             APIClient.sharedInstance.updatePostInfo(post: self.postData!)
-            self.commentDelegate?.commentCreated(post: self.postData!)
+            DispatchQueue.main.async {
+                self.commentDelegate?.commentCreated(post: self.postData!)
+            }
         }
         super.didPressRightButton(sender)
     }

@@ -14,7 +14,7 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate {
     var likedComment: Bool = false
     var postData: Posts?
     let photoCell: ThumbnailPostTableViewCell? = nil
-    let textCell: PodPostTableViewCell? = nil
+    var textCell: PodPostTableViewCell? = nil
     var commentDelegate: CommentCreationDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +51,7 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate {
             containerView.frame = CGRect(x: (textCell.frame.minX), y: (textCell.frame.maxY), width: view.frame.width, height: view.frame.height - (textCell.frame.height)-8)
             view.addSubview(containerView)
             view.addSubview(textCell)
-
+            self.textCell = textCell
         }
         let controller = storyboard!.instantiateViewController(withIdentifier: "CommentViewController") as! CommentViewController
         controller.postData = postData
@@ -129,15 +129,6 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate {
             photoCell?.postComments.text = String(describing: (postData?._numComments!))
         } else {
             textCell?.postComments.text = String(describing: (postData?._numComments!)!)
-            textCell?.postComments.setNeedsLayout()
-            textCell?.postComments.setNeedsDisplay()
-            textCell?.postComments.layoutIfNeeded()
-            view.setNeedsLayout()
-            view.setNeedsDisplay()
-            view.layoutIfNeeded()
-            view.setNeedsFocusUpdate()
-            view.updateFocusIfNeeded()
-            view.reloadInputViews()
         }
         commentDelegate?.commentCreated(post: post)
     }
