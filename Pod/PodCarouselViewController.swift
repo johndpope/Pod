@@ -62,6 +62,7 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         FacebookIdentityProfile._sharedInstance.load()
         FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
         carousel.scrollSpeed = 0.5
+        APIClient.sharedInstance.getExplorePods()
     }
     
     func setUpButtons(){
