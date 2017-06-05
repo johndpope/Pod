@@ -26,25 +26,24 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     @IBOutlet weak var myPodsButton: UIButton!
     
     @IBOutlet weak var mapButton: UIButton!
-    @IBOutlet weak var redDot: UIImageView!
     var isPresentingForFirstTime = true
     var numAdded = 0
-    lazy var userImage1: UIImageView = {
+    private lazy var userImage1: UIImageView = {
         let userImage1 = UIImageView()
         userImage1.image = UIImage(named: "UserIcon")
         return userImage1
     }()
-    lazy var userImage2: UIImageView = {
+    private lazy var userImage2: UIImageView = {
         let userImage2 = UIImageView()
         userImage2.image = UIImage(named: "UserIcon")
         return userImage2
     }()
-    lazy var userImage3: UIImageView = {
+    private lazy var userImage3: UIImageView = {
         let userImage3 = UIImageView()
         userImage3.image = UIImage(named: "UserIcon")
         return userImage3
     }()
-    lazy var userImage4: UIImageView = {
+    private lazy var userImage4: UIImageView = {
         let userImage4 = UIImageView()
         userImage4.image = UIImage(named: "UserIcon")
         return userImage4
@@ -59,6 +58,17 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
 //        memberLabel.textAlignment = NSTextAlignment.center
 //        return memberLabel
 //    }()
+    
+    private lazy var notificationBubble: UILabel = {
+        let notificationBubble = UILabel(frame: CGRect(x: 0, y: 0, width: 20.0, height: 20.0))
+        notificationBubble.backgroundColor = .red
+        notificationBubble.textColor = .white
+        notificationBubble.textAlignment = .center
+        notificationBubble.layer.cornerRadius = notificationBubble.bounds.size.width / 2.0
+        notificationBubble.layer.masksToBounds = true
+        notificationBubble.isHidden = true
+        return notificationBubble
+    }()
     
     @IBAction func signOut(_ sender: Any) {
         if (AWSSignInManager.sharedInstance().isLoggedIn) {
@@ -75,17 +85,9 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     
     // MARK: - PodCarouselViewController
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        //for i in 0 ... 99 {
-        //   items.append(i)
-        //}
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightBlue
-        redDot.isHidden = true
         presentSignInViewController()
         self.navigationController?.isNavigationBarHidden = true
         carousel.type = .rotary
@@ -96,8 +98,36 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         let loc = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
         APIClient.sharedInstance.getExplorePods(location: loc, length: "8")
     }
-    func setupUser1Image(data: Data){
-        self.view.addSubview(userImage1.usingAutolayout())
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getAllPods()
+        if(FacebookIdentityProfile._sharedInstance.userId != nil ){
+            getNotifications()
+        } else {
+            //Try 5 times, every second
+            for _ in 0..<5 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                    if(FacebookIdentityProfile._sharedInstance.userId != nil ){
+                        self.getNotifications()
+                        return
+                    }
+                })
+            }
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        //        userImage1.layer.borderWidth = 1
+        //        userImage1.layer.masksToBounds = false
+        //        userImage1.layer.cornerRadius = userImage1.frame.height/2
+        //        userImage1.clipsToBounds = true
+    }
+    
+    // MARK: - Helper Methods
+    
+    private func setupUser1Image(data: Data){
+        view.insertSubview(userImage1.usingAutolayout(), belowSubview: carousel)
         userImage1.image = UIImage(data: data)
         userImage1.layer.borderWidth = 1
         userImage1.layer.masksToBounds = false
@@ -111,8 +141,8 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
             ])
     }
     
-    func setupUser2Image(data: Data){
-        self.view.addSubview(userImage2.usingAutolayout())
+    private func setupUser2Image(data: Data){
+        view.insertSubview(userImage2.usingAutolayout(), belowSubview: carousel)
         userImage2.image = UIImage(data: data)
         userImage2.layer.borderWidth = 1
         userImage2.layer.masksToBounds = false
@@ -126,8 +156,8 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
             ])
     }
     
-    func setupUser3Image(data: Data){
-        self.view.addSubview(userImage3.usingAutolayout())
+    private func setupUser3Image(data: Data){
+        view.insertSubview(userImage3.usingAutolayout(), belowSubview: carousel)
         userImage3.image = UIImage(data: data)
         userImage3.layer.borderWidth = 1
         userImage3.layer.masksToBounds = false
@@ -141,8 +171,8 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
             ])
     }
     
-    func setupUser4Image(data: Data){
-        self.view.addSubview(userImage4.usingAutolayout())
+    private func setupUser4Image(data: Data){
+        view.insertSubview(userImage4.usingAutolayout(), belowSubview: carousel)
         userImage4.image = UIImage(data: data)
         userImage4.layer.borderWidth = 1
         userImage4.layer.masksToBounds = false
@@ -156,13 +186,6 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
             ])
     }
     
-    override func viewDidLayoutSubviews() {
-//        userImage1.layer.borderWidth = 1
-//        userImage1.layer.masksToBounds = false
-//        userImage1.layer.cornerRadius = userImage1.frame.height/2
-//        userImage1.clipsToBounds = true
-    }
-    
 //    func setupMemberLabel(){
 //        NSLayoutConstraint.activate([
 //            memberLabel.bottomAnchor.constraint(equalTo: self.carousel.topAnchor, constant: -10),
@@ -171,42 +194,39 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
 //            ])
 //    }
     
-    func setUpButtons(){
-        addButton.setImage(UIImage(named:"addIcon"), for: UIControlState.normal)
-        addButton.setTitleColor(UIColor.white, for: UIControlState.normal)
-        addButton.tintColor = UIColor.white
-        addButton.backgroundColor = UIColor(red: 35/255, green: 49/255, blue: 170/255, alpha: 1)
+    func setUpButtons() {
+
+        // Add Button
+        addButton.setImage(UIImage(named:"addIcon"), for: .normal)
+        addButton.tintColor = .white
+        addButton.backgroundColor = .darkBlue
         addButton.layer.cornerRadius = 0.5 * addButton.bounds.size.width
-        addButton.clipsToBounds = true
         addButton.layer.shadowColor = UIColor.black.cgColor
         addButton.layer.shadowOpacity = 0.5
-        addButton.layer.shadowOffset = CGSize(width: 0, height: 3)
-        addButton.layer.masksToBounds = false
-        addButton.layer.shadowRadius = 0
+        addButton.layer.shadowOffset = CGSize(width: 0, height: 3.0)
+        addButton.layer.shadowRadius = 2.0
         
+        // My Pods Button
         myPodsButton.setTitleColor(UIColor.white, for: UIControlState.normal)
         myPodsButton.tintColor = UIColor.white
-        myPodsButton.backgroundColor = UIColor(red: 35/255, green: 49/255, blue: 170/255, alpha: 1)
+        myPodsButton.backgroundColor = .darkBlue
         myPodsButton.layer.cornerRadius = 0.5 * addButton.bounds.size.width
-        myPodsButton.clipsToBounds = true
         myPodsButton.layer.shadowColor = UIColor.black.cgColor
         myPodsButton.layer.shadowOpacity = 0.5
-        myPodsButton.layer.shadowOffset = CGSize(width: 0, height: 3)
-        myPodsButton.layer.shadowRadius = 1
-        myPodsButton.layer.masksToBounds = false
-
+        myPodsButton.layer.shadowOffset = CGSize(width: 0, height: 3.0)
+        myPodsButton.layer.shadowRadius = 2.0
+        view.addSubview(notificationBubble)
+        notificationBubble.center = CGPoint(x: Double(myPodsButton.center.x) + Double(myPodsButton.bounds.width) * 0.5 * cos(45.0 * .pi / 180.0), y: Double(myPodsButton.center.y) - Double(myPodsButton.bounds.height * 0.5) * sin(45.0 * .pi / 180.0))
         
+        // Map Button
         mapButton.setTitleColor(UIColor.white, for: UIControlState.normal)
         mapButton.tintColor = UIColor.white
-        mapButton.backgroundColor = UIColor(red: 35/255, green: 49/255, blue: 170/255, alpha: 1)
+        mapButton.backgroundColor = .darkBlue
         mapButton.layer.cornerRadius = 0.5 * addButton.bounds.size.width
-        mapButton.clipsToBounds = true
         mapButton.layer.shadowColor = UIColor.black.cgColor
         mapButton.layer.shadowOpacity = 0.5
-        mapButton.layer.shadowOffset = CGSize(width: 0, height: 3)
-        mapButton.layer.shadowRadius = 1
-        mapButton.layer.masksToBounds = false
-
+        mapButton.layer.shadowOffset = CGSize(width: 0, height: 3.0)
+        mapButton.layer.shadowRadius = 2.0
     }
     
     func getAllPods(){
@@ -255,30 +275,12 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        getAllPods()
-        if(FacebookIdentityProfile._sharedInstance.userId != nil ){
-            getNotifications()
-        } else {
-            //Try 5 times, every second
-            for _ in 0..<5 {
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-                    if(FacebookIdentityProfile._sharedInstance.userId != nil ){
-                        self.getNotifications()
-                        return
-                    }
-                })
-            }
-        }
-    }
-    
     func getNotifications(){
         APIClient.sharedInstance.getPodRequestsForCurrentUser { (requests) in
             if(requests.count > 0){
-                self.addRedDotNotificationIndicator(show: true)
+                self.showNotificationBubble(true, withNumber: requests.count)
             } else {
-                self.addRedDotNotificationIndicator(show: false)
+                self.showNotificationBubble(false)
             }
         }
     }
@@ -312,12 +314,9 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     
     }
     
-    func addRedDotNotificationIndicator(show: Bool){
-        if(show) {
-            redDot.isHidden = false
-        } else {
-            redDot.isHidden = true
-        }
+    private func showNotificationBubble(_ show: Bool, withNumber number: Int = 0) {
+        notificationBubble.isHidden = !show
+        notificationBubble.text = String(number)
     }
     
     func showJoinPodAlert(podView: PodView){
