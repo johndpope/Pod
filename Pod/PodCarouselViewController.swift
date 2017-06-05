@@ -39,6 +39,16 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         userImage2.image = UIImage(named: "UserIcon")
         return userImage2
     }()
+    lazy var userImage3: UIImageView = {
+        let userImage3 = UIImageView()
+        userImage3.image = UIImage(named: "UserIcon")
+        return userImage3
+    }()
+    lazy var userImage4: UIImageView = {
+        let userImage4 = UIImageView()
+        userImage4.image = UIImage(named: "UserIcon")
+        return userImage4
+    }()
     
 //    lazy var memberLabel: UILabel = {
 //        let memberLabel = UILabel()
@@ -113,6 +123,36 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
             userImage2.rightAnchor.constraint(equalTo: peopleInPod.leftAnchor, constant: -25),
             userImage2.widthAnchor.constraint(equalToConstant: 25),
             userImage2.heightAnchor.constraint(equalToConstant: 25),
+            ])
+    }
+    
+    func setupUser3Image(data: Data){
+        self.view.addSubview(userImage3.usingAutolayout())
+        userImage3.image = UIImage(data: data)
+        userImage3.layer.borderWidth = 1
+        userImage3.layer.masksToBounds = false
+        userImage3.layer.cornerRadius = 25/2
+        userImage3.clipsToBounds = true
+        NSLayoutConstraint.activate([
+            userImage3.centerYAnchor.constraint(equalTo: peopleInPod.centerYAnchor),
+            userImage3.rightAnchor.constraint(equalTo: peopleInPod.leftAnchor, constant: -42),
+            userImage3.widthAnchor.constraint(equalToConstant: 25),
+            userImage3.heightAnchor.constraint(equalToConstant: 25),
+            ])
+    }
+    
+    func setupUser4Image(data: Data){
+        self.view.addSubview(userImage3.usingAutolayout())
+        userImage3.image = UIImage(data: data)
+        userImage3.layer.borderWidth = 1
+        userImage3.layer.masksToBounds = false
+        userImage3.layer.cornerRadius = 25/2
+        userImage3.clipsToBounds = true
+        NSLayoutConstraint.activate([
+            userImage3.centerYAnchor.constraint(equalTo: peopleInPod.centerYAnchor),
+            userImage3.rightAnchor.constraint(equalTo: peopleInPod.leftAnchor, constant: -66),
+            userImage3.widthAnchor.constraint(equalToConstant: 25),
+            userImage3.heightAnchor.constraint(equalToConstant: 25),
             ])
     }
     
@@ -287,13 +327,13 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
             (result : UIAlertAction) -> Void in
             podView.joinButton.setTitle("Request Sent!", for: UIControlState.normal)
             podView.joinButton.isEnabled = false
-            if(podView.podData?._userRequestList == nil){
-                podView.podData?._userRequestList = [FacebookIdentityProfile._sharedInstance.userId!]
-            } else {
-                podView.podData?._userRequestList?.append(FacebookIdentityProfile._sharedInstance.userId!)
-            }
-            APIClient.sharedInstance.updatePod(pod: podView.podData!)
-            APIClient.sharedInstance.sendJoinRequest(to: (podView.podData?._createdByUserId)!, podId: podView.podData?._podId as! Int, geoHash: (podView.podData?._geoHashCode)!, podName: (podView.podData?._name)!)
+//            if(podView.podData?._userRequestList == nil){
+//                podView.podData?._userRequestList = [FacebookIdentityProfile._sharedInstance.userId!]
+//            } else {
+//                podView.podData?._userRequestList?.append(FacebookIdentityProfile._sharedInstance.userId!)
+//            }
+            //APIClient.sharedInstance.updatePod(pod: podView.podData!)
+           // APIClient.sharedInstance.sendJoinRequest(to: (podView.podData?._createdByUserId)!, podId: podView.podData?._podId as! Int, geoHash: (podView.podData?._geoHashCode)!, podName: (podView.podData?._name)!)
         }
         
         alertController.addAction(DestructiveAction)
@@ -319,10 +359,10 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
                 if(item._userIdList?.count == 2){
                     self.peopleInPod.text = "You and 1 other person"
                 } else {
-                    self.peopleInPod.text = "You and \(numPeople!-1) people"
+                    self.peopleInPod.text = "You and \(numPeople!-1) other people"
                 }
             } else {
-                self.peopleInPod.text = "\(String(describing: numPeople)) people"
+                self.peopleInPod.text = "\(String(describing: numPeople!)) people"
             }
         }
         switch numAdded {
@@ -332,13 +372,27 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         case 2:
             userImage2.removeFromSuperview()
             userImage1.removeFromSuperview()
-
+            break
+        case 3:
+            userImage3.removeFromSuperview()
+            userImage2.removeFromSuperview()
+            userImage1.removeFromSuperview()
+            break
+        case 4:
+            userImage4.removeFromSuperview()
+            userImage3.removeFromSuperview()
+            userImage2.removeFromSuperview()
+            userImage1.removeFromSuperview()
             break
         default:
             break
         }
         numAdded = 0
         for (i, id) in (item._userIdList?.enumerated())! {
+            if numAdded == 4 {
+                return
+            }
+            
             if FacebookIdentityProfile._sharedInstance.userId == id {
                 numAdded += 1
                 let cache = Shared.dataCache
@@ -347,6 +401,10 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
                         self.setupUser1Image(data: data)
                     } else if i == 1{
                         self.setupUser2Image(data: data)
+                    } else if i == 2{
+                        self.setupUser3Image(data: data)
+                    } else if i == 3{
+                        self.setupUser4Image(data: data)
                     }
                 }).onFailure({ (err) in
                     var data = Data()
@@ -356,6 +414,10 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
                             self.setupUser1Image(data: data)
                         } else if i == 1{
                             self.setupUser2Image(data: data)
+                        } else if i == 2{
+                            self.setupUser3Image(data: data)
+                        } else if i == 3{
+                            self.setupUser4Image(data: data)
                         }
                         cache.set(value: data, key: id)
                     } catch {
@@ -370,6 +432,10 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
                         self.setupUser1Image(data: data)
                     } else if i == 1{
                         self.setupUser2Image(data: data)
+                    } else if i == 2{
+                        self.setupUser3Image(data: data)
+                    } else if i == 3{
+                        self.setupUser4Image(data: data)
                     }
                 }).onFailure({ (err) in
                     APIClient.sharedInstance.getUser(withId: id, completion: { (uInfo) in
@@ -381,6 +447,10 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
                                 self.setupUser1Image(data: data)
                             } else if i == 1{
                                 self.setupUser2Image(data: data)
+                            } else if i == 2{
+                                self.setupUser3Image(data: data)
+                            } else if i == 3{
+                                self.setupUser4Image(data: data)
                             }
                             cache.set(value: data, key: id)
                         } catch {

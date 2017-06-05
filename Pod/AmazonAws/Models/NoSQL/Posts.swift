@@ -29,6 +29,7 @@ class Posts: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _posterImageURL: String?
     var _posterName: String?
     var image: UIImage?
+    var userImage: UIImage?
     
     class func dynamoDBTableName() -> String {
 

@@ -15,6 +15,8 @@ class PodPostTableViewCell: UITableViewCell {
     @IBOutlet weak var posterPhoto: UIImageView!
     @IBOutlet weak var postLikes: UILabel!
     @IBOutlet weak var postComments: UILabel!
+    
+    let queue = SerialOperationQueue()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -32,4 +34,13 @@ class PodPostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+}
+
+class SerialOperationQueue: OperationQueue
+{
+    override init()
+    {
+        super.init()
+        maxConcurrentOperationCount = 1
+    }
 }

@@ -16,7 +16,8 @@ class PhotoPostTableViewCell: UITableViewCell {
     @IBOutlet weak var postLikes: UILabel!
     @IBOutlet weak var postComments: UILabel!
     @IBOutlet weak var photoContent: UIImageView!
-    
+    let queue = SerialOperationQueue()
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

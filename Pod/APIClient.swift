@@ -77,7 +77,6 @@ class APIClient {
                 let geoHash = curPod["GeoHash"] as! String
                 let pod = PodList()
                 let userID = curPod["CreatedByUserId"] as! String
-                let requestList = curPod["UserRequestList"] as! [String]
                 pod?._podId = podID as NSNumber
                 pod?._userIdList = userIdList
                 pod?._isPrivate = isLocked as NSNumber
@@ -88,7 +87,6 @@ class APIClient {
                 pod?._latitude = coordinates.latitude as NSNumber
                 pod?._longitude = coordinates.longitude as NSNumber
                 pod?._createdByUserId = userID
-                pod?._userRequestList = requestList
                 nearbyPods?.append(pod!)
             }
             completion(nearbyPods)
@@ -359,9 +357,10 @@ class APIClient {
     }
     
     func updatePod(pod: PodList){
-        if (pod.postData?.isEmpty)! {
-            pod.postData = nil
-        }
+//        if (pod.postData?.isEmpty)! {
+//            pod.postData = nil
+//        }
+
         dynamoDBObjectMapper.save(pod) { (err) in
             if let error = err {
                 print("Amazin DynamoDB Save Error: \(error)")
@@ -576,26 +575,20 @@ class APIClient {
     }
     
     func acceptJoinRequest(request: PodRequests){
-        dynamoDBObjectMapper.remove(request)
-        let userPod = UserPods()
-        userPod?._userId = FacebookIdentityProfile._sharedInstance.userId!
-        userPod?._podId = request._podId
-        userPod?._geoHash = request._podGeoHash
-        dynamoDBObjectMapper.save(userPod!)
-        getPod(withId: request._podId as! Int, geoHash: request._podGeoHash!) { (pod) in
-            pod?._userIdList?.append(FacebookIdentityProfile._sharedInstance.userId!)
-            pod?._usernameList?.append(FacebookIdentityProfile._sharedInstance.userName!)
-            for (i, id) in (pod?._userRequestList?.enumerated())! {
-                if id == request._requesterID {
-                    pod?._userRequestList?.remove(at: i)
-                    break
-                }
-            }
-            if(pod?._userRequestList?.isEmpty)!{
-                pod?._userRequestList = nil
-            }
-            self.dynamoDBObjectMapper.save(pod!)
-        }
+//        dynamoDBObjectMapper.remove(request)
+//        let userPod = UserPods()
+//        userPod?._userId = FacebookIdentityProfile._sharedInstance.userId!
+//        userPod?._podId = request._podId
+//        userPod?._geoHash = request._podGeoHash
+//        dynamoDBObjectMapper.save(userPod!)
+//        getPod(withId: request._podId as! Int, geoHash: request._podGeoHash!) { (pod) in
+//            pod?._userIdList?.append(FacebookIdentityProfile._sharedInstance.userId!)
+//            pod?._usernameList?.append(FacebookIdentityProfile._sharedInstance.userName!)
+//           
+//
+//            self.dynamoDBObjectMapper.save(pod!)
+//        }
+        print("accept join request. this isnt actually doing anything")
     }
     
 

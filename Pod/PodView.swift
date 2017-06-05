@@ -199,14 +199,14 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
 //                self.setUpBlurEffect()
             } else {
                 self.setUpLockConstraints()
-                if(podData?._userRequestList == nil){
-                    return
-                }
-                if (podData?._userRequestList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
-                    //Change text!
-                    joinButton.setTitle("Request Sent!", for: UIControlState.normal)
-                    joinButton.isEnabled = false
-                }
+//                if(podData?._userRequestList == nil){
+//                    return
+//                }
+//                if (podData?._userRequestList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+//                    //Change text!
+//                    joinButton.setTitle("Request Sent!", for: UIControlState.normal)
+//                    joinButton.isEnabled = false
+//                }
             }
         }
         for (i,post) in (podData?.postData)!.enumerated(){
@@ -225,6 +225,7 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let postData = self.podData?.postData?[indexPath.row]
         if podData == nil ||  postData == nil{
@@ -234,25 +235,47 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         if(postData?._postType as! Int == PostType.text.hashValue){
             //handle text
             let cell = tableView.dequeueReusableCell(withIdentifier: "PodPostTableViewCell") as! PodPostTableViewCell
+        
+            cell.queue.cancelAllOperations()
             
-            cell.posterName.text = postData?._posterName
-            cell.posterBody.text = postData?._postContent
-            cell.postLikes.text = String(describing: (postData?._numLikes!)!)
-            cell.postComments.text = String(describing: (postData?._numComments!)!)
-
-            let cache = Shared.dataCache
-            cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
-                cell.posterPhoto.image = UIImage(data: data)
-            }).onFailure({ (err) in
-                let url = URL(string: (postData?._posterImageURL)!)
-                var data = Data()
-                do {
-                    data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                    cell.posterPhoto.image = UIImage(data: data)
-                } catch {
-                    cell.posterPhoto.image = UIImage(named: "UserIcon")
+            let operation: BlockOperation = BlockOperation()
+            operation.addExecutionBlock {
+                DispatchQueue.main.async {
+                    if operation.isCancelled {
+                        return
+                    }
+                    cell.posterName.text = postData?._posterName
+                    cell.posterBody.text = postData?._postContent
+                    cell.postLikes.text = String(describing: (postData?._numLikes!)!)
+                    cell.postComments.text = String(describing: (postData?._numComments!)!)
+                    
+                    let cache = Shared.dataCache
+                    if(postData?.userImage == nil){
+                        cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
+                            cell.posterPhoto.image = UIImage(data: data)
+                            postData?.userImage = UIImage(data: data)
+                        }).onFailure({ (err) in
+                            let url = URL(string: (postData?._posterImageURL)!)
+                            var data = Data()
+                            do {
+                                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                                cell.posterPhoto.image = UIImage(data: data)
+                                postData?.userImage = UIImage(data: data)
+                                
+                            } catch {
+                                cell.posterPhoto.image = UIImage(named: "UserIcon")
+                                postData?.userImage = UIImage(data: data)
+                                
+                            }
+                        })
+                    } else {
+                        cell.posterPhoto.image = postData?.userImage
+                    }
                 }
-            })
+            }
+
+            
+            cell.queue.addOperation(operation)
 
         
             return cell
@@ -260,31 +283,56 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             //handle photos
             let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoPostTableViewCell") as! PhotoPostTableViewCell
             
-            cell.posterName.text = postData?._posterName
-            cell.posterBody.text = postData?._postContent
-            cell.postLikes.text = String(describing: (postData?._numLikes!)!)
-            cell.postComments.text = String(describing: (postData?._numComments!)!)
-            let cache = Shared.dataCache
-            cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
-                cell.posterPhoto.image = UIImage(data: data)
-            }).onFailure({ (err) in
-                let url = URL(string: (postData?._posterImageURL)!)
-                var data = Data()
-                do {
-                    data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                    cell.posterPhoto.image = UIImage(data: data)
-                } catch {
-                    cell.posterPhoto.image = UIImage(named: "UserIcon")
-                }
-            })
+            
+            
+            cell.queue.cancelAllOperations()
 
-            cache.fetch(key: (postData?._postImage)!).onSuccess({ (data) in
-                postData?.image = UIImage(data: data)
-                cell.photoContent.image = postData?.image
-            }).onFailure({ (err) in
-                postData?.image = UIImage(named: "placeholder")
-                cell.photoContent.image = postData?.image
-            })
+            let operation: BlockOperation = BlockOperation()
+            operation.addExecutionBlock {
+                DispatchQueue.main.async {
+                    if operation.isCancelled {
+                        return
+                    }
+                    cell.posterName.text = postData?._posterName
+                    cell.posterBody.text = postData?._postContent
+                    cell.postLikes.text = String(describing: (postData?._numLikes!)!)
+                    cell.postComments.text = String(describing: (postData?._numComments!)!)
+                    let cache = Shared.dataCache
+                    if(postData?.userImage == nil){
+                        cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
+                            cell.posterPhoto.image = UIImage(data: data)
+                            postData?.userImage = UIImage(data: data)
+                        }).onFailure({ (err) in
+                            let url = URL(string: (postData?._posterImageURL)!)
+                            var data = Data()
+                            do {
+                                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                                cell.posterPhoto.image = UIImage(data: data)
+                                postData?.userImage = UIImage(data: data)
+                                
+                            } catch {
+                                cell.posterPhoto.image = UIImage(named: "UserIcon")
+                                postData?.userImage = UIImage(data: data)
+                                
+                            }
+                        })
+                    } else {
+                        cell.posterPhoto.image = postData?.userImage
+                    }
+                    if postData?.image == nil {
+                        cache.fetch(key: (postData?._postImage)!).onSuccess({ (data) in
+                            postData?.image = UIImage(data: data)
+                            cell.photoContent.image = postData?.image
+                        }).onFailure({ (err) in
+                            postData?.image = UIImage(named: "placeholder")
+                            cell.photoContent.image = postData?.image
+                        })
+                    } else {
+                        cell.photoContent.image = postData?.image
+                    }
+                }
+            }
+            cell.queue.addOperation(operation)
 
             return cell
         } else if(postData?._postType as! Int == PostType.poll.hashValue){
