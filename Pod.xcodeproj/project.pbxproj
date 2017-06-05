@@ -10,6 +10,8 @@
 		9511220E1ED65AF10056BE16 /* PodTitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9511220D1ED65AF10056BE16 /* PodTitleViewController.swift */; };
 		95309FFA1ED67BB8008A7A7F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FF91ED67BB8008A7A7F /* libz.tbd */; };
 		95309FFC1ED67BBE008A7A7F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FFB1ED67BBE008A7A7F /* libsqlite3.tbd */; };
+		9534513F1EE6056800A72E01 /* PollPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9534513D1EE6056800A72E01 /* PollPostTableViewCell.swift */; };
+		953451401EE6056800A72E01 /* PollPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9534513E1EE6056800A72E01 /* PollPostTableViewCell.xib */; };
 		9534F4D11EDB4C7C0094A007 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9534F4D01EDB4C7C0094A007 /* FBSDKShareKit.framework */; };
 		9534F4DD1EDB50050094A007 /* FacebookIdentityProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9534F4DA1EDB50050094A007 /* FacebookIdentityProfile.swift */; };
 		9534F4DE1EDB50050094A007 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9534F4DB1EDB50050094A007 /* SignIn.storyboard */; };
@@ -118,6 +120,8 @@
 		9511220D1ED65AF10056BE16 /* PodTitleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTitleViewController.swift; sourceTree = "<group>"; };
 		95309FF91ED67BB8008A7A7F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		95309FFB1ED67BBE008A7A7F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		9534513D1EE6056800A72E01 /* PollPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollPostTableViewCell.swift; sourceTree = "<group>"; };
+		9534513E1EE6056800A72E01 /* PollPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PollPostTableViewCell.xib; sourceTree = "<group>"; };
 		9534F4CE1EDB4C680094A007 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		9534F4D01EDB4C7C0094A007 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		9534F4DA1EDB50050094A007 /* FacebookIdentityProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookIdentityProfile.swift; sourceTree = "<group>"; };
@@ -294,6 +298,8 @@
 				9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */,
 				95E1E4CF1EDFEFCF009A7546 /* ThumbnailPostTableViewCell.swift */,
 				95E1E4D01EDFEFCF009A7546 /* ThumbnailPostTableViewCell.xib */,
+				9534513D1EE6056800A72E01 /* PollPostTableViewCell.swift */,
+				9534513E1EE6056800A72E01 /* PollPostTableViewCell.xib */,
 			);
 			name = Posts;
 			sourceTree = "<group>";
@@ -503,6 +509,7 @@
 				95902ACD1ED8EA810008792A /* PodPostTableViewCell.xib in Resources */,
 				95B9C3A31EDE467700954D4C /* AWSFacebookSignInResources.bundle in Resources */,
 				9534F4E51EDB79C70094A007 /* PhotoPostTableViewCell.xib in Resources */,
+				953451401EE6056800A72E01 /* PollPostTableViewCell.xib in Resources */,
 				9534F4DE1EDB50050094A007 /* SignIn.storyboard in Resources */,
 				F4BECB441EBD738800B98BA8 /* GoogleService-Info.plist in Resources */,
 				95B9C3C41EDE47FD00954D4C /* Sdk3 in Resources */,
@@ -585,6 +592,7 @@
 				F44AB6341ED3DEB0001B5E69 /* PodViewController.swift in Sources */,
 				F4BECB471EBE660900B98BA8 /* UIView+Autolayout.swift in Sources */,
 				95B9C3A01EDE467700954D4C /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m in Sources */,
+				9534513F1EE6056800A72E01 /* PollPostTableViewCell.swift in Sources */,
 				F4E9DE4E1EE1D85F0089BA13 /* TextField.swift in Sources */,
 				95E1E4CA1EDF5C62009A7546 /* InviteTableViewCell.swift in Sources */,
 				9599E2801ED68FB40078328A /* PodPrivacyViewController.swift in Sources */,

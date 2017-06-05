@@ -81,6 +81,8 @@ class PodView: UIView {
         tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
         let photoNib = UINib(nibName: "PhotoPostTableViewCell", bundle: nil)
         tableView.register(photoNib, forCellReuseIdentifier: "PhotoPostTableViewCell")
+        let pollNib = UINib(nibName: "PollPostTableViewCell", bundle: nil)
+        tableView.register(pollNib, forCellReuseIdentifier: "PollPostTableViewCell")
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.estimatedRowHeight = 60.0 // Replace with your actual estimation
         // Automatic dimensions to tell the table view to use dynamic height
@@ -236,14 +238,14 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             //handle text
             let cell = tableView.dequeueReusableCell(withIdentifier: "PodPostTableViewCell") as! PodPostTableViewCell
         
-            cell.queue.cancelAllOperations()
-            
-            let operation: BlockOperation = BlockOperation()
-            operation.addExecutionBlock {
-                DispatchQueue.main.async {
-                    if operation.isCancelled {
-                        return
-                    }
+//            cell.queue.cancelAllOperations()
+//            
+//            let operation: BlockOperation = BlockOperation()
+//            operation.addExecutionBlock {
+//                DispatchQueue.main.async {
+//                    if operation.isCancelled {
+//                        return
+//                    }
                     cell.posterName.text = postData?._posterName
                     cell.posterBody.text = postData?._postContent
                     cell.postLikes.text = String(describing: (postData?._numLikes!)!)
@@ -271,11 +273,11 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                     } else {
                         cell.posterPhoto.image = postData?.userImage
                     }
-                }
-            }
-
-            
-            cell.queue.addOperation(operation)
+                //}
+//            }
+//
+//            
+//            cell.queue.addOperation(operation)
 
         
             return cell
@@ -285,14 +287,14 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             
             
             
-            cell.queue.cancelAllOperations()
-
-            let operation: BlockOperation = BlockOperation()
-            operation.addExecutionBlock {
-                DispatchQueue.main.async {
-                    if operation.isCancelled {
-                        return
-                    }
+//            cell.queue.cancelAllOperations()
+//
+//            let operation: BlockOperation = BlockOperation()
+//            operation.addExecutionBlock {
+//                DispatchQueue.main.async {
+//                    if operation.isCancelled {
+//                        return
+//                    }
                     cell.posterName.text = postData?._posterName
                     cell.posterBody.text = postData?._postContent
                     cell.postLikes.text = String(describing: (postData?._numLikes!)!)
@@ -330,13 +332,60 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                     } else {
                         cell.photoContent.image = postData?.image
                     }
-                }
-            }
-            cell.queue.addOperation(operation)
+                //}
+//            }
+//            cell.queue.addOperation(operation)
 
             return cell
         } else if(postData?._postType as! Int == PostType.poll.hashValue){
             //handle polls
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PollPostTableViewCell") as! PollPostTableViewCell
+            
+            //cell.queue.cancelAllOperations()
+            
+            //let operation: BlockOperation = BlockOperation()
+          //  operation.addExecutionBlock {
+            //    DispatchQueue.main.async {
+              //      if operation.isCancelled {
+               //         return
+                //    }
+                    cell.username.text = postData?._posterName
+                    cell.postContent.text = postData?._postContent
+                    cell.numLikes.text = String(describing: (postData?._numLikes!)!)
+                    cell.numComments.text = String(describing: (postData?._numComments!)!)
+                    let cache = Shared.dataCache
+                    if(postData?.userImage == nil){
+                        cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
+                            cell.profilePic.image = UIImage(data: data)
+                            postData?.userImage = UIImage(data: data)
+                        }).onFailure({ (err) in
+                            let url = URL(string: (postData?._posterImageURL)!)
+                            var data = Data()
+                            do {
+                                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                                cell.profilePic.image = UIImage(data: data)
+                                postData?.userImage = UIImage(data: data)
+                                
+                            } catch {
+                                cell.profilePic.image = UIImage(named: "UserIcon")
+                                postData?.userImage = UIImage(data: data)
+                                
+                            }
+                        })
+                    } else {
+                        cell.profilePic.image = postData?.userImage
+                    }
+                    if postData?._postPoll != nil {
+                        for (key,val) in (postData?._postPoll)! {
+                            cell.pollOptions.append(key)
+                        }
+                        cell.tableView.reloadData()
+                    }
+               // }
+            //}
+            //cell.queue.addOperation(operation)
+            
+            return cell
         }
         return UITableViewCell()
     }

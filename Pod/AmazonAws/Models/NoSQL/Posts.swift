@@ -24,7 +24,7 @@ class Posts: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _postContent: String?
     var _postId: String?
     var _postImage: String?
-    var _postPoll: [String: String]?
+    var _postPoll: [String: NSNumber]?
     var _postType: NSNumber?
     var _posterImageURL: String?
     var _posterName: String?

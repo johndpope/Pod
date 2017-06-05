@@ -15,6 +15,7 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate {
     var postData: Posts?
     let photoCell: ThumbnailPostTableViewCell? = nil
     var textCell: PodPostTableViewCell? = nil
+    var pollCell: PollPostTableViewCell? = nil
     var commentDelegate: CommentCreationDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,24 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate {
             view.addSubview(containerView)
             view.addSubview(textCell)
             self.textCell = textCell
+        } else if (Int((postData?._postType)!) == PostType.poll.hashValue) {
+            let pollCell = Bundle.main.loadNibNamed("PollPostTableViewCell",owner: nil, options: nil)?.first as! PollPostTableViewCell
+            pollCell.frame = CGRect(x: 0, y: 8, width: view.frame.width, height: (pollCell.frame.height))
+            pollCell.username.text = postData?._posterName
+            pollCell.postContent.text = postData?._postContent
+            pollCell.numLikes.text = String(describing: (postData?._numLikes!)!)
+            pollCell.numComments.text = String(describing: (postData?._numComments!)!)
+            pollCell.backgroundColor = .white
+            if postData?._postPoll != nil {
+                for (key,val) in (postData?._postPoll)! {
+                    pollCell.pollOptions.append(key)
+                }
+                pollCell.tableView.reloadData()
+            }
+            containerView.frame = CGRect(x: (pollCell.frame.minX), y: (pollCell.frame.maxY), width: view.frame.width, height: view.frame.height - (pollCell.frame.height)-8)
+            view.addSubview(containerView)
+            view.addSubview(pollCell)
+            self.pollCell = pollCell
         }
         let controller = storyboard!.instantiateViewController(withIdentifier: "CommentViewController") as! CommentViewController
         controller.postData = postData

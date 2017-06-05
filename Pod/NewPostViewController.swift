@@ -267,15 +267,25 @@ class NewPostViewController: UIViewController {
         post?._postType = PostType.text.hashValue as NSNumber
         post?._postContent = textView.text
         post?._postedDate = NSDate().timeIntervalSince1970 as NSNumber
-        post?._postPoll = ["none":"none"]
+        post?._postPoll = ["none":1]
         post?._postId = UUID().uuidString
-        if(hasImage){
+        if postPollButton.isSelected {
+            post?._postType = PostType.poll.hashValue as NSNumber
+            post?._postImage = "No Image"
+            APIClient().createNewPostForPod(withId: Int((self.pod?._podId)!), post: post!)
+            
+            self.delegate?.postCreated(post: post!)
+            self.dismiss(animated: true, completion: nil)
+        } else if(hasImage){
             post?._postType = PostType.photo.hashValue as NSNumber
             //post?._postImage = postedImage
             let uuid = UUID().uuidString
             post?._postImage = "\(uuid).jpg"
+           // postedImage = resize(image: postedImage!)
             let data = UIImagePNGRepresentation(postedImage!)
             let key = "\(uuid).jpg"
+            
+            post?.image = postedImage
             uploadWithData(data: data!, forKey: key) { () -> (AWSS3TransferUtilityUploadCompletionHandlerBlock?) in
                 APIClient().createNewPostForPod(withId: Int((self.pod?._podId)!), post: post!)
                 self.delegate?.postCreated(post: post!)
@@ -479,3 +489,44 @@ extension NewPostViewController: PollCellDelegate {
 protocol PostCreationDelegate {
     func postCreated(post: Posts)
 }
+
+func resize(image: UIImage) -> UIImage{
+    var actualHeight = image.size.height
+    var actualWidth = image.size.width
+    let maxHeight = 234.0 as CGFloat
+    let maxWidth = 250.0 as CGFloat
+    var imgRatio = actualWidth/actualHeight
+    let maxRatio = maxWidth/maxHeight
+    let compressionQuality = 0.90
+    
+    if (actualHeight > maxHeight || actualWidth > maxWidth)
+    {
+        if(imgRatio < maxRatio)
+        {
+            //adjust width according to maxHeight
+            imgRatio = maxHeight / actualHeight;
+            actualWidth = imgRatio * actualWidth;
+            actualHeight = maxHeight;
+        }
+        else if(imgRatio > maxRatio)
+        {
+            //adjust height according to maxWidth
+            imgRatio = maxWidth / actualWidth;
+            actualHeight = imgRatio * actualHeight;
+            actualWidth = maxWidth;
+        }
+        else
+        {
+            actualHeight = maxHeight;
+            actualWidth = maxWidth;
+        }
+    }
+    let rect = CGRect(x: 0, y: 0, width: actualWidth, height: actualHeight)
+    UIGraphicsBeginImageContext(rect.size)
+    image.draw(in: rect)
+    let img = UIGraphicsGetImageFromCurrentImageContext()
+    let imgData = UIImageJPEGRepresentation(img!, CGFloat(compressionQuality))
+    UIGraphicsEndImageContext()
+    return UIImage(data: imgData!)!
+}
+

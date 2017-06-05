@@ -261,7 +261,7 @@ class APIClient {
         post1?._postType = PostType.text.hashValue as NSNumber
         post1?._postContent = "What up its Chaz"
         post1?._postedDate = NSDate().timeIntervalSince1970 as NSNumber
-        post1?._postPoll = ["none":"none"]
+        post1?._postPoll = ["none":1]
         post1?._postImage = "No Image"
         
         let post2 = Posts()
@@ -272,7 +272,7 @@ class APIClient {
         post2?._postType = PostType.text.hashValue as NSNumber
         post2?._postContent = "What up its Chenye ZHUUUUUUUUU"
         post2?._postedDate = NSDate().timeIntervalSince1970 as NSNumber
-        post2?._postPoll = ["none":"none"]
+        post2?._postPoll = ["none":1]
         post2?._postImage = "No Image"
         
         dynamoDBObjectMapper.save(post1!) { (err) in
@@ -314,6 +314,7 @@ class APIClient {
     }
     
     func createNewPostForPod(withId: Int, post: Posts) {
+        post.image = nil
         dynamoDBObjectMapper.save(post) { (err) in
             if let error = err {
                 print("Amazin DynamoDB Save Error: \(error)")

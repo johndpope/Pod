@@ -129,7 +129,6 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     private func setupUser1Image(data: Data){
         view.insertSubview(userImage1.usingAutolayout(), belowSubview: carousel)
         userImage1.image = UIImage(data: data)
-        userImage1.layer.borderWidth = 1
         userImage1.layer.masksToBounds = false
         userImage1.layer.cornerRadius = 25/2
         userImage1.clipsToBounds = true
@@ -144,13 +143,12 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     private func setupUser2Image(data: Data){
         view.insertSubview(userImage2.usingAutolayout(), belowSubview: carousel)
         userImage2.image = UIImage(data: data)
-        userImage2.layer.borderWidth = 1
         userImage2.layer.masksToBounds = false
         userImage2.layer.cornerRadius = 25/2
         userImage2.clipsToBounds = true
         NSLayoutConstraint.activate([
             userImage2.centerYAnchor.constraint(equalTo: peopleInPod.centerYAnchor),
-            userImage2.rightAnchor.constraint(equalTo: peopleInPod.leftAnchor, constant: -25),
+            userImage2.rightAnchor.constraint(equalTo: peopleInPod.leftAnchor, constant: -22),
             userImage2.widthAnchor.constraint(equalToConstant: 25),
             userImage2.heightAnchor.constraint(equalToConstant: 25),
             ])
@@ -159,13 +157,12 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     private func setupUser3Image(data: Data){
         view.insertSubview(userImage3.usingAutolayout(), belowSubview: carousel)
         userImage3.image = UIImage(data: data)
-        userImage3.layer.borderWidth = 1
         userImage3.layer.masksToBounds = false
         userImage3.layer.cornerRadius = 25/2
         userImage3.clipsToBounds = true
         NSLayoutConstraint.activate([
             userImage3.centerYAnchor.constraint(equalTo: peopleInPod.centerYAnchor),
-            userImage3.rightAnchor.constraint(equalTo: peopleInPod.leftAnchor, constant: -42),
+            userImage3.rightAnchor.constraint(equalTo: peopleInPod.leftAnchor, constant: -39),
             userImage3.widthAnchor.constraint(equalToConstant: 25),
             userImage3.heightAnchor.constraint(equalToConstant: 25),
             ])
@@ -174,13 +171,12 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     private func setupUser4Image(data: Data){
         view.insertSubview(userImage4.usingAutolayout(), belowSubview: carousel)
         userImage4.image = UIImage(data: data)
-        userImage4.layer.borderWidth = 1
         userImage4.layer.masksToBounds = false
         userImage4.layer.cornerRadius = 25/2
         userImage4.clipsToBounds = true
         NSLayoutConstraint.activate([
             userImage4.centerYAnchor.constraint(equalTo: peopleInPod.centerYAnchor),
-            userImage4.rightAnchor.constraint(equalTo: peopleInPod.leftAnchor, constant: -66),
+            userImage4.rightAnchor.constraint(equalTo: peopleInPod.leftAnchor, constant: -53),
             userImage4.widthAnchor.constraint(equalToConstant: 25),
             userImage4.heightAnchor.constraint(equalToConstant: 25),
             ])
@@ -374,19 +370,19 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
             userImage1.removeFromSuperview()
             break
         case 2:
-            userImage2.removeFromSuperview()
             userImage1.removeFromSuperview()
+            userImage2.removeFromSuperview()
             break
         case 3:
-            userImage3.removeFromSuperview()
-            userImage2.removeFromSuperview()
             userImage1.removeFromSuperview()
+            userImage2.removeFromSuperview()
+            userImage3.removeFromSuperview()
             break
         case 4:
-            userImage4.removeFromSuperview()
-            userImage3.removeFromSuperview()
-            userImage2.removeFromSuperview()
             userImage1.removeFromSuperview()
+            userImage2.removeFromSuperview()
+            userImage3.removeFromSuperview()
+            userImage4.removeFromSuperview()
             break
         default:
             break

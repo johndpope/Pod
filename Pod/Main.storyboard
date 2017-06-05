@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3lu-pK-83l">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3lu-pK-83l">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -927,7 +927,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Pods" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zs6-bw-hkG">
-                                <rect key="frame" x="135" y="20" width="104" height="33"/>
+                                <rect key="frame" x="135" y="32" width="104" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -941,10 +941,13 @@
                                     <action selector="backButton:" destination="22e-Bu-6Vz" eventType="touchUpInside" id="eK9-AT-dsx"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBF-K0-Oh2">
-                                <rect key="frame" x="36" y="585" width="303" height="42"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="No Invites or Requests">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBF-K0-Oh2">
+                                <rect key="frame" x="342" y="28" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="8ix-lM-zHJ"/>
+                                    <constraint firstAttribute="width" constant="25" id="BNW-fV-RTL"/>
+                                </constraints>
+                                <state key="normal" image="people">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -954,23 +957,21 @@
                         </subviews>
                         <color key="backgroundColor" red="0.59607843140000005" green="0.83529411760000005" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="WBF-K0-Oh2" firstAttribute="top" secondItem="6Lv-Rg-GJK" secondAttribute="bottom" constant="8" id="42K-C0-VX0"/>
                             <constraint firstItem="zd7-JR-5l3" firstAttribute="leading" secondItem="JGO-Sg-YcV" secondAttribute="leading" constant="8" id="APm-Ng-UFp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6Lv-Rg-GJK" secondAttribute="trailing" constant="40" id="Cvs-r4-Ydl"/>
                             <constraint firstItem="glP-4a-BjJ" firstAttribute="top" secondItem="B4A-jm-7Ab" secondAttribute="bottom" constant="8" id="Imm-uG-kxE"/>
                             <constraint firstItem="6Lv-Rg-GJK" firstAttribute="centerX" secondItem="JGO-Sg-YcV" secondAttribute="centerX" id="Iyq-pA-rpL"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="WBF-K0-Oh2" secondAttribute="trailing" constant="20" id="MpZ-wv-LVf"/>
+                            <constraint firstAttribute="trailing" secondItem="WBF-K0-Oh2" secondAttribute="trailing" constant="8" id="QL4-J3-6M8"/>
                             <constraint firstAttribute="leadingMargin" secondItem="glP-4a-BjJ" secondAttribute="leading" id="Tcg-ca-DSu"/>
-                            <constraint firstItem="WBF-K0-Oh2" firstAttribute="centerX" secondItem="JGO-Sg-YcV" secondAttribute="centerX" id="Vef-3z-kbm"/>
-                            <constraint firstItem="WBF-K0-Oh2" firstAttribute="leading" secondItem="JGO-Sg-YcV" secondAttribute="leadingMargin" constant="20" id="clw-qM-jWd"/>
                             <constraint firstItem="zd7-JR-5l3" firstAttribute="top" secondItem="hvv-2L-nzv" secondAttribute="bottom" constant="8" id="dVM-Pn-2ha"/>
                             <constraint firstItem="6Lv-Rg-GJK" firstAttribute="top" secondItem="glP-4a-BjJ" secondAttribute="bottom" constant="20" id="eqo-cX-Xo6"/>
+                            <constraint firstItem="WBF-K0-Oh2" firstAttribute="top" secondItem="hvv-2L-nzv" secondAttribute="bottom" constant="8" id="ghF-mB-n6G"/>
                             <constraint firstItem="Zs6-bw-hkG" firstAttribute="centerX" secondItem="JGO-Sg-YcV" secondAttribute="centerX" id="hhb-GP-VfW"/>
                             <constraint firstItem="6Lv-Rg-GJK" firstAttribute="leading" secondItem="JGO-Sg-YcV" secondAttribute="leadingMargin" constant="40" id="kfe-IS-v55"/>
                             <constraint firstItem="b3H-wA-kez" firstAttribute="top" secondItem="glP-4a-BjJ" secondAttribute="bottom" constant="110" id="oOr-Th-R9o"/>
                             <constraint firstAttribute="trailingMargin" secondItem="glP-4a-BjJ" secondAttribute="trailing" id="rld-Jd-d4M"/>
                             <constraint firstItem="B4A-jm-7Ab" firstAttribute="centerX" secondItem="JGO-Sg-YcV" secondAttribute="centerX" id="uyG-2F-WeF"/>
-                            <constraint firstItem="Zs6-bw-hkG" firstAttribute="top" secondItem="hvv-2L-nzv" secondAttribute="bottom" id="x9r-Ka-0l3"/>
+                            <constraint firstItem="Zs6-bw-hkG" firstAttribute="top" secondItem="hvv-2L-nzv" secondAttribute="bottom" constant="12" id="x9r-Ka-0l3"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Pods" id="bxw-bM-51Z"/>
@@ -1111,10 +1112,11 @@
         <image name="add_poll_gray" width="126" height="126"/>
         <image name="checked-box" width="100" height="100"/>
         <image name="map" width="30" height="28"/>
+        <image name="people" width="100" height="100"/>
         <image name="unlocked" width="160" height="210"/>
         <image name="x-box" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rMW-Zx-ooX"/>
+        <segue reference="BIm-pc-hse"/>
     </inferredMetricsTieBreakers>
 </document>
