@@ -180,8 +180,9 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         addButton.clipsToBounds = true
         addButton.layer.shadowColor = UIColor.black.cgColor
         addButton.layer.shadowOpacity = 0.5
-        addButton.layer.shadowOffset = CGSize(width: -1, height: 1)
-        addButton.layer.shadowRadius = 1
+        addButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        addButton.layer.masksToBounds = false
+        addButton.layer.shadowRadius = 0
         
         myPodsButton.setTitleColor(UIColor.white, for: UIControlState.normal)
         myPodsButton.tintColor = UIColor.white
@@ -190,8 +191,10 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         myPodsButton.clipsToBounds = true
         myPodsButton.layer.shadowColor = UIColor.black.cgColor
         myPodsButton.layer.shadowOpacity = 0.5
-        myPodsButton.layer.shadowOffset = CGSize(width: -1, height: 1)
+        myPodsButton.layer.shadowOffset = CGSize(width: 0, height: 3)
         myPodsButton.layer.shadowRadius = 1
+        myPodsButton.layer.masksToBounds = false
+
         
         mapButton.setTitleColor(UIColor.white, for: UIControlState.normal)
         mapButton.tintColor = UIColor.white
@@ -200,8 +203,10 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         mapButton.clipsToBounds = true
         mapButton.layer.shadowColor = UIColor.black.cgColor
         mapButton.layer.shadowOpacity = 0.5
-        mapButton.layer.shadowOffset = CGSize(width: -1, height: 1)
+        mapButton.layer.shadowOffset = CGSize(width: 0, height: 3)
         mapButton.layer.shadowRadius = 1
+        mapButton.layer.masksToBounds = false
+
     }
     
     func getAllPods(){

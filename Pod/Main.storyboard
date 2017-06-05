@@ -187,7 +187,7 @@
         <scene sceneID="tC1-6R-RsQ">
             <objects>
                 <navigationController id="3lu-pK-83l" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="caX-fG-lLc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="caX-fG-lLc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -280,6 +280,7 @@
                                     <constraint firstAttribute="width" constant="45" id="g1w-hA-MNk"/>
                                     <constraint firstAttribute="height" constant="45" id="mwk-Yw-Bu6"/>
                                 </constraints>
+                                <inset key="imageEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
                                 <state key="normal" title="My Pods" image="Logo">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -763,7 +764,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zeV-Dj-Nr0" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Dnq-uV-iJY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dnq-uV-iJY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -781,7 +782,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d9f-ko-NdH" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6aW-rp-Fkx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6aW-rp-Fkx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
