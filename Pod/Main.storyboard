@@ -187,7 +187,7 @@
         <scene sceneID="tC1-6R-RsQ">
             <objects>
                 <navigationController id="3lu-pK-83l" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="caX-fG-lLc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="caX-fG-lLc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -263,17 +263,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="rki-0Z-7Ye" customClass="iCarousel">
-                                <rect key="frame" x="16" y="119" width="343" height="438"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="438" id="VRh-v9-Gcg"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="dataSource" destination="A1Q-b5-Mkq" id="XCV-oC-eJL"/>
-                                    <outlet property="delegate" destination="A1Q-b5-Mkq" id="1GG-Fd-wb5"/>
-                                </connections>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gvz-BD-xwu">
                                 <rect key="frame" x="164.5" y="612" width="45" height="45"/>
                                 <constraints>
@@ -288,6 +277,17 @@
                                     <segue destination="22e-Bu-6Vz" kind="showDetail" id="L8Q-Da-hCB"/>
                                 </connections>
                             </button>
+                            <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="rki-0Z-7Ye" customClass="iCarousel">
+                                <rect key="frame" x="16" y="119" width="343" height="438"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="438" id="VRh-v9-Gcg"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="A1Q-b5-Mkq" id="XCV-oC-eJL"/>
+                                    <outlet property="delegate" destination="A1Q-b5-Mkq" id="1GG-Fd-wb5"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.59607843137254901" green="0.83529411764705885" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -754,7 +754,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zeV-Dj-Nr0" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dnq-uV-iJY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Dnq-uV-iJY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -772,7 +772,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d9f-ko-NdH" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6aW-rp-Fkx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6aW-rp-Fkx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

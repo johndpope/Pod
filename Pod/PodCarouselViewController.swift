@@ -127,7 +127,7 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     // MARK: - Helper Methods
     
     private func setupUser1Image(data: Data){
-        self.view.addSubview(userImage1.usingAutolayout())
+        view.insertSubview(userImage1.usingAutolayout(), belowSubview: carousel)
         userImage1.image = UIImage(data: data)
         userImage1.layer.borderWidth = 1
         userImage1.layer.masksToBounds = false
@@ -142,7 +142,7 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     }
     
     private func setupUser2Image(data: Data){
-        self.view.addSubview(userImage2.usingAutolayout())
+        view.insertSubview(userImage2.usingAutolayout(), belowSubview: carousel)
         userImage2.image = UIImage(data: data)
         userImage2.layer.borderWidth = 1
         userImage2.layer.masksToBounds = false
@@ -157,7 +157,7 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     }
     
     private func setupUser3Image(data: Data){
-        self.view.addSubview(userImage3.usingAutolayout())
+        view.insertSubview(userImage3.usingAutolayout(), belowSubview: carousel)
         userImage3.image = UIImage(data: data)
         userImage3.layer.borderWidth = 1
         userImage3.layer.masksToBounds = false
@@ -172,7 +172,7 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     }
     
     private func setupUser4Image(data: Data){
-        self.view.addSubview(userImage4.usingAutolayout())
+        view.insertSubview(userImage4.usingAutolayout(), belowSubview: carousel)
         userImage4.image = UIImage(data: data)
         userImage4.layer.borderWidth = 1
         userImage4.layer.masksToBounds = false
