@@ -235,7 +235,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17M-oY-DiQ">
-                                <rect key="frame" x="162" y="54.5" width="51.5" height="32.5"/>
+                                <rect key="frame" x="162" y="45.5" width="51.5" height="32.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -258,8 +258,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 People" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLK-Bw-6NF">
-                                <rect key="frame" x="161" y="95" width="53.5" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <rect key="frame" x="158" y="86" width="60.5" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -300,7 +300,7 @@
                             <constraint firstItem="SWc-xY-Q6i" firstAttribute="centerY" secondItem="gvz-BD-xwu" secondAttribute="centerY" id="Ag0-xX-dY4"/>
                             <constraint firstItem="aaN-Td-Yqh" firstAttribute="leading" secondItem="YS4-vR-opX" secondAttribute="leadingMargin" constant="40" id="DGb-g3-Iuz"/>
                             <constraint firstItem="0sT-1M-pmp" firstAttribute="top" secondItem="YuC-kk-xa9" secondAttribute="bottom" constant="10" id="GpB-6s-Drq"/>
-                            <constraint firstItem="rki-0Z-7Ye" firstAttribute="top" secondItem="SLK-Bw-6NF" secondAttribute="bottom" constant="8" id="Hfp-gb-jwW"/>
+                            <constraint firstItem="rki-0Z-7Ye" firstAttribute="top" secondItem="SLK-Bw-6NF" secondAttribute="bottom" constant="15" id="Hfp-gb-jwW"/>
                             <constraint firstItem="SWc-xY-Q6i" firstAttribute="centerX" secondItem="gvz-BD-xwu" secondAttribute="centerX" id="QOi-se-Lha"/>
                             <constraint firstAttribute="leadingMargin" secondItem="rki-0Z-7Ye" secondAttribute="leading" id="SXc-2E-IVd"/>
                             <constraint firstItem="aaN-Td-Yqh" firstAttribute="centerX" secondItem="YS4-vR-opX" secondAttribute="centerX" id="XDm-cE-SaG"/>
@@ -336,7 +336,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Sf-YN-ZrJ" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1199" y="903"/>
+            <point key="canvasLocation" x="1197.5999999999999" y="902.69865067466276"/>
         </scene>
         <!--Pod View Controller-->
         <scene sceneID="GPd-Tm-iKK">

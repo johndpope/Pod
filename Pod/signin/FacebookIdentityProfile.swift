@@ -38,6 +38,10 @@ class FacebookIdentityProfile : AWSIdentityProfile {
      In app friends
      */
     public var inAppFriends: [UserInformation]? = []
+    /**
+     In app friends ids
+     */
+    public var inAppFriendsIds: Set<String> = []
     
     fileprivate var facebookProfileAttributes : [String : Any]
     
@@ -134,6 +138,7 @@ class FacebookIdentityProfile : AWSIdentityProfile {
                             userInfo?._username = user["name"] as! String
                             userInfo?._photoURL = ((user["picture"]as? [String:Any])?["data"] as? [String:Any])?["url"] as! String
                             self.inAppFriends?.append(userInfo!)
+                            self.inAppFriendsIds.insert((userInfo?._facebookId)!)
                         }
                     }
                 }

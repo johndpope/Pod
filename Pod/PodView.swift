@@ -163,13 +163,6 @@ class PodView: UIView {
         }
     }
     
-    func checkIfInPod(){
-        if (podData?._userIdList?.contains(FacebookIdentityProfile._sharedInstance.userId!))! {
-            layer.borderColor = UIColor.green.cgColor
-        }
-    }
-    
-    
 }
 
 extension PodView: UITableViewDelegate, UITableViewDataSource {
@@ -189,10 +182,9 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         return (podData?.postData!.count)!
     }
     func firstTimeSetup(){
-        self.checkIfInPod()
         self.lockedPod = (podData?._isPrivate)! as! Bool
-        self.setUpBlurEffect()
         initialized = true
+        self.setUpBlurEffect()
         if(!(podData?.postData?.isEmpty)!){
             emptyPodView.removeFromSuperview()
         } else {
@@ -202,6 +194,9 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             if(podData?._userIdList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
                 //Don't lock!
                 //Do we need to do anything here?
+//                self.lockedPod = false
+//                blurEffectView.removeFromSuperview()
+//                self.setUpBlurEffect()
             } else {
                 self.setUpLockConstraints()
                 if(podData?._userRequestList == nil){
@@ -245,14 +240,20 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             cell.postLikes.text = String(describing: (postData?._numLikes!)!)
             cell.postComments.text = String(describing: (postData?._numComments!)!)
 
-            let url = URL(string: (postData?._posterImageURL)!)
-            var data = Data()
-            do {
-                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+            let cache = Shared.dataCache
+            cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
                 cell.posterPhoto.image = UIImage(data: data)
-            } catch {
-                cell.posterPhoto.image = UIImage(named: "UserIcon")
-            }
+            }).onFailure({ (err) in
+                let url = URL(string: (postData?._posterImageURL)!)
+                var data = Data()
+                do {
+                    data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                    cell.posterPhoto.image = UIImage(data: data)
+                } catch {
+                    cell.posterPhoto.image = UIImage(named: "UserIcon")
+                }
+            })
+
         
             return cell
         } else if(postData?._postType as! Int == PostType.photo.hashValue){
@@ -263,17 +264,22 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             cell.posterBody.text = postData?._postContent
             cell.postLikes.text = String(describing: (postData?._numLikes!)!)
             cell.postComments.text = String(describing: (postData?._numComments!)!)
-            
-            let url = URL(string: (postData?._posterImageURL)!)
-            var data = Data()
-            do {
-                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                cell.posterPhoto.image = UIImage(data: data)
-            } catch {
-                cell.posterPhoto.image = UIImage(named: "UserIcon")
-            }
             let cache = Shared.dataCache
+            cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
+                cell.posterPhoto.image = UIImage(data: data)
+            }).onFailure({ (err) in
+                let url = URL(string: (postData?._posterImageURL)!)
+                var data = Data()
+                do {
+                    data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                    cell.posterPhoto.image = UIImage(data: data)
+                } catch {
+                    cell.posterPhoto.image = UIImage(named: "UserIcon")
+                }
+            })
+
             cache.fetch(key: (postData?._postImage)!).onSuccess({ (data) in
+                postData?.image = UIImage(data: data)
                 cell.photoContent.image = postData?.image
             }).onFailure({ (err) in
                 postData?.image = UIImage(named: "placeholder")

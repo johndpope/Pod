@@ -10,6 +10,7 @@ import UIKit
 import AWSCore
 import AWSMobileHubHelper
 import CoreLocation
+import Haneke
 
 class PodCarouselViewController: UIViewController, JoinPodDelegate {
     
@@ -27,6 +28,27 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var redDot: UIImageView!
     var isPresentingForFirstTime = true
+    var numAdded = 0
+    lazy var userImage1: UIImageView = {
+        let userImage1 = UIImageView()
+        userImage1.image = UIImage(named: "UserIcon")
+        return userImage1
+    }()
+    lazy var userImage2: UIImageView = {
+        let userImage2 = UIImageView()
+        userImage2.image = UIImage(named: "UserIcon")
+        return userImage2
+    }()
+    
+//    lazy var memberLabel: UILabel = {
+//        let memberLabel = UILabel()
+//        memberLabel.text = "Member"
+//        memberLabel.textColor = .white
+//        memberLabel.backgroundColor = .gray
+//        memberLabel.isHidden = true
+//        memberLabel.textAlignment = NSTextAlignment.center
+//        return memberLabel
+//    }()
     
     @IBAction func signOut(_ sender: Any) {
         if (AWSSignInManager.sharedInstance().isLoggedIn) {
@@ -58,12 +80,56 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         self.navigationController?.isNavigationBarHidden = true
         carousel.type = .rotary
         setUpButtons()
-
         FacebookIdentityProfile._sharedInstance.load()
         FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
         carousel.scrollSpeed = 0.5
-        APIClient.sharedInstance.getExplorePods()
+        let loc = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
+        APIClient.sharedInstance.getExplorePods(location: loc, length: "8")
     }
+    func setupUser1Image(data: Data){
+        self.view.addSubview(userImage1.usingAutolayout())
+        userImage1.image = UIImage(data: data)
+        userImage1.layer.borderWidth = 1
+        userImage1.layer.masksToBounds = false
+        userImage1.layer.cornerRadius = 25/2
+        userImage1.clipsToBounds = true
+        NSLayoutConstraint.activate([
+            userImage1.centerYAnchor.constraint(equalTo: peopleInPod.centerYAnchor),
+            userImage1.rightAnchor.constraint(equalTo: peopleInPod.leftAnchor, constant: -8),
+            userImage1.widthAnchor.constraint(equalToConstant: 25),
+            userImage1.heightAnchor.constraint(equalToConstant: 25),
+            ])
+    }
+    
+    func setupUser2Image(data: Data){
+        self.view.addSubview(userImage2.usingAutolayout())
+        userImage2.image = UIImage(data: data)
+        userImage2.layer.borderWidth = 1
+        userImage2.layer.masksToBounds = false
+        userImage2.layer.cornerRadius = 25/2
+        userImage2.clipsToBounds = true
+        NSLayoutConstraint.activate([
+            userImage2.centerYAnchor.constraint(equalTo: peopleInPod.centerYAnchor),
+            userImage2.rightAnchor.constraint(equalTo: peopleInPod.leftAnchor, constant: -25),
+            userImage2.widthAnchor.constraint(equalToConstant: 25),
+            userImage2.heightAnchor.constraint(equalToConstant: 25),
+            ])
+    }
+    
+    override func viewDidLayoutSubviews() {
+//        userImage1.layer.borderWidth = 1
+//        userImage1.layer.masksToBounds = false
+//        userImage1.layer.cornerRadius = userImage1.frame.height/2
+//        userImage1.clipsToBounds = true
+    }
+    
+//    func setupMemberLabel(){
+//        NSLayoutConstraint.activate([
+//            memberLabel.bottomAnchor.constraint(equalTo: self.carousel.topAnchor, constant: -10),
+//            memberLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+//            memberLabel.widthAnchor.constraint(equalToConstant: 75)
+//            ])
+//    }
     
     func setUpButtons(){
         addButton.setImage(UIImage(named:"addIcon"), for: UIControlState.normal)
@@ -234,6 +300,101 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    func setUpFriendsCircle(index: Int){
+        self.podTitle.text = self.items[index]._name
+        let item = self.items[index]
+        let numPeople = item._userIdList?.count
+        
+        if numPeople == 0{
+            self.peopleInPod.text = "\(String(describing: (item._userIdList?.count)!)) people"
+        } else if numPeople == 1 {
+            if(item._userIdList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                self.peopleInPod.text = "You are the only member"
+            } else {
+                self.peopleInPod.text = "1 person"
+            }
+        } else {
+            if(item._userIdList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                if(item._userIdList?.count == 2){
+                    self.peopleInPod.text = "You and 1 other person"
+                } else {
+                    self.peopleInPod.text = "You and \(numPeople!-1) people"
+                }
+            } else {
+                self.peopleInPod.text = "\(String(describing: numPeople)) people"
+            }
+        }
+        switch numAdded {
+        case 1:
+            userImage1.removeFromSuperview()
+            break
+        case 2:
+            userImage2.removeFromSuperview()
+            userImage1.removeFromSuperview()
+
+            break
+        default:
+            break
+        }
+        numAdded = 0
+        for (i, id) in (item._userIdList?.enumerated())! {
+            if FacebookIdentityProfile._sharedInstance.userId == id {
+                numAdded += 1
+                let cache = Shared.dataCache
+                cache.fetch(key: id).onSuccess({ (data) in
+                    if i == 0 {
+                        self.setupUser1Image(data: data)
+                    } else if i == 1{
+                        self.setupUser2Image(data: data)
+                    }
+                }).onFailure({ (err) in
+                    var data = Data()
+                    do {
+                        data = try Data(contentsOf: FacebookIdentityProfile._sharedInstance.imageURL!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                        if i == 0 {
+                            self.setupUser1Image(data: data)
+                        } else if i == 1{
+                            self.setupUser2Image(data: data)
+                        }
+                        cache.set(value: data, key: id)
+                    } catch {
+                        
+                    }
+                })
+            } else if FacebookIdentityProfile._sharedInstance.inAppFriendsIds.contains(id){
+                numAdded += 1
+                let cache = Shared.dataCache
+                cache.fetch(key: id).onSuccess({ (data) in
+                    if i == 0 {
+                        self.setupUser1Image(data: data)
+                    } else if i == 1{
+                        self.setupUser2Image(data: data)
+                    }
+                }).onFailure({ (err) in
+                    APIClient.sharedInstance.getUser(withId: id, completion: { (uInfo) in
+                        let url = URL(string: (uInfo?._photoURL)!)
+                        var data = Data()
+                        do {
+                            data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                            if i == 0 {
+                                self.setupUser1Image(data: data)
+                            } else if i == 1{
+                                self.setupUser2Image(data: data)
+                            }
+                            cache.set(value: data, key: id)
+                        } catch {
+                            
+                        }
+                    })
+                    
+                })
+            }
+        }
+
+    }
+    
+    
 }
 protocol JoinPodDelegate {
     func showJoinPodAlert(podView: PodView)
@@ -258,24 +419,14 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         podView.delegate = self
         podView.joinDelegate = self
         podView.podData = items[index]
-        self.podTitle.text = self.items[self.carousel.currentItemIndex]._name
-        if self.items[self.carousel.currentItemIndex]._userIdList!.count > 1 || self.items[self.carousel.currentItemIndex]._userIdList?.count == 0{
-            self.peopleInPod.text = "\(String(describing: (self.items[self.carousel.currentItemIndex]._userIdList?.count)!)) people"
-        } else {
-            self.peopleInPod.text = "\(String(describing: (self.items[self.carousel.currentItemIndex]._userIdList?.count)!)) person"
-        }
+        //self.setUpFriendsCircle(index: carousel.currentItemIndex)
         return podView
     }
     
     func carouselCurrentItemIndexDidChange(_ carousel: iCarousel) {
         let index = carousel.currentItemIndex
         if(items.isEmpty != true){
-            self.podTitle.text = items[index]._name
-            if (self.items[index]._userIdList?.count)! == 0 || (self.items[index]._userIdList?.count)! > 1{
-                self.peopleInPod.text = "\(String(describing: (self.items[index]._userIdList?.count)!)) people"
-            } else {
-                self.peopleInPod.text = "\(String(describing: (self.items[index]._userIdList?.count)!)) person"
-            }
+            self.setUpFriendsCircle(index: index)
         }
     }
     

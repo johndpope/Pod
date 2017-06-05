@@ -143,39 +143,33 @@ class APIClient {
             // Handle successful result here
             let result = task.result!
             let responseString = String(data: result.responseData!, encoding: .utf8)
-            print("===============")
-            print("===============")
 
-           print(responseString)
-            print("===============")
-            print("===============")
+            print(responseString)
+
 
             return nil
         }
         
     }
     
-    func getExplorePods(){
-//        let lat = location.latitude
-//        let long = location.longitude
+    func getExplorePods(location: CLLocationCoordinate2D, length: String){
+        let lat = location.latitude
+        let long = location.longitude
         
         let httpMethodName = "POST"
         let URLString = "/Exploring_NeighborPodsConsecutiveExpansion"
         let queryStringParameters = ["lang": "en"]
-//        var isPrivateStr = "F"
-//        if isPrivate {
-//            isPrivateStr = "T"
-//        }
+
         let headerParameters = [
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "latitude": "37.4204868",
-            "longitude": "-122.1714205",
-            "length": "8"
+            "latitude": "\(lat)",
+            "longitude": "\(long)",
+            "length": "0"
             ]
 
         print(headerParameters)
-        let jsonObject: [String: AnyObject]  = ["GeoHashCode": ["1": "9q9hgg", "0": "9q9hge", "3": "9q9huh", "2": "9q9hu5", "5": "9q9hgv", "4": "9q9huj", "7": "9q9hgs", "6": "9q9hgt"] as AnyObject]
+        let jsonObject: [String: AnyObject]  = ["GeoHashCode": [] as AnyObject]
         
         
         // Construct the request object
@@ -198,13 +192,13 @@ class APIClient {
             // Handle successful result here
             let result = task.result!
             let responseString = String(data: result.responseData!, encoding: .utf8)
-            print("===============")
-            print("===============")
-            
+            print("----------")
+            print("----------")
+
             print(responseString)
-            print("===============")
-            print("===============")
-            
+            print("----------")
+            print("----------")
+
             return nil
         }
         
