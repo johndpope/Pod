@@ -142,17 +142,17 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     }
     
     func setupUser4Image(data: Data){
-        self.view.addSubview(userImage3.usingAutolayout())
-        userImage3.image = UIImage(data: data)
-        userImage3.layer.borderWidth = 1
-        userImage3.layer.masksToBounds = false
-        userImage3.layer.cornerRadius = 25/2
-        userImage3.clipsToBounds = true
+        self.view.addSubview(userImage4.usingAutolayout())
+        userImage4.image = UIImage(data: data)
+        userImage4.layer.borderWidth = 1
+        userImage4.layer.masksToBounds = false
+        userImage4.layer.cornerRadius = 25/2
+        userImage4.clipsToBounds = true
         NSLayoutConstraint.activate([
-            userImage3.centerYAnchor.constraint(equalTo: peopleInPod.centerYAnchor),
-            userImage3.rightAnchor.constraint(equalTo: peopleInPod.leftAnchor, constant: -66),
-            userImage3.widthAnchor.constraint(equalToConstant: 25),
-            userImage3.heightAnchor.constraint(equalToConstant: 25),
+            userImage4.centerYAnchor.constraint(equalTo: peopleInPod.centerYAnchor),
+            userImage4.rightAnchor.constraint(equalTo: peopleInPod.leftAnchor, constant: -66),
+            userImage4.widthAnchor.constraint(equalToConstant: 25),
+            userImage4.heightAnchor.constraint(equalToConstant: 25),
             ])
     }
     

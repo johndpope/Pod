@@ -35,7 +35,7 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate {
             photoCell.photoContent.image = postData?.image
             photoCell.backgroundColor = .white
             photoCell.postLikes.text = String(describing: (postData?._numLikes!)!)
-            photoCell.postComments.text = String(describing: (postData?._numComments!))
+            photoCell.postComments.text = String(describing: (postData?._numComments!)!)
             containerView.frame = CGRect(x: (photoCell.frame.minX), y: (photoCell.frame.maxY), width: view.frame.width, height: view.frame.height - (photoCell.frame.height)-8)
             view.addSubview(containerView)
             view.addSubview(photoCell)
