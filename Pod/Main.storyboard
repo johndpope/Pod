@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3lu-pK-83l">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3lu-pK-83l">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -288,21 +288,12 @@
                                     <segue destination="22e-Bu-6Vz" kind="showDetail" id="L8Q-Da-hCB"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reddot" translatesAutoresizingMaskIntoConstraints="NO" id="SWc-xY-Q6i">
-                                <rect key="frame" x="183" y="630" width="8" height="8"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="8" id="KNx-Gs-rNe"/>
-                                    <constraint firstAttribute="width" constant="8" id="q0W-vO-21M"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.59607843137254901" green="0.83529411764705885" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="SWc-xY-Q6i" firstAttribute="centerY" secondItem="gvz-BD-xwu" secondAttribute="centerY" id="Ag0-xX-dY4"/>
                             <constraint firstItem="aaN-Td-Yqh" firstAttribute="leading" secondItem="YS4-vR-opX" secondAttribute="leadingMargin" constant="40" id="DGb-g3-Iuz"/>
                             <constraint firstItem="0sT-1M-pmp" firstAttribute="top" secondItem="YuC-kk-xa9" secondAttribute="bottom" constant="10" id="GpB-6s-Drq"/>
                             <constraint firstItem="rki-0Z-7Ye" firstAttribute="top" secondItem="SLK-Bw-6NF" secondAttribute="bottom" constant="15" id="Hfp-gb-jwW"/>
-                            <constraint firstItem="SWc-xY-Q6i" firstAttribute="centerX" secondItem="gvz-BD-xwu" secondAttribute="centerX" id="QOi-se-Lha"/>
                             <constraint firstAttribute="leadingMargin" secondItem="rki-0Z-7Ye" secondAttribute="leading" id="SXc-2E-IVd"/>
                             <constraint firstItem="aaN-Td-Yqh" firstAttribute="centerX" secondItem="YS4-vR-opX" secondAttribute="centerX" id="XDm-cE-SaG"/>
                             <constraint firstItem="jC4-y4-ydE" firstAttribute="trailing" secondItem="YS4-vR-opX" secondAttribute="trailingMargin" id="XWQ-84-cD9"/>
@@ -331,7 +322,6 @@
                         <outlet property="peopleInPod" destination="SLK-Bw-6NF" id="1kp-gI-VFd"/>
                         <outlet property="podTitle" destination="17M-oY-DiQ" id="3ju-E9-DpB"/>
                         <outlet property="podsNearbyLabel" destination="aaN-Td-Yqh" id="sf0-Q6-36L"/>
-                        <outlet property="redDot" destination="SWc-xY-Q6i" id="Gdb-tC-CcG"/>
                         <segue destination="Lc6-eU-uf8" kind="custom" identifier="toSinglePod" customClass="PodViewSegue" customModule="Pod" customModuleProvider="target" id="rMW-Zx-ooX"/>
                     </connections>
                 </viewController>
@@ -1121,7 +1111,6 @@
         <image name="add_poll_gray" width="126" height="126"/>
         <image name="checked-box" width="100" height="100"/>
         <image name="map" width="30" height="28"/>
-        <image name="reddot" width="436" height="432"/>
         <image name="unlocked" width="160" height="210"/>
         <image name="x-box" width="100" height="100"/>
     </resources>
