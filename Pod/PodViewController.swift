@@ -10,7 +10,8 @@ import UIKit
 import AWSS3
 import Haneke
 
-class PodViewController: UIViewController, PostCreationDelegate, CommentCreationDelegate {
+class PodViewController: UIViewController, PostCreationDelegate, CommentCreationDelegate, LikedCellDelegate {
+
     
     // MARK: - Properties
     
@@ -225,6 +226,9 @@ class PodViewController: UIViewController, PostCreationDelegate, CommentCreation
     
     func postCreated(post: Posts){
         print("post created")
+        if post._postLikes == nil {
+            post._postLikes = []
+        }
         self.podData?.postData?.insert(post, at: 0)
         //self.podData?.postData?.append(post)
         if(!((podData?.postData?.isEmpty)!)){
@@ -268,7 +272,6 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selected!")
         let postData = self.podData?.postData?[indexPath.row]
         performSegue(withIdentifier: "toPostComments", sender: postData)
     }
@@ -276,6 +279,9 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let postData = self.podData?.postData?[indexPath.row]
+        if postData?._postLikes == nil {
+            postData?._postLikes = []
+        }
         if podData == nil ||  postData == nil{
             return UITableViewCell()
         }
@@ -291,11 +297,28 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
                     if operation.isCancelled {
                         return
                     }
+                    var numLikes = 0
+                    if(postData?._postLikes != nil){
+                        numLikes = (postData?._postLikes?.count)!
+                    }
+                    cell.postLikes.text = String(describing:  numLikes)
+
                     cell.posterName.text = postData?._posterName
                     cell.posterBody.text = postData?._postContent
-                    cell.postLikes.text = String(describing: (postData?._numLikes!)!)
-                    cell.postComments.text = String(describing: (postData?._numComments!)!)
                     
+                    cell.postComments.text = String(describing: (postData?._numComments!)!)
+                    cell.post = postData
+                    cell.likeDelegate = self
+                    cell.tag = indexPath.row
+                    if(postData?._postLikes != nil){
+                        if (postData?._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                            cell.heartIcon.imageView?.image = UIImage(named: "heart_red")
+                        } else {
+                            cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                        }
+                    } else {
+                        cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                    }
                     let cache = Shared.dataCache
                     if(postData?.userImage == nil){
                         cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
@@ -340,10 +363,27 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
                     if operation.isCancelled {
                         return
                     }
+                    var numLikes = 0
+                    if(postData?._postLikes != nil){
+                        numLikes = (postData?._postLikes?.count)!
+                    }
+                    cell.postLikes.text = String(describing:  numLikes)
+
                     cell.posterName.text = postData?._posterName
                     cell.posterBody.text = postData?._postContent
-                    cell.postLikes.text = String(describing: (postData?._numLikes!)!)
                     cell.postComments.text = String(describing: (postData?._numComments!)!)
+                    cell.post = postData
+                    cell.likeDelegate = self
+                    cell.tag = indexPath.row
+                    if(postData?._postLikes != nil){
+                        if (postData?._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                            cell.heartIcon.imageView?.image = UIImage(named: "heart_red")
+                        } else {
+                            cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                        }
+                    } else {
+                        cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                    }
                     let cache = Shared.dataCache
                     if(postData?.userImage == nil){
                         cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
@@ -394,10 +434,27 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
                     if operation.isCancelled {
                         return
                     }
+                    var numLikes = 0
+                    if(postData?._postLikes != nil){
+                        numLikes = (postData?._postLikes?.count)!
+                    }
+                    cell.numLikes.text = String(describing:  numLikes)
+
                     cell.username.text = postData?._posterName
                     cell.postContent.text = postData?._postContent
-                    cell.numLikes.text = String(describing: (postData?._numLikes!)!)
                     cell.numComments.text = String(describing: (postData?._numComments!)!)
+                    cell.post = postData
+                    cell.likeDelegate = self
+                    cell.tag = indexPath.row
+                    if(postData?._postLikes != nil){
+                        if (postData?._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                            cell.heartIcon.imageView?.image = UIImage(named: "heart_red")
+                        } else {
+                            cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                        }
+                    } else {
+                        cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                    }
                     let cache = Shared.dataCache
                     if(postData?.userImage == nil){
                         cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
@@ -434,6 +491,115 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return UITableViewCell()
     }
+    func likedCell(post: Posts, type: Int, tag: Int) {
+        let indexPath = IndexPath(row: tag, section: 0)
+        switch type {
+        case PostType.text.hashValue:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PodPostTableViewCell", for: indexPath) as! PodPostTableViewCell
+            if(self.podData?.postData?[tag]._postLikes == nil){
+                self.podData?.postData?[tag]._postLikes = [FacebookIdentityProfile._sharedInstance.userId!]
+                if(Int((self.podData?.postData?[tag]._postType)!) == PostType.text.hashValue){
+                    cell.heartIcon.setImage( UIImage(named: "heart_red"), for: .normal)
+                    cell.postLikes.text = "1"
+                }
+            } else if (self.podData?.postData?[tag]._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                self.podData?.postData?[tag]._postLikes?.remove(FacebookIdentityProfile._sharedInstance.userId!)
+                if(Int((self.podData?.postData?[tag]._postType)!) == PostType.text.hashValue){
+                    cell.heartIcon.setImage(UIImage(named: "heart_gray"), for: .normal)
+                    if self.podData?.postData?[tag]._postLikes != nil {
+                        let numLikes = (self.podData?.postData?[tag]._postLikes?.count)!
+                        cell.postLikes.text = "\(String(describing: numLikes))"
+                    } else {
+                        cell.postLikes.text = "0"
+                    }
+                }
+            } else {
+                self.podData?.postData?[tag]._postLikes?.insert(FacebookIdentityProfile._sharedInstance.userId!)
+                if(Int((self.podData?.postData?[tag]._postType)!) == PostType.text.hashValue){
+                    cell.heartIcon.setImage( UIImage(named: "heart_red"), for: .normal)
+                    if self.podData?.postData?[tag]._postLikes != nil {
+                        let numLikes = (self.podData?.postData?[tag]._postLikes?.count)!
+                        cell.postLikes.text = "\(String(describing: numLikes))"
+                    } else {
+                        cell.postLikes.text = "0"
+                    }
+                }
+            }
+            break
+        case PostType.photo.hashValue:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoPostTableViewCell", for: indexPath) as! PhotoPostTableViewCell
+            if(self.podData?.postData?[tag]._postLikes == nil){
+                self.podData?.postData?[tag]._postLikes = [FacebookIdentityProfile._sharedInstance.userId!]
+                if(Int((self.podData?.postData?[tag]._postType)!) == PostType.text.hashValue){
+                    cell.heartIcon.setImage( UIImage(named: "heart_red"), for: .normal)
+                    cell.postLikes.text = "1"
+                }
+            } else if (self.podData?.postData?[tag]._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                self.podData?.postData?[tag]._postLikes?.remove(FacebookIdentityProfile._sharedInstance.userId!)
+                if(Int((self.podData?.postData?[tag]._postType)!) == PostType.text.hashValue){
+                    cell.heartIcon.setImage(UIImage(named: "heart_gray"), for: .normal)
+                    if self.podData?.postData?[tag]._postLikes != nil {
+                        let numLikes = (self.podData?.postData?[tag]._postLikes?.count)!
+                        cell.postLikes.text = "\(String(describing: numLikes))"
+                    } else {
+                        cell.postLikes.text = "0"
+                    }
+                }
+            } else {
+                self.podData?.postData?[tag]._postLikes?.insert(FacebookIdentityProfile._sharedInstance.userId!)
+                if(Int((self.podData?.postData?[tag]._postType)!) == PostType.text.hashValue){
+                    cell.heartIcon.setImage( UIImage(named: "heart_red"), for: .normal)
+                    if self.podData?.postData?[tag]._postLikes != nil {
+                        let numLikes = (self.podData?.postData?[tag]._postLikes?.count)!
+                        cell.postLikes.text = "\(String(describing: numLikes))"
+                    } else {
+                        cell.postLikes.text = "0"
+                    }
+                }
+            }
+            break;
+        case PostType.poll.hashValue:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PollPostTableViewCell", for: indexPath) as! PollPostTableViewCell
+            if(self.podData?.postData?[tag]._postLikes == nil){
+                self.podData?.postData?[tag]._postLikes = [FacebookIdentityProfile._sharedInstance.userId!]
+                if(Int((self.podData?.postData?[tag]._postType)!) == PostType.text.hashValue){
+                    cell.heartIcon.setImage( UIImage(named: "heart_red"), for: .normal)
+                    cell.numLikes.text = "1"
+                }
+            } else if (self.podData?.postData?[tag]._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                self.podData?.postData?[tag]._postLikes?.remove(FacebookIdentityProfile._sharedInstance.userId!)
+                if(Int((self.podData?.postData?[tag]._postType)!) == PostType.text.hashValue){
+                    cell.heartIcon.setImage(UIImage(named: "heart_gray"), for: .normal)
+                    if self.podData?.postData?[tag]._postLikes != nil {
+                        let numLikes = (self.podData?.postData?[tag]._postLikes?.count)!
+                        cell.numLikes.text = "\(String(describing: numLikes))"
+                    } else {
+                        cell.numLikes.text = "0"
+                    }
+                }
+            } else {
+                self.podData?.postData?[tag]._postLikes?.insert(FacebookIdentityProfile._sharedInstance.userId!)
+                if(Int((self.podData?.postData?[tag]._postType)!) == PostType.text.hashValue){
+                    cell.heartIcon.setImage( UIImage(named: "heart_red"), for: .normal)
+                    if self.podData?.postData?[tag]._postLikes != nil {
+                        let numLikes = (self.podData?.postData?[tag]._postLikes?.count)!
+                        cell.numLikes.text = "\(String(describing: numLikes))"
+                    } else {
+                        cell.numLikes.text = "0"
+                    }
+                }
+            }
+            break;
+        default:
+            break
+        }
+        self.tableView.reloadRows(at: [indexPath], with: .none)
+        self.view.setNeedsLayout()
+        self.view.setNeedsDisplay()
+        self.view.layoutIfNeeded()
+        APIClient.sharedInstance.updatePostInfo(post: (self.podData?.postData?[tag])!)
+    }
+
     
     
     fileprivate func downloadContent(key: String?, postID: String, index: Int) {

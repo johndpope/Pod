@@ -230,6 +230,9 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let postData = self.podData?.postData?[indexPath.row]
+        if postData?._postLikes == nil {
+            postData?._postLikes = []
+        }
         if podData == nil ||  postData == nil{
             return UITableViewCell()
         }
@@ -248,9 +251,17 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
 //                    }
                     cell.posterName.text = postData?._posterName
                     cell.posterBody.text = postData?._postContent
-                    cell.postLikes.text = String(describing: (postData?._numLikes!)!)
+                    cell.postLikes.text = String(describing:  (postData?._postLikes?.count)!)
                     cell.postComments.text = String(describing: (postData?._numComments!)!)
-                    
+                    if(postData?._postLikes != nil){
+                        if (postData?._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                            cell.heartIcon.imageView?.image = UIImage(named: "heart_red")
+                        } else {
+                            cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                        }
+                    } else {
+                        cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                    }
                     let cache = Shared.dataCache
                     if(postData?.userImage == nil){
                         cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
@@ -297,8 +308,17 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
 //                    }
                     cell.posterName.text = postData?._posterName
                     cell.posterBody.text = postData?._postContent
-                    cell.postLikes.text = String(describing: (postData?._numLikes!)!)
+                    cell.postLikes.text = String(describing:  (postData?._postLikes?.count)!)
                     cell.postComments.text = String(describing: (postData?._numComments!)!)
+                    if(postData?._postLikes != nil){
+                        if (postData?._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                            cell.heartIcon.imageView?.image = UIImage(named: "heart_red")
+                        } else {
+                            cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                        }
+                    } else {
+                        cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                    }
                     let cache = Shared.dataCache
                     if(postData?.userImage == nil){
                         cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
@@ -351,8 +371,17 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 //    }
                     cell.username.text = postData?._posterName
                     cell.postContent.text = postData?._postContent
-                    cell.numLikes.text = String(describing: (postData?._numLikes!)!)
+                    cell.numLikes.text = String(describing:  (postData?._postLikes?.count)!)
                     cell.numComments.text = String(describing: (postData?._numComments!)!)
+                    if(postData?._postLikes != nil){
+                        if (postData?._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                            cell.heartIcon.imageView?.image = UIImage(named: "heart_red")
+                        } else {
+                            cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                        }
+                    } else {
+                        cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                    }
                     let cache = Shared.dataCache
                     if(postData?.userImage == nil){
                         cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in

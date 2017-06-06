@@ -17,9 +17,11 @@ class PollPostTableViewCell: UITableViewCell {
     @IBOutlet weak var numLikes: UILabel!
     @IBOutlet weak var numComments: UILabel!
     
+    @IBOutlet weak var heartIcon: UIButton!
     var pollOptions = [String?]()
     let queue = SerialOperationQueue()
-
+    var likeDelegate: LikedCellDelegate?
+    var post: Posts?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -43,6 +45,10 @@ class PollPostTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @IBAction func likedPost(_ sender: Any) {
+        likeDelegate?.likedCell(post: post!, type: Int((post?._postType)!), tag: self.tag)
     }
     
 }

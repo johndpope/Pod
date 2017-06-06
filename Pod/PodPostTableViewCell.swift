@@ -15,7 +15,9 @@ class PodPostTableViewCell: UITableViewCell {
     @IBOutlet weak var posterPhoto: UIImageView!
     @IBOutlet weak var postLikes: UILabel!
     @IBOutlet weak var postComments: UILabel!
-    
+    @IBOutlet weak var heartIcon: UIButton!
+    var post: Posts? = nil
+    var likeDelegate: LikedCellDelegate?
     let queue = SerialOperationQueue()
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,6 +36,13 @@ class PodPostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func likedPost(_ sender: Any) {
+        likeDelegate?.likedCell(post: post!, type: Int((post?._postType)!), tag: self.tag)
+    }
+}
+
+protocol LikedCellDelegate{
+    func likedCell(post: Posts, type: Int, tag: Int)
 }
 
 class SerialOperationQueue: OperationQueue

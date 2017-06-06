@@ -37,13 +37,6 @@
                             <constraint firstAttribute="height" constant="40" id="CCK-ph-UFf"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart_gray" translatesAutoresizingMaskIntoConstraints="NO" id="wNo-qF-lFv">
-                        <rect key="frame" x="8" y="220.5" width="23" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="GjF-R8-PGV"/>
-                            <constraint firstAttribute="width" constant="23" id="a0C-2d-IeF"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtX-n3-GVO">
                         <rect key="frame" x="447" y="219.5" width="11" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -67,6 +60,17 @@
                         <rect key="frame" x="28" y="77" width="410" height="128.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tableView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mFv-Qk-tYC">
+                        <rect key="frame" x="8" y="220" width="23" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="23" id="Yf1-ps-HE9"/>
+                            <constraint firstAttribute="height" constant="20" id="pf7-Kk-MqV"/>
+                        </constraints>
+                        <state key="normal" title="Button" image="heart_gray"/>
+                        <connections>
+                            <action selector="likedPost:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="KnY-jx-adL"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="ZoI-pa-Rqz" secondAttribute="trailing" constant="20" id="8RU-G4-3Nv"/>
@@ -75,21 +79,22 @@
                     <constraint firstItem="SH0-vV-713" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="12" id="E7F-JH-hYZ"/>
                     <constraint firstItem="VlF-Qr-b9o" firstAttribute="top" secondItem="ZoI-pa-Rqz" secondAttribute="bottom" constant="14" id="HQ0-FF-Ava"/>
                     <constraint firstAttribute="bottomMargin" secondItem="VlF-Qr-b9o" secondAttribute="bottom" id="Hr3-VZ-nb8"/>
-                    <constraint firstItem="wNo-qF-lFv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Jh5-SR-WEk"/>
+                    <constraint firstItem="VlF-Qr-b9o" firstAttribute="leading" secondItem="mFv-Qk-tYC" secondAttribute="trailing" constant="8" id="Jmi-uP-fu9"/>
                     <constraint firstItem="SH0-vV-713" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="K4f-jV-mV8"/>
                     <constraint firstItem="kfJ-QB-klp" firstAttribute="leading" secondItem="SH0-vV-713" secondAttribute="trailing" constant="8" id="KLt-ky-iQn"/>
                     <constraint firstAttribute="bottomMargin" secondItem="MhJ-XY-kUU" secondAttribute="bottom" id="Mha-6P-jDD"/>
                     <constraint firstItem="ZoI-pa-Rqz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="NOx-P9-eu3"/>
                     <constraint firstAttribute="bottomMargin" secondItem="gtX-n3-GVO" secondAttribute="bottom" id="T56-ZQ-qkl"/>
                     <constraint firstItem="gtX-n3-GVO" firstAttribute="leading" secondItem="MhJ-XY-kUU" secondAttribute="trailing" constant="12" id="Ubd-cJ-yyG"/>
-                    <constraint firstItem="VlF-Qr-b9o" firstAttribute="leading" secondItem="wNo-qF-lFv" secondAttribute="trailing" constant="8" id="bbR-34-Eaz"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="mFv-Qk-tYC" secondAttribute="bottom" id="VYc-DJ-GD6"/>
                     <constraint firstItem="gtX-n3-GVO" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="heF-xM-1GD"/>
                     <constraint firstItem="nVj-9D-nsZ" firstAttribute="leading" secondItem="SH0-vV-713" secondAttribute="trailing" constant="8" id="hfh-YA-xym"/>
+                    <constraint firstItem="mFv-Qk-tYC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="hzT-9d-bMf"/>
                     <constraint firstItem="kfJ-QB-klp" firstAttribute="top" secondItem="nVj-9D-nsZ" secondAttribute="bottom" constant="8" id="kjv-s1-Qdd"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="wNo-qF-lFv" secondAttribute="bottom" id="vuo-de-Pcz"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="heartIcon" destination="mFv-Qk-tYC" id="8GW-a9-P2g"/>
                 <outlet property="numComments" destination="gtX-n3-GVO" id="HMy-sI-tFy"/>
                 <outlet property="numLikes" destination="VlF-Qr-b9o" id="ppR-VK-Hjh"/>
                 <outlet property="postContent" destination="kfJ-QB-klp" id="dtf-4H-An8"/>

@@ -256,7 +256,6 @@ class APIClient {
         post1?._posterName = "Max Freundlich"
         post1?._podId = withId as NSNumber
         post1?._postId = UUID().uuidString
-        post1?._numLikes = 10
         post1?._numComments = 6
         post1?._postType = PostType.text.hashValue as NSNumber
         post1?._postContent = "What up its Chaz"
@@ -267,7 +266,6 @@ class APIClient {
         let post2 = Posts()
         post2?._posterName = "Chenye Zhu"
         post2?._podId = withId as NSNumber
-        post2?._numLikes = 26
         post2?._numComments = 9
         post2?._postType = PostType.text.hashValue as NSNumber
         post2?._postContent = "What up its Chenye ZHUUUUUUUUU"
@@ -325,6 +323,11 @@ class APIClient {
     }
     
     func updatePostInfo(post: Posts){
+        post.image = nil
+        post.userImage = nil
+        if (post._postLikes?.isEmpty)! {
+            post._postLikes = nil
+        }
         dynamoDBObjectMapper.save(post) { (err) in
             if let error = err {
                 print("Amazin DynamoDB Save Error: \(error)")
