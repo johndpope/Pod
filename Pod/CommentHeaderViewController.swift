@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Haneke
 
 class CommentHeaderViewController: UIViewController, CommentCreationDelegate, LikedCellDelegate {
     let containerView = UIView()
@@ -28,14 +29,30 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate, Li
             photoCell.frame = CGRect(x: 0, y: 8, width: view.frame.width, height: (photoCell.frame.height)-8)
             photoCell.posterName.text = postData?._posterName
             photoCell.posterBody.text = postData?._postContent
-            let url = URL(string: (postData?._posterImageURL)!)
-            var data = Data()
-            do {
-                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                photoCell.posterPhoto.image = UIImage(data: data)
-            } catch {
-                photoCell.posterPhoto.image = UIImage(named: "UserIcon")
+            
+            let cache = Shared.dataCache
+            if(postData?.userImage == nil){
+                cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
+                    photoCell.posterPhoto.image = UIImage(data: data)
+                    self.postData?.userImage = UIImage(data: data)
+                }).onFailure({ (err) in
+                    let url = URL(string: (self.postData?._posterImageURL)!)
+                    var data = Data()
+                    do {
+                        data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                        photoCell.posterPhoto.image = UIImage(data: data)
+                        self.postData?.userImage = UIImage(data: data)
+                        
+                    } catch {
+                        photoCell.posterPhoto.image = UIImage(named: "UserIcon")
+                        self.postData?.userImage = UIImage(data: data)
+                    }
+                })
+            } else {
+                photoCell.posterPhoto.image = postData?.userImage
             }
+            
+            
             if(postData?._postLikes != nil){
                 if (postData?._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
                     photoCell.heartIcon.imageView?.image = UIImage(named: "heart_red")
@@ -74,6 +91,29 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate, Li
             } else {
                 textCell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
             }
+            
+            let cache = Shared.dataCache
+            if(postData?.userImage == nil){
+                cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
+                    textCell.posterPhoto.image = UIImage(data: data)
+                    self.postData?.userImage = UIImage(data: data)
+                }).onFailure({ (err) in
+                    let url = URL(string: (self.postData?._posterImageURL)!)
+                    var data = Data()
+                    do {
+                        data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                        textCell.posterPhoto.image = UIImage(data: data)
+                        self.postData?.userImage = UIImage(data: data)
+                        
+                    } catch {
+                        textCell.posterPhoto.image = UIImage(named: "UserIcon")
+                        self.postData?.userImage = UIImage(data: data)
+                    }
+                })
+            } else {
+                textCell.posterPhoto.image = postData?.userImage
+            }
+            
             containerView.frame = CGRect(x: (textCell.frame.minX), y: (textCell.frame.maxY), width: view.frame.width, height: view.frame.height - (textCell.frame.height)-8)
             view.addSubview(containerView)
             view.addSubview(textCell)
@@ -102,6 +142,28 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate, Li
                     pollCell.pollOptions.append(key)
                 }
                 pollCell.tableView.reloadData()
+            }
+            
+            let cache = Shared.dataCache
+            if(postData?.userImage == nil){
+                cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
+                    pollCell.profilePic.image = UIImage(data: data)
+                    self.postData?.userImage = UIImage(data: data)
+                }).onFailure({ (err) in
+                    let url = URL(string: (self.postData?._posterImageURL)!)
+                    var data = Data()
+                    do {
+                        data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                        pollCell.profilePic.image = UIImage(data: data)
+                        self.postData?.userImage = UIImage(data: data)
+                        
+                    } catch {
+                        pollCell.profilePic.image = UIImage(named: "UserIcon")
+                        self.postData?.userImage = UIImage(data: data)
+                    }
+                })
+            } else {
+                pollCell.profilePic.image = postData?.userImage
             }
             
             containerView.frame = CGRect(x: (pollCell.frame.minX), y: (pollCell.frame.maxY), width: view.frame.width, height: view.frame.height - (pollCell.frame.height)-8)
