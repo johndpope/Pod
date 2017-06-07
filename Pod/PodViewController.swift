@@ -10,7 +10,7 @@ import UIKit
 import AWSS3
 import Haneke
 
-class PodViewController: UIViewController, PostCreationDelegate, CommentCreationDelegate, LikedCellDelegate {
+class PodViewController: UIViewController, LikedCellDelegate {
 
     
     // MARK: - Properties
@@ -18,6 +18,7 @@ class PodViewController: UIViewController, PostCreationDelegate, CommentCreation
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.text = "Sample"
+        titleLabel.text = self.podData?._name
         titleLabel.textColor = .white
         titleLabel.font = .systemFont(ofSize: 24.0)
         return titleLabel
@@ -53,27 +54,26 @@ class PodViewController: UIViewController, PostCreationDelegate, CommentCreation
     
     private lazy var membersButton: UIButton = {
         let membersButton = UIButton()
-        membersButton.setImage(UIImage(named: "members-icon"), for: UIControlState.normal)
+        membersButton.setImage(UIImage(named: "members-icon"), for: .normal)
         membersButton.setTitleColor(.white, for: .normal)
         membersButton.addTarget(self, action: #selector(viewMembers), for: .touchUpInside)
         return membersButton
     }()
     
-    lazy var emptyPodView: UIImageView = {
-        let dolphinImage = UIImageView()
-        dolphinImage.image = UIImage(named: "dolphins_blue_no_posts")
+    fileprivate lazy var emptyPodView: UIImageView = {
+        let dolphinImage = UIImageView(image: UIImage(named: "dolphins_blue_no_posts"))
         return dolphinImage
     }()
     
-    var postButtonBottomConstraint: NSLayoutConstraint!
-    
-    let postButtonHeight: CGFloat = 50.0
+    private var postButtonBottomConstraint: NSLayoutConstraint!
+    private let postButtonHeight: CGFloat = 50.0
     let titleTopMargin: CGFloat = 11.0 + UIApplication.shared.statusBarFrame.height
     let titleBottomMargin: CGFloat = 6.0
+    private let estimatedRowHeight: CGFloat = 60.0
     var podData: PodList?
+    fileprivate var initialized = false
     
     // MARK: - PodViewController
-    var initialized = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,30 +85,24 @@ class PodViewController: UIViewController, PostCreationDelegate, CommentCreation
         view.addSubview(postButton.usingAutolayout())
         view.addSubview(closeButton.usingAutolayout())
         view.addSubview(membersButton.usingAutolayout())
-        if(podData?.postData?.isEmpty)!{
+        if let podData = podData,
+            let postData = podData.postData,
+            postData.isEmpty {
             view.addSubview(emptyPodView.usingAutolayout())
         }
+        registerReusableCells()
 
-        let nib = UINib(nibName: "PodPostTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
-        let photoNib = UINib(nibName: "PhotoPostTableViewCell", bundle: nil)
-        tableView.register(photoNib, forCellReuseIdentifier: "PhotoPostTableViewCell")
-        let pollNib = UINib(nibName: "PollPostTableViewCell", bundle: nil)
-        tableView.register(pollNib, forCellReuseIdentifier: "PollPostTableViewCell")
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        tableView.estimatedRowHeight = 60.0 // Replace with your actual estimation
-        // Automatic dimensions to tell the table view to use dynamic height
         tableView.rowHeight = UITableViewAutomaticDimension
-        // self.textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        tableView.estimatedRowHeight = estimatedRowHeight
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
-        titleLabel.text = podData?._name
         setupConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // Deselect tableview row
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }
@@ -117,6 +111,7 @@ class PodViewController: UIViewController, PostCreationDelegate, CommentCreation
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        // Animate new post button
         let newConstraint = postButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         UIView.animate(withDuration: 0.3) {
             self.view.removeConstraint(self.postButtonBottomConstraint)
@@ -167,8 +162,11 @@ class PodViewController: UIViewController, PostCreationDelegate, CommentCreation
             membersButton.heightAnchor.constraint(equalToConstant: 40),
             membersButton.widthAnchor.constraint(equalToConstant: 40)
             ])
-        if(podData?.postData?.isEmpty)!{
-            //empty pod
+        
+        // Empty Pod
+        if let podData = podData,
+            let postData = podData.postData,
+            postData.isEmpty {
             NSLayoutConstraint.activate([
                 emptyPodView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
                 emptyPodView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50),
@@ -178,52 +176,65 @@ class PodViewController: UIViewController, PostCreationDelegate, CommentCreation
         }
     }
     
+    private func registerReusableCells() {
+        
+        // Normal Text Post
+        let nib = UINib(nibName: "PodPostTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
+        
+        // Photo Post
+        let photoNib = UINib(nibName: "PhotoPostTableViewCell", bundle: nil)
+        tableView.register(photoNib, forCellReuseIdentifier: "PhotoPostTableViewCell")
+        
+        // Poll Post
+        let pollNib = UINib(nibName: "PollPostTableViewCell", bundle: nil)
+        tableView.register(pollNib, forCellReuseIdentifier: "PollPostTableViewCell")
+    }
+    
+    // MARK: - Button Actions
+    
     func toNewPost() {
         performSegue(withIdentifier: "toNewPost", sender: nil)
     }
     
     func viewMembers() {
-        //dismiss(animated: true, completion: nil)
-        //self.navigationController?.popViewController(animated: true)
         performSegue(withIdentifier: "toMemberView", sender: nil)
     }
     
     func closePod() {
-        //dismiss(animated: true, completion: nil)
-        //self.navigationController?.popViewController(animated: true)
-        self.performSegue(withIdentifier: "unwindToCarousel", sender: nil)
+        performSegue(withIdentifier: "unwindToCarousel", sender: nil)
     }
+    
+    // MARK: - Navigation
     
     override func segueForUnwinding(to toViewController: UIViewController, from fromViewController: UIViewController, identifier: String?) -> UIStoryboardSegue? {
         if let id = identifier,
             id == "unwindToCarousel" {
-            let unwindSegue = PodViewSegueUnwind(identifier: id, source: fromViewController, destination: toViewController, performHandler: { 
-                // glah
-            })
+            let unwindSegue = PodViewSegueUnwind(identifier: id, source: fromViewController, destination: toViewController)
             return unwindSegue
         }
-        
-        return super.segueForUnwinding(to: toViewController, from: fromViewController, identifier: identifier)
+        return nil
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        if(segue.identifier == "toPostComments"){
-            if let nextVC = segue.destination as? CommentHeaderViewController {
-                nextVC.postData = sender as? Posts
-                nextVC.commentDelegate = self
-            }
-        } else if(segue.identifier == "toNewPost"){
-            if let nextVC = segue.destination as? NewPostViewController {
-                nextVC.delegate = self
-                nextVC.pod = self.podData
-            }
-        } else if(segue.identifier == "toMemberView"){
-            if let nextVC = segue.destination as? PodMembersViewController {
-                nextVC.pod = self.podData
-            }
+        if (segue.identifier == "toPostComments"),
+            let nextVC = segue.destination as? CommentHeaderViewController {
+            nextVC.postData = sender as? Posts
+            nextVC.commentDelegate = self
+        } else if (segue.identifier == "toNewPost"),
+            let nextVC = segue.destination as? NewPostViewController {
+            nextVC.delegate = self
+            nextVC.pod = self.podData
+        } else if (segue.identifier == "toMemberView"),
+            let nextVC = segue.destination as? PodMembersViewController {
+            nextVC.pod = self.podData
         }
     }
-    
+}
+
+// MARK: - PostCreationDelegate
+
+extension PodViewController: PostCreationDelegate {
     func postCreated(post: Posts){
         print("post created")
         if post._postLikes == nil {
@@ -234,11 +245,15 @@ class PodViewController: UIViewController, PostCreationDelegate, CommentCreation
         if(!((podData?.postData?.isEmpty)!)){
             emptyPodView.removeFromSuperview()
         }
-//        let indexPath = NSIndexPath(row: 0, section: 0)
-//        self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+        //        let indexPath = NSIndexPath(row: 0, section: 0)
+        //        self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
         tableView.reloadData()
     }
-    
+}
+
+// MARK: - CommentCreationDelegate
+
+extension PodViewController: CommentCreationDelegate {
     func commentCreated(post: Posts) {
         for (i, p) in (self.podData?.postData?.enumerated())! {
             if p._podId == post._podId {
@@ -259,16 +274,17 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(podData?.postData?.count == nil){
+        guard let numRows = podData?.postData?.count else {
             return 0
-        }  else if(initialized == false){
+        }
+        
+        if (!initialized) {
             initialized = true
-            if(!((podData?.postData?.isEmpty)!)){
+            if(numRows != 0) {
                 emptyPodView.removeFromSuperview()
             }
-            
         }
-        return (podData?.postData!.count)!
+        return numRows
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
