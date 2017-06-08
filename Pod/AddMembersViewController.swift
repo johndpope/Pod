@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Haneke
 
 class AddMembersViewController: UIViewController {
 
@@ -115,14 +116,22 @@ extension AddMembersViewController: UITableViewDelegate, UITableViewDataSource {
         cell.userName.text = friends[indexPath.row]._username
         cell.selectionStyle = UITableViewCellSelectionStyle.none
 
-        let url = URL(string: friends[indexPath.row]._photoURL!)
-        var data = Data()
-        do {
-            data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+        
+        let cache = Shared.dataCache
+        cache.fetch(key: friends[indexPath.row]._photoURL!).onSuccess({ (data) in
             cell.profilePicture.image = UIImage(data: data)
-        } catch {
-            cell.profilePicture.image = UIImage(named: "UserIcon")
-        }
+        }).onFailure({ (err) in
+            let url = URL(string: self.friends[indexPath.row]._photoURL!)
+            var data = Data()
+            do {
+                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                cell.profilePicture.image = UIImage(data: data)
+                cache.set(value: data, key: self.friends[indexPath.row]._photoURL!)
+            } catch {
+                cell.profilePicture.image = UIImage(named: "UserIcon")
+            }
+            
+        })
         return cell
     }
     

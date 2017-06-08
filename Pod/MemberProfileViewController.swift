@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Haneke
 class MemberProfileViewController: UIViewController {
 
     @IBOutlet weak var faacebookButton: UIButton!
@@ -16,14 +16,23 @@ class MemberProfileViewController: UIViewController {
     var member: UserInformation?
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = URL(string: (member?._photoURL)!)
-        var data = Data()
-        do {
-            data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-            profileImage.image = UIImage(data: data)
-        } catch {
-            profileImage.image = UIImage(named: "UserIcon")
-        }
+        let cache = Shared.dataCache
+        cache.fetch(key:  (member?._photoURL)!).onSuccess({ (data) in
+            self.profileImage.image = UIImage(data: data)
+        }).onFailure({ (err) in
+            let url = URL(string: (self.member?._photoURL)!)
+            var data = Data()
+            do {
+                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                self.profileImage.image = UIImage(data: data)
+                cache.set(value: data, key: (self.member?._photoURL)!)
+            } catch {
+                self.profileImage.image = UIImage(named: "UserIcon")
+            }
+            
+        })
+
+        
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         profileImage.clipsToBounds = true
         

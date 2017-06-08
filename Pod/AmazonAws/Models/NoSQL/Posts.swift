@@ -20,15 +20,16 @@ class Posts: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _podId: NSNumber?
     var _postedDate: NSNumber?
     var _numComments: NSNumber?
-    var _numLikes: NSNumber?
+    var _postLikes: Set<String>?
     var _postContent: String?
     var _postId: String?
     var _postImage: String?
-    var _postPoll: [String: String]?
+    var _postPoll: [String: NSNumber]?
     var _postType: NSNumber?
     var _posterImageURL: String?
     var _posterName: String?
     var image: UIImage?
+    var userImage: UIImage?
     
     class func dynamoDBTableName() -> String {
 
@@ -50,7 +51,7 @@ class Posts: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
                "_podId" : "PodId",
                "_postedDate" : "PostedDate",
                "_numComments" : "NumComments",
-               "_numLikes" : "NumLikes",
+               "_postLikes" : "PostLikes",
                "_postContent" : "PostContent",
                "_postId" : "PostId",
                "_postImage" : "PostImage",

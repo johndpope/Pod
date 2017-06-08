@@ -16,7 +16,11 @@ class PhotoPostTableViewCell: UITableViewCell {
     @IBOutlet weak var postLikes: UILabel!
     @IBOutlet weak var postComments: UILabel!
     @IBOutlet weak var photoContent: UIImageView!
-    
+    @IBOutlet weak var heartIcon: UIButton!
+    var post: Posts? = nil
+    var likeDelegate: LikedCellDelegate?
+    let queue = SerialOperationQueue()
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -32,6 +36,11 @@ class PhotoPostTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    
+    @IBAction func likedPost(_ sender: Any) {
+        likeDelegate?.likedCell(post: post!, type: Int((post?._postType)!), tag: self.tag)
     }
     
 }

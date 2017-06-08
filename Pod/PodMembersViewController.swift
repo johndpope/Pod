@@ -8,7 +8,7 @@
 
 import UIKit
 import AWSMobileHubHelper
-
+import Haneke
 class PodMembersViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -127,14 +127,22 @@ extension PodMembersViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MemberTableViewCell") as! MemberTableViewCell
         cell.name.text = members[indexPath.row]._username
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-        let url = URL(string: members[indexPath.row]._photoURL!)
-        var data = Data()
-        do {
-            data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+
+        
+        let cache = Shared.dataCache
+        cache.fetch(key:  members[indexPath.row]._photoURL!).onSuccess({ (data) in
             cell.profilePic.image = UIImage(data: data)
-        } catch {
-            cell.profilePic.image = UIImage(named: "UserIcon")
-        }
+        }).onFailure({ (err) in
+            let url = URL(string: self.members[indexPath.row]._photoURL!)
+            var data = Data()
+            do {
+                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                cell.profilePic.image = UIImage(data: data)
+            } catch {
+                cell.profilePic.image = UIImage(named: "UserIcon")
+            }
+        })
+
         return cell
     }
     

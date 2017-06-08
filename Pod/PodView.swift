@@ -81,6 +81,8 @@ class PodView: UIView {
         tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
         let photoNib = UINib(nibName: "PhotoPostTableViewCell", bundle: nil)
         tableView.register(photoNib, forCellReuseIdentifier: "PhotoPostTableViewCell")
+        let pollNib = UINib(nibName: "PollPostTableViewCell", bundle: nil)
+        tableView.register(pollNib, forCellReuseIdentifier: "PollPostTableViewCell")
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.estimatedRowHeight = 60.0 // Replace with your actual estimation
         // Automatic dimensions to tell the table view to use dynamic height
@@ -163,13 +165,6 @@ class PodView: UIView {
         }
     }
     
-    func checkIfInPod(){
-        if (podData?._userIdList?.contains(FacebookIdentityProfile._sharedInstance.userId!))! {
-            layer.borderColor = UIColor.green.cgColor
-        }
-    }
-    
-    
 }
 
 extension PodView: UITableViewDelegate, UITableViewDataSource {
@@ -189,10 +184,9 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         return (podData?.postData!.count)!
     }
     func firstTimeSetup(){
-        self.checkIfInPod()
         self.lockedPod = (podData?._isPrivate)! as! Bool
-        self.setUpBlurEffect()
         initialized = true
+        self.setUpBlurEffect()
         if(!(podData?.postData?.isEmpty)!){
             emptyPodView.removeFromSuperview()
         } else {
@@ -202,16 +196,19 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             if(podData?._userIdList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
                 //Don't lock!
                 //Do we need to do anything here?
+//                self.lockedPod = false
+//                blurEffectView.removeFromSuperview()
+//                self.setUpBlurEffect()
             } else {
                 self.setUpLockConstraints()
-                if(podData?._userRequestList == nil){
-                    return
-                }
-                if (podData?._userRequestList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
-                    //Change text!
-                    joinButton.setTitle("Request Sent!", for: UIControlState.normal)
-                    joinButton.isEnabled = false
-                }
+//                if(podData?._userRequestList == nil){
+//                    return
+//                }
+//                if (podData?._userRequestList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+//                    //Change text!
+//                    joinButton.setTitle("Request Sent!", for: UIControlState.normal)
+//                    joinButton.isEnabled = false
+//                }
             }
         }
         for (i,post) in (podData?.postData)!.enumerated(){
@@ -230,8 +227,12 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let postData = self.podData?.postData?[indexPath.row]
+        if postData?._postLikes == nil {
+            postData?._postLikes = []
+        }
         if podData == nil ||  postData == nil{
             return UITableViewCell()
         }
@@ -239,50 +240,144 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         if(postData?._postType as! Int == PostType.text.hashValue){
             //handle text
             let cell = tableView.dequeueReusableCell(withIdentifier: "PodPostTableViewCell") as! PodPostTableViewCell
-            
+        
             cell.posterName.text = postData?._posterName
             cell.posterBody.text = postData?._postContent
-            cell.postLikes.text = String(describing: (postData?._numLikes!)!)
+            cell.postLikes.text = String(describing:  (postData?._postLikes?.count)!)
             cell.postComments.text = String(describing: (postData?._numComments!)!)
-
-            let url = URL(string: (postData?._posterImageURL)!)
-            var data = Data()
-            do {
-                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                cell.posterPhoto.image = UIImage(data: data)
-            } catch {
-                cell.posterPhoto.image = UIImage(named: "UserIcon")
+            if(postData?._postLikes != nil){
+                if (postData?._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                    cell.heartIcon.imageView?.image = UIImage(named: "heart_red")
+                } else {
+                    cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                }
+            } else {
+                cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
             }
-        
+            let cache = Shared.dataCache
+            if(postData?.userImage == nil){
+                cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
+                    cell.posterPhoto.image = UIImage(data: data)
+                    postData?.userImage = UIImage(data: data)
+                }).onFailure({ (err) in
+                    let url = URL(string: (postData?._posterImageURL)!)
+                    var data = Data()
+                    do {
+                        data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                        cell.posterPhoto.image = UIImage(data: data)
+                        postData?.userImage = UIImage(data: data)
+                        
+                    } catch {
+                        cell.posterPhoto.image = UIImage(named: "UserIcon")
+                        postData?.userImage = UIImage(data: data)
+                        
+                    }
+                })
+            } else {
+                cell.posterPhoto.image = postData?.userImage
+            }
+
+
             return cell
         } else if(postData?._postType as! Int == PostType.photo.hashValue){
             //handle photos
             let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoPostTableViewCell") as! PhotoPostTableViewCell
-            
+    
             cell.posterName.text = postData?._posterName
             cell.posterBody.text = postData?._postContent
-            cell.postLikes.text = String(describing: (postData?._numLikes!)!)
+            cell.postLikes.text = String(describing:  (postData?._postLikes?.count)!)
             cell.postComments.text = String(describing: (postData?._numComments!)!)
-            
-            let url = URL(string: (postData?._posterImageURL)!)
-            var data = Data()
-            do {
-                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                cell.posterPhoto.image = UIImage(data: data)
-            } catch {
-                cell.posterPhoto.image = UIImage(named: "UserIcon")
+            if(postData?._postLikes != nil){
+                if (postData?._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                    cell.heartIcon.imageView?.image = UIImage(named: "heart_red")
+                } else {
+                    cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                }
+            } else {
+                cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
             }
             let cache = Shared.dataCache
-            cache.fetch(key: (postData?._postImage)!).onSuccess({ (data) in
+            if(postData?.userImage == nil){
+                cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
+                    cell.posterPhoto.image = UIImage(data: data)
+                    postData?.userImage = UIImage(data: data)
+                }).onFailure({ (err) in
+                    let url = URL(string: (postData?._posterImageURL)!)
+                    var data = Data()
+                    do {
+                        data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                        cell.posterPhoto.image = UIImage(data: data)
+                        postData?.userImage = UIImage(data: data)
+                        
+                    } catch {
+                        cell.posterPhoto.image = UIImage(named: "UserIcon")
+                        postData?.userImage = UIImage(data: data)
+                        
+                    }
+                })
+            } else {
+                cell.posterPhoto.image = postData?.userImage
+            }
+            if postData?.image == nil {
+                cache.fetch(key: (postData?._postImage)!).onSuccess({ (data) in
+                    postData?.image = UIImage(data: data)
+                    cell.photoContent.image = postData?.image
+                }).onFailure({ (err) in
+                    postData?.image = UIImage(named: "placeholder")
+                    cell.photoContent.image = postData?.image
+                })
+            } else {
                 cell.photoContent.image = postData?.image
-            }).onFailure({ (err) in
-                postData?.image = UIImage(named: "placeholder")
-                cell.photoContent.image = postData?.image
-            })
+            }
 
             return cell
         } else if(postData?._postType as! Int == PostType.poll.hashValue){
             //handle polls
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PollPostTableViewCell") as! PollPostTableViewCell
+            
+            cell.username.text = postData?._posterName
+            cell.postContent.text = postData?._postContent
+            cell.numLikes.text = String(describing:  (postData?._postLikes?.count)!)
+            cell.numComments.text = String(describing: (postData?._numComments!)!)
+            if(postData?._postLikes != nil){
+                if (postData?._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
+                    cell.heartIcon.imageView?.image = UIImage(named: "heart_red")
+                } else {
+                    cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+                }
+            } else {
+                cell.heartIcon.imageView?.image = UIImage(named: "heart_gray")
+            }
+            let cache = Shared.dataCache
+            if(postData?.userImage == nil){
+                cache.fetch(key: (postData?._posterImageURL)!).onSuccess({ (data) in
+                    cell.profilePic.image = UIImage(data: data)
+                    postData?.userImage = UIImage(data: data)
+                }).onFailure({ (err) in
+                    let url = URL(string: (postData?._posterImageURL)!)
+                    var data = Data()
+                    do {
+                        data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                        cell.profilePic.image = UIImage(data: data)
+                        postData?.userImage = UIImage(data: data)
+                        
+                    } catch {
+                        cell.profilePic.image = UIImage(named: "UserIcon")
+                        postData?.userImage = UIImage(data: data)
+                        
+                    }
+                })
+            } else {
+                cell.profilePic.image = postData?.userImage
+            }
+            if postData?._postPoll != nil {
+                for (key,_) in (postData?._postPoll)! {
+                    cell.pollOptions.append(key)
+                }
+                cell.tableView.reloadData()
+            }
+            
+            return cell
         }
         return UITableViewCell()
     }

@@ -77,7 +77,6 @@ class APIClient {
                 let geoHash = curPod["GeoHash"] as! String
                 let pod = PodList()
                 let userID = curPod["CreatedByUserId"] as! String
-                let requestList = curPod["UserRequestList"] as! [String]
                 pod?._podId = podID as NSNumber
                 pod?._userIdList = userIdList
                 pod?._isPrivate = isLocked as NSNumber
@@ -88,7 +87,6 @@ class APIClient {
                 pod?._latitude = coordinates.latitude as NSNumber
                 pod?._longitude = coordinates.longitude as NSNumber
                 pod?._createdByUserId = userID
-                pod?._userRequestList = requestList
                 nearbyPods?.append(pod!)
             }
             completion(nearbyPods)
@@ -102,7 +100,7 @@ class APIClient {
         let long = location.longitude
         
         let httpMethodName = "POST"
-        let URLString = "/CreateNewPods" //NOTE CHANGE THIS
+        let URLString = "/CreateNewPods"
         let queryStringParameters = ["lang": "en"]
         var isPrivateStr = "F"
         if isPrivate {
@@ -143,12 +141,61 @@ class APIClient {
             // Handle successful result here
             let result = task.result!
             let responseString = String(data: result.responseData!, encoding: .utf8)
-            print("===============")
-            print("===============")
 
-           print(responseString)
-            print("===============")
-            print("===============")
+            print(responseString)
+
+
+            return nil
+        }
+        
+    }
+    
+    func getExplorePods(location: CLLocationCoordinate2D, length: String){
+        let lat = location.latitude
+        let long = location.longitude
+        
+        let httpMethodName = "POST"
+        let URLString = "/Exploring_NeighborPodsConsecutiveExpansion"
+        let queryStringParameters = ["lang": "en"]
+
+        let headerParameters = [
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "latitude": "\(lat)",
+            "longitude": "\(long)",
+            "length": "0"
+            ]
+
+        print(headerParameters)
+        let jsonObject: [String: AnyObject]  = ["GeoHashCode": [] as AnyObject]
+        
+        
+        // Construct the request object
+        let apiRequest = AWSAPIGatewayRequest(httpMethod: httpMethodName,
+                                              urlString: URLString,
+                                              queryParameters: queryStringParameters,
+                                              headerParameters: headerParameters,
+                                              httpBody: jsonObject)
+        
+        let invocationClient = AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient(forKey: AWSCloudLogicDefaultConfigurationKey)
+        
+        invocationClient.invoke(apiRequest).continueWith { (task: AWSTask<AWSAPIGatewayResponse>) -> Any? in
+            
+            if let error = task.error {
+                print("Error occurred: \(error)")
+                // Handle error here
+                return nil
+            }
+            
+            // Handle successful result here
+            let result = task.result!
+            let responseString = String(data: result.responseData!, encoding: .utf8)
+            print("----------")
+            print("----------")
+
+            print(responseString)
+            print("----------")
+            print("----------")
 
             return nil
         }
@@ -209,23 +256,21 @@ class APIClient {
         post1?._posterName = "Max Freundlich"
         post1?._podId = withId as NSNumber
         post1?._postId = UUID().uuidString
-        post1?._numLikes = 10
         post1?._numComments = 6
         post1?._postType = PostType.text.hashValue as NSNumber
         post1?._postContent = "What up its Chaz"
         post1?._postedDate = NSDate().timeIntervalSince1970 as NSNumber
-        post1?._postPoll = ["none":"none"]
+        post1?._postPoll = ["none":1]
         post1?._postImage = "No Image"
         
         let post2 = Posts()
         post2?._posterName = "Chenye Zhu"
         post2?._podId = withId as NSNumber
-        post2?._numLikes = 26
         post2?._numComments = 9
         post2?._postType = PostType.text.hashValue as NSNumber
         post2?._postContent = "What up its Chenye ZHUUUUUUUUU"
         post2?._postedDate = NSDate().timeIntervalSince1970 as NSNumber
-        post2?._postPoll = ["none":"none"]
+        post2?._postPoll = ["none":1]
         post2?._postImage = "No Image"
         
         dynamoDBObjectMapper.save(post1!) { (err) in
@@ -267,6 +312,7 @@ class APIClient {
     }
     
     func createNewPostForPod(withId: Int, post: Posts) {
+        post.image = nil
         dynamoDBObjectMapper.save(post) { (err) in
             if let error = err {
                 print("Amazin DynamoDB Save Error: \(error)")
@@ -277,6 +323,11 @@ class APIClient {
     }
     
     func updatePostInfo(post: Posts){
+        post.image = nil
+        post.userImage = nil
+        if (post._postLikes?.isEmpty)! {
+            post._postLikes = nil
+        }
         dynamoDBObjectMapper.save(post) { (err) in
             if let error = err {
                 print("Amazin DynamoDB Save Error: \(error)")
@@ -310,9 +361,10 @@ class APIClient {
     }
     
     func updatePod(pod: PodList){
-        if (pod.postData?.isEmpty)! {
-            pod.postData = nil
-        }
+//        if (pod.postData?.isEmpty)! {
+//            pod.postData = nil
+//        }
+
         dynamoDBObjectMapper.save(pod) { (err) in
             if let error = err {
                 print("Amazin DynamoDB Save Error: \(error)")
@@ -527,26 +579,20 @@ class APIClient {
     }
     
     func acceptJoinRequest(request: PodRequests){
-        dynamoDBObjectMapper.remove(request)
-        let userPod = UserPods()
-        userPod?._userId = FacebookIdentityProfile._sharedInstance.userId!
-        userPod?._podId = request._podId
-        userPod?._geoHash = request._podGeoHash
-        dynamoDBObjectMapper.save(userPod!)
-        getPod(withId: request._podId as! Int, geoHash: request._podGeoHash!) { (pod) in
-            pod?._userIdList?.append(FacebookIdentityProfile._sharedInstance.userId!)
-            pod?._usernameList?.append(FacebookIdentityProfile._sharedInstance.userName!)
-            for (i, id) in (pod?._userRequestList?.enumerated())! {
-                if id == request._requesterID {
-                    pod?._userRequestList?.remove(at: i)
-                    break
-                }
-            }
-            if(pod?._userRequestList?.isEmpty)!{
-                pod?._userRequestList = nil
-            }
-            self.dynamoDBObjectMapper.save(pod!)
-        }
+//        dynamoDBObjectMapper.remove(request)
+//        let userPod = UserPods()
+//        userPod?._userId = FacebookIdentityProfile._sharedInstance.userId!
+//        userPod?._podId = request._podId
+//        userPod?._geoHash = request._podGeoHash
+//        dynamoDBObjectMapper.save(userPod!)
+//        getPod(withId: request._podId as! Int, geoHash: request._podGeoHash!) { (pod) in
+//            pod?._userIdList?.append(FacebookIdentityProfile._sharedInstance.userId!)
+//            pod?._usernameList?.append(FacebookIdentityProfile._sharedInstance.userName!)
+//           
+//
+//            self.dynamoDBObjectMapper.save(pod!)
+//        }
+        print("accept join request. this isnt actually doing anything")
     }
     
 
