@@ -30,6 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: credentialProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
 
+        // TODO: Change navigation bar color scheme
+//        var navigationBarAppearace = UINavigationBar.appearance()
+//        
+//        navigationBarAppearace.tintColor = UIColor.YourNavigationButtonsColor()  // Back buttons and such
+//        navigationBarAppearace.barTintColor = UIColor.YourBackgroundColor()  // Bar's background color
+//        
+//        navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.YourTitleColor()]  // Title's text color
+        
         return AWSMobileClient.sharedInstance.didFinishLaunching(application, withOptions: launchOptions)
     }
     

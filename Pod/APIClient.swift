@@ -25,10 +25,23 @@ class APIClient {
     var profilePicture: UIImage?
     var geoHashCodes = [String]()
     
-    func getNearbyMapPods(location: CLLocationCoordinate2D, completion: @escaping ([PodList]?) -> ()) {
+    struct Boundaries {
+        var east: CLLocationDegrees?
+        var north: CLLocationDegrees?
+        var south: CLLocationDegrees?
+        var west: CLLocationDegrees?
+    }
+    
+    func getNearbyMapPods(location: CLLocationCoordinate2D, expanding: Bool, completion: @escaping ([PodList]?, Boundaries?) -> ()) {
+        
+        // Clear geohash codes if no expanding pod search
+        if !expanding {
+            geoHashCodes.removeAll()
+        }
+        
+        // Construct request parameters
         let lat = location.latitude
         let long = location.longitude
-        
         let httpMethodName = "POST"
         let URLString = "/Exploring_NeighborPodsConsecutiveExpansion"
         let queryStringParameters = ["lang": "en"]
@@ -43,8 +56,6 @@ class APIClient {
             "longitude": "\(long)",
             "length": "\(geoHashCodes.count)"
         ]
-        
-        print(headerParameters)
         let jsonObject: [String: AnyObject]  = ["GeoHashCode": geoCodes as AnyObject]
         
         // Construct the request object
@@ -54,12 +65,14 @@ class APIClient {
                                               headerParameters: headerParameters,
                                               httpBody: jsonObject)
         
+        // Invoke the request
         let invocationClient = AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient(forKey: AWSCloudLogicDefaultConfigurationKey)
         invocationClient.invoke(apiRequest).continueWith { (task: AWSTask<AWSAPIGatewayResponse>) -> Any? in
             
             // Check for error
             guard task.error == nil else {
                 print("Error gettting nearby map pods: \(task.error!)")
+                completion(nil, nil)
                 return nil
             }
             
@@ -68,6 +81,7 @@ class APIClient {
                 let json = try? JSONSerialization.jsonObject(with: data, options: []),
                 let dictionary = json as? JSONDictionary else {
                     print("No response data")
+                    completion(nil, nil)
                     return nil
             }
             
@@ -77,10 +91,28 @@ class APIClient {
             print("----------")
             print("----------")
             
+            // Store geohash codes for potential pod search expansion
             if let geoCodes = dictionary["GeoHashCode"] as? JSONDictionary {
-                print(geoCodes)
+                print("GeoCodes: \(geoCodes)")
+                
+                for (_, code) in geoCodes {
+                    if !self.geoHashCodes.contains(code as! String) {
+                        self.geoHashCodes.append(code as! String)
+                    }
+                }
             }
             
+            // Get boundaries
+            var boundaries = Boundaries()
+            if let bounds = dictionary["boundaries"] as? JSONDictionary,
+                let east = bounds["e"] as? CLLocationDegrees,
+                let north = bounds["n"] as? CLLocationDegrees,
+                let south = bounds["s"] as? CLLocationDegrees,
+                let west = bounds["w"] as? CLLocationDegrees {
+                boundaries = Boundaries(east: east, north: north, south: south, west: west)
+            }
+            
+            // Populate PodLists from response
             var nearbyPods = [PodList]()
             var index = 0
             while(dictionary[String(index)] != nil) {
@@ -91,12 +123,11 @@ class APIClient {
                     pod?._isPrivate = podData["IsPrivate"] as? NSNumber
                     pod?._usernameList = podData["UserList"] as? [String]
                     pod?._name = podData["Name"] as? String
-                    pod?._radius = 5.0
+                    pod?._radius = podData["Radius"] as? NSNumber
                     pod?._geoHashCode = podData["GeoHash"] as? String
                     pod?._latitude = podData["Latitude"] as? NSNumber
                     pod?._longitude = podData["Longitude"] as? NSNumber
                     pod?._createdByUserId = podData["CreatedByUserId"] as? String
-                    //                pod?._userRequestList = requestList
                     nearbyPods.append(pod!)
                 } else {
                     print("Data at index \(index) could not be casted as a JSONDictionary")
@@ -104,7 +135,7 @@ class APIClient {
                 
                 index += 1
             }
-            completion(nearbyPods)
+            completion(nearbyPods, boundaries)
             
             return nil
         }

@@ -187,7 +187,7 @@
         <scene sceneID="tC1-6R-RsQ">
             <objects>
                 <navigationController id="3lu-pK-83l" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="caX-fG-lLc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="caX-fG-lLc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -531,13 +531,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pod Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHR-X3-WMy">
-                                <rect key="frame" x="153.5" y="28" width="68" height="21"/>
+                                <rect key="frame" x="153.5" y="72" width="68" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l8A-1X-gT9">
-                                <rect key="frame" x="22" y="28" width="34" height="30"/>
+                                <rect key="frame" x="22" y="72" width="34" height="30"/>
                                 <state key="normal" title="Back">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -546,7 +546,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ya-wk-zCU">
-                                <rect key="frame" x="316" y="28" width="35" height="22"/>
+                                <rect key="frame" x="316" y="72" width="35" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="Hyz-e1-Mnx"/>
                                     <constraint firstAttribute="height" constant="22" id="Q3p-Zd-hb2"/>
@@ -559,7 +559,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qlk-gX-wJH">
-                                <rect key="frame" x="0.0" y="57" width="375" height="610"/>
+                                <rect key="frame" x="0.0" y="101" width="375" height="566"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemberTableViewCell" id="J2i-ww-2kp" customClass="MemberTableViewCell" customModule="Pod" customModuleProvider="target">
@@ -745,6 +745,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="SR7-sB-akL"/>
+                    <connections>
+                        <segue destination="Lc6-eU-uf8" kind="presentation" identifier="toMapPod" id="VJU-kn-FGg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Igf-ak-mpk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -755,7 +758,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zeV-Dj-Nr0" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dnq-uV-iJY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Dnq-uV-iJY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -773,7 +776,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d9f-ko-NdH" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6aW-rp-Fkx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6aW-rp-Fkx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1129,6 +1132,6 @@
         <image name="x-box" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BIm-pc-hse"/>
+        <segue reference="VJU-kn-FGg"/>
     </inferredMetricsTieBreakers>
 </document>
