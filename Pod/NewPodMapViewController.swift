@@ -21,6 +21,9 @@ class NewPodMapViewController: UIViewController {
         mapView.delegate = self
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
+        mapView.settings.scrollGestures = false
+        mapView.settings.rotateGestures = false
+        mapView.settings.tiltGestures = false
         return mapView
     }()
     
@@ -41,7 +44,11 @@ class NewPodMapViewController: UIViewController {
         super.viewDidLoad()
         
         // Setup navigation
-        title = "New Pod"
+        navigationController?.navigationBar.barTintColor = .lightBlue
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        title = "Set Radius"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(closePodMapView))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continue", style: .plain, target: self, action: #selector(toNamePodView))
 
@@ -82,6 +89,24 @@ class NewPodMapViewController: UIViewController {
             ])
     }
     
+    private func calculateDistance(fromLocation startLocation: CLLocationCoordinate2D, toLocation endLocation: CLLocationCoordinate2D) -> Double {
+        
+        let earthRadius = 6378.137 // Earth radius in km
+        
+        // Calculate delta lat/long
+        let dLat = (endLocation.latitude - startLocation.latitude) * Double.pi / 180
+        let dLong = (endLocation.longitude - startLocation.longitude) * Double.pi / 180
+        
+        // Some crazy math
+        let a = sin(dLat / 2) * sin(dLat / 2) + cos(startLocation.latitude * Double.pi / 180) * cos(endLocation.latitude * Double.pi / 180) * sin(dLong / 2) * sin(dLong / 2)
+        let c = 2 * atan2(sqrt(a), sqrt(1 - a))
+        let d = earthRadius * c
+        
+        return d * 0.621371 // Convert to miles
+    }
+    
+    // MARK: - Navigation
+    
     func closePodMapView() {
         dismiss(animated: true, completion: nil)
     }
@@ -93,7 +118,12 @@ class NewPodMapViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if(segue.identifier == "toNamePod"){
             if let nextVC = segue.destination as? PodTitleViewController {
-                nextVC.location = locationManager.location?.coordinate
+                let visibleRegion = mapView.projection.visibleRegion()
+                let currentLocation = locationManager.location?.coordinate
+                let radius = calculateDistance(fromLocation: currentLocation!, toLocation: CLLocationCoordinate2D(latitude: currentLocation!.latitude, longitude: visibleRegion.nearLeft.longitude))
+                
+                nextVC.location = currentLocation
+                nextVC.radius = min(radius, 5.0)
             }
         }
     }

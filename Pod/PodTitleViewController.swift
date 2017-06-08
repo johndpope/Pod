@@ -14,6 +14,8 @@ class PodTitleViewController: UIViewController {
     @IBOutlet weak var questionLabel: UILabel!
     var textField: HoshiTextField!
     var location: CLLocationCoordinate2D?
+    var radius: Double?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         textField = HoshiTextField(frame: CGRect(x: questionLabel.frame.minX, y: questionLabel.frame.maxY + 8, width: self.view.frame.width - 2*questionLabel.frame.minX , height: 60))
@@ -50,21 +52,8 @@ class PodTitleViewController: UIViewController {
             if let nextVC = segue.destination as? PodPrivacyViewController {
                 nextVC.podTitle = textField.text!
                 nextVC.location = location
+                nextVC.radius = radius
             }
         }
     }
-
-    
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
