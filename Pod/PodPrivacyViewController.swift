@@ -25,6 +25,7 @@ class PodPrivacyViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(setPrivacy))
         privacyImage.addGestureRecognizer(tapRecognizer)
         // Do any additional setup after loading the view.
+        self.view.backgroundColor = .lightBlue
     }
 
     func setPrivacy(gesture: UITapGestureRecognizer) {
