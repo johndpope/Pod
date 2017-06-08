@@ -112,11 +112,11 @@ extension InviteRequestViewController: UITableViewDelegate, UITableViewDataSourc
         cell.tag = indexPath.row
         let req = self.requests[indexPath.row]
         if(Int(req._requestType!) == RequestType.invite.hashValue){
-            cell.requestLabel.text = "\(req._requesterName!) invited you to join \(req._podName!)!"
+            cell.requestLabel.text = "\(req._senderName!) invited you to join \(req._podName!)!"
         } else {
-            cell.requestLabel.text = "\(req._requesterName!) wants to join your Pod \(req._podName!)"
+            cell.requestLabel.text = "\(req._senderName!) wants to join your Pod \(req._podName!)"
         }
-        let url = URL(string: req._requesterPhotoURL!)
+        let url = URL(string: req._senderPhotoURL!)
         var data = Data()
         do {
             data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch

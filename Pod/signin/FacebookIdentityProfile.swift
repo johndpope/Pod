@@ -39,6 +39,10 @@ class FacebookIdentityProfile : AWSIdentityProfile {
      */
     public var inAppFriends: [UserInformation]? = []
     /**
+    Friends not in the app to invite
+     */
+    public var taggableFriends: [UserInformation]? = []
+    /**
      In app friends ids
      */
     public var inAppFriendsIds: Set<String> = []
@@ -141,6 +145,36 @@ class FacebookIdentityProfile : AWSIdentityProfile {
                             self.inAppFriendsIds.insert((userInfo?._facebookId)!)
                         }
                     }
+                }
+            } else {
+                print("Error Getting Friends \(error)");
+            }
+            
+        })
+        
+        connection.start()
+    }
+    
+    func getTaggableFriends(){
+        let params = ["fields": "id, first_name, last_name, name, email, picture, link"]
+
+        let graphRequest = FBSDKGraphRequest(graphPath: "me/taggable_friends", parameters: params)
+        let connection = FBSDKGraphRequestConnection()
+        connection.add(graphRequest, completionHandler: { (connection, result, error) in
+            if error == nil {
+                if let userData = result as? [String:Any] {
+                    let data = userData["data"] as! [NSDictionary]
+                    for friend in data {
+                        if let user = friend as? [String:Any] {
+                            let userInfo = UserInformation()
+                            //userInfo?._profileURL = user["link"] as! String
+                            userInfo?._facebookId = user["id"] as! String
+                            userInfo?._username = user["name"] as! String
+                            userInfo?._photoURL = ((user["picture"]as? [String:Any])?["data"] as? [String:Any])?["url"] as! String
+                            self.taggableFriends?.append(userInfo!)
+                        }
+                    }
+                    //print(self.taggableFriends)
                 }
             } else {
                 print("Error Getting Friends \(error)");

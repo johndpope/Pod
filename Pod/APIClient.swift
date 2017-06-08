@@ -65,29 +65,31 @@ class APIClient {
             
             var nearbyPods: [PodList]? = []
             for(_, val) in dict! {
-                let curPod = val as! Dictionary<String, Any>
-                let podName = curPod["Name"] as! String
-                let coordinates = CLLocationCoordinate2D(latitude: curPod["Latitude"] as! Double, longitude: curPod["Longitude"] as! Double)
-                // NOTE: gotta implement this
-                let radius = 5.0
-                let userIdList = curPod["UserIdList"] as! [String]
-                let podID = curPod["PodId"] as! Int
-                let isLocked = curPod["IsPrivate"] as! Bool
-                let userNameList = curPod["UserList"] as! [String]
-                let geoHash = curPod["GeoHash"] as! String
-                let pod = PodList()
-                let userID = curPod["CreatedByUserId"] as! String
-                pod?._podId = podID as NSNumber
-                pod?._userIdList = userIdList
-                pod?._isPrivate = isLocked as NSNumber
-                pod?._usernameList = userNameList
-                pod?._name = podName
-                pod?._radius = radius as NSNumber
-                pod?._geoHashCode = geoHash
-                pod?._latitude = coordinates.latitude as NSNumber
-                pod?._longitude = coordinates.longitude as NSNumber
-                pod?._createdByUserId = userID
-                nearbyPods?.append(pod!)
+                if let curPod = val as? Dictionary<String, Any>{
+                    let podName = curPod["Name"] as! String
+                    let coordinates = CLLocationCoordinate2D(latitude: curPod["Latitude"] as! Double, longitude: curPod["Longitude"] as! Double)
+                    // NOTE: gotta implement this
+                    let radius = 5.0
+                    let userIdList = curPod["UserIdList"] as! [String]
+                    let podID = curPod["PodId"] as! Int
+                    let isLocked = curPod["IsPrivate"] as! Bool
+                    let userNameList = curPod["UserList"] as! [String]
+                    let geoHash = curPod["GeoHash"] as! String
+                    let pod = PodList()
+                    let userID = curPod["CreatedByUserId"] as! String
+                    pod?._podId = podID as NSNumber
+                    pod?._userIdList = userIdList
+                    pod?._isPrivate = isLocked as NSNumber
+                    pod?._usernameList = userNameList
+                    pod?._name = podName
+                    pod?._radius = radius as NSNumber
+                    pod?._geoHashCode = geoHash
+                    pod?._latitude = coordinates.latitude as NSNumber
+                    pod?._longitude = coordinates.longitude as NSNumber
+                    pod?._createdByUserId = userID
+                    nearbyPods?.append(pod!)
+                }
+                
             }
             completion(nearbyPods)
             
@@ -333,7 +335,7 @@ class APIClient {
                 print("Amazin DynamoDB Save Error: \(error)")
                 return
             }
-            print("post saved")
+            print("post updated")
         }
     }
     
@@ -370,7 +372,7 @@ class APIClient {
                 print("Amazin DynamoDB Save Error: \(error)")
                 return
             }
-            print("post saved")
+            print("pod updated")
         }
     }
     
@@ -386,7 +388,7 @@ class APIClient {
                 print("Amazin DynamoDB Save Error: \(error)")
                 return
             }
-            print("post saved")
+            print("user information updated")
         }
     }
     
@@ -505,17 +507,18 @@ class APIClient {
     
 
     
-    func sendJoinRequest(to: String, podId: Int, geoHash: String, podName: String){
+    func sendJoinRequest(pod: PodList){
         let request = PodRequests()
-        request?._podId = podId as NSNumber
-        request?._userId = to
-        request?._requesterName = FacebookIdentityProfile._sharedInstance.userName
-        request?._requesterID = FacebookIdentityProfile._sharedInstance.userId
-        request?._requesterPhotoURL = FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString
+        request?._podId = pod._podId!
+        request?._userId = pod._createdByUserId
+        request?._sentBy = FacebookIdentityProfile._sharedInstance.userId!
+        request?._requestId = UUID().uuidString
+        request?._sendTime = NSDate().timeIntervalSince1970 as NSNumber
+        request?._senderName = FacebookIdentityProfile._sharedInstance.userName!
+        request?._geoHashCode = pod._geoHashCode
         request?._requestType = RequestType.join.hashValue as NSNumber
-        request?._podGeoHash = geoHash
-        request?._podName = podName
         dynamoDBObjectMapper.save(request!)
+        print("join sent")
     }
     
     func removePossibleRequests(podId: Int){
@@ -540,16 +543,16 @@ class APIClient {
     
     func sendInviteRequest(to: [UserInformation], podId: Int, podName: String, geoHash: String){
         for user in to {
-            
             let request = PodRequests()
             request?._podId = podId as NSNumber
-            request?._podName = podName
             request?._userId = user._facebookId
-            request?._requesterName = FacebookIdentityProfile._sharedInstance.userName
-            request?._requesterID = FacebookIdentityProfile._sharedInstance.userId
-            request?._requesterPhotoURL = FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString
+            request?._sentBy = FacebookIdentityProfile._sharedInstance.userId!
+            request?._requestId = UUID().uuidString
+            request?._sendTime = NSDate().timeIntervalSince1970 as NSNumber
+            request?._senderName = FacebookIdentityProfile._sharedInstance.userName!
+            request?._geoHashCode = geoHash
             request?._requestType = RequestType.invite.hashValue as NSNumber
-            request?._podGeoHash = geoHash
+            dynamoDBObjectMapper.save(request!)
             dynamoDBObjectMapper.save(request!, completionHandler: { (err) in
                 if let error = err {
                     print("Amazin DynamoDB Save Error: \(error)")
@@ -561,17 +564,18 @@ class APIClient {
     }
     
     func acceptPodInvitation(request: PodRequests){
-        dynamoDBObjectMapper.remove(request)
-        let userPod = UserPods()
-        userPod?._userId = FacebookIdentityProfile._sharedInstance.userId!
-        userPod?._podId = request._podId
-        userPod?._geoHash = request._podGeoHash
-        dynamoDBObjectMapper.save(userPod!)
-        getPod(withId: request._podId as! Int, geoHash: request._podGeoHash!) { (pod) in
-            pod?._userIdList?.append(FacebookIdentityProfile._sharedInstance.userId!)
-            pod?._usernameList?.append(FacebookIdentityProfile._sharedInstance.userName!)
-            self.dynamoDBObjectMapper.save(pod!)
-        }
+         print("Accept")
+//        dynamoDBObjectMapper.remove(request)
+//        let userPod = UserPods()
+//        userPod?._userId = FacebookIdentityProfile._sharedInstance.userId!
+//        userPod?._podId = request._podId
+//        userPod?._geoHash = request._podGeoHash
+//        dynamoDBObjectMapper.save(userPod!)
+//        getPod(withId: request._podId as! Int, geoHash: request._podGeoHash!) { (pod) in
+//            pod?._userIdList?.append(FacebookIdentityProfile._sharedInstance.userId!)
+//            pod?._usernameList?.append(FacebookIdentityProfile._sharedInstance.userName!)
+//            self.dynamoDBObjectMapper.save(pod!)
+//        }
     }
     
     func declinePodInvitation(request: PodRequests){

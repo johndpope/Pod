@@ -94,6 +94,7 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         setUpButtons()
         FacebookIdentityProfile._sharedInstance.load()
         FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
+        //FacebookIdentityProfile._sharedInstance.getTaggableFriends()
         carousel.scrollSpeed = 0.5
         let loc = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
         APIClient.sharedInstance.getExplorePods(location: loc, length: "8")
@@ -286,7 +287,7 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         if (success) {
             APIClient.sharedInstance.initClientInfo()
             FacebookIdentityProfile._sharedInstance.load()
-            FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
+            //FacebookIdentityProfile._sharedInstance.getTaggableFriends()
             APIClient.sharedInstance.createUser(withId: AWSIdentityManager.default().identityId!, name: FacebookIdentityProfile._sharedInstance.userName!, photoURL: (FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString)!, profileURL: FacebookIdentityProfile._sharedInstance.facebookURL!, faecbookId: FacebookIdentityProfile._sharedInstance.userId!)
         } else {
             // handle cancel operation from user
@@ -327,13 +328,7 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
             (result : UIAlertAction) -> Void in
             podView.joinButton.setTitle("Request Sent!", for: UIControlState.normal)
             podView.joinButton.isEnabled = false
-//            if(podView.podData?._userRequestList == nil){
-//                podView.podData?._userRequestList = [FacebookIdentityProfile._sharedInstance.userId!]
-//            } else {
-//                podView.podData?._userRequestList?.append(FacebookIdentityProfile._sharedInstance.userId!)
-//            }
-            //APIClient.sharedInstance.updatePod(pod: podView.podData!)
-           // APIClient.sharedInstance.sendJoinRequest(to: (podView.podData?._createdByUserId)!, podId: podView.podData?._podId as! Int, geoHash: (podView.podData?._geoHashCode)!, podName: (podView.podData?._name)!)
+            APIClient.sharedInstance.sendJoinRequest(pod: podView.podData!)
         }
         
         alertController.addAction(DestructiveAction)

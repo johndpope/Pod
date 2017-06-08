@@ -187,7 +187,7 @@
         <scene sceneID="tC1-6R-RsQ">
             <objects>
                 <navigationController id="3lu-pK-83l" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="caX-fG-lLc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="caX-fG-lLc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -754,7 +754,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zeV-Dj-Nr0" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Dnq-uV-iJY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dnq-uV-iJY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -772,7 +772,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d9f-ko-NdH" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6aW-rp-Fkx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6aW-rp-Fkx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -954,6 +954,12 @@
                                     <segue destination="KUD-jy-wng" kind="presentation" id="hbn-cH-GZ9"/>
                                 </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="5Ff-oO-hC4">
+                                <rect key="frame" x="14" y="625" width="347" height="31"/>
+                                <connections>
+                                    <action selector="sliderChanged:" destination="22e-Bu-6Vz" eventType="valueChanged" id="bvB-XQ-tJ8"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="0.59607843140000005" green="0.83529411760000005" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -963,12 +969,16 @@
                             <constraint firstItem="6Lv-Rg-GJK" firstAttribute="centerX" secondItem="JGO-Sg-YcV" secondAttribute="centerX" id="Iyq-pA-rpL"/>
                             <constraint firstAttribute="trailing" secondItem="WBF-K0-Oh2" secondAttribute="trailing" constant="8" id="QL4-J3-6M8"/>
                             <constraint firstAttribute="leadingMargin" secondItem="glP-4a-BjJ" secondAttribute="leading" id="Tcg-ca-DSu"/>
+                            <constraint firstItem="5Ff-oO-hC4" firstAttribute="centerX" secondItem="JGO-Sg-YcV" secondAttribute="centerX" id="ZcI-Xd-b6w"/>
                             <constraint firstItem="zd7-JR-5l3" firstAttribute="top" secondItem="hvv-2L-nzv" secondAttribute="bottom" constant="8" id="dVM-Pn-2ha"/>
                             <constraint firstItem="6Lv-Rg-GJK" firstAttribute="top" secondItem="glP-4a-BjJ" secondAttribute="bottom" constant="20" id="eqo-cX-Xo6"/>
+                            <constraint firstItem="b3H-wA-kez" firstAttribute="top" secondItem="5Ff-oO-hC4" secondAttribute="bottom" constant="12" id="fPS-K8-oMD"/>
                             <constraint firstItem="WBF-K0-Oh2" firstAttribute="top" secondItem="hvv-2L-nzv" secondAttribute="bottom" constant="8" id="ghF-mB-n6G"/>
                             <constraint firstItem="Zs6-bw-hkG" firstAttribute="centerX" secondItem="JGO-Sg-YcV" secondAttribute="centerX" id="hhb-GP-VfW"/>
                             <constraint firstItem="6Lv-Rg-GJK" firstAttribute="leading" secondItem="JGO-Sg-YcV" secondAttribute="leadingMargin" constant="40" id="kfe-IS-v55"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5Ff-oO-hC4" secondAttribute="trailing" id="mUv-8S-gLc"/>
                             <constraint firstItem="b3H-wA-kez" firstAttribute="top" secondItem="glP-4a-BjJ" secondAttribute="bottom" constant="110" id="oOr-Th-R9o"/>
+                            <constraint firstItem="5Ff-oO-hC4" firstAttribute="leading" secondItem="JGO-Sg-YcV" secondAttribute="leadingMargin" id="omV-2C-7gv"/>
                             <constraint firstAttribute="trailingMargin" secondItem="glP-4a-BjJ" secondAttribute="trailing" id="rld-Jd-d4M"/>
                             <constraint firstItem="B4A-jm-7Ab" firstAttribute="centerX" secondItem="JGO-Sg-YcV" secondAttribute="centerX" id="uyG-2F-WeF"/>
                             <constraint firstItem="Zs6-bw-hkG" firstAttribute="top" secondItem="hvv-2L-nzv" secondAttribute="bottom" constant="12" id="x9r-Ka-0l3"/>
@@ -979,6 +989,7 @@
                     <connections>
                         <outlet property="carousel" destination="glP-4a-BjJ" id="hi5-SS-fFi"/>
                         <outlet property="invitesButton" destination="WBF-K0-Oh2" id="alV-Eu-shQ"/>
+                        <outlet property="myslider" destination="5Ff-oO-hC4" id="cyA-it-xLI"/>
                         <outlet property="podTitle" destination="B4A-jm-7Ab" id="iyG-Yc-GRq"/>
                         <segue destination="Lc6-eU-uf8" kind="custom" identifier="toMySinglePod" customClass="PodViewSegue" customModule="Pod" customModuleProvider="target" id="BIm-pc-hse"/>
                     </connections>

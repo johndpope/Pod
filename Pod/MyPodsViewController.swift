@@ -19,6 +19,7 @@ class MyPodsCarouselViewController: UIViewController {
     @IBOutlet var carousel: iCarousel!
     @IBOutlet weak var podTitle: UILabel!
 
+    @IBOutlet weak var myslider: UISlider!
     @IBOutlet weak var invitesButton: UIButton!
     var isPresentingForFirstTime = true
     
@@ -34,11 +35,18 @@ class MyPodsCarouselViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightBlue
-        carousel.type = .rotary
+        carousel.type = .coverFlow
         carousel.delegate = self
         carousel.dataSource = self
+        myslider.maximumValue = Float(items.count)
+        myslider.minimumValue = 0.0
     }
     
+    @IBAction func sliderChanged(_ sender: UISlider) {
+//        var currentValue = Int(sender.value)
+//        print(currentValue)
+        //self.carousel.scrollToItem(at: currentValue, animated: true)
+    }
     @IBAction func backButton(_ sender: Any) {
         if let nav = self.navigationController {
             nav.popViewController(animated: true)
@@ -58,6 +66,7 @@ class MyPodsCarouselViewController: UIViewController {
                     APIClient.sharedInstance.getPod(withId: pod?._podId as! Int, geoHash: (pod?._geoHash)!, completion: { (podList) in
                         let index = self.items.count
                         self.items.append(podList!)
+                        self.myslider.maximumValue = Float(self.items.count)
                         self.getPostsforPod(index: index)
                     })
                 }
@@ -116,7 +125,7 @@ extension MyPodsCarouselViewController: iCarouselDataSource, iCarouselDelegate {
     
     func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
         if (option == .spacing) {
-            return value * 1.2
+            return value * 1.1
         }
         return value
     }
@@ -134,6 +143,7 @@ extension MyPodsCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         let index = carousel.currentItemIndex
         if(items.isEmpty != true){
             self.podTitle.text = items[index]._name
+            myslider.setValue(Float(index), animated: true)
         }
     }
     

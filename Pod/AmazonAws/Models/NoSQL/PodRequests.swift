@@ -18,14 +18,15 @@ import AWSDynamoDB
 class PodRequests: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
     var _userId: String?
+    var _requestId: String?
+    var _geoHashCode: String?
     var _podId: NSNumber?
-    var _podName: String?
     var _requestType: NSNumber?
-    var _requesterID: String?
-    var _requesterPhotoURL: String?
-    var _requesterName: String?
-    var _podGeoHash: String?
-
+    var _sendTime: NSNumber?
+    var _senderName: String?
+    var _sentBy: String?
+    var _senderPhotoURL: String?
+    var _podName: String?
     
     class func dynamoDBTableName() -> String {
 
@@ -39,19 +40,21 @@ class PodRequests: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
     class func rangeKeyAttribute() -> String {
 
-        return "_podId"
+        return "_requestId"
     }
     
     override class func jsonKeyPathsByPropertyKey() -> [AnyHashable: Any] {
         return [
                "_userId" : "userId",
-               "_podId" : "podId",
-               "_requestType" : "requestType",
-               "_requesterID" : "requesterID",
-               "_requesterPhotoURL" : "requesterPhotoURL",
-               "_podName" : "podName",
-               "_requesterName" : "requesterName",
-               "_podGeoHash" : "podGeoHash",
+               "_requestId" : "RequestId",
+               "_geoHashCode" : "GeoHashCode",
+               "_podId" : "PodId",
+               "_requestType" : "RequestType",
+               "_sendTime" : "SendTime",
+               "_senderName" : "SenderName",
+               "_sentBy" : "SentBy",
+               "_senderPhotoURL" : "SenderPhotoURL",
+               "_podName" : "PodName",
         ]
     }
 }

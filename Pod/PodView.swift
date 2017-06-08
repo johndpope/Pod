@@ -31,7 +31,7 @@ class PodView: UIView {
         joinButton.layer.borderColor = UIColor.darkerGray.cgColor
         joinButton.layer.borderWidth = 1.0
         joinButton.setTitle("Request to join", for: .normal)
-        joinButton.setTitleColor(.darkerGray, for: .normal)
+        joinButton.setTitleColor(.white, for: .normal)
         return joinButton
     }()
     

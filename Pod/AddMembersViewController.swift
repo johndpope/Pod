@@ -16,6 +16,7 @@ class AddMembersViewController: UIViewController {
     
     var pod: PodList?
     var friends: [UserInformation] = []
+    var allFriends: [UserInformation] = []
     var members: [UserInformation] = []
     var inviteList: Set<Int> = []
 
@@ -34,6 +35,11 @@ class AddMembersViewController: UIViewController {
                 friends.append(friend)
             }
         }
+        for friend in FacebookIdentityProfile._sharedInstance.taggableFriends!{
+            if !members.contains(where: { $0._facebookId == friend._facebookId }) {
+                allFriends.append(friend)
+            }
+        }
         
 
         // Do any additional setup after loading the view.
@@ -42,6 +48,7 @@ class AddMembersViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         friends.removeAll()
         members.removeAll()
+        allFriends.removeAll()
         friendTableView.reloadData()
         
     }
@@ -86,10 +93,18 @@ class AddMembersViewController: UIViewController {
 extension AddMembersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return friends.count
+        case 1:
+            return allFriends.count
+        default:
+             return 0
+        }
         return friends.count
     }
     
@@ -109,24 +124,42 @@ extension AddMembersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
-    }   
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Friends Using Pod"
+        case 1:
+            return "All Friends"
+        default:
+            return ""
+        }
+    }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddMemberTableViewCell") as! AddMemberTableViewCell
-        cell.userName.text = friends[indexPath.row]._username
+        var uInfo = UserInformation()
+        if indexPath.section == 0{
+            uInfo = friends[indexPath.row]
+        } else {
+            uInfo = allFriends[indexPath.row]
+        }
+        cell.userName.text = uInfo?._username
         cell.selectionStyle = UITableViewCellSelectionStyle.none
 
         
         let cache = Shared.dataCache
-        cache.fetch(key: friends[indexPath.row]._photoURL!).onSuccess({ (data) in
+        cache.fetch(key: (uInfo?._photoURL!)!).onSuccess({ (data) in
             cell.profilePicture.image = UIImage(data: data)
         }).onFailure({ (err) in
-            let url = URL(string: self.friends[indexPath.row]._photoURL!)
+            let url = URL(string: (uInfo?._photoURL!)!)
             var data = Data()
             do {
                 data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
                 cell.profilePicture.image = UIImage(data: data)
-                cache.set(value: data, key: self.friends[indexPath.row]._photoURL!)
+                cache.set(value: data, key: (uInfo?._photoURL!)!)
             } catch {
                 cell.profilePicture.image = UIImage(named: "UserIcon")
             }
