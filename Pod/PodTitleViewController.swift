@@ -25,7 +25,7 @@ class PodTitleViewController: UIViewController {
         textField.borderActiveColor = .white
         textField.borderInactiveColor = .white
         self.view.addSubview(textField)
-        
+        self.view.backgroundColor = .lightBlue
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tapGesture)
         self.navigationController?.isNavigationBarHidden = true
