@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3lu-pK-83l">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3lu-pK-83l">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -240,15 +240,16 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YuC-kk-xa9">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YuC-kk-xa9">
                                 <rect key="frame" x="16" y="612" width="45" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="AG7-fX-M73"/>
                                     <constraint firstAttribute="height" constant="45" id="k9T-8h-yBg"/>
                                 </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="map"/>
                                 <connections>
-                                    <segue destination="zeV-Dj-Nr0" kind="presentation" id="YP1-sZ-RaT"/>
+                                    <segue destination="zeV-Dj-Nr0" kind="presentation" id="KcS-Pc-dXy"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Finding Pods..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaN-Td-Yqh">
@@ -317,7 +318,7 @@
                     <connections>
                         <outlet property="addButton" destination="3nf-8O-1IM" id="ywV-rn-oNH"/>
                         <outlet property="carousel" destination="rki-0Z-7Ye" id="iuq-SU-ddC"/>
-                        <outlet property="mapButton" destination="YuC-kk-xa9" id="WU6-Fl-eu1"/>
+                        <outlet property="mapButton" destination="YuC-kk-xa9" id="QyO-qn-yQo"/>
                         <outlet property="myPodsButton" destination="gvz-BD-xwu" id="CTO-FJ-ka3"/>
                         <outlet property="peopleInPod" destination="SLK-Bw-6NF" id="1kp-gI-VFd"/>
                         <outlet property="podTitle" destination="17M-oY-DiQ" id="3ju-E9-DpB"/>

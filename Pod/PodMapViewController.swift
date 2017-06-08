@@ -25,6 +25,7 @@ class PodMapViewController: UIViewController {
     }()
     
     fileprivate var locationManager = CLLocationManager()
+    fileprivate var loadedPods = [NSNumber]()
 
     // MARK: - PodMapViewController
     
@@ -65,7 +66,27 @@ class PodMapViewController: UIViewController {
 // MARK: - GMSMapViewDelegate
 
 extension PodMapViewController: GMSMapViewDelegate {
-    
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        APIClient.sharedInstance.getNearbyMapPods(location: position.target) { (podList) in
+            guard let podList = podList else {
+                print("Error getting nearby map pods")
+                return
+            }
+            
+            for pod in podList {
+                if !self.loadedPods.contains(pod._podId!) {
+                    self.loadedPods.append(pod._podId!)
+                    
+                    DispatchQueue.main.async {
+                        let infoMarker = GMSMarker(position: CLLocationCoordinate2D(latitude: CLLocationDegrees(pod._latitude!), longitude: CLLocationDegrees(pod._longitude!)))
+                        infoMarker.title = pod._name!
+                        infoMarker.opacity = 1.0
+                        infoMarker.map = mapView
+                    }
+                }
+            }
+        }
+    }
 }
 
 // MARK: - CLLocationManagerDelegate
