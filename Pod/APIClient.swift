@@ -15,12 +15,100 @@ import AWSCognitoIdentityProvider
 import AWSFacebookSignIn
 import AWSDynamoDB
 
+typealias JSONDictionary = [String: Any]
+
 class APIClient {
     static var sharedInstance = APIClient()
     private var dynamoDBObjectMapper = AWSDynamoDBObjectMapper.default()
     var userName: String?
     var userID: String?
     var profilePicture: UIImage?
+    var geoHashCodes = [String]()
+    
+    func getNearbyMapPods(location: CLLocationCoordinate2D, completion: @escaping ([PodList]?) -> ()) {
+        let lat = location.latitude
+        let long = location.longitude
+        
+        let httpMethodName = "POST"
+        let URLString = "/Exploring_NeighborPodsConsecutiveExpansion"
+        let queryStringParameters = ["lang": "en"]
+        var geoCodes = [String: String]()
+        for index in 0..<geoHashCodes.count {
+            geoCodes[String(index)] = geoHashCodes[index]
+        }
+        let headerParameters = [
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "latitude": "\(lat)",
+            "longitude": "\(long)",
+            "length": "\(geoHashCodes.count)"
+        ]
+        
+        print(headerParameters)
+        let jsonObject: [String: AnyObject]  = ["GeoHashCode": geoCodes as AnyObject]
+        
+        // Construct the request object
+        let apiRequest = AWSAPIGatewayRequest(httpMethod: httpMethodName,
+                                              urlString: URLString,
+                                              queryParameters: queryStringParameters,
+                                              headerParameters: headerParameters,
+                                              httpBody: jsonObject)
+        
+        let invocationClient = AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient(forKey: AWSCloudLogicDefaultConfigurationKey)
+        invocationClient.invoke(apiRequest).continueWith { (task: AWSTask<AWSAPIGatewayResponse>) -> Any? in
+            
+            // Check for error
+            guard task.error == nil else {
+                print("Error gettting nearby map pods: \(task.error!)")
+                return nil
+            }
+            
+            // Check for data
+            guard let data = task.result?.responseData,
+                let json = try? JSONSerialization.jsonObject(with: data, options: []),
+                let dictionary = json as? JSONDictionary else {
+                    print("No response data")
+                    return nil
+            }
+            
+            print("----------")
+            print("----------")
+            print(dictionary)
+            print("----------")
+            print("----------")
+            
+            if let geoCodes = dictionary["GeoHashCode"] as? JSONDictionary {
+                print(geoCodes)
+            }
+            
+            var nearbyPods = [PodList]()
+            var index = 0
+            while(dictionary[String(index)] != nil) {
+                if let podData = dictionary[String(index)] as? JSONDictionary {
+                    let pod = PodList()
+                    pod?._podId = podData["PodId"] as? NSNumber
+                    pod?._userIdList = podData["UserIdList"] as? [String]
+                    pod?._isPrivate = podData["IsPrivate"] as? NSNumber
+                    pod?._usernameList = podData["UserList"] as? [String]
+                    pod?._name = podData["Name"] as? String
+                    pod?._radius = 5.0
+                    pod?._geoHashCode = podData["GeoHash"] as? String
+                    pod?._latitude = podData["Latitude"] as? NSNumber
+                    pod?._longitude = podData["Longitude"] as? NSNumber
+                    pod?._createdByUserId = podData["CreatedByUserId"] as? String
+                    //                pod?._userRequestList = requestList
+                    nearbyPods.append(pod!)
+                } else {
+                    print("Data at index \(index) could not be casted as a JSONDictionary")
+                }
+                
+                index += 1
+            }
+            completion(nearbyPods)
+            
+            return nil
+        }
+    }
     
     func getNearbyPods(location: CLLocationCoordinate2D, completion: @escaping ([PodList]?) ->()){
         let lat = location.latitude
@@ -146,58 +234,6 @@ class APIClient {
 
             print(responseString)
 
-
-            return nil
-        }
-        
-    }
-    
-    func getExplorePods(location: CLLocationCoordinate2D, length: String){
-        let lat = location.latitude
-        let long = location.longitude
-        
-        let httpMethodName = "POST"
-        let URLString = "/Exploring_NeighborPodsConsecutiveExpansion"
-        let queryStringParameters = ["lang": "en"]
-
-        let headerParameters = [
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "latitude": "\(lat)",
-            "longitude": "\(long)",
-            "length": "0"
-            ]
-
-        print(headerParameters)
-        let jsonObject: [String: AnyObject]  = ["GeoHashCode": [] as AnyObject]
-        
-        
-        // Construct the request object
-        let apiRequest = AWSAPIGatewayRequest(httpMethod: httpMethodName,
-                                              urlString: URLString,
-                                              queryParameters: queryStringParameters,
-                                              headerParameters: headerParameters,
-                                              httpBody: jsonObject)
-        
-        let invocationClient = AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient(forKey: AWSCloudLogicDefaultConfigurationKey)
-        
-        invocationClient.invoke(apiRequest).continueWith { (task: AWSTask<AWSAPIGatewayResponse>) -> Any? in
-            
-            if let error = task.error {
-                print("Error occurred: \(error)")
-                // Handle error here
-                return nil
-            }
-            
-            // Handle successful result here
-            let result = task.result!
-            let responseString = String(data: result.responseData!, encoding: .utf8)
-            print("----------")
-            print("----------")
-
-            print(responseString)
-            print("----------")
-            print("----------")
 
             return nil
         }

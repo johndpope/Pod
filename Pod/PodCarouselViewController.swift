@@ -96,8 +96,6 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
         //FacebookIdentityProfile._sharedInstance.getTaggableFriends()
         carousel.scrollSpeed = 0.5
-        let loc = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
-        APIClient.sharedInstance.getExplorePods(location: loc, length: "8")
     }
     
     override func viewWillAppear(_ animated: Bool) {
