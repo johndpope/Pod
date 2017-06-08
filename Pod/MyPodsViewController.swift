@@ -35,7 +35,7 @@ class MyPodsCarouselViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightBlue
-        carousel.type = .coverFlow
+        carousel.type = .linear
         carousel.delegate = self
         carousel.dataSource = self
         myslider.maximumValue = Float(items.count)

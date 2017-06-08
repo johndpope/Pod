@@ -90,7 +90,7 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         view.backgroundColor = .lightBlue
         presentSignInViewController()
         self.navigationController?.isNavigationBarHidden = true
-        carousel.type = .rotary
+        carousel.type = .linear
         setUpButtons()
         FacebookIdentityProfile._sharedInstance.load()
         FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
@@ -472,7 +472,7 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
     
     func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
         if (option == .spacing) {
-            return value * 1.2
+            return value * 1.1
         }
         return value
     }

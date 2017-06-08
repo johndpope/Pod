@@ -42,7 +42,7 @@ class PodPrivacyViewController: UIViewController {
     @IBAction func createPod(_ sender: Any) {
         print("Creating pod: \(podTitle). Private: \(isPrivate)")
         location?.latitude = 37.7850
-        location?.longitude = 122.4052
+        location?.longitude = -122.4052
         APIClient.sharedInstance.savePod(location: location!, name: podTitle, radius: 0.5, isPrivate: isPrivate)
         dismiss(animated: true, completion: nil)
     }
