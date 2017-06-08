@@ -26,6 +26,7 @@ class PodMapViewController: UIViewController {
     
     fileprivate var locationManager = CLLocationManager()
     fileprivate var loadedPods = [NSNumber]()
+    fileprivate var expanding = false
 
     // MARK: - PodMapViewController
     
@@ -81,43 +82,17 @@ class PodMapViewController: UIViewController {
 
 extension PodMapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        APIClient.sharedInstance.getNearbyMapPods(location: position.target, expanding: false) { (podList, boundaries) in
+        
+        let visibleRegion = mapView.projection.visibleRegion()
+        let nearLeft = visibleRegion.nearLeft
+        let farRight = visibleRegion.farRight
+        
+        APIClient.sharedInstance.getNearbyMapPods(location: position.target, expanding: expanding) { (podList, boundaries) in
             guard let podList = podList,
             let boundaries = boundaries else {
                 print("Error getting nearby map pods")
                 return
             }
-            
-//            self.populateMap(withPods: podList)
-//            
-//            let visibleRegion = mapView.projection.visibleRegion()
-//            var expand = false
-//            let nearLeft = visibleRegion.nearLeft
-//            let farRight = visibleRegion.farRight
-//            
-//            
-//            
-//            if boundaries.west! > nearLeft.longitude || boundaries.east! < farRight.longitude || boundaries.north! < farRight.latitude || boundaries.south! > nearLeft.latitude {
-//                expand = true
-//            }
-//            
-//            while(expand) {
-//                DispatchQueue.main.async {
-//                    APIClient.sharedInstance.getNearbyMapPods(location: position.target, expanding: true, completion: { (podList, boundaries) in
-//                        guard let podList = podList,
-//                            let boundaries = boundaries else {
-//                                print("Error getting nearby map pods")
-//                                return
-//                        }
-//                        
-//                        self.populateMap(withPods: podList)
-//                        
-//                        if !(boundaries.west! > nearLeft.longitude || boundaries.east! < farRight.longitude || boundaries.north! < farRight.latitude || boundaries.south! > nearLeft.latitude) {
-//                            expand = false
-//                        }
-//                    })
-//                }
-//            }
             
             for pod in podList {
                 if !self.loadedPods.contains(pod._podId!) {
@@ -131,6 +106,17 @@ extension PodMapViewController: GMSMapViewDelegate {
                         infoMarker.map = mapView
                     }
                 }
+            }
+            
+            
+
+            if boundaries.west! > nearLeft.longitude || boundaries.east! < farRight.longitude || boundaries.north! < farRight.latitude || boundaries.south! > nearLeft.latitude {
+                DispatchQueue.main.async {
+                    self.expanding = true
+                    self.mapView(mapView, idleAt: position)
+                }
+            } else {
+                self.expanding = false
             }
         }
     }
