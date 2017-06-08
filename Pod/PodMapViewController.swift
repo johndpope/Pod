@@ -33,6 +33,10 @@ class PodMapViewController: UIViewController {
         super.viewDidLoad()
 
         // Setup navigation
+        navigationController?.navigationBar.barTintColor = .lightBlue
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         title = "Nearby Pods"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(closePodMapView))
         
@@ -58,8 +62,17 @@ class PodMapViewController: UIViewController {
             ])
     }
     
+    // MARK: - Navigation
+    
     func closePodMapView() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? PodViewController,
+            let podData = sender as? PodList {
+            destinationVC.podData = podData
+        }
     }
 }
 
@@ -67,11 +80,43 @@ class PodMapViewController: UIViewController {
 
 extension PodMapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        APIClient.sharedInstance.getNearbyMapPods(location: position.target) { (podList) in
-            guard let podList = podList else {
+        APIClient.sharedInstance.getNearbyMapPods(location: position.target, expanding: false) { (podList, boundaries) in
+            guard let podList = podList,
+            let boundaries = boundaries else {
                 print("Error getting nearby map pods")
                 return
             }
+            
+//            self.populateMap(withPods: podList)
+//            
+//            let visibleRegion = mapView.projection.visibleRegion()
+//            var expand = false
+//            let nearLeft = visibleRegion.nearLeft
+//            let farRight = visibleRegion.farRight
+//            
+//            
+//            
+//            if boundaries.west! > nearLeft.longitude || boundaries.east! < farRight.longitude || boundaries.north! < farRight.latitude || boundaries.south! > nearLeft.latitude {
+//                expand = true
+//            }
+//            
+//            while(expand) {
+//                DispatchQueue.main.async {
+//                    APIClient.sharedInstance.getNearbyMapPods(location: position.target, expanding: true, completion: { (podList, boundaries) in
+//                        guard let podList = podList,
+//                            let boundaries = boundaries else {
+//                                print("Error getting nearby map pods")
+//                                return
+//                        }
+//                        
+//                        self.populateMap(withPods: podList)
+//                        
+//                        if !(boundaries.west! > nearLeft.longitude || boundaries.east! < farRight.longitude || boundaries.north! < farRight.latitude || boundaries.south! > nearLeft.latitude) {
+//                            expand = false
+//                        }
+//                    })
+//                }
+//            }
             
             for pod in podList {
                 if !self.loadedPods.contains(pod._podId!) {
@@ -81,11 +126,30 @@ extension PodMapViewController: GMSMapViewDelegate {
                         let infoMarker = GMSMarker(position: CLLocationCoordinate2D(latitude: CLLocationDegrees(pod._latitude!), longitude: CLLocationDegrees(pod._longitude!)))
                         infoMarker.title = pod._name!
                         infoMarker.opacity = 1.0
+                        infoMarker.userData = pod
                         infoMarker.map = mapView
                     }
                 }
             }
         }
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+//        guard let pod = marker.userData as? PodList else {
+//            print("Marker user data wasn't a PodList")
+//            return
+//        }
+//        
+//        APIClient.sharedInstance.getPod(withId: pod._podId as! Int, geoHash: pod._geoHashCode!) { (fullPod) in
+//            guard let fullPod = fullPod else {
+//                print("Unable to retrieve full info for pod with id \(pod._podId!)")
+//                return
+//            }
+//            
+//            self.performSegue(withIdentifier: "toMapPod", sender: fullPod)
+//        }
+        
+        performSegue(withIdentifier: "toMapPod", sender: marker.userData)
     }
 }
 
