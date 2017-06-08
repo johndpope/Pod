@@ -242,7 +242,9 @@ extension PodViewController: PostCreationDelegate {
         }
         self.podData?.postData?.insert(post, at: 0)
         //self.podData?.postData?.append(post)
-        if(!((podData?.postData?.isEmpty)!)){
+        if(podData?.postData == nil){
+            emptyPodView.removeFromSuperview()
+        } else if(!((podData?.postData?.isEmpty)!)){
             emptyPodView.removeFromSuperview()
         }
         //        let indexPath = NSIndexPath(row: 0, section: 0)

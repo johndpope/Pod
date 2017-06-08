@@ -174,7 +174,7 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(podData?.postData?.count == nil){
+        if(podData?.postData == nil){
             return 0
         } else {
             if(initialized == false){
@@ -184,6 +184,7 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         return (podData?.postData!.count)!
     }
     func firstTimeSetup(){
+        print(podData?.postData)
         self.lockedPod = (podData?._isPrivate)! as! Bool
         initialized = true
         self.setUpBlurEffect()
@@ -196,19 +197,8 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             if(podData?._userIdList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
                 //Don't lock!
                 //Do we need to do anything here?
-//                self.lockedPod = false
-//                blurEffectView.removeFromSuperview()
-//                self.setUpBlurEffect()
             } else {
                 self.setUpLockConstraints()
-//                if(podData?._userRequestList == nil){
-//                    return
-//                }
-//                if (podData?._userRequestList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
-//                    //Change text!
-//                    joinButton.setTitle("Request Sent!", for: UIControlState.normal)
-//                    joinButton.isEnabled = false
-//                }
             }
         }
         for (i,post) in (podData?.postData)!.enumerated(){

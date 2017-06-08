@@ -71,6 +71,7 @@ class PodMapViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? PodViewController,
             let podData = sender as? PodList {
+            print(podData.postData)
             destinationVC.podData = podData
         }
     }
@@ -135,22 +136,25 @@ extension PodMapViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-//        guard let pod = marker.userData as? PodList else {
-//            print("Marker user data wasn't a PodList")
-//            return
-//        }
-//        
-//        APIClient.sharedInstance.getPod(withId: pod._podId as! Int, geoHash: pod._geoHashCode!) { (fullPod) in
-//            guard let fullPod = fullPod else {
-//                print("Unable to retrieve full info for pod with id \(pod._podId!)")
-//                return
-//            }
-//            
-//            self.performSegue(withIdentifier: "toMapPod", sender: fullPod)
-//        }
+        guard let pod = marker.userData as? PodList else {
+            print("Marker user data wasn't a PodList")
+            return
+        }
         
-        performSegue(withIdentifier: "toMapPod", sender: marker.userData)
+        APIClient.sharedInstance.getPod(withId: pod._podId as! Int, geoHash: pod._geoHashCode!) { (fullPod) in
+            guard let fullPod = fullPod else {
+                print("Unable to retrieve full info for pod with id \(pod._podId!)")
+                return
+            }
+            
+            APIClient.sharedInstance.getPostForPod(withId: pod._podId as! Int, index: 0, completion: { (posts, j) in
+                pod.postData = posts as! [Posts]
+                self.performSegue(withIdentifier: "toMapPod", sender: fullPod)
+            })
+            
+        }
     }
+
 }
 
 // MARK: - CLLocationManagerDelegate

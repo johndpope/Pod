@@ -35,7 +35,7 @@ class MyPodsCarouselViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightBlue
-        carousel.type = .linear
+        carousel.type = .invertedCylinder
         carousel.delegate = self
         carousel.dataSource = self
         myslider.maximumValue = Float(items.count)
@@ -64,10 +64,12 @@ class MyPodsCarouselViewController: UIViewController {
                         return
                     }
                     APIClient.sharedInstance.getPod(withId: pod?._podId as! Int, geoHash: (pod?._geoHash)!, completion: { (podList) in
-                        let index = self.items.count
-                        self.items.append(podList!)
-                        self.myslider.maximumValue = Float(self.items.count)
-                        self.getPostsforPod(index: index)
+                        if podList != nil {
+                            let index = self.items.count
+                            self.items.append(podList!)
+                            self.myslider.maximumValue = Float(self.items.count)
+                            self.getPostsforPod(index: index)
+                        }
                     })
                 }
             }
@@ -78,7 +80,7 @@ class MyPodsCarouselViewController: UIViewController {
         let pod = self.items[index]
         APIClient().getPostForPod(withId: (pod._podId as! Int), index: index, completion: { (posts, j) in
             let rev = Array(posts.reversed())
-            self.items[j].postData = rev as! [Posts]
+            self.items[j].postData = rev as? [Posts]
             self.carousel.reloadData()
         })
     }
@@ -135,7 +137,6 @@ extension MyPodsCarouselViewController: iCarouselDataSource, iCarouselDelegate {
         podView.delegate = self
         podView.podData = items[index]
         self.podTitle.text = self.items[self.carousel.currentItemIndex]._name
-
         return podView
     }
     
