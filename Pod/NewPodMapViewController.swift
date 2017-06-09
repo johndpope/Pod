@@ -20,10 +20,11 @@ class NewPodMapViewController: UIViewController {
         let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         mapView.delegate = self
         mapView.isMyLocationEnabled = true
-        mapView.settings.myLocationButton = true
-        mapView.settings.scrollGestures = false
-        mapView.settings.rotateGestures = false
-        mapView.settings.tiltGestures = false
+//        mapView.settings.myLocationButton = true
+//        mapView.settings.scrollGestures = false
+        mapView.settings.setAllGesturesEnabled(false)
+//        mapView.settings.rotateGestures = false
+//        mapView.settings.tiltGestures = false
         mapView.setMinZoom(11.709, maxZoom: mapView.maxZoom)
         return mapView
     }()
@@ -37,7 +38,21 @@ class NewPodMapViewController: UIViewController {
         return podRadiusView
     }()
     
+    fileprivate lazy var podRadiusSlider: UISlider = {
+        let podRadiusSlider = UISlider()
+        podRadiusSlider.backgroundColor = .lightBlue
+        podRadiusSlider.minimumValue = 0
+        podRadiusSlider.maximumValue = 100.0
+        podRadiusSlider.minimumTrackTintColor = .darkBlue
+        podRadiusSlider.maximumTrackTintColor = .white
+        podRadiusSlider.isContinuous = true
+        podRadiusSlider.value = 50.0
+        podRadiusSlider.addTarget(self, action: #selector(updateMapZoom(_:)), for: .valueChanged)
+        return podRadiusSlider
+    }()
+    
     fileprivate var locationManager = CLLocationManager()
+    fileprivate var sliderIncrement: Float!
     
     // MARK: - NewPodMapViewController
 
@@ -53,10 +68,15 @@ class NewPodMapViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(closePodMapView))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continue", style: .plain, target: self, action: #selector(toNamePodView))
 
-        // Setup mapView
+        // Setup view
         view.addSubview(mapView.usingAutolayout())
         view.addSubview(podRadiusView.usingAutolayout())
+        view.addSubview(podRadiusSlider.usingAutolayout())
         setupConstraints()
+        
+        // Setup slider
+        sliderIncrement = (mapView.maxZoom - mapView.minZoom) / 100.0
+        podRadiusSlider.value = (mapView.camera.zoom - mapView.minZoom) / sliderIncrement
         
         // Go to current location
         locationManager.delegate = self
@@ -77,16 +97,24 @@ class NewPodMapViewController: UIViewController {
             mapView.topAnchor.constraint(equalTo: view.topAnchor),
             mapView.leftAnchor.constraint(equalTo: view.leftAnchor),
             mapView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            mapView.bottomAnchor.constraint(equalTo: podRadiusSlider.topAnchor)
             ])
         
         // Pod Radius View
         NSLayoutConstraint.activate([
             podRadiusView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            podRadiusView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            podRadiusView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -32.0),
             podRadiusView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 36.0),
             podRadiusView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -36.0),
             podRadiusView.heightAnchor.constraint(equalTo: podRadiusView.widthAnchor)
+            ])
+        
+        // Pod Radius Slider
+        NSLayoutConstraint.activate([
+            podRadiusSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            podRadiusSlider.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            podRadiusSlider.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            podRadiusSlider.heightAnchor.constraint(equalToConstant: 64.0)
             ])
     }
     
@@ -104,6 +132,11 @@ class NewPodMapViewController: UIViewController {
         let d = earthRadius * c
         
         return d * 0.621371 // Convert to miles
+    }
+    
+    func updateMapZoom(_ sender: UISlider) {
+        let zoom = sender.value * sliderIncrement + mapView.minZoom
+        mapView.animate(toZoom: zoom)
     }
     
     // MARK: - Navigation
@@ -136,7 +169,9 @@ class NewPodMapViewController: UIViewController {
 // MARK: - GMSMapViewDelegate
 
 extension NewPodMapViewController: GMSMapViewDelegate {
-    
+//    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+//        podRadiusSlider.value = (position.zoom - mapView.minZoom) / sliderIncrement
+//    }
 }
 
 // MARK: - CLLocationManagerDelegate
