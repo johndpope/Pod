@@ -24,6 +24,7 @@ class NewPodMapViewController: UIViewController {
         mapView.settings.scrollGestures = false
         mapView.settings.rotateGestures = false
         mapView.settings.tiltGestures = false
+        mapView.setMinZoom(11.193, maxZoom: mapView.maxZoom)
         return mapView
     }()
     
@@ -48,7 +49,7 @@ class NewPodMapViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
-        title = "Set Radius"
+        title = "Set Pod Radius"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(closePodMapView))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continue", style: .plain, target: self, action: #selector(toNamePodView))
 
@@ -89,7 +90,7 @@ class NewPodMapViewController: UIViewController {
             ])
     }
     
-    private func calculateDistance(fromLocation startLocation: CLLocationCoordinate2D, toLocation endLocation: CLLocationCoordinate2D) -> Double {
+    fileprivate func calculateDistance(fromLocation startLocation: CLLocationCoordinate2D, toLocation endLocation: CLLocationCoordinate2D) -> Double {
         
         let earthRadius = 6378.137 // Earth radius in km
         
@@ -118,12 +119,15 @@ class NewPodMapViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if(segue.identifier == "toNamePod"){
             if let nextVC = segue.destination as? PodTitleViewController {
-                let visibleRegion = mapView.projection.visibleRegion()
+                let podRadiusPoint = CGPoint(x: podRadiusView.frame.minX, y: podRadiusView.frame.maxY - podRadiusView.frame.size.height / 2.0)
+                let podRadiusCoordinate = mapView.projection.coordinate(for: podRadiusPoint)
                 let currentLocation = locationManager.location?.coordinate
-                let radius = calculateDistance(fromLocation: currentLocation!, toLocation: CLLocationCoordinate2D(latitude: currentLocation!.latitude, longitude: visibleRegion.nearLeft.longitude))
+                let radius = calculateDistance(fromLocation: currentLocation!, toLocation: podRadiusCoordinate)
                 
                 nextVC.location = currentLocation
                 nextVC.radius = min(radius, 5.0)
+
+                print("Pod Radius: \(radius)")
             }
         }
     }
@@ -132,7 +136,7 @@ class NewPodMapViewController: UIViewController {
 // MARK: - GMSMapViewDelegate
 
 extension NewPodMapViewController: GMSMapViewDelegate {
-    
+
 }
 
 // MARK: - CLLocationManagerDelegate
