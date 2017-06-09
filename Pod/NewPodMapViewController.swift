@@ -24,6 +24,7 @@ class NewPodMapViewController: UIViewController {
         mapView.settings.scrollGestures = false
         mapView.settings.rotateGestures = false
         mapView.settings.tiltGestures = false
+        mapView.setMinZoom(11.193, maxZoom: mapView.maxZoom)
         return mapView
     }()
     
@@ -89,7 +90,7 @@ class NewPodMapViewController: UIViewController {
             ])
     }
     
-    private func calculateDistance(fromLocation startLocation: CLLocationCoordinate2D, toLocation endLocation: CLLocationCoordinate2D) -> Double {
+    fileprivate func calculateDistance(fromLocation startLocation: CLLocationCoordinate2D, toLocation endLocation: CLLocationCoordinate2D) -> Double {
         
         let earthRadius = 6378.137 // Earth radius in km
         
@@ -135,9 +136,7 @@ class NewPodMapViewController: UIViewController {
 // MARK: - GMSMapViewDelegate
 
 extension NewPodMapViewController: GMSMapViewDelegate {
-    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        print("Coordinate tapped: \(coordinate)")
-    }
+
 }
 
 // MARK: - CLLocationManagerDelegate
