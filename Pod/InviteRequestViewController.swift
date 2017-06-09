@@ -61,25 +61,26 @@ class InviteRequestViewController: UIViewController, InviteTableViewAcceptDelega
     func didPressAccept(_ tag: Int) {
         //Wait half a second to show UI changes
         let req = self.requests[tag]
-        if Int(req._requestType!) == RequestType.invite.hashValue{
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1) , execute: {
-                APIClient.sharedInstance.acceptPodInvitation(request: self.requests[tag])
-                self.requests.remove(at: tag)
-                self.tableView.reloadData()
-            })
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1) , execute: {
-                APIClient.sharedInstance.acceptJoinRequest(request: self.requests[tag])
-                self.requests.remove(at: tag)
-                self.tableView.reloadData()
-            })
+        var type = RequestType.invite
+        if Int(req._requestType!) == RequestType.join.hashValue {
+            type = RequestType.join
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1) , execute: {
+            APIClient.sharedInstance.respondToRequest(requestId: req._requestId!, requestType: type, accept: true, podId: req._podId!)
+            self.requests.remove(at: tag)
+            self.tableView.reloadData()
+        })
 
     }
     
     func didPressCancel(_ tag: Int) {
+        let req = self.requests[tag]
+        var type = RequestType.invite
+        if Int(req._requestType!) == RequestType.join.hashValue {
+            type = RequestType.join
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1) , execute: {
-            APIClient.sharedInstance.declinePodInvitation(request: self.requests[tag])
+            APIClient.sharedInstance.respondToRequest(requestId: req._requestId!, requestType: type, accept: false, podId: req._podId!)
             self.requests.remove(at: tag)
             self.tableView.reloadData()
         })

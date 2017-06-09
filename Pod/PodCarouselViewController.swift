@@ -271,13 +271,13 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     }
     
     func getNotifications(){
-        APIClient.sharedInstance.getPodRequestsForCurrentUser { (requests) in
-            if(requests.count > 0){
-                self.showNotificationBubble(true, withNumber: requests.count)
-            } else {
-                self.showNotificationBubble(false)
-            }
-        }
+//        APIClient.sharedInstance.getPodRequestsForCurrentUser { (requests) in
+//            if(requests.count > 0){
+//                self.showNotificationBubble(true, withNumber: requests.count)
+//            } else {
+//                self.showNotificationBubble(false)
+//            }
+//        }
     }
     
     func onSignIn (_ success: Bool) {
@@ -326,7 +326,7 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
             (result : UIAlertAction) -> Void in
             podView.joinButton.setTitle("Request Sent!", for: UIControlState.normal)
             podView.joinButton.isEnabled = false
-            APIClient.sharedInstance.sendJoinRequest(pod: podView.podData!)
+            APIClient.sharedInstance.sendRequest(toUser: (podView.podData?._createdByUserId)!, forPod: (podView.podData?._podId)!, geoHash: (podView.podData?._geoHashCode)!, type: RequestType.join)
         }
         
         alertController.addAction(DestructiveAction)

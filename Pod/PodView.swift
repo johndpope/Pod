@@ -198,6 +198,21 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 //Don't lock!
                 //Do we need to do anything here?
             } else {
+                
+                APIClient.sharedInstance.getSentRequests(completion: { (requests) in
+                    var requestSent = false
+                    for request in requests {
+                        if Int((request?._requestType)!) == RequestType.join.hashValue {
+                            if request?._podId == self.podData?._podId{
+                                requestSent = true
+                                break
+                            }
+                        }
+                    }
+                    if requestSent {
+                        self.joinButton.setTitle("Request Sent!", for: UIControlState.normal)
+                    }
+                })
                 self.setUpLockConstraints()
             }
         }

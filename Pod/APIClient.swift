@@ -32,6 +32,11 @@ class APIClient {
         var west: CLLocationDegrees?
     }
     
+    //================================
+    //======== Lambda Calls ==========
+    //================================
+
+    
     func getNearbyMapPods(location: CLLocationCoordinate2D, expanding: Bool, completion: @escaping ([PodList]?, Boundaries?) -> ()) {
         
         // Clear geohash codes if no expanding pod search
@@ -238,7 +243,7 @@ class APIClient {
             "userId": "\(FacebookIdentityProfile._sharedInstance.userId!)",
             "userName": "\(FacebookIdentityProfile._sharedInstance.userName!)"
         ]
-        print(headerParameters)
+
         let jsonObject: [String: AnyObject]  = ["Latitude": 37.4204870 as AnyObject, "Longitude": -122.1714210 as AnyObject]
         
         
@@ -271,6 +276,108 @@ class APIClient {
         
     }
     
+    func sendRequest(toUser: String, forPod: NSNumber, geoHash: String, type: RequestType){
+        let httpMethodName = "POST"
+        let URLString = "/CreateRequests"
+        let queryStringParameters = ["lang": "en"]
+
+        let headerParameters = [
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "sentBy":  "\(FacebookIdentityProfile._sharedInstance.userId!)",
+            "senderName":  "\(FacebookIdentityProfile._sharedInstance.userName!)",
+            "podId": "\(forPod)",
+            "GeoHashCode": geoHash,
+            "requestType": "\(type.hashValue)",
+            "sendToId": toUser
+        ]
+
+        let jsonObject: [String: AnyObject]  = ["Latitude": 37.4204870 as AnyObject, "Longitude": -122.1714210 as AnyObject]
+        
+        
+        // Construct the request object
+        let apiRequest = AWSAPIGatewayRequest(httpMethod: httpMethodName,
+                                              urlString: URLString,
+                                              queryParameters: queryStringParameters,
+                                              headerParameters: headerParameters,
+                                              httpBody: jsonObject)
+        
+        let invocationClient = AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient(forKey: AWSCloudLogicDefaultConfigurationKey)
+        
+        invocationClient.invoke(apiRequest).continueWith { (task: AWSTask<AWSAPIGatewayResponse>) -> Any? in
+            
+            if let error = task.error {
+                print("Error occurred: \(error)")
+                // Handle error here
+                return nil
+            }
+            
+            // Handle successful result here
+            let result = task.result!
+            let responseString = String(data: result.responseData!, encoding: .utf8)
+            
+            print(responseString)
+            
+            
+            return nil
+        }
+        
+    }
+    
+    func respondToRequest(requestId: String, requestType: RequestType, accept: Bool, podId: NSNumber){
+        let httpMethodName = "POST"
+        let URLString = "/RespondToRequest"
+        let queryStringParameters = ["lang": "en"]
+        var acceptStr = "F"
+        if accept {
+            acceptStr = "T"
+        }
+        let headerParameters = [
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "userid": FacebookIdentityProfile._sharedInstance.userId!,
+            "username": FacebookIdentityProfile._sharedInstance.userName!,
+            "podid": "\(podId)",
+            "requestype": "\(requestType.hashValue)",
+            "requestid": requestId,
+            "acceptrequest": acceptStr
+        ]
+        
+        let jsonObject: [String: AnyObject]  = ["Latitude": 37.4204870 as AnyObject, "Longitude": -122.1714210 as AnyObject]
+        
+        
+        // Construct the request object
+        let apiRequest = AWSAPIGatewayRequest(httpMethod: httpMethodName,
+                                              urlString: URLString,
+                                              queryParameters: queryStringParameters,
+                                              headerParameters: headerParameters,
+                                              httpBody: jsonObject)
+        
+        let invocationClient = AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient(forKey: AWSCloudLogicDefaultConfigurationKey)
+        
+        invocationClient.invoke(apiRequest).continueWith { (task: AWSTask<AWSAPIGatewayResponse>) -> Any? in
+            
+            if let error = task.error {
+                print("Error occurred: \(error)")
+                // Handle error here
+                return nil
+            }
+            
+            // Handle successful result here
+            let result = task.result!
+            let responseString = String(data: result.responseData!, encoding: .utf8)
+            
+            print(responseString)
+            
+            
+            return nil
+        }
+    }
+    
+    //================================
+    //======= Dynamo DB Calls ========
+    //================================
+
     func convertToDictionary(text: String) -> [String: Any]? {
         if let data = text.data(using: .utf8) {
             do {
@@ -552,6 +659,7 @@ class APIClient {
         }
     }
     
+    
     func getPodRequestsForCurrentUser(completion: @escaping (_ requests: [PodRequests?])->()){
         let queryExpression = AWSDynamoDBQueryExpression()
         queryExpression.keyConditionExpression = "userId= :userId"
@@ -572,35 +680,22 @@ class APIClient {
         })
     }
     
-
-    
-    func sendJoinRequest(pod: PodList){
-        let request = PodRequests()
-        request?._podId = pod._podId!
-        request?._userId = pod._createdByUserId
-        request?._sentBy = FacebookIdentityProfile._sharedInstance.userId!
-        request?._requestId = UUID().uuidString
-        request?._sendTime = NSDate().timeIntervalSince1970 as NSNumber
-        request?._senderName = FacebookIdentityProfile._sharedInstance.userName!
-        request?._geoHashCode = pod._geoHashCode
-        request?._requestType = RequestType.join.hashValue as NSNumber
-        dynamoDBObjectMapper.save(request!)
-        print("join sent")
-    }
-    
-    func removePossibleRequests(podId: Int){
+    func getSentRequests(completion: @escaping (_ requests: [PodRequests?])->()){
         let queryExpression = AWSDynamoDBQueryExpression()
-        queryExpression.keyConditionExpression = "userId= :userId AND podId= :podId"
-        queryExpression.expressionAttributeValues = [":userId" : FacebookIdentityProfile._sharedInstance.userId!, ":podID":podId]
+        queryExpression.indexName = "SentByIndex"
+        
+        queryExpression.keyConditionExpression = "SentBy = :SentBy"
+        print("----begin query-----")
+        queryExpression.expressionAttributeValues = [":SentBy" : FacebookIdentityProfile._sharedInstance.userId!]
         dynamoDBObjectMapper .query(PodRequests.self, expression: queryExpression) .continueWith(executor: AWSExecutor.mainThread(), block: { (task:AWSTask!) -> AnyObject! in
             if let error = task.error as NSError? {
                 print("Error: \(error)")
             } else {
                 if let result = task.result {//(task.result != nil) {
-                    if result.items.count != 0 {
-                        for pod in result.items as! [PodRequests]{
-                            self.dynamoDBObjectMapper.remove(pod)
-                        }
+                    if result.items.count == 0 {
+                        completion([])
+                    } else {
+                        completion(result.items as! [PodRequests])
                     }
                 }
             }
@@ -608,64 +703,7 @@ class APIClient {
         })
     }
     
-    func sendInviteRequest(to: [UserInformation], podId: Int, podName: String, geoHash: String){
-        for user in to {
-            let request = PodRequests()
-            request?._podId = podId as NSNumber
-            request?._userId = user._facebookId
-            request?._sentBy = FacebookIdentityProfile._sharedInstance.userId!
-            request?._requestId = UUID().uuidString
-            request?._sendTime = NSDate().timeIntervalSince1970 as NSNumber
-            request?._senderName = FacebookIdentityProfile._sharedInstance.userName!
-            request?._geoHashCode = geoHash
-            request?._requestType = RequestType.invite.hashValue as NSNumber
-            dynamoDBObjectMapper.save(request!)
-            dynamoDBObjectMapper.save(request!, completionHandler: { (err) in
-                if let error = err {
-                    print("Amazin DynamoDB Save Error: \(error)")
-                    return
-                }
-                print("request saved")
-            })
-        }
-    }
-    
-    func acceptPodInvitation(request: PodRequests){
-         print("Accept")
-//        dynamoDBObjectMapper.remove(request)
-//        let userPod = UserPods()
-//        userPod?._userId = FacebookIdentityProfile._sharedInstance.userId!
-//        userPod?._podId = request._podId
-//        userPod?._geoHash = request._podGeoHash
-//        dynamoDBObjectMapper.save(userPod!)
-//        getPod(withId: request._podId as! Int, geoHash: request._podGeoHash!) { (pod) in
-//            pod?._userIdList?.append(FacebookIdentityProfile._sharedInstance.userId!)
-//            pod?._usernameList?.append(FacebookIdentityProfile._sharedInstance.userName!)
-//            self.dynamoDBObjectMapper.save(pod!)
-//        }
-    }
-    
-    func declinePodInvitation(request: PodRequests){
-        dynamoDBObjectMapper.remove(request)
-    }
-    
-    func acceptJoinRequest(request: PodRequests){
-//        dynamoDBObjectMapper.remove(request)
-//        let userPod = UserPods()
-//        userPod?._userId = FacebookIdentityProfile._sharedInstance.userId!
-//        userPod?._podId = request._podId
-//        userPod?._geoHash = request._podGeoHash
-//        dynamoDBObjectMapper.save(userPod!)
-//        getPod(withId: request._podId as! Int, geoHash: request._podGeoHash!) { (pod) in
-//            pod?._userIdList?.append(FacebookIdentityProfile._sharedInstance.userId!)
-//            pod?._usernameList?.append(FacebookIdentityProfile._sharedInstance.userName!)
-//           
-//
-//            self.dynamoDBObjectMapper.save(pod!)
-//        }
-        print("accept join request. this isnt actually doing anything")
-    }
-    
+
 
 
 }
