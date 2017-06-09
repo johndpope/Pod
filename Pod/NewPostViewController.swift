@@ -217,7 +217,7 @@ class NewPostViewController: UIViewController {
                     pod_db?._usernameList?.append(userName!)
                     APIClient.sharedInstance.addPodToUsersList(podId: Int((self.pod?._podId)!), geoHash: (self.pod?._geoHashCode!)!)
                     APIClient.sharedInstance.updatePod(pod: pod_db!)
-                    APIClient.sharedInstance.removePossibleRequests(podId: self.pod?._podId as! Int)
+                    //APIClient.sharedInstance.removePossibleRequests(podId: self.pod?._podId as! Int)
                     self.createPost()
                     
                 })
