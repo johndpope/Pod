@@ -69,6 +69,7 @@ class NewPodMapViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continue", style: .plain, target: self, action: #selector(toNamePodView))
 
         // Setup view
+        view.backgroundColor = .lightBlue
         view.addSubview(mapView.usingAutolayout())
         view.addSubview(podRadiusView.usingAutolayout())
         view.addSubview(podRadiusSlider.usingAutolayout())
@@ -111,8 +112,8 @@ class NewPodMapViewController: UIViewController {
         
         // Pod Radius Slider
         NSLayoutConstraint.activate([
-            podRadiusSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            podRadiusSlider.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            podRadiusSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8.0),
+            podRadiusSlider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8.0),
             podRadiusSlider.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             podRadiusSlider.heightAnchor.constraint(equalToConstant: 64.0)
             ])
