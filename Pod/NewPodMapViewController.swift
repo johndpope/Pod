@@ -24,7 +24,7 @@ class NewPodMapViewController: UIViewController {
         mapView.settings.scrollGestures = false
         mapView.settings.rotateGestures = false
         mapView.settings.tiltGestures = false
-        mapView.setMinZoom(11.193, maxZoom: mapView.maxZoom)
+        mapView.setMinZoom(11.709, maxZoom: mapView.maxZoom)
         return mapView
     }()
     
@@ -125,7 +125,7 @@ class NewPodMapViewController: UIViewController {
                 let radius = calculateDistance(fromLocation: currentLocation!, toLocation: podRadiusCoordinate)
                 
                 nextVC.location = currentLocation
-                nextVC.radius = min(radius, 5.0)
+                nextVC.radius = min(radius, 3.5)
 
                 print("Pod Radius: \(radius)")
             }
@@ -136,7 +136,7 @@ class NewPodMapViewController: UIViewController {
 // MARK: - GMSMapViewDelegate
 
 extension NewPodMapViewController: GMSMapViewDelegate {
-
+    
 }
 
 // MARK: - CLLocationManagerDelegate
