@@ -19,6 +19,8 @@
 		9534F4DF1EDB50050094A007 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9534F4DC1EDB50050094A007 /* SignInViewController.swift */; };
 		9534F4E41EDB79C70094A007 /* PhotoPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */; };
 		9534F4E51EDB79C70094A007 /* PhotoPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9534F4E31EDB79C70094A007 /* PhotoPostTableViewCell.xib */; };
+		953E0E321EEA89EB004F0356 /* FBSDKCoreKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 953E0E301EEA89EB004F0356 /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		953E0E331EEA89EB004F0356 /* FBSDKLoginKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 953E0E311EEA89EB004F0356 /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */; };
 		9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */; };
 		957741B71ED7911F00FB8739 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957741B61ED7911F00FB8739 /* APIClient.swift */; };
@@ -102,6 +104,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				953E0E321EEA89EB004F0356 /* FBSDKCoreKit.framework in Embed Frameworks */,
+				953E0E331EEA89EB004F0356 /* FBSDKLoginKit.framework in Embed Frameworks */,
 				95D728381EDE485200987AA3 /* AWSS3.framework in Embed Frameworks */,
 				95D728321EDE485200987AA3 /* AWSAPIGateway.framework in Embed Frameworks */,
 				95D728361EDE485200987AA3 /* AWSDynamoDB.framework in Embed Frameworks */,
@@ -130,6 +134,8 @@
 		9534F4DC1EDB50050094A007 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPostTableViewCell.swift; sourceTree = "<group>"; };
 		9534F4E31EDB79C70094A007 /* PhotoPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoPostTableViewCell.xib; sourceTree = "<group>"; };
+		953E0E301EEA89EB004F0356 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = Pod/Sdk3/Facebook/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		953E0E311EEA89EB004F0356 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = Pod/Sdk3/Facebook/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCarouselViewController.swift; sourceTree = "<group>"; };
 		9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		9559D0731EC8F1E800BAC3F5 /* iCarousel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
@@ -234,6 +240,8 @@
 		75B3EF7C8AD1162361520E4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				953E0E301EEA89EB004F0356 /* FBSDKCoreKit.framework */,
+				953E0E311EEA89EB004F0356 /* FBSDKLoginKit.framework */,
 				95D728401EDE4C6C00987AA3 /* AWSCognito.framework */,
 				95D7283A1EDE485B00987AA3 /* AWSCognitoIdentityProvider.framework */,
 				95D7283B1EDE485B00987AA3 /* AWSLambda.framework */,
@@ -684,6 +692,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -734,7 +743,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -761,6 +771,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Pod/Pod.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = D4JV2P86HG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -860,8 +871,9 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194b.PodApp;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.PodApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -873,6 +885,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Pod/Pod.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = D4JV2P86HG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -972,8 +985,9 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194b.PodApp;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.PodApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
