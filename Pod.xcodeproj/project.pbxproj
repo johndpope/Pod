@@ -35,6 +35,7 @@
 		95B9C3A01EDE467700954D4C /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3921EDE467700954D4C /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m */; };
 		95B9C3A11EDE467700954D4C /* AWSConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3931EDE467700954D4C /* AWSConfiguration.swift */; };
 		95B9C3A21EDE467700954D4C /* AWSFacebookSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95B9C3941EDE467700954D4C /* AWSFacebookSignIn.framework */; };
+		95B9C3A31EDE467700954D4C /* AWSFacebookSignInResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 95B9C3951EDE467700954D4C /* AWSFacebookSignInResources.bundle */; };
 		95B9C3A41EDE467700954D4C /* AWSMobileClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3961EDE467700954D4C /* AWSMobileClient.swift */; };
 		95B9C3A51EDE467700954D4C /* AWSMobileHubHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95B9C3971EDE467700954D4C /* AWSMobileHubHelper.framework */; };
 		95B9C3A61EDE467700954D4C /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C39B1EDE467700954D4C /* Comments.swift */; };
@@ -42,6 +43,7 @@
 		95B9C3A81EDE467700954D4C /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C39D1EDE467700954D4C /* Posts.swift */; };
 		95B9C3A91EDE467700954D4C /* UserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C39E1EDE467700954D4C /* UserInformation.swift */; };
 		95B9C3AA1EDE467700954D4C /* UserPods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C39F1EDE467700954D4C /* UserPods.swift */; };
+		95B9C3C41EDE47FD00954D4C /* Sdk3 in Resources */ = {isa = PBXBuildFile; fileRef = 95B9C3C31EDE47FD00954D4C /* Sdk3 */; };
 		95C8C3A31ED39ABC004A2A29 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */; };
 		95C8C3A81ED3A00F004A2A29 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */; };
 		95C8C3A91ED3A00F004A2A29 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C8C3A71ED3A00F004A2A29 /* CommentTableViewCell.xib */; };
@@ -75,8 +77,6 @@
 		95E1E4D11EDFEFCF009A7546 /* ThumbnailPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1E4CF1EDFEFCF009A7546 /* ThumbnailPostTableViewCell.swift */; };
 		95E1E4D21EDFEFCF009A7546 /* ThumbnailPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95E1E4D01EDFEFCF009A7546 /* ThumbnailPostTableViewCell.xib */; };
 		C807AC9F9F51908EF23D61C2 /* Pods_Pod.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */; };
-		F42F103A1EED3BC200A32DDD /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 953E0E301EEA89EB004F0356 /* FBSDKCoreKit.framework */; };
-		F42F103B1EED3BC200A32DDD /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 953E0E311EEA89EB004F0356 /* FBSDKLoginKit.framework */; };
 		F44AB6341ED3DEB0001B5E69 /* PodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44AB6331ED3DEB0001B5E69 /* PodViewController.swift */; };
 		F4A3BE381ECBAC180032B3E3 /* PodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A3BE371ECBAC180032B3E3 /* PodView.swift */; };
 		F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */; };
@@ -130,8 +130,6 @@
 		9534F4DC1EDB50050094A007 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPostTableViewCell.swift; sourceTree = "<group>"; };
 		9534F4E31EDB79C70094A007 /* PhotoPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoPostTableViewCell.xib; sourceTree = "<group>"; };
-		953E0E301EEA89EB004F0356 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = Pod/Sdk3/Facebook/FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		953E0E311EEA89EB004F0356 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = Pod/Sdk3/Facebook/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCarouselViewController.swift; sourceTree = "<group>"; };
 		9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		9559D0731EC8F1E800BAC3F5 /* iCarousel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
@@ -214,8 +212,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F42F103A1EED3BC200A32DDD /* FBSDKCoreKit.framework in Frameworks */,
-				F42F103B1EED3BC200A32DDD /* FBSDKLoginKit.framework in Frameworks */,
 				95309FFC1ED67BBE008A7A7F /* libsqlite3.tbd in Frameworks */,
 				95D728331EDE485200987AA3 /* AWSCore.framework in Frameworks */,
 				9534F4D11EDB4C7C0094A007 /* FBSDKShareKit.framework in Frameworks */,
@@ -238,8 +234,6 @@
 		75B3EF7C8AD1162361520E4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				953E0E301EEA89EB004F0356 /* FBSDKCoreKit.framework */,
-				953E0E311EEA89EB004F0356 /* FBSDKLoginKit.framework */,
 				95D728401EDE4C6C00987AA3 /* AWSCognito.framework */,
 				95D7283A1EDE485B00987AA3 /* AWSCognitoIdentityProvider.framework */,
 				95D7283B1EDE485B00987AA3 /* AWSLambda.framework */,
@@ -520,10 +514,12 @@
 				F4E9DE4C1EE150710089BA13 /* PollCell.xib in Resources */,
 				95CF56071ECBC9BD00B1751E /* Main.storyboard in Resources */,
 				95902ACD1ED8EA810008792A /* PodPostTableViewCell.xib in Resources */,
+				95B9C3A31EDE467700954D4C /* AWSFacebookSignInResources.bundle in Resources */,
 				9534F4E51EDB79C70094A007 /* PhotoPostTableViewCell.xib in Resources */,
 				953451401EE6056800A72E01 /* PollPostTableViewCell.xib in Resources */,
 				9534F4DE1EDB50050094A007 /* SignIn.storyboard in Resources */,
 				F4BECB441EBD738800B98BA8 /* GoogleService-Info.plist in Resources */,
+				95B9C3C41EDE47FD00954D4C /* Sdk3 in Resources */,
 				F4BECB371EBD682D00B98BA8 /* Assets.xcassets in Resources */,
 				95D14F231EBD7F6B0049C58A /* PodTableViewSectionHeader.xib in Resources */,
 			);
@@ -688,7 +684,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -739,8 +734,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -767,7 +761,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Pod/Pod.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = D4JV2P86HG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -781,7 +774,6 @@
 					"$(PROJECT_DIR)/Pod/Sdk2/Aws/extras",
 					"$(PROJECT_DIR)/Pod/Sdk2/Facebook",
 					"$(PROJECT_DIR)/Pod/Sdk3/Aws",
-					"$(PROJECT_DIR)/Pod/Sdk3/Facebook",
 				);
 				INFOPLIST_FILE = Pod/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -868,9 +860,8 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.PodApp;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194b.PodApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -882,7 +873,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Pod/Pod.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = D4JV2P86HG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -896,7 +886,6 @@
 					"$(PROJECT_DIR)/Pod/Sdk2/Aws/extras",
 					"$(PROJECT_DIR)/Pod/Sdk2/Facebook",
 					"$(PROJECT_DIR)/Pod/Sdk3/Aws",
-					"$(PROJECT_DIR)/Pod/Sdk3/Facebook",
 				);
 				INFOPLIST_FILE = Pod/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -983,9 +972,8 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.PodApp;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194b.PodApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
