@@ -230,6 +230,7 @@ class NewPostViewController: UIViewController {
     }
     
     func createPost(){
+        //First determine if there is an image
         var hasImage = false
         let range = NSRange(location: 0, length: textView.attributedText.length)
         if (textView.textStorage.containsAttachments(in: range)) {
@@ -251,31 +252,34 @@ class NewPostViewController: UIViewController {
                 }
             }
         }
-        let identityManager = AWSIdentityManager.default()
-        var userName: String?
-        if let identityUserName = identityManager.identityProfile?.userName {
-            userName = identityUserName
-        } else {
-            userName = NSLocalizedString("Guest User", comment: "Placeholder text for the guest user.")
-        }
+
         let post = Posts()
-        post?._posterName = userName
+        post?._posterName = FacebookIdentityProfile._sharedInstance.userName!
         post?._posterImageURL = FacebookIdentityProfile._sharedInstance.imageURL?.absoluteString
         post?._podId = self.pod?._podId as NSNumber?
         post?._numComments = 0
         post?._postType = PostType.text.hashValue as NSNumber
         post?._postContent = textView.text
         post?._postedDate = NSDate().timeIntervalSince1970 as NSNumber
-        post?._postPoll = ["none":1]
         post?._postId = UUID().uuidString
+        //If it is a poll
         if postPollButton.isSelected {
             post?._postType = PostType.poll.hashValue as NSNumber
             post?._postImage = "No Image"
+            post?._postPoll = [:]
+            for cell in self.pollTableView.visibleCells.enumerated(){
+                let c = cell.element as? PollCell
+                if c?.inputField.text! != "" {
+                    post?._postPoll?[(c?.inputField.text!)!] = 1
+                }
+            }
             APIClient().createNewPostForPod(withId: Int((self.pod?._podId)!), post: post!)
             
             self.delegate?.postCreated(post: post!)
             self.dismiss(animated: true, completion: nil)
+        // If it is an image
         } else if(hasImage){
+            post?._postPoll = ["none":1]
             post?._postType = PostType.photo.hashValue as NSNumber
             //post?._postImage = postedImage
             let uuid = UUID().uuidString
@@ -291,7 +295,9 @@ class NewPostViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
                 return nil
             }
+        //Else it is a text post
         } else {
+            post?._postPoll = ["none":1]
             post?._postType = PostType.text.hashValue as NSNumber
             post?._postImage = "No Image"
             APIClient().createNewPostForPod(withId: Int((self.pod?._podId)!), post: post!)
