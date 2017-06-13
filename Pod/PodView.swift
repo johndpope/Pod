@@ -193,6 +193,7 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         } else {
             emptyPodView.isHidden = false
         }
+
         if(self.lockedPod){
             if(podData?._userIdList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
                 //Don't lock!
@@ -337,6 +338,13 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
 
             return cell
         } else if(postData?._postType as! Int == PostType.poll.hashValue){
+            if postData?.totalVotes == nil {
+                // init vote count
+                postData?.totalVotes = 0
+                for (key, val) in (postData?._postPoll)! {
+                    postData?.totalVotes! += val.count
+                }
+            }
             //handle polls
             let cell = tableView.dequeueReusableCell(withIdentifier: "PollPostTableViewCell") as! PollPostTableViewCell
             
@@ -344,6 +352,7 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             cell.postContent.text = postData?._postContent
             cell.numLikes.text = String(describing:  (postData?._postLikes?.count)!)
             cell.numComments.text = String(describing: (postData?._numComments!)!)
+            cell.totalVotes = postData?.totalVotes
             if(postData?._postLikes != nil){
                 if (postData?._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
                     cell.heartIcon.imageView?.image = UIImage(named: "heart_red")
@@ -376,8 +385,9 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 cell.profilePic.image = postData?.userImage
             }
             if postData?._postPoll != nil {
-                for (key,_) in (postData?._postPoll)! {
+                for (key,val) in (postData?._postPoll)! {
                     cell.pollOptions.append(key)
+                    cell.pollVotes.append(val)
                 }
                 cell.tableView.reloadData()
             }

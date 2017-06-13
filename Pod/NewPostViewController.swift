@@ -270,7 +270,7 @@ class NewPostViewController: UIViewController {
             for cell in self.pollTableView.visibleCells.enumerated(){
                 let c = cell.element as? PollCell
                 if c?.inputField.text! != "" {
-                    post?._postPoll?[(c?.inputField.text!)!] = 1
+                    post?._postPoll?[(c?.inputField.text!)!] = ["init"]
                 }
             }
             APIClient().createNewPostForPod(withId: Int((self.pod?._podId)!), post: post!)
@@ -279,7 +279,7 @@ class NewPostViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         // If it is an image
         } else if(hasImage){
-            post?._postPoll = ["none":1]
+            post?._postPoll = nil
             post?._postType = PostType.photo.hashValue as NSNumber
             //post?._postImage = postedImage
             let uuid = UUID().uuidString
@@ -297,7 +297,7 @@ class NewPostViewController: UIViewController {
             }
         //Else it is a text post
         } else {
-            post?._postPoll = ["none":1]
+            post?._postPoll = nil
             post?._postType = PostType.text.hashValue as NSNumber
             post?._postImage = "No Image"
             APIClient().createNewPostForPod(withId: Int((self.pod?._podId)!), post: post!)
@@ -485,7 +485,7 @@ extension NewPostViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - PollCell Methods
 
 extension NewPostViewController: PollCellDelegate {
-    func addNewOption() {
+    func addNewOption(index: Int) {
         pollOptions.append("")
         pollTableView.reloadData()
     }

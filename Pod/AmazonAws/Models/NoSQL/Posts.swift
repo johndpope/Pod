@@ -24,12 +24,13 @@ class Posts: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _postContent: String?
     var _postId: String?
     var _postImage: String?
-    var _postPoll: [String: NSNumber]?
+    var _postPoll: [String: Set<String>]?
     var _postType: NSNumber?
     var _posterImageURL: String?
     var _posterName: String?
     var image: UIImage?
     var userImage: UIImage?
+    var totalVotes: Int?
     
     class func dynamoDBTableName() -> String {
 

@@ -19,7 +19,6 @@ class PollCell: UITableViewCell {
     
     let cornerRadius: CGFloat = 5.0
     weak var delegate: PollCellDelegate?
-    
     // MARK: - PollCell
 
     override func awakeFromNib() {
@@ -39,7 +38,7 @@ class PollCell: UITableViewCell {
     
     func addNewOption() {
         if let delegate = self.delegate {
-            delegate.addNewOption()
+            delegate.addNewOption(index: self.tag)
         } else {
             print("Poll cell delegate is not set")
         }
@@ -47,5 +46,5 @@ class PollCell: UITableViewCell {
 }
 
 protocol PollCellDelegate: class {
-    func addNewOption()
+    func addNewOption(index: Int)
 }

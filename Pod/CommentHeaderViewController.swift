@@ -128,6 +128,15 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate, Li
             pollCell.post = postData
             pollCell.numComments.text = String(describing: (postData?._numComments!)!)
             pollCell.backgroundColor = .white
+            
+            if postData?.totalVotes == nil {
+                // init vote count
+                postData?.totalVotes = 0
+                for (key, val) in (postData?._postPoll)! {
+                    postData?.totalVotes! += val.count
+                }
+            }
+            pollCell.totalVotes = postData?.totalVotes
             if(postData?._postLikes != nil){
                 if (postData?._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
                     pollCell.heartIcon.imageView?.image = UIImage(named: "heart_red")
@@ -140,6 +149,7 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate, Li
             if postData?._postPoll != nil {
                 for (key,val) in (postData?._postPoll)! {
                     pollCell.pollOptions.append(key)
+                    pollCell.pollVotes.append(val)
                 }
                 pollCell.tableView.reloadData()
             }

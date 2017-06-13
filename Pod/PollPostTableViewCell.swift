@@ -19,9 +19,11 @@ class PollPostTableViewCell: UITableViewCell {
     
     @IBOutlet weak var heartIcon: UIButton!
     var pollOptions = [String?]()
+    var pollVotes = [Set<String>]()
     let queue = SerialOperationQueue()
     var likeDelegate: LikedCellDelegate?
     var post: Posts?
+    var totalVotes: Int?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -65,7 +67,65 @@ extension PollPostTableViewCell: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PollCell") as! PollCell
         cell.inputField.isEnabled = false
         cell.inputField.text = pollOptions[indexPath.row]
+        cell.addButton.isHidden = false
+        cell.addButton.isEnabled = true
+        cell.delegate = self
+        cell.tag = indexPath.row
+        if (totalVotes != nil){
+            cell.backgroundColor = .clear
+            cell.inputField.backgroundColor = .clear
+            var frameRect = cell.frame;
+            //minus one because of database issue where we cant store nil. so there is an off by one due to 
+            // me having to store an init value
+            if pollVotes[indexPath.row].count - 1 == 0 {
+                cell.inputField.textColor = .black
+            } else {
+                frameRect.size.width =  cell.frame.width * CGFloat(pollVotes[indexPath.row].count - 1)/CGFloat(totalVotes! - pollVotes.count);
+                let backgroundView = UIView(frame: frameRect)
+                backgroundView.backgroundColor = .lightBlue
+                cell.inputField.addSubview(backgroundView)
+            }
+            //cell.inputField.frame = frameRect;
+        }
+       // cell.inputField.frame = CGRect(x: cell.inputField.frame.minX, y: cell.inputField.frame.minY, width: cell.frame.width * CGFloat(pollVotes[indexPath.row]!)/CGFloat(totalVotes!), height: cell.frame.height)
       //  cell.inputField.text = pollData[indexPath.row]
         return cell
+    }
+}
+
+extension PollPostTableViewCell: PollCellDelegate {
+    func addNewOption(index: Int) {
+        print(index)
+        if(pollVotes[index].contains(FacebookIdentityProfile._sharedInstance.userId!)){
+            pollVotes[index].remove(at: (pollVotes[index].index(of: FacebookIdentityProfile._sharedInstance.userId!))!)
+            totalVotes! -= 1
+        } else {
+//            for (i, arr) in pollVotes.enumerated() {
+//                if (arr.contains(FacebookIdentityProfile._sharedInstance.userId!)){
+//                    pollVotes[i].remove(at: (arr.index(of: FacebookIdentityProfile._sharedInstance.userId!))!)
+//                    pollVotes[index].insert(FacebookIdentityProfile._sharedInstance.userId!)
+//                    //make aws call
+//                    updateInDatabase()
+//                    tableView.reloadData()
+//                    return
+//                }
+//            }
+//        }
+
+            pollVotes[index].insert(FacebookIdentityProfile._sharedInstance.userId!)
+            totalVotes! += 1
+            //aws call
+        }
+        updateInDatabase()
+        tableView.reloadData()
+        let indexPath = IndexPath(row: index, section: 0)
+    }
+    
+    func updateInDatabase(){
+        for (i, val) in (pollOptions.enumerated()) {
+            post?._postPoll?[val!] = self.pollVotes[i]
+        }
+        APIClient.sharedInstance.updatePostInfo(post: post!);
+
     }
 }

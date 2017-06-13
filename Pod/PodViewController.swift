@@ -456,6 +456,14 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
                     if(postData?._postLikes != nil){
                         numLikes = (postData?._postLikes?.count)!
                     }
+                    
+                    if postData?.totalVotes == nil {
+                        // init vote count
+                        postData?.totalVotes = 0
+                        for (key, val) in (postData?._postPoll)! {
+                            postData?.totalVotes! += val.count
+                        }
+                    }
                     cell.numLikes.text = String(describing:  numLikes)
 
                     cell.username.text = postData?._posterName
@@ -463,6 +471,8 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.numComments.text = String(describing: (postData?._numComments!)!)
                     cell.post = postData
                     cell.likeDelegate = self
+                    cell.totalVotes = postData?.totalVotes
+
                     cell.tag = indexPath.row
                     if(postData?._postLikes != nil){
                         if (postData?._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
@@ -498,6 +508,7 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
                     if postData?._postPoll != nil {
                         for (key,val) in (postData?._postPoll)! {
                             cell.pollOptions.append(key)
+                            cell.pollVotes.append(val)
                         }
                         cell.tableView.reloadData()
                     }
