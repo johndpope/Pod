@@ -11,13 +11,14 @@ import AWSCore
 import AWSMobileHubHelper
 import CoreLocation
 import Haneke
-import BSForegroundNotification
+import Foundation
 
-class PodCarouselViewController: UIViewController, JoinPodDelegate, ForegroundNotificationDelegate {
+class PodCarouselViewController: UIViewController, JoinPodDelegate {
     
     // MARK: - Properties
     
     var items: [PodList] = []
+    var timer: DispatchSourceTimer?
     @IBOutlet var carousel: iCarousel!
     @IBOutlet var addButton: UIButton!
     @IBOutlet weak var podTitle: UILabel!
@@ -246,6 +247,7 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate, ForegroundNo
                     
                 }
             }
+            self.startTimer()
             self.getLimitedPostsForPods()
         }
         
@@ -458,30 +460,45 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate, ForegroundNo
 
     }
     
-    func sendTestNoti(){
-        print("got notification")
-        let notification = ForegroundNotification(userInfo: userInfoForCategory(""))
-        
-        ForegroundNotification.systemSoundID = 1004
-        notification.delegate = self
-        notification.presentNotification()
+
+    func startTimer() {
+        let queue = DispatchQueue(label: "com.domain.app.timer")  // you can also use `DispatchQueue.main`, if you want
+        timer = DispatchSource.makeTimerSource(queue: queue)
+        timer!.scheduleRepeating(deadline: .now(), interval: .seconds(10))
+        timer!.setEventHandler { [weak self] in
+            // do whatever you want here
+            let location = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
+            APIClient.sharedInstance.getNearbyPods(location: location) { (pods) in
+                DispatchQueue.main.async {
+                    self?.podsNearbyLabel.text = "\((pods?.count)!) Pods near you"
+                }
+                for pod in pods! {
+                    //APIClient().uploadTestPostsToPod(withId: pod.podID)
+                    if !(self?.items.contains(where: { $0._podId == pod._podId }))! {
+                        self?.items.append(pod)
+                    } else {
+                        for (i,p) in (self?.items.enumerated())! {
+                            if p._podId == pod._podId{
+                                self?.items[i] = pod
+                                continue
+                            }
+                        }
+                        
+                    }
+                }
+                self?.getLimitedPostsForPods()
+            }
+        }
+        timer!.resume()
     }
     
-    private func userInfoForCategory(_ category: String) -> [AnyHashable: Any] {
-        
-        return ["aps": [
-            "category": category,
-            "alert": [
-                "body": "Hello this is a bigbody, you can do this if you want.",
-                "title": "Super notification title"
-            ],
-            "sound": "sound.wav"
-            ]
-        ]
+    func stopTimer() {
+        timer?.cancel()
+        timer = nil
     }
     
-    func foregroundRemoteNotificationWasTouched(with userInfo: [AnyHashable: Any]) {
-        print("touched")
+    deinit {
+        self.stopTimer()
     }
     
     

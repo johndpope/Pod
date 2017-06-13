@@ -14,7 +14,8 @@ class PodViewController: UIViewController, LikedCellDelegate {
 
     
     // MARK: - Properties
-    
+    private let refreshControl = UIRefreshControl()
+
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.text = "Sample"
@@ -105,6 +106,16 @@ class PodViewController: UIViewController, LikedCellDelegate {
         tableView.layoutIfNeeded()
         tableView.separatorStyle = .none
         setupConstraints()
+        
+        refreshControl.addTarget(self, action: #selector(self.updateTableView), for: .valueChanged)
+        
+        // Add to Table View
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,6 +125,8 @@ class PodViewController: UIViewController, LikedCellDelegate {
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -203,6 +216,16 @@ class PodViewController: UIViewController, LikedCellDelegate {
         let pollNib = UINib(nibName: "PollPostTableViewCell", bundle: nil)
         tableView.register(pollNib, forCellReuseIdentifier: "PollPostTableViewCell")
     }
+    
+    func updateTableView() {
+        APIClient.sharedInstance.getPostForPod(withId: podData?._podId as! Int, index: 0, completion: { (posts, j) in
+            let rev = Array(posts.reversed())
+            self.podData?.postData = rev as! [Posts]
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+        })
+    }
+    
     
     // MARK: - Button Actions
     
