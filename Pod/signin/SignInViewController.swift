@@ -28,6 +28,7 @@ class SignInViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .lightBlue
         // set up the navigation controller
         self.setUpNavigationController()
         // set up the logo in image view
