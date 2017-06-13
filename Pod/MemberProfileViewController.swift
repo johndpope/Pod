@@ -16,6 +16,7 @@ class MemberProfileViewController: UIViewController {
     var member: UserInformation?
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .lightBlue
         let cache = Shared.dataCache
         cache.fetch(key:  (member?._photoURL)!).onSuccess({ (data) in
             self.profileImage.image = UIImage(data: data)

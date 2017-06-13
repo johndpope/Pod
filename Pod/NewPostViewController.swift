@@ -281,7 +281,6 @@ class NewPostViewController: UIViewController {
         } else if(hasImage){
             post?._postPoll = nil
             post?._postType = PostType.photo.hashValue as NSNumber
-            //post?._postImage = postedImage
             let uuid = UUID().uuidString
             post?._postImage = "\(uuid).jpg"
            // postedImage = resize(image: postedImage!)
