@@ -228,6 +228,7 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                     }
                     if requestSent {
                         self.joinButton.setTitle("Request Sent!", for: UIControlState.normal)
+                        self.joinButton.isEnabled = false
                     }
                 })
                 self.setUpLockConstraints()

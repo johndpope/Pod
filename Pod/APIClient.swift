@@ -269,8 +269,6 @@ class APIClient {
             let responseString = String(data: result.responseData!, encoding: .utf8)
 
             print(responseString)
-
-
             return nil
         }
         
@@ -290,7 +288,8 @@ class APIClient {
             "GeoHashCode": geoHash,
             "requestType": "\(type.hashValue)",
             "sendToId": toUser,
-            "podName": podName
+            "podName": podName,
+            "senderPhotoURL": FacebookIdentityProfile._sharedInstance.imageURL!.absoluteString
         ]
 
         let jsonObject: [String: AnyObject]  = ["Latitude": 37.4204870 as AnyObject, "Longitude": -122.1714210 as AnyObject]
