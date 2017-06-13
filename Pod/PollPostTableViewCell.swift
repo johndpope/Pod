@@ -23,7 +23,6 @@ class PollPostTableViewCell: UITableViewCell {
     let queue = SerialOperationQueue()
     var likeDelegate: LikedCellDelegate?
     var post: Posts?
-    var totalVotes: Int?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -77,12 +76,12 @@ extension PollPostTableViewCell: UITableViewDelegate, UITableViewDataSource {
         }
         cell.backgroundColor = .clear
         cell.inputField.backgroundColor = .clear
-        var frameRect = cell.frame;
-        //minus one because of database issue where we cant store nil. so there is an off by one due to 
+        //minus one because of database issue where we cant store nil. so there is an off by one due to
         // me having to store an init value
         if pollVotes[indexPath.row].count - 1 == 0 {
             cell.inputField.textColor = .black
         } else {
+            var frameRect = cell.frame;
             frameRect.size.width =  cell.frame.width * CGFloat(pollVotes[indexPath.row].count - 1)/CGFloat(voteNum);
             let backgroundView = UIView(frame: frameRect)
             backgroundView.backgroundColor = .lightBlue

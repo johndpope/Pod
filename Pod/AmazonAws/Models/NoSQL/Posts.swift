@@ -30,7 +30,6 @@ class Posts: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var _posterName: String?
     var image: UIImage?
     var userImage: UIImage?
-    var totalVotes: Int?
     
     class func dynamoDBTableName() -> String {
 

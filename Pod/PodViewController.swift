@@ -96,6 +96,7 @@ class PodViewController: UIViewController, LikedCellDelegate {
         tableView.estimatedRowHeight = estimatedRowHeight
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
+        tableView.separatorStyle = .none
         setupConstraints()
     }
     
@@ -457,13 +458,6 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
                         numLikes = (postData?._postLikes?.count)!
                     }
                     
-                    if postData?.totalVotes == nil {
-                        // init vote count
-                        postData?.totalVotes = 0
-                        for (key, val) in (postData?._postPoll)! {
-                            postData?.totalVotes! += val.count
-                        }
-                    }
                     cell.numLikes.text = String(describing:  numLikes)
 
                     cell.username.text = postData?._posterName
@@ -471,7 +465,6 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.numComments.text = String(describing: (postData?._numComments!)!)
                     cell.post = postData
                     cell.likeDelegate = self
-                    cell.totalVotes = postData?.totalVotes
 
                     cell.tag = indexPath.row
                     if(postData?._postLikes != nil){
@@ -506,10 +499,13 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.profilePic.image = postData?.userImage
                     }
                     if postData?._postPoll != nil {
+                        var frame = cell.frame
                         for (key,val) in (postData?._postPoll)! {
                             cell.pollOptions.append(key)
                             cell.pollVotes.append(val)
+                            frame.size.height += 48
                         }
+                        cell.frame = frame
                         cell.tableView.reloadData()
                     }
                 }

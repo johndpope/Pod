@@ -53,7 +53,8 @@ class PodView: UIView {
         dolphinImage.image = UIImage(named: "dolphins_blue_no_posts")
         return dolphinImage
     }()
-    
+    private let estimatedRowHeight: CGFloat = 60.0
+
     var initialized = false
     var lockedPod = false
     var podData: PodList?
@@ -83,14 +84,14 @@ class PodView: UIView {
         tableView.register(photoNib, forCellReuseIdentifier: "PhotoPostTableViewCell")
         let pollNib = UINib(nibName: "PollPostTableViewCell", bundle: nil)
         tableView.register(pollNib, forCellReuseIdentifier: "PollPostTableViewCell")
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        tableView.estimatedRowHeight = 60.0 // Replace with your actual estimation
         // Automatic dimensions to tell the table view to use dynamic height
-        tableView.rowHeight = UITableViewAutomaticDimension
         // self.textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         tableView.allowsSelection = false
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = estimatedRowHeight
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
+        tableView.separatorStyle = .none
         setUpConstraints()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(triggerDelegate))
@@ -338,13 +339,7 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
 
             return cell
         } else if(postData?._postType as! Int == PostType.poll.hashValue){
-            if postData?.totalVotes == nil {
-                // init vote count
-                postData?.totalVotes = 0
-                for (key, val) in (postData?._postPoll)! {
-                    postData?.totalVotes! += val.count
-                }
-            }
+
             //handle polls
             let cell = tableView.dequeueReusableCell(withIdentifier: "PollPostTableViewCell") as! PollPostTableViewCell
             
@@ -352,7 +347,6 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             cell.postContent.text = postData?._postContent
             cell.numLikes.text = String(describing:  (postData?._postLikes?.count)!)
             cell.numComments.text = String(describing: (postData?._numComments!)!)
-            cell.totalVotes = postData?.totalVotes
             if(postData?._postLikes != nil){
                 if (postData?._postLikes?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
                     cell.heartIcon.imageView?.image = UIImage(named: "heart_red")
@@ -385,10 +379,13 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 cell.profilePic.image = postData?.userImage
             }
             if postData?._postPoll != nil {
+                var frame = cell.frame
                 for (key,val) in (postData?._postPoll)! {
                     cell.pollOptions.append(key)
                     cell.pollVotes.append(val)
+                    frame.size.height += 48
                 }
+                cell.frame = frame
                 cell.tableView.reloadData()
             }
             
