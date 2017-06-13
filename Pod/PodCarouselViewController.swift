@@ -327,7 +327,7 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate, ForegroundNo
             (result : UIAlertAction) -> Void in
             podView.joinButton.setTitle("Request Sent!", for: UIControlState.normal)
             podView.joinButton.isEnabled = false
-            APIClient.sharedInstance.sendRequest(toUser: (podView.podData?._createdByUserId)!, forPod: (podView.podData?._podId)!, geoHash: (podView.podData?._geoHashCode)!, type: RequestType.join)
+            APIClient.sharedInstance.sendRequest(toUser: (podView.podData?._createdByUserId)!, forPod: (podView.podData?._podId)!, geoHash: (podView.podData?._geoHashCode)!, type: RequestType.join, podName: (podView.podData?._name)!)
         }
         
         alertController.addAction(DestructiveAction)

@@ -276,7 +276,7 @@ class APIClient {
         
     }
     
-    func sendRequest(toUser: String, forPod: NSNumber, geoHash: String, type: RequestType){
+    func sendRequest(toUser: String, forPod: NSNumber, geoHash: String, type: RequestType, podName: String){
         let httpMethodName = "POST"
         let URLString = "/CreateRequests"
         let queryStringParameters = ["lang": "en"]
@@ -289,7 +289,8 @@ class APIClient {
             "podId": "\(forPod)",
             "GeoHashCode": geoHash,
             "requestType": "\(type.hashValue)",
-            "sendToId": toUser
+            "sendToId": toUser,
+            "podName": podName
         ]
 
         let jsonObject: [String: AnyObject]  = ["Latitude": 37.4204870 as AnyObject, "Longitude": -122.1714210 as AnyObject]

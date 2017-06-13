@@ -64,7 +64,7 @@ class AddMembersViewController: UIViewController {
             invites.append(friends[i])
         }
         for invite in invites {
-            APIClient.sharedInstance.sendRequest(toUser: invite._facebookId!, forPod: (pod?._podId)!, geoHash: (pod?._geoHashCode)!, type: RequestType.invite)
+            APIClient.sharedInstance.sendRequest(toUser: invite._facebookId!, forPod: (pod?._podId)!, geoHash: (pod?._geoHashCode)!, type: RequestType.invite, podName: (pod?._name)!)
         }
         if let nav = self.navigationController {
             nav.popViewController(animated: true)
