@@ -27,6 +27,7 @@ class PodMapViewController: UIViewController {
     fileprivate var locationManager = CLLocationManager()
     fileprivate var loadedPods = [NSNumber]()
     fileprivate var expanding = false
+    fileprivate var podMapPreview: PodMapPreview?
 
     // MARK: - PodMapViewController
     
@@ -121,26 +122,48 @@ extension PodMapViewController: GMSMapViewDelegate {
         }
     }
     
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        guard let pod = marker.userData as? PodList else {
-            print("Marker user data wasn't a PodList")
-            return
-        }
-        
-        APIClient.sharedInstance.getPod(withId: pod._podId as! Int, geoHash: pod._geoHashCode!) { (fullPod) in
-            guard let fullPod = fullPod else {
-                print("Unable to retrieve full info for pod with id \(pod._podId!)")
-                return
-            }
-            
-            APIClient.sharedInstance.getPostForPod(withId: pod._podId as! Int, index: 0, completion: { (posts, j) in
-                pod.postData = posts as! [Posts]
-                self.performSegue(withIdentifier: "toMapPod", sender: fullPod)
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        if let podMapPreview = self.podMapPreview {
+            let frame = view.frame
+            let width = frame.width
+            UIView.animate(withDuration: 0.3, animations: { 
+                podMapPreview.frame = CGRect(x: 0, y: podMapPreview.frame.maxY + 88.5, width: width, height: 66.0)
+            }, completion: { (_) in
+                podMapPreview.removeFromSuperview()
+                self.podMapPreview = nil
             })
-            
         }
     }
-
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        if let podData = marker.userData as? PodList {
+            let frame = view.frame
+            let width = frame.width
+            let newPodMapPreview = PodMapPreview(frame: CGRect(x: 0, y: frame.height + 22.5, width: width, height: 66.0), podData: podData)
+            newPodMapPreview.delegate = self
+            view.addSubview(newPodMapPreview)
+            
+            if let oldPodMapPreview = self.podMapPreview {
+                UIView.animate(withDuration: 0.3, animations: {
+                    oldPodMapPreview.frame = CGRect(x: 0, y: oldPodMapPreview.frame.maxY + 88.5, width: width, height: 66.0)
+                }, completion: { (_) in
+                    oldPodMapPreview.removeFromSuperview()
+                    UIView.animate(withDuration: 0.3) {
+                        newPodMapPreview.frame = CGRect(x: 0, y: newPodMapPreview.frame.minY - 88.5, width: width, height: 66.0)
+                    }
+                })
+            } else {
+                UIView.animate(withDuration: 0.3) {
+                    newPodMapPreview.frame = CGRect(x: 0, y: newPodMapPreview.frame.minY - 88.5, width: width, height: 66.0)
+                }
+            }
+            
+            self.podMapPreview = newPodMapPreview
+            return true
+        } else {
+            return false
+        }
+    }
 }
 
 // MARK: - CLLocationManagerDelegate
@@ -152,5 +175,24 @@ extension PodMapViewController: CLLocationManagerDelegate {
         mapView.animate(with: cameraUpdate)
         
         self.locationManager.stopUpdatingLocation()
+    }
+}
+
+// MARK: - PodMapPreviewDelegate
+
+extension PodMapViewController: PodMapPreviewDelegate {
+    func openButtonPressed(_ pod: PodList) {
+        APIClient.sharedInstance.getPod(withId: pod._podId as! Int, geoHash: pod._geoHashCode!) { (fullPod) in
+            guard let fullPod = fullPod else {
+                print("Unable to retrieve full info for pod with id \(pod._podId!)")
+                return
+            }
+            
+            APIClient.sharedInstance.getPostForPod(withId: pod._podId as! Int, index: 0, completion: { (posts, j) in
+                pod.postData = posts as? [Posts]
+                self.performSegue(withIdentifier: "toMapPod", sender: fullPod)
+            })
+            
+        }
     }
 }

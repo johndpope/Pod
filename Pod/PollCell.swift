@@ -17,6 +17,12 @@ class PollCell: UITableViewCell {
     
     // MARK: - Properties
     
+    lazy var percentageView: UIView = {
+        let percentageView = UIView()
+        percentageView.backgroundColor = .lightBlue
+        return percentageView
+    }()
+    
     let cornerRadius: CGFloat = 5.0
     weak var delegate: PollCellDelegate?
     // MARK: - PollCell
@@ -26,6 +32,8 @@ class PollCell: UITableViewCell {
         inputField.layer.cornerRadius = cornerRadius
         addButton.isHidden = true
         addButton.addTarget(self, action: #selector(addNewOption), for: .touchUpInside)
+        percentageView.frame = CGRect.zero
+        inputField.addSubview(percentageView)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -41,6 +49,12 @@ class PollCell: UITableViewCell {
             delegate.addNewOption(index: self.tag)
         } else {
             print("Poll cell delegate is not set")
+        }
+    }
+    
+    func updatePercentage(withFrame frame: CGRect) {
+        for view in inputField.subviews {
+            view.frame = frame
         }
     }
 }
