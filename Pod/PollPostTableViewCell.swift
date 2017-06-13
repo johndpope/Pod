@@ -63,7 +63,8 @@ extension PollPostTableViewCell: UITableViewDelegate, UITableViewDataSource {
         return (pollOptions.count)
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PollCell") as! PollCell
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "PollCell") as! PollCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PollCell", for: indexPath) as! PollCell
         cell.inputField.isEnabled = false
         cell.inputField.text = pollOptions[indexPath.row]
         cell.addButton.isHidden = false
@@ -74,17 +75,19 @@ extension PollPostTableViewCell: UITableViewDelegate, UITableViewDataSource {
         for s in pollVotes {
             voteNum += s.count - 1
         }
-        cell.backgroundColor = .clear
-        cell.inputField.backgroundColor = .clear
         //minus one because of database issue where we cant store nil. so there is an off by one due to
         // me having to store an init value
         if pollVotes[indexPath.row].count - 1 == 0 {
             cell.inputField.textColor = .black
         } else {
-            var frameRect = cell.frame;
-            frameRect.size.width =  cell.frame.width * CGFloat(pollVotes[indexPath.row].count - 1)/CGFloat(voteNum);
-            let backgroundView = UIView(frame: frameRect)
+            let height = cell.inputField.frame.height
+            let width = cell.inputField.frame.width * CGFloat(pollVotes[indexPath.row].count - 1)/CGFloat(voteNum)
+            let frame = CGRect(x: 0, y: 0, width: width, height: height)
+            let backgroundView = UIView(frame: frame)
             backgroundView.backgroundColor = .lightBlue
+            for view in cell.inputField.subviews {
+                view.removeFromSuperview()
+            }
             cell.inputField.addSubview(backgroundView)
         }
             //cell.inputField.frame = frameRect;
