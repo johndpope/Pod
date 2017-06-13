@@ -5,6 +5,7 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
+  - BSForegroundNotification (2.0.1)
   - FBSDKCoreKit (4.22.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.22.0):
@@ -57,6 +58,7 @@ PODS:
   - TextFieldEffects (1.3.2)
 
 DEPENDENCIES:
+  - BSForegroundNotification
   - FBSDKLoginKit
   - Google/SignIn
   - GoogleMaps
@@ -78,6 +80,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  BSForegroundNotification: d53c69c223ef792eb42c5ab55d5f2242cae732d0
   FBSDKCoreKit: c693bad19feb225469eeff14452ba364522ee48b
   FBSDKLoginKit: 1fa529fc622d7b32ebeaffbecd377180833c6d30
   FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
@@ -95,6 +98,6 @@ SPEC CHECKSUMS:
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   TextFieldEffects: 9e5cce561ea39c75b86e9d3637601727a67e8b23
 
-PODFILE CHECKSUM: f6708115f351e4b97815d3078a1d92021885de05
+PODFILE CHECKSUM: 54571b91212a3b7f586eab2bf908954a95fa471b
 
 COCOAPODS: 1.2.1

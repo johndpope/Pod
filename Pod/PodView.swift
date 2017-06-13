@@ -53,6 +53,11 @@ class PodView: UIView {
         dolphinImage.image = UIImage(named: "dolphins_blue_no_posts")
         return dolphinImage
     }()
+    lazy var emptyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Be the first to post!"
+        return label
+    }()
     private let estimatedRowHeight: CGFloat = 60.0
 
     var initialized = false
@@ -77,7 +82,9 @@ class PodView: UIView {
         
         addSubview(tableView.usingAutolayout())
         addSubview(emptyPodView.usingAutolayout())
+        addSubview(emptyLabel.usingAutolayout())
         emptyPodView.isHidden = true
+        emptyLabel.isHidden = true
         let nib = UINib(nibName: "PodPostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "PodPostTableViewCell")
         let photoNib = UINib(nibName: "PhotoPostTableViewCell", bundle: nil)
@@ -96,6 +103,7 @@ class PodView: UIView {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(triggerDelegate))
         self.joinButton.addGestureRecognizer(tapGesture)
+        
         
     }
     
@@ -122,6 +130,11 @@ class PodView: UIView {
             emptyPodView.leftAnchor.constraint(equalTo: leftAnchor, constant: 50),
             emptyPodView.rightAnchor.constraint(equalTo: rightAnchor, constant: -50),
             emptyPodView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100)
+            ])
+        
+        NSLayoutConstraint.activate([
+            emptyLabel.centerXAnchor.constraint(equalTo: emptyPodView.centerXAnchor),
+            emptyLabel.centerYAnchor.constraint(equalTo: emptyPodView.centerYAnchor)
             ])
     }
     
@@ -191,8 +204,10 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         self.setUpBlurEffect()
         if(!(podData?.postData?.isEmpty)!){
             emptyPodView.removeFromSuperview()
+            emptyLabel.removeFromSuperview()
         } else {
             emptyPodView.isHidden = false
+            emptyLabel.isHidden = false
         }
 
         if(self.lockedPod){

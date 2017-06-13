@@ -11,8 +11,9 @@ import AWSCore
 import AWSMobileHubHelper
 import CoreLocation
 import Haneke
+import BSForegroundNotification
 
-class PodCarouselViewController: UIViewController, JoinPodDelegate {
+class PodCarouselViewController: UIViewController, JoinPodDelegate, ForegroundNotificationDelegate {
     
     // MARK: - Properties
     
@@ -96,6 +97,7 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
         //FacebookIdentityProfile._sharedInstance.getTaggableFriends()
         carousel.scrollSpeed = 0.5
+        sendTestNoti()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -455,6 +457,32 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
             }
         }
 
+    }
+    
+    func sendTestNoti(){
+        print("got notification")
+        let notification = ForegroundNotification(userInfo: userInfoForCategory(""))
+        
+        ForegroundNotification.systemSoundID = 1004
+        notification.delegate = self
+        notification.presentNotification()
+    }
+    
+    private func userInfoForCategory(_ category: String) -> [AnyHashable: Any] {
+        
+        return ["aps": [
+            "category": category,
+            "alert": [
+                "body": "Hello this is a bigbody, you can do this if you want.",
+                "title": "Super notification title"
+            ],
+            "sound": "sound.wav"
+            ]
+        ]
+    }
+    
+    func foregroundRemoteNotificationWasTouched(with userInfo: [AnyHashable: Any]) {
+        print("touched")
     }
     
     

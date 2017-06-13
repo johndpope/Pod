@@ -65,6 +65,12 @@ class PodViewController: UIViewController, LikedCellDelegate {
         return dolphinImage
     }()
     
+    lazy var emptyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Be the first to post!"
+        return label
+    }()
+    
     private var postButtonBottomConstraint: NSLayoutConstraint!
     private let postButtonHeight: CGFloat = 50.0
     let titleTopMargin: CGFloat = 11.0 + UIApplication.shared.statusBarFrame.height
@@ -89,6 +95,7 @@ class PodViewController: UIViewController, LikedCellDelegate {
             let postData = podData.postData,
             postData.isEmpty {
             view.addSubview(emptyPodView.usingAutolayout())
+            view.addSubview(emptyLabel.usingAutolayout())
         }
         registerReusableCells()
 
@@ -174,6 +181,11 @@ class PodViewController: UIViewController, LikedCellDelegate {
                 emptyPodView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -50),
                 emptyPodView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
                 ])
+            
+            NSLayoutConstraint.activate([
+                emptyLabel.centerXAnchor.constraint(equalTo: emptyPodView.centerXAnchor),
+                emptyLabel.centerYAnchor.constraint(equalTo: emptyPodView.centerYAnchor)
+                ])
         }
     }
     
@@ -245,8 +257,10 @@ extension PodViewController: PostCreationDelegate {
         //self.podData?.postData?.append(post)
         if(podData?.postData == nil){
             emptyPodView.removeFromSuperview()
+            emptyLabel.removeFromSuperview()
         } else if(!((podData?.postData?.isEmpty)!)){
             emptyPodView.removeFromSuperview()
+            emptyLabel.removeFromSuperview()
         }
         //        let indexPath = NSIndexPath(row: 0, section: 0)
         //        self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
@@ -285,6 +299,7 @@ extension PodViewController: UITableViewDelegate, UITableViewDataSource {
             initialized = true
             if(numRows != 0) {
                 emptyPodView.removeFromSuperview()
+                emptyLabel.removeFromSuperview()
             }
         }
         return numRows

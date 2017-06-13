@@ -17,9 +17,11 @@ import AWSS3
 import AWSCognitoIdentityProvider
 import UserNotifications
 import AWSCognito
+import BSForegroundNotification
+
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, ForegroundNotificationDelegate {
 
     var window: UIWindow?
 
@@ -104,6 +106,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                     fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
 //        NSNotificationCenter.defaultCenter().postNotificationName("CognitoPushNotification", object: userInfo)
 //    })
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("got notification")
+        let notification = ForegroundNotification(userInfo: userInfo)
+        
+        ForegroundNotification.systemSoundID = 1004
+        notification.delegate = self
+        notification.presentNotification()
+    }
     
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -154,6 +164,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             // Fallback on earlier versions
         }
+    }
+    
+    func foregroundRemoteNotificationWasTouched(with userInfo: [AnyHashable: Any]) {
+        print("touched")
     }
 
 }

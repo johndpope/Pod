@@ -206,6 +206,7 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate, Li
         // Dispose of any resources that can be recreated.
     }
     
+    
     func likedCell(post: Posts, type: Int, tag: Int) {
         if(post._postLikes == nil){
             post._postLikes = [FacebookIdentityProfile._sharedInstance.userId!]

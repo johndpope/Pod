@@ -78,11 +78,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>3</string>
 	<key>FacebookAppID</key>
 	<string>1907061016230360</string>
 	<key>FacebookDisplayName</key>
 	<string> Pod </string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -154,6 +156,11 @@
 	<string>We use your location to find nearby Pods</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We use your FB photos to populate your profile</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
