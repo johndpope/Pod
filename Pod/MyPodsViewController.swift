@@ -40,6 +40,8 @@ class MyPodsCarouselViewController: UIViewController {
         carousel.dataSource = self
         myslider.maximumValue = Float(items.count)
         myslider.minimumValue = 0.0
+        myslider.isEnabled = false
+        myslider.tintColor = .black
     }
     
     @IBAction func sliderChanged(_ sender: UISlider) {
