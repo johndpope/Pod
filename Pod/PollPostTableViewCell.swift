@@ -71,22 +71,25 @@ extension PollPostTableViewCell: UITableViewDelegate, UITableViewDataSource {
         cell.addButton.isEnabled = true
         cell.delegate = self
         cell.tag = indexPath.row
-        if (totalVotes != nil){
-            cell.backgroundColor = .clear
-            cell.inputField.backgroundColor = .clear
-            var frameRect = cell.frame;
-            //minus one because of database issue where we cant store nil. so there is an off by one due to 
-            // me having to store an init value
-            if pollVotes[indexPath.row].count - 1 == 0 {
-                cell.inputField.textColor = .black
-            } else {
-                frameRect.size.width =  cell.frame.width * CGFloat(pollVotes[indexPath.row].count - 1)/CGFloat(totalVotes! - pollVotes.count);
-                let backgroundView = UIView(frame: frameRect)
-                backgroundView.backgroundColor = .lightBlue
-                cell.inputField.addSubview(backgroundView)
-            }
-            //cell.inputField.frame = frameRect;
+        var voteNum = 0
+        for s in pollVotes {
+            voteNum += s.count - 1
         }
+        cell.backgroundColor = .clear
+        cell.inputField.backgroundColor = .clear
+        var frameRect = cell.frame;
+        //minus one because of database issue where we cant store nil. so there is an off by one due to 
+        // me having to store an init value
+        if pollVotes[indexPath.row].count - 1 == 0 {
+            cell.inputField.textColor = .black
+        } else {
+            frameRect.size.width =  cell.frame.width * CGFloat(pollVotes[indexPath.row].count - 1)/CGFloat(voteNum);
+            let backgroundView = UIView(frame: frameRect)
+            backgroundView.backgroundColor = .lightBlue
+            cell.inputField.addSubview(backgroundView)
+        }
+            //cell.inputField.frame = frameRect;
+        
        // cell.inputField.frame = CGRect(x: cell.inputField.frame.minX, y: cell.inputField.frame.minY, width: cell.frame.width * CGFloat(pollVotes[indexPath.row]!)/CGFloat(totalVotes!), height: cell.frame.height)
       //  cell.inputField.text = pollData[indexPath.row]
         return cell
@@ -98,7 +101,6 @@ extension PollPostTableViewCell: PollCellDelegate {
         print(index)
         if(pollVotes[index].contains(FacebookIdentityProfile._sharedInstance.userId!)){
             pollVotes[index].remove(at: (pollVotes[index].index(of: FacebookIdentityProfile._sharedInstance.userId!))!)
-            totalVotes! -= 1
         } else {
 //            for (i, arr) in pollVotes.enumerated() {
 //                if (arr.contains(FacebookIdentityProfile._sharedInstance.userId!)){
@@ -113,12 +115,10 @@ extension PollPostTableViewCell: PollCellDelegate {
 //        }
 
             pollVotes[index].insert(FacebookIdentityProfile._sharedInstance.userId!)
-            totalVotes! += 1
             //aws call
         }
         updateInDatabase()
         tableView.reloadData()
-        let indexPath = IndexPath(row: index, section: 0)
     }
     
     func updateInDatabase(){
