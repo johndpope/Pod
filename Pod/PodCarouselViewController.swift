@@ -272,13 +272,13 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate, ForegroundNo
     }
     
     func getNotifications(){
-//        APIClient.sharedInstance.getPodRequestsForCurrentUser { (requests) in
-//            if(requests.count > 0){
-//                self.showNotificationBubble(true, withNumber: requests.count)
-//            } else {
-//                self.showNotificationBubble(false)
-//            }
-//        }
+        APIClient.sharedInstance.getPodRequestsForCurrentUser { (requests) in
+            if(requests.count > 0){
+                self.showNotificationBubble(true, withNumber: requests.count)
+            } else {
+                self.showNotificationBubble(false)
+            }
+        }
     }
     
     func onSignIn (_ success: Bool) {

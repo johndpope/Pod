@@ -198,10 +198,8 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
         return (podData?.postData!.count)!
     }
     func firstTimeSetup(){
-        print(podData?.postData)
         self.lockedPod = (podData?._isPrivate)! as! Bool
         initialized = true
-        self.setUpBlurEffect()
         if(!(podData?.postData?.isEmpty)!){
             emptyPodView.removeFromSuperview()
             emptyLabel.removeFromSuperview()
@@ -214,8 +212,10 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
             if(podData?._userIdList?.contains(FacebookIdentityProfile._sharedInstance.userId!))!{
                 //Don't lock!
                 //Do we need to do anything here?
+                self.lockedPod = false
+                self.setUpBlurEffect()
             } else {
-                
+                self.setUpBlurEffect()
                 APIClient.sharedInstance.getSentRequests(completion: { (requests) in
                     var requestSent = false
                     for request in requests {
