@@ -43,7 +43,6 @@
 		95B9C3A81EDE467700954D4C /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C39D1EDE467700954D4C /* Posts.swift */; };
 		95B9C3A91EDE467700954D4C /* UserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C39E1EDE467700954D4C /* UserInformation.swift */; };
 		95B9C3AA1EDE467700954D4C /* UserPods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C39F1EDE467700954D4C /* UserPods.swift */; };
-		95B9C3C41EDE47FD00954D4C /* Sdk3 in Resources */ = {isa = PBXBuildFile; fileRef = 95B9C3C31EDE47FD00954D4C /* Sdk3 */; };
 		95C8C3A31ED39ABC004A2A29 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */; };
 		95C8C3A81ED3A00F004A2A29 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */; };
 		95C8C3A91ED3A00F004A2A29 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C8C3A71ED3A00F004A2A29 /* CommentTableViewCell.xib */; };
@@ -519,7 +518,6 @@
 				953451401EE6056800A72E01 /* PollPostTableViewCell.xib in Resources */,
 				9534F4DE1EDB50050094A007 /* SignIn.storyboard in Resources */,
 				F4BECB441EBD738800B98BA8 /* GoogleService-Info.plist in Resources */,
-				95B9C3C41EDE47FD00954D4C /* Sdk3 in Resources */,
 				F4BECB371EBD682D00B98BA8 /* Assets.xcassets in Resources */,
 				95D14F231EBD7F6B0049C58A /* PodTableViewSectionHeader.xib in Resources */,
 			);
