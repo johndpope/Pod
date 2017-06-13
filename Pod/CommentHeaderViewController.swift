@@ -70,6 +70,9 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate, Li
             photoCell.postComments.text = String(describing: (postData?._numComments!)!)
             containerView.frame = CGRect(x: (photoCell.frame.minX), y: (photoCell.frame.maxY), width: view.frame.width, height: view.frame.height - (photoCell.frame.height)-8)
             view.addSubview(containerView)
+            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(CommentHeaderViewController.swiped(_:)))
+            swipeDown.direction = UISwipeGestureRecognizerDirection.down
+            photoCell.addGestureRecognizer(swipeDown)
             view.addSubview(photoCell)
 
         } else if (Int((postData?._postType)!) == PostType.text.hashValue) {
@@ -116,6 +119,9 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate, Li
             
             containerView.frame = CGRect(x: (textCell.frame.minX), y: (textCell.frame.maxY), width: view.frame.width, height: view.frame.height - (textCell.frame.height)-8)
             view.addSubview(containerView)
+            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(CommentHeaderViewController.swiped(_:)))
+            swipeDown.direction = UISwipeGestureRecognizerDirection.down
+            textCell.addGestureRecognizer(swipeDown)
             view.addSubview(textCell)
             self.textCell = textCell
         } else if (Int((postData?._postType)!) == PostType.poll.hashValue) {
@@ -170,6 +176,9 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate, Li
             }
             
             containerView.frame = CGRect(x: (pollCell.frame.minX), y: (pollCell.frame.maxY), width: view.frame.width, height: view.frame.height - (pollCell.frame.height)-8)
+            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(CommentHeaderViewController.swiped(_:)))
+            swipeDown.direction = UISwipeGestureRecognizerDirection.down
+            pollCell.addGestureRecognizer(swipeDown)
             view.addSubview(containerView)
             view.addSubview(pollCell)
             self.pollCell = pollCell
@@ -188,8 +197,6 @@ class CommentHeaderViewController: UIViewController, CommentCreationDelegate, Li
             ])
         
         controller.didMove(toParentViewController: self)
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(CommentHeaderViewController.swiped(_:)))
-        self.view.addGestureRecognizer(swipeRight)
 
     }
     

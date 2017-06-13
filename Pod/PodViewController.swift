@@ -230,8 +230,13 @@ class PodViewController: UIViewController, LikedCellDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        if (segue.identifier == "toPostComments"),
-            let nextVC = segue.destination as? CommentHeaderViewController {
+        
+//        let navVC = segue.destination as? UINavigationController
+//        
+//        let tableVC = navVC?.viewControllers.first as! YourTableViewControllerClass
+//        
+//        tableVC.yourTableViewArray = localArrayValue
+        if (segue.identifier == "toPostComments"), let nextVC = segue.destination as? CommentHeaderViewController {
             nextVC.postData = sender as? Posts
             nextVC.commentDelegate = self
         } else if (segue.identifier == "toNewPost"),

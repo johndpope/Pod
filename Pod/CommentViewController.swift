@@ -56,6 +56,7 @@ class CommentViewController: SLKTextViewController {
                 self.tableView?.reloadData()
             }
         }
+        navigationController?.isNavigationBarHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {

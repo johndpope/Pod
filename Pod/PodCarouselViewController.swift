@@ -97,7 +97,6 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate, ForegroundNo
         FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
         //FacebookIdentityProfile._sharedInstance.getTaggableFriends()
         carousel.scrollSpeed = 0.5
-        sendTestNoti()
     }
     
     override func viewWillAppear(_ animated: Bool) {

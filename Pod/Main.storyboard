@@ -345,9 +345,9 @@
                     </view>
                     <connections>
                         <segue destination="c8a-ht-Q43" kind="presentation" identifier="toNewPost" id="zCE-wj-7ch"/>
-                        <segue destination="BZZ-8d-taH" kind="show" identifier="toPostComments" id="44a-9P-7PR"/>
                         <segue destination="8JB-Gn-RVg" kind="show" identifier="toMemberView" id="zJs-IB-hID"/>
                         <segue destination="YAs-gR-w2W" kind="unwind" identifier="unwindToCarousel" customClass="PodViewSegueUnwind" customModule="Pod" customModuleProvider="target" unwindAction="returnFromSegueActions:" id="hWu-wi-5Ie"/>
+                        <segue destination="BZZ-8d-taH" kind="show" identifier="toPostComments" id="Vum-0q-6NW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6q0-Vc-QfD" userLabel="First Responder" sceneMemberID="firstResponder"/>
