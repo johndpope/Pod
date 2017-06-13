@@ -16,6 +16,7 @@ import AWSFacebookSignIn
 import AWSS3
 import AWSCognitoIdentityProvider
 import UserNotifications
+import AWSCognito
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,7 +31,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let credentialProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: "us-east-1:52f72125-90a0-42ed-b34e-4a5c8fbb0212")
         let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: credentialProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
-
+//
+//        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2,
+//                                                                identityPoolId:"us-west-2:37f10bab-da5c-4c0c-92dc-cff4dd54ff71")
+//        
+//        let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
+//        
+//        AWSServiceManager.default().defaultServiceConfiguration = configuration
+        // Initialize the Cognito Sync client
+        let syncClient = AWSCognito.default()
+        
+        // Create a record in a dataset and synchronize with the server
+        var dataset = syncClient.openOrCreateDataset("myDataset")
+        dataset.setString("myValue", forKey:"myKey")
+        dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
+            // Your handler code here
+            return nil
+            
+        }
         // TODO: Change navigation bar color scheme
 //        var navigationBarAppearace = UINavigationBar.appearance()
 //        
@@ -39,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        
 //        navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.YourTitleColor()]  // Title's text color
         registerForPushNotifications()
+        
         return AWSMobileClient.sharedInstance.didFinishLaunching(application, withOptions: launchOptions)
     }
     
@@ -80,7 +99,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+
+//    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
+//                     fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+//        NSNotificationCenter.defaultCenter().postNotificationName("CognitoPushNotification", object: userInfo)
+//    })
     
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -90,6 +113,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let token = tokenParts.joined()
         print("Device Token: \(token)")
+        let syncClient = AWSCognito.default()
+        syncClient.registerDevice(deviceToken).continueWith(block: { (task: AWSTask!) -> AnyObject! in
+            if (task.error != nil) {
+                print("Unable to register device: " + (task.error?.localizedDescription)!)
+                
+            } else {
+                print("Successfully registered device with id: \(task.result)")
+            }
+            return task
+        })
     }
     
     func application(_ application: UIApplication,
@@ -103,6 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 (granted, error) in
                 print("Permission granted: \(granted)")
                 guard granted else { return }
+                UIApplication.shared.registerForRemoteNotifications()
                 self.getNotificationSettings()
             }
         } else {
