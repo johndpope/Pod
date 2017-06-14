@@ -485,6 +485,14 @@ extension NewPostViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension NewPostViewController: PollCellDelegate {
     func addNewOption(index: Int) {
+        var i = 0
+        for cell in self.pollTableView.visibleCells.enumerated(){
+            let c = cell.element as? PollCell
+            if c?.inputField.text! != "" {
+                pollOptions[i] = (c?.inputField.text!)!
+            }
+            i += 1
+        }
         pollOptions.append("")
         pollTableView.reloadData()
     }
