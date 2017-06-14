@@ -117,14 +117,27 @@ extension InviteRequestViewController: UITableViewDelegate, UITableViewDataSourc
         } else {
             cell.requestLabel.text = "\(req._senderName!) wants to join your Pod \(req._podName!)"
         }
-        let url = URL(string: req._senderPhotoURL!)
-        var data = Data()
-        do {
-            data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-            cell.profilePic.image = UIImage(data: data)
-        } catch {
-            cell.profilePic.image = UIImage(named: "UserIcon")
+        
+        if let senderPhotoURL = req._senderPhotoURL {
+            let url = URL(string: senderPhotoURL)
+            var data = Data()
+            do {
+                data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                cell.profilePic.image = UIImage(data: data)
+            } catch {
+                cell.profilePic.image = UIImage(named: "UserIcon")
+            }
         }
+        
+        
+//        let url = URL(string: req._senderPhotoURL!)
+//        var data = Data()
+//        do {
+//            data = try Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+//            cell.profilePic.image = UIImage(data: data)
+//        } catch {
+//            cell.profilePic.image = UIImage(named: "UserIcon")
+//        }
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
     }
