@@ -156,10 +156,10 @@ class APIClient {
         let headerParameters = [
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "Latitude":"\(37.420502)",
-            "Longitude":"\(-122.170856)"
+            "Latitude":"\(lat)",
+            "Longitude":"\(long)"
         ]
-        let jsonObject: [String: AnyObject]  = ["Latitude": 37.4204870 as AnyObject, "Longitude": -122.1714210 as AnyObject]
+        let jsonObject: [String: AnyObject]  = ["Latitude": lat as AnyObject, "Longitude": long as AnyObject]
         
         
         // Construct the request object
@@ -244,7 +244,7 @@ class APIClient {
             "userName": "\(FacebookIdentityProfile._sharedInstance.userName!)"
         ]
 
-        let jsonObject: [String: AnyObject]  = ["Latitude": 37.4204870 as AnyObject, "Longitude": -122.1714210 as AnyObject]
+        let jsonObject: [String: AnyObject]  = ["Latitude": lat as AnyObject, "Longitude": long as AnyObject]
         
         
         // Construct the request object

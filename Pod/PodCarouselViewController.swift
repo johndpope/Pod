@@ -84,6 +84,8 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         }
     }
     
+    private let locationManager = CLLocationManager()
+    fileprivate var currentLocation: CLLocationCoordinate2D?
     
     // MARK: - PodCarouselViewController
     
@@ -98,6 +100,13 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         FacebookIdentityProfile._sharedInstance.getFriendsOnApp()
         //FacebookIdentityProfile._sharedInstance.getTaggableFriends()
         carousel.scrollSpeed = 0.5
+        
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.startUpdatingLocation()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -228,7 +237,8 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
     
     func getAllPods(){
         let client = APIClient()
-        let location = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
+        let location = locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
+        print("Get All Pods Location: \(location)")
         client.getNearbyPods(location: location) { (pods) in
             DispatchQueue.main.async {
                 self.podsNearbyLabel.text = "\((pods?.count)!) Pods near you"
@@ -467,7 +477,8 @@ class PodCarouselViewController: UIViewController, JoinPodDelegate {
         timer!.scheduleRepeating(deadline: .now(), interval: .seconds(10))
         timer!.setEventHandler { [weak self] in
             // do whatever you want here
-            let location = CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
+            let location = self?.currentLocation ?? CLLocationCoordinate2D(latitude: 37.4204870, longitude: -122.1714210)
+            print("Start Timer Location: \(location)")
             APIClient.sharedInstance.getNearbyPods(location: location) { (pods) in
                 DispatchQueue.main.async {
                     self?.podsNearbyLabel.text = "\((pods?.count)!) Pods near you"
@@ -544,5 +555,12 @@ extension PodCarouselViewController: iCarouselDataSource, iCarouselDelegate {
 extension PodCarouselViewController: PodViewDelegate {
     func toSinglePod(_ podView: PodList) {
         performSegue(withIdentifier: Constants.Storyboard.SinglePodSegueId, sender: podView)
+    }
+}
+
+extension PodCarouselViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let currentLocation = manager.location?.coordinate
+        self.currentLocation = currentLocation
     }
 }
