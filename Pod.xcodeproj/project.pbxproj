@@ -7,21 +7,205 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9511220E1ED65AF10056BE16 /* PodTitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9511220D1ED65AF10056BE16 /* PodTitleViewController.swift */; };
+		9512B9CA1EE9112A006752DA /* PodRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9512B9C91EE9112A006752DA /* PodRequests.swift */; };
+		95309FFA1ED67BB8008A7A7F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FF91ED67BB8008A7A7F /* libz.tbd */; };
+		95309FFC1ED67BBE008A7A7F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 95309FFB1ED67BBE008A7A7F /* libsqlite3.tbd */; };
+		9534513F1EE6056800A72E01 /* PollPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9534513D1EE6056800A72E01 /* PollPostTableViewCell.swift */; };
+		953451401EE6056800A72E01 /* PollPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9534513E1EE6056800A72E01 /* PollPostTableViewCell.xib */; };
+		9534F4D11EDB4C7C0094A007 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9534F4D01EDB4C7C0094A007 /* FBSDKShareKit.framework */; };
+		9534F4DD1EDB50050094A007 /* FacebookIdentityProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9534F4DA1EDB50050094A007 /* FacebookIdentityProfile.swift */; };
+		9534F4DE1EDB50050094A007 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9534F4DB1EDB50050094A007 /* SignIn.storyboard */; };
+		9534F4DF1EDB50050094A007 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9534F4DC1EDB50050094A007 /* SignInViewController.swift */; };
+		9534F4E41EDB79C70094A007 /* PhotoPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */; };
+		9534F4E51EDB79C70094A007 /* PhotoPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9534F4E31EDB79C70094A007 /* PhotoPostTableViewCell.xib */; };
+		9553A9681EEFC3200003E64D /* AWSAPIGateway.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9553A9611EEFC3200003E64D /* AWSAPIGateway.framework */; };
+		9553A9691EEFC3200003E64D /* AWSAPIGateway.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9553A9611EEFC3200003E64D /* AWSAPIGateway.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9553A96A1EEFC3200003E64D /* AWSLambda.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9553A9621EEFC3200003E64D /* AWSLambda.framework */; };
+		9553A96B1EEFC3200003E64D /* AWSLambda.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9553A9621EEFC3200003E64D /* AWSLambda.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9553A96C1EEFC3200003E64D /* AWSCognito.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9553A9631EEFC3200003E64D /* AWSCognito.framework */; };
+		9553A96D1EEFC3200003E64D /* AWSCognito.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9553A9631EEFC3200003E64D /* AWSCognito.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9553A96E1EEFC3200003E64D /* AWSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9553A9641EEFC3200003E64D /* AWSCore.framework */; };
+		9553A96F1EEFC3200003E64D /* AWSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9553A9641EEFC3200003E64D /* AWSCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9553A9701EEFC3200003E64D /* AWSDynamoDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9553A9651EEFC3200003E64D /* AWSDynamoDB.framework */; };
+		9553A9711EEFC3200003E64D /* AWSDynamoDB.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9553A9651EEFC3200003E64D /* AWSDynamoDB.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9553A9721EEFC3200003E64D /* AWSCognitoIdentityProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9553A9661EEFC3200003E64D /* AWSCognitoIdentityProvider.framework */; };
+		9553A9731EEFC3200003E64D /* AWSCognitoIdentityProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9553A9661EEFC3200003E64D /* AWSCognitoIdentityProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9553A9741EEFC3200003E64D /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9553A9671EEFC3200003E64D /* AWSS3.framework */; };
+		9553A9751EEFC3200003E64D /* AWSS3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9553A9671EEFC3200003E64D /* AWSS3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */; };
+		9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */; };
+		957741B71ED7911F00FB8739 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957741B61ED7911F00FB8739 /* APIClient.swift */; };
+		9578B5941ED3E4370096A518 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B5931ED3E4370096A518 /* NewPostViewController.swift */; };
+		95902ACC1ED8EA810008792A /* PodPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95902ACA1ED8EA810008792A /* PodPostTableViewCell.swift */; };
+		95902ACD1ED8EA810008792A /* PodPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95902ACB1ED8EA810008792A /* PodPostTableViewCell.xib */; };
+		9599E2801ED68FB40078328A /* PodPrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9599E27F1ED68FB40078328A /* PodPrivacyViewController.swift */; };
+		95B9C3721EDCF1ED00954D4C /* CreatePollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3711EDCF1ED00954D4C /* CreatePollViewController.swift */; };
+		95B9C3791EDD518900954D4C /* PodMembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3781EDD518900954D4C /* PodMembersViewController.swift */; };
+		95B9C37E1EDD52FA00954D4C /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C37C1EDD52FA00954D4C /* MemberTableViewCell.swift */; };
+		95B9C3831EDE090800954D4C /* MemberProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3821EDE090800954D4C /* MemberProfileViewController.swift */; };
+		95B9C3851EDE11FB00954D4C /* AddMembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3841EDE11FB00954D4C /* AddMembersViewController.swift */; };
+		95B9C3871EDE12AB00954D4C /* AddMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3861EDE12AB00954D4C /* AddMemberTableViewCell.swift */; };
+		95B9C3A01EDE467700954D4C /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3921EDE467700954D4C /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m */; };
+		95B9C3A11EDE467700954D4C /* AWSConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3931EDE467700954D4C /* AWSConfiguration.swift */; };
+		95B9C3A21EDE467700954D4C /* AWSFacebookSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95B9C3941EDE467700954D4C /* AWSFacebookSignIn.framework */; };
+		95B9C3A31EDE467700954D4C /* AWSFacebookSignInResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 95B9C3951EDE467700954D4C /* AWSFacebookSignInResources.bundle */; };
+		95B9C3A41EDE467700954D4C /* AWSMobileClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C3961EDE467700954D4C /* AWSMobileClient.swift */; };
+		95B9C3A51EDE467700954D4C /* AWSMobileHubHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95B9C3971EDE467700954D4C /* AWSMobileHubHelper.framework */; };
+		95B9C3A61EDE467700954D4C /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C39B1EDE467700954D4C /* Comments.swift */; };
+		95B9C3A71EDE467700954D4C /* PodList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C39C1EDE467700954D4C /* PodList.swift */; };
+		95B9C3A81EDE467700954D4C /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C39D1EDE467700954D4C /* Posts.swift */; };
+		95B9C3A91EDE467700954D4C /* UserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C39E1EDE467700954D4C /* UserInformation.swift */; };
+		95B9C3AA1EDE467700954D4C /* UserPods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9C39F1EDE467700954D4C /* UserPods.swift */; };
+		95C8C3A31ED39ABC004A2A29 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */; };
+		95C8C3A81ED3A00F004A2A29 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */; };
+		95C8C3A91ED3A00F004A2A29 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C8C3A71ED3A00F004A2A29 /* CommentTableViewCell.xib */; };
+		95CF55941ECBABEC00B1751E /* CommentHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CF55931ECBABEC00B1751E /* CommentHeaderViewController.swift */; };
+		95CF56071ECBC9BD00B1751E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CF56061ECBC9BD00B1751E /* Main.storyboard */; };
+		95D14F191EBD738A0049C58A /* PodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F181EBD738A0049C58A /* PodTableViewController.swift */; };
+		95D14F1B1EBD773C0049C58A /* PodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F1A1EBD773C0049C58A /* PodTableViewCell.swift */; };
+		95D14F211EBD7F580049C58A /* PodTableViewSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F201EBD7F580049C58A /* PodTableViewSectionHeader.swift */; };
+		95D14F231EBD7F6B0049C58A /* PodTableViewSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95D14F221EBD7F6B0049C58A /* PodTableViewSectionHeader.xib */; };
+		95D14F251EBE8C410049C58A /* PodData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F241EBE8C410049C58A /* PodData.swift */; };
+		95D14F271EBE993E0049C58A /* PodTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F261EBE993E0049C58A /* PodTabBarController.swift */; };
+		95D14F291EBE9A5F0049C58A /* PodCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F281EBE9A5F0049C58A /* PodCreationViewController.swift */; };
+		95D14F2C1EBEA0A70049C58A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D14F2B1EBEA0A70049C58A /* Constants.swift */; };
+		95E1E4C81EDF4122009A7546 /* MyPodsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1E4C71EDF4122009A7546 /* MyPodsViewController.swift */; };
+		95E1E4CA1EDF5C62009A7546 /* InviteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1E4C91EDF5C62009A7546 /* InviteTableViewCell.swift */; };
+		95E1E4CC1EDF5CF6009A7546 /* InviteRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1E4CB1EDF5CF6009A7546 /* InviteRequestViewController.swift */; };
+		95E1E4D11EDFEFCF009A7546 /* ThumbnailPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1E4CF1EDFEFCF009A7546 /* ThumbnailPostTableViewCell.swift */; };
+		95E1E4D21EDFEFCF009A7546 /* ThumbnailPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95E1E4D01EDFEFCF009A7546 /* ThumbnailPostTableViewCell.xib */; };
+		C807AC9F9F51908EF23D61C2 /* Pods_Pod.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */; };
+		F44AB6341ED3DEB0001B5E69 /* PodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44AB6331ED3DEB0001B5E69 /* PodViewController.swift */; };
+		F4A3BE381ECBAC180032B3E3 /* PodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A3BE371ECBAC180032B3E3 /* PodView.swift */; };
 		F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */; };
-		F4BECB321EBD682D00B98BA8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BECB311EBD682D00B98BA8 /* ViewController.swift */; };
-		F4BECB351EBD682D00B98BA8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB331EBD682D00B98BA8 /* Main.storyboard */; };
 		F4BECB371EBD682D00B98BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB361EBD682D00B98BA8 /* Assets.xcassets */; };
 		F4BECB3A1EBD682D00B98BA8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB381EBD682D00B98BA8 /* LaunchScreen.storyboard */; };
+		F4BECB441EBD738800B98BA8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4BECB431EBD738800B98BA8 /* GoogleService-Info.plist */; };
+		F4BECB471EBE660900B98BA8 /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BECB461EBE660900B98BA8 /* UIView+Autolayout.swift */; };
+		F4BECB491EBE6D3D00B98BA8 /* UIColor+Pod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BECB481EBE6D3D00B98BA8 /* UIColor+Pod.swift */; };
+		F4BF09341EEFBBBE009558CE /* PodMapPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BF09331EEFBBBE009558CE /* PodMapPreview.swift */; };
+		F4E9DE371EDB4A0E0089BA13 /* PodMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE361EDB4A0E0089BA13 /* PodMapViewController.swift */; };
+		F4E9DE391EDB51D80089BA13 /* NewPodMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE381EDB51D80089BA13 /* NewPodMapViewController.swift */; };
+		F4E9DE3D1EDB7FF30089BA13 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE3C1EDB7FF30089BA13 /* OverlayView.swift */; };
+		F4E9DE441EDE14BC0089BA13 /* PodViewSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE431EDE14BC0089BA13 /* PodViewSegue.swift */; };
+		F4E9DE461EDE36A90089BA13 /* PodViewSegueUnwind.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE451EDE36A90089BA13 /* PodViewSegueUnwind.swift */; };
+		F4E9DE4B1EE150710089BA13 /* PollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE491EE150710089BA13 /* PollCell.swift */; };
+		F4E9DE4C1EE150710089BA13 /* PollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E9DE4A1EE150710089BA13 /* PollCell.xib */; };
+		F4E9DE4E1EE1D85F0089BA13 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E9DE4D1EE1D85F0089BA13 /* TextField.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		95D728391EDE485200987AA3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9553A96D1EEFC3200003E64D /* AWSCognito.framework in Embed Frameworks */,
+				9553A9731EEFC3200003E64D /* AWSCognitoIdentityProvider.framework in Embed Frameworks */,
+				9553A96F1EEFC3200003E64D /* AWSCore.framework in Embed Frameworks */,
+				9553A9751EEFC3200003E64D /* AWSS3.framework in Embed Frameworks */,
+				9553A9691EEFC3200003E64D /* AWSAPIGateway.framework in Embed Frameworks */,
+				9553A96B1EEFC3200003E64D /* AWSLambda.framework in Embed Frameworks */,
+				9553A9711EEFC3200003E64D /* AWSDynamoDB.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		6D44DA30209E359384E89016 /* Pods-Pod.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pod.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pod/Pods-Pod.release.xcconfig"; sourceTree = "<group>"; };
+		9511220D1ED65AF10056BE16 /* PodTitleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTitleViewController.swift; sourceTree = "<group>"; };
+		9512B9C91EE9112A006752DA /* PodRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodRequests.swift; sourceTree = "<group>"; };
+		95309FF91ED67BB8008A7A7F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		95309FFB1ED67BBE008A7A7F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		9534513D1EE6056800A72E01 /* PollPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollPostTableViewCell.swift; sourceTree = "<group>"; };
+		9534513E1EE6056800A72E01 /* PollPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PollPostTableViewCell.xib; sourceTree = "<group>"; };
+		9534F4CE1EDB4C680094A007 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		9534F4D01EDB4C7C0094A007 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		9534F4DA1EDB50050094A007 /* FacebookIdentityProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookIdentityProfile.swift; sourceTree = "<group>"; };
+		9534F4DB1EDB50050094A007 /* SignIn.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
+		9534F4DC1EDB50050094A007 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPostTableViewCell.swift; sourceTree = "<group>"; };
+		9534F4E31EDB79C70094A007 /* PhotoPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoPostTableViewCell.xib; sourceTree = "<group>"; };
+		9553A9611EEFC3200003E64D /* AWSAPIGateway.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSAPIGateway.framework; path = Pod/Sdk3/Aws/AWSAPIGateway.framework; sourceTree = "<group>"; };
+		9553A9621EEFC3200003E64D /* AWSLambda.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSLambda.framework; path = Pod/Sdk3/Aws/AWSLambda.framework; sourceTree = "<group>"; };
+		9553A9631EEFC3200003E64D /* AWSCognito.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCognito.framework; path = Pod/Sdk3/Aws/AWSCognito.framework; sourceTree = "<group>"; };
+		9553A9641EEFC3200003E64D /* AWSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCore.framework; path = Pod/Sdk3/Aws/AWSCore.framework; sourceTree = "<group>"; };
+		9553A9651EEFC3200003E64D /* AWSDynamoDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSDynamoDB.framework; path = Pod/Sdk3/Aws/AWSDynamoDB.framework; sourceTree = "<group>"; };
+		9553A9661EEFC3200003E64D /* AWSCognitoIdentityProvider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSCognitoIdentityProvider.framework; path = Pod/Sdk3/Aws/AWSCognitoIdentityProvider.framework; sourceTree = "<group>"; };
+		9553A9671EEFC3200003E64D /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSS3.framework; path = Pod/Sdk3/Aws/AWSS3.framework; sourceTree = "<group>"; };
+		9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCarouselViewController.swift; sourceTree = "<group>"; };
+		9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		9559D0731EC8F1E800BAC3F5 /* iCarousel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		956A40001EEA6381002FB515 /* Pod.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pod.entitlements; sourceTree = "<group>"; };
+		957741B61ED7911F00FB8739 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		9578B5931ED3E4370096A518 /* NewPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
+		95902ACA1ED8EA810008792A /* PodPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodPostTableViewCell.swift; sourceTree = "<group>"; };
+		95902ACB1ED8EA810008792A /* PodPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PodPostTableViewCell.xib; sourceTree = "<group>"; };
+		9599E27F1ED68FB40078328A /* PodPrivacyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodPrivacyViewController.swift; sourceTree = "<group>"; };
+		95B9C3711EDCF1ED00954D4C /* CreatePollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePollViewController.swift; sourceTree = "<group>"; };
+		95B9C3781EDD518900954D4C /* PodMembersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodMembersViewController.swift; sourceTree = "<group>"; };
+		95B9C37C1EDD52FA00954D4C /* MemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
+		95B9C3821EDE090800954D4C /* MemberProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberProfileViewController.swift; sourceTree = "<group>"; };
+		95B9C3841EDE11FB00954D4C /* AddMembersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMembersViewController.swift; sourceTree = "<group>"; };
+		95B9C3861EDE12AB00954D4C /* AddMemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMemberTableViewCell.swift; sourceTree = "<group>"; };
+		95B9C3911EDE467700954D4C /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.h; sourceTree = "<group>"; };
+		95B9C3921EDE467700954D4C /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m; sourceTree = "<group>"; };
+		95B9C3931EDE467700954D4C /* AWSConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSConfiguration.swift; sourceTree = "<group>"; };
+		95B9C3941EDE467700954D4C /* AWSFacebookSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSFacebookSignIn.framework; sourceTree = "<group>"; };
+		95B9C3951EDE467700954D4C /* AWSFacebookSignInResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AWSFacebookSignInResources.bundle; sourceTree = "<group>"; };
+		95B9C3961EDE467700954D4C /* AWSMobileClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSMobileClient.swift; sourceTree = "<group>"; };
+		95B9C3971EDE467700954D4C /* AWSMobileHubHelper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSMobileHubHelper.framework; sourceTree = "<group>"; };
+		95B9C3981EDE467700954D4C /* Bridging_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bridging_Header.h; sourceTree = "<group>"; };
+		95B9C39B1EDE467700954D4C /* Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
+		95B9C39C1EDE467700954D4C /* PodList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodList.swift; sourceTree = "<group>"; };
+		95B9C39D1EDE467700954D4C /* Posts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
+		95B9C39E1EDE467700954D4C /* UserInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInformation.swift; sourceTree = "<group>"; };
+		95B9C39F1EDE467700954D4C /* UserPods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPods.swift; sourceTree = "<group>"; };
+		95B9C3C31EDE47FD00954D4C /* Sdk3 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sdk3; sourceTree = "<group>"; };
+		95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		95C8C3A71ED3A00F004A2A29 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
+		95CF55931ECBABEC00B1751E /* CommentHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentHeaderViewController.swift; sourceTree = "<group>"; };
+		95CF56061ECBC9BD00B1751E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		95D14F181EBD738A0049C58A /* PodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTableViewController.swift; sourceTree = "<group>"; };
+		95D14F1A1EBD773C0049C58A /* PodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTableViewCell.swift; sourceTree = "<group>"; };
+		95D14F201EBD7F580049C58A /* PodTableViewSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTableViewSectionHeader.swift; sourceTree = "<group>"; };
+		95D14F221EBD7F6B0049C58A /* PodTableViewSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PodTableViewSectionHeader.xib; sourceTree = "<group>"; };
+		95D14F241EBE8C410049C58A /* PodData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodData.swift; sourceTree = "<group>"; };
+		95D14F261EBE993E0049C58A /* PodTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodTabBarController.swift; sourceTree = "<group>"; };
+		95D14F281EBE9A5F0049C58A /* PodCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCreationViewController.swift; sourceTree = "<group>"; };
+		95D14F2B1EBEA0A70049C58A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		95E1E4C71EDF4122009A7546 /* MyPodsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPodsViewController.swift; sourceTree = "<group>"; };
+		95E1E4C91EDF5C62009A7546 /* InviteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteTableViewCell.swift; sourceTree = "<group>"; };
+		95E1E4CB1EDF5CF6009A7546 /* InviteRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteRequestViewController.swift; sourceTree = "<group>"; };
+		95E1E4CF1EDFEFCF009A7546 /* ThumbnailPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailPostTableViewCell.swift; sourceTree = "<group>"; };
+		95E1E4D01EDFEFCF009A7546 /* ThumbnailPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThumbnailPostTableViewCell.xib; sourceTree = "<group>"; };
+		DB37B267B5709340ACC441C6 /* Pods-Pod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pod.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pod/Pods-Pod.debug.xcconfig"; sourceTree = "<group>"; };
+		F44AB6331ED3DEB0001B5E69 /* PodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodViewController.swift; sourceTree = "<group>"; };
+		F4A3BE371ECBAC180032B3E3 /* PodView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodView.swift; sourceTree = "<group>"; };
 		F4BECB2C1EBD682D00B98BA8 /* Pod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pod.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F4BECB311EBD682D00B98BA8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F4BECB341EBD682D00B98BA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F4BECB361EBD682D00B98BA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4BECB391EBD682D00B98BA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4BECB3B1EBD682D00B98BA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4BECB431EBD738800B98BA8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F4BECB451EBD760600B98BA8 /* Pod-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pod-Bridging-Header.h"; sourceTree = "<group>"; };
+		F4BECB461EBE660900B98BA8 /* UIView+Autolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Autolayout.swift"; sourceTree = "<group>"; };
+		F4BECB481EBE6D3D00B98BA8 /* UIColor+Pod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Pod.swift"; sourceTree = "<group>"; };
+		F4BF09331EEFBBBE009558CE /* PodMapPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodMapPreview.swift; sourceTree = "<group>"; };
+		F4E9DE361EDB4A0E0089BA13 /* PodMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodMapViewController.swift; sourceTree = "<group>"; };
+		F4E9DE381EDB51D80089BA13 /* NewPodMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPodMapViewController.swift; sourceTree = "<group>"; };
+		F4E9DE3C1EDB7FF30089BA13 /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		F4E9DE431EDE14BC0089BA13 /* PodViewSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodViewSegue.swift; sourceTree = "<group>"; };
+		F4E9DE451EDE36A90089BA13 /* PodViewSegueUnwind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodViewSegueUnwind.swift; sourceTree = "<group>"; };
+		F4E9DE491EE150710089BA13 /* PollCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollCell.swift; sourceTree = "<group>"; };
+		F4E9DE4A1EE150710089BA13 /* PollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PollCell.xib; sourceTree = "<group>"; };
+		F4E9DE4D1EE1D85F0089BA13 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pod.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +213,172 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9553A96C1EEFC3200003E64D /* AWSCognito.framework in Frameworks */,
+				9553A96E1EEFC3200003E64D /* AWSCore.framework in Frameworks */,
+				95309FFC1ED67BBE008A7A7F /* libsqlite3.tbd in Frameworks */,
+				9534F4D11EDB4C7C0094A007 /* FBSDKShareKit.framework in Frameworks */,
+				9553A9701EEFC3200003E64D /* AWSDynamoDB.framework in Frameworks */,
+				95B9C3A21EDE467700954D4C /* AWSFacebookSignIn.framework in Frameworks */,
+				9553A96A1EEFC3200003E64D /* AWSLambda.framework in Frameworks */,
+				9553A9721EEFC3200003E64D /* AWSCognitoIdentityProvider.framework in Frameworks */,
+				95309FFA1ED67BB8008A7A7F /* libz.tbd in Frameworks */,
+				9553A9741EEFC3200003E64D /* AWSS3.framework in Frameworks */,
+				C807AC9F9F51908EF23D61C2 /* Pods_Pod.framework in Frameworks */,
+				95B9C3A51EDE467700954D4C /* AWSMobileHubHelper.framework in Frameworks */,
+				9553A9681EEFC3200003E64D /* AWSAPIGateway.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		75B3EF7C8AD1162361520E4E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9553A9611EEFC3200003E64D /* AWSAPIGateway.framework */,
+				9553A9621EEFC3200003E64D /* AWSLambda.framework */,
+				9553A9631EEFC3200003E64D /* AWSCognito.framework */,
+				9553A9641EEFC3200003E64D /* AWSCore.framework */,
+				9553A9651EEFC3200003E64D /* AWSDynamoDB.framework */,
+				9553A9661EEFC3200003E64D /* AWSCognitoIdentityProvider.framework */,
+				9553A9671EEFC3200003E64D /* AWSS3.framework */,
+				9534F4D01EDB4C7C0094A007 /* FBSDKShareKit.framework */,
+				9534F4CE1EDB4C680094A007 /* Bolts.framework */,
+				95309FFB1ED67BBE008A7A7F /* libsqlite3.tbd */,
+				95309FF91ED67BB8008A7A7F /* libz.tbd */,
+				FEE88E6AA0B47D4648BD0D55 /* Pods_Pod.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9511220C1ED65AA80056BE16 /* Pod Creation */ = {
+			isa = PBXGroup;
+			children = (
+				9511220D1ED65AF10056BE16 /* PodTitleViewController.swift */,
+				9599E27F1ED68FB40078328A /* PodPrivacyViewController.swift */,
+				F4E9DE381EDB51D80089BA13 /* NewPodMapViewController.swift */,
+			);
+			name = "Pod Creation";
+			sourceTree = "<group>";
+		};
+		9511220F1ED65D150056BE16 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				95CF55931ECBABEC00B1751E /* CommentHeaderViewController.swift */,
+				95C8C3A21ED39ABC004A2A29 /* CommentViewController.swift */,
+				95C8C3A61ED3A00F004A2A29 /* CommentTableViewCell.swift */,
+				95C8C3A71ED3A00F004A2A29 /* CommentTableViewCell.xib */,
+			);
+			name = Comments;
+			sourceTree = "<group>";
+		};
+		9534F4D91EDB50050094A007 /* signin */ = {
+			isa = PBXGroup;
+			children = (
+				9534F4DA1EDB50050094A007 /* FacebookIdentityProfile.swift */,
+				9534F4DB1EDB50050094A007 /* SignIn.storyboard */,
+				9534F4DC1EDB50050094A007 /* SignInViewController.swift */,
+			);
+			path = signin;
+			sourceTree = "<group>";
+		};
+		9559D0681EC8F0FA00BAC3F5 /* iCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				9559D0711EC8F1CD00BAC3F5 /* iCarousel.m */,
+				9559D0731EC8F1E800BAC3F5 /* iCarousel.h */,
+			);
+			path = iCarousel;
+			sourceTree = "<group>";
+		};
+		95B9C3771EDD514F00954D4C /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				9578B5931ED3E4370096A518 /* NewPostViewController.swift */,
+				95902ACA1ED8EA810008792A /* PodPostTableViewCell.swift */,
+				95902ACB1ED8EA810008792A /* PodPostTableViewCell.xib */,
+				9534F4E31EDB79C70094A007 /* PhotoPostTableViewCell.xib */,
+				9534F4E21EDB79C70094A007 /* PhotoPostTableViewCell.swift */,
+				95E1E4CF1EDFEFCF009A7546 /* ThumbnailPostTableViewCell.swift */,
+				95E1E4D01EDFEFCF009A7546 /* ThumbnailPostTableViewCell.xib */,
+				9534513D1EE6056800A72E01 /* PollPostTableViewCell.swift */,
+				9534513E1EE6056800A72E01 /* PollPostTableViewCell.xib */,
+			);
+			name = Posts;
+			sourceTree = "<group>";
+		};
+		95B9C38F1EDE467700954D4C /* AmazonAws */ = {
+			isa = PBXGroup;
+			children = (
+				95B9C3901EDE467700954D4C /* Api */,
+				95B9C3931EDE467700954D4C /* AWSConfiguration.swift */,
+				95B9C3941EDE467700954D4C /* AWSFacebookSignIn.framework */,
+				95B9C3951EDE467700954D4C /* AWSFacebookSignInResources.bundle */,
+				95B9C3961EDE467700954D4C /* AWSMobileClient.swift */,
+				95B9C3971EDE467700954D4C /* AWSMobileHubHelper.framework */,
+				95B9C3981EDE467700954D4C /* Bridging_Header.h */,
+				95B9C3991EDE467700954D4C /* Models */,
+			);
+			path = AmazonAws;
+			sourceTree = "<group>";
+		};
+		95B9C3901EDE467700954D4C /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				95B9C3911EDE467700954D4C /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.h */,
+				95B9C3921EDE467700954D4C /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		95B9C3991EDE467700954D4C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				95B9C39A1EDE467700954D4C /* NoSQL */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		95B9C39A1EDE467700954D4C /* NoSQL */ = {
+			isa = PBXGroup;
+			children = (
+				95B9C39B1EDE467700954D4C /* Comments.swift */,
+				95B9C39C1EDE467700954D4C /* PodList.swift */,
+				95B9C39D1EDE467700954D4C /* Posts.swift */,
+				9512B9C91EE9112A006752DA /* PodRequests.swift */,
+				95B9C39E1EDE467700954D4C /* UserInformation.swift */,
+				95B9C39F1EDE467700954D4C /* UserPods.swift */,
+			);
+			path = NoSQL;
+			sourceTree = "<group>";
+		};
+		95D14F2A1EBE9A630049C58A /* Pod Table View */ = {
+			isa = PBXGroup;
+			children = (
+				95D14F181EBD738A0049C58A /* PodTableViewController.swift */,
+				95D14F1A1EBD773C0049C58A /* PodTableViewCell.swift */,
+				95D14F201EBD7F580049C58A /* PodTableViewSectionHeader.swift */,
+				95D14F221EBD7F6B0049C58A /* PodTableViewSectionHeader.xib */,
+			);
+			name = "Pod Table View";
+			sourceTree = "<group>";
+		};
+		F1DD35F1B7F68A7524F2AAAD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DB37B267B5709340ACC441C6 /* Pods-Pod.debug.xcconfig */,
+				6D44DA30209E359384E89016 /* Pods-Pod.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F4BECB231EBD682D00B98BA8 = {
 			isa = PBXGroup;
 			children = (
 				F4BECB2E1EBD682D00B98BA8 /* Pod */,
 				F4BECB2D1EBD682D00B98BA8 /* Products */,
+				F1DD35F1B7F68A7524F2AAAD /* Pods */,
+				75B3EF7C8AD1162361520E4E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,12 +393,49 @@
 		F4BECB2E1EBD682D00B98BA8 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
+				956A40001EEA6381002FB515 /* Pod.entitlements */,
+				95B9C38F1EDE467700954D4C /* AmazonAws */,
+				95B9C3771EDD514F00954D4C /* Posts */,
+				95B9C3C31EDE47FD00954D4C /* Sdk3 */,
+				9534F4D91EDB50050094A007 /* signin */,
+				9511220F1ED65D150056BE16 /* Comments */,
+				9511220C1ED65AA80056BE16 /* Pod Creation */,
+				9559D0681EC8F0FA00BAC3F5 /* iCarousel */,
+				95D14F2A1EBE9A630049C58A /* Pod Table View */,
 				F4BECB2F1EBD682D00B98BA8 /* AppDelegate.swift */,
-				F4BECB311EBD682D00B98BA8 /* ViewController.swift */,
-				F4BECB331EBD682D00B98BA8 /* Main.storyboard */,
+				F4E9DE491EE150710089BA13 /* PollCell.swift */,
+				F4E9DE4D1EE1D85F0089BA13 /* TextField.swift */,
+				F4E9DE4A1EE150710089BA13 /* PollCell.xib */,
+				F4E9DE361EDB4A0E0089BA13 /* PodMapViewController.swift */,
+				F4BF09331EEFBBBE009558CE /* PodMapPreview.swift */,
+				F4E9DE3C1EDB7FF30089BA13 /* OverlayView.swift */,
+				F4BECB451EBD760600B98BA8 /* Pod-Bridging-Header.h */,
+				F4BECB481EBE6D3D00B98BA8 /* UIColor+Pod.swift */,
+				9559D06F1EC8F14C00BAC3F5 /* PodCarouselViewController.swift */,
+				F4A3BE371ECBAC180032B3E3 /* PodView.swift */,
+				F4E9DE431EDE14BC0089BA13 /* PodViewSegue.swift */,
+				F4E9DE451EDE36A90089BA13 /* PodViewSegueUnwind.swift */,
+				F4BECB461EBE660900B98BA8 /* UIView+Autolayout.swift */,
+				95CF56061ECBC9BD00B1751E /* Main.storyboard */,
+				F44AB6331ED3DEB0001B5E69 /* PodViewController.swift */,
 				F4BECB361EBD682D00B98BA8 /* Assets.xcassets */,
 				F4BECB381EBD682D00B98BA8 /* LaunchScreen.storyboard */,
 				F4BECB3B1EBD682D00B98BA8 /* Info.plist */,
+				F4BECB431EBD738800B98BA8 /* GoogleService-Info.plist */,
+				95D14F241EBE8C410049C58A /* PodData.swift */,
+				95D14F261EBE993E0049C58A /* PodTabBarController.swift */,
+				95D14F281EBE9A5F0049C58A /* PodCreationViewController.swift */,
+				95D14F2B1EBEA0A70049C58A /* Constants.swift */,
+				957741B61ED7911F00FB8739 /* APIClient.swift */,
+				95B9C3711EDCF1ED00954D4C /* CreatePollViewController.swift */,
+				95B9C3781EDD518900954D4C /* PodMembersViewController.swift */,
+				95B9C37C1EDD52FA00954D4C /* MemberTableViewCell.swift */,
+				95B9C3821EDE090800954D4C /* MemberProfileViewController.swift */,
+				95B9C3841EDE11FB00954D4C /* AddMembersViewController.swift */,
+				95B9C3861EDE12AB00954D4C /* AddMemberTableViewCell.swift */,
+				95E1E4C71EDF4122009A7546 /* MyPodsViewController.swift */,
+				95E1E4C91EDF5C62009A7546 /* InviteTableViewCell.swift */,
+				95E1E4CB1EDF5CF6009A7546 /* InviteRequestViewController.swift */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -71,9 +447,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F4BECB3E1EBD682D00B98BA8 /* Build configuration list for PBXNativeTarget "Pod" */;
 			buildPhases = (
+				F188B94A429CBBFF17EA0C35 /* [CP] Check Pods Manifest.lock */,
 				F4BECB281EBD682D00B98BA8 /* Sources */,
 				F4BECB291EBD682D00B98BA8 /* Frameworks */,
 				F4BECB2A1EBD682D00B98BA8 /* Resources */,
+				09D60DA96CFB0D82638AA4F3 /* [CP] Embed Pods Frameworks */,
+				4CD3306A44AB436DF1B401DF /* [CP] Copy Pods Resources */,
+				95D728391EDE485200987AA3 /* Embed Frameworks */,
+				95309FEF1ED67B63008A7A7F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -96,8 +477,16 @@
 				TargetAttributes = {
 					F4BECB2B1EBD682D00B98BA8 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = F42N7QJG3C;
+						DevelopmentTeam = D4JV2P86HG;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -124,35 +513,149 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95E1E4D21EDFEFCF009A7546 /* ThumbnailPostTableViewCell.xib in Resources */,
 				F4BECB3A1EBD682D00B98BA8 /* LaunchScreen.storyboard in Resources */,
+				95C8C3A91ED3A00F004A2A29 /* CommentTableViewCell.xib in Resources */,
+				F4E9DE4C1EE150710089BA13 /* PollCell.xib in Resources */,
+				95CF56071ECBC9BD00B1751E /* Main.storyboard in Resources */,
+				95902ACD1ED8EA810008792A /* PodPostTableViewCell.xib in Resources */,
+				95B9C3A31EDE467700954D4C /* AWSFacebookSignInResources.bundle in Resources */,
+				9534F4E51EDB79C70094A007 /* PhotoPostTableViewCell.xib in Resources */,
+				953451401EE6056800A72E01 /* PollPostTableViewCell.xib in Resources */,
+				9534F4DE1EDB50050094A007 /* SignIn.storyboard in Resources */,
+				F4BECB441EBD738800B98BA8 /* GoogleService-Info.plist in Resources */,
 				F4BECB371EBD682D00B98BA8 /* Assets.xcassets in Resources */,
-				F4BECB351EBD682D00B98BA8 /* Main.storyboard in Resources */,
+				95D14F231EBD7F6B0049C58A /* PodTableViewSectionHeader.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		09D60DA96CFB0D82638AA4F3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pod/Pods-Pod-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4CD3306A44AB436DF1B401DF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pod/Pods-Pod-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		95309FEF1ED67B63008A7A7F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework/strip-frameworks.sh\"";
+		};
+		F188B94A429CBBFF17EA0C35 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F4BECB281EBD682D00B98BA8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4BECB321EBD682D00B98BA8 /* ViewController.swift in Sources */,
+				95B9C3721EDCF1ED00954D4C /* CreatePollViewController.swift in Sources */,
+				95B9C3A61EDE467700954D4C /* Comments.swift in Sources */,
+				9534F4DF1EDB50050094A007 /* SignInViewController.swift in Sources */,
+				F44AB6341ED3DEB0001B5E69 /* PodViewController.swift in Sources */,
+				F4BECB471EBE660900B98BA8 /* UIView+Autolayout.swift in Sources */,
+				95B9C3A01EDE467700954D4C /* AWSAPI_2PCJWD2UDJ_LambdaMicroserviceClient.m in Sources */,
+				9534513F1EE6056800A72E01 /* PollPostTableViewCell.swift in Sources */,
+				F4E9DE4E1EE1D85F0089BA13 /* TextField.swift in Sources */,
+				95E1E4CA1EDF5C62009A7546 /* InviteTableViewCell.swift in Sources */,
+				9599E2801ED68FB40078328A /* PodPrivacyViewController.swift in Sources */,
+				95B9C3A81EDE467700954D4C /* Posts.swift in Sources */,
+				95B9C3A71EDE467700954D4C /* PodList.swift in Sources */,
+				95CF55941ECBABEC00B1751E /* CommentHeaderViewController.swift in Sources */,
+				9534F4E41EDB79C70094A007 /* PhotoPostTableViewCell.swift in Sources */,
+				F4E9DE3D1EDB7FF30089BA13 /* OverlayView.swift in Sources */,
+				95B9C3AA1EDE467700954D4C /* UserPods.swift in Sources */,
+				F4E9DE4B1EE150710089BA13 /* PollCell.swift in Sources */,
+				9511220E1ED65AF10056BE16 /* PodTitleViewController.swift in Sources */,
+				95B9C3871EDE12AB00954D4C /* AddMemberTableViewCell.swift in Sources */,
 				F4BECB301EBD682D00B98BA8 /* AppDelegate.swift in Sources */,
+				F4BECB491EBE6D3D00B98BA8 /* UIColor+Pod.swift in Sources */,
+				F4A3BE381ECBAC180032B3E3 /* PodView.swift in Sources */,
+				95B9C3791EDD518900954D4C /* PodMembersViewController.swift in Sources */,
+				9512B9CA1EE9112A006752DA /* PodRequests.swift in Sources */,
+				95D14F211EBD7F580049C58A /* PodTableViewSectionHeader.swift in Sources */,
+				95B9C3851EDE11FB00954D4C /* AddMembersViewController.swift in Sources */,
+				95C8C3A81ED3A00F004A2A29 /* CommentTableViewCell.swift in Sources */,
+				95E1E4CC1EDF5CF6009A7546 /* InviteRequestViewController.swift in Sources */,
+				95B9C3A41EDE467700954D4C /* AWSMobileClient.swift in Sources */,
+				95B9C3831EDE090800954D4C /* MemberProfileViewController.swift in Sources */,
+				957741B71ED7911F00FB8739 /* APIClient.swift in Sources */,
+				9559D0721EC8F1CD00BAC3F5 /* iCarousel.m in Sources */,
+				9534F4DD1EDB50050094A007 /* FacebookIdentityProfile.swift in Sources */,
+				F4E9DE371EDB4A0E0089BA13 /* PodMapViewController.swift in Sources */,
+				95D14F291EBE9A5F0049C58A /* PodCreationViewController.swift in Sources */,
+				F4BF09341EEFBBBE009558CE /* PodMapPreview.swift in Sources */,
+				95C8C3A31ED39ABC004A2A29 /* CommentViewController.swift in Sources */,
+				F4E9DE391EDB51D80089BA13 /* NewPodMapViewController.swift in Sources */,
+				95D14F251EBE8C410049C58A /* PodData.swift in Sources */,
+				95D14F271EBE993E0049C58A /* PodTabBarController.swift in Sources */,
+				95E1E4D11EDFEFCF009A7546 /* ThumbnailPostTableViewCell.swift in Sources */,
+				95B9C3A11EDE467700954D4C /* AWSConfiguration.swift in Sources */,
+				9559D0701EC8F14C00BAC3F5 /* PodCarouselViewController.swift in Sources */,
+				F4E9DE461EDE36A90089BA13 /* PodViewSegueUnwind.swift in Sources */,
+				95D14F191EBD738A0049C58A /* PodTableViewController.swift in Sources */,
+				95D14F2C1EBEA0A70049C58A /* Constants.swift in Sources */,
+				95B9C37E1EDD52FA00954D4C /* MemberTableViewCell.swift in Sources */,
+				95B9C3A91EDE467700954D4C /* UserInformation.swift in Sources */,
+				95E1E4C81EDF4122009A7546 /* MyPodsViewController.swift in Sources */,
+				9578B5941ED3E4370096A518 /* NewPostViewController.swift in Sources */,
+				F4E9DE441EDE14BC0089BA13 /* PodViewSegue.swift in Sources */,
+				95902ACC1ED8EA810008792A /* PodPostTableViewCell.swift in Sources */,
+				95D14F1B1EBD773C0049C58A /* PodTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		F4BECB331EBD682D00B98BA8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F4BECB341EBD682D00B98BA8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		F4BECB381EBD682D00B98BA8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -259,26 +762,228 @@
 		};
 		F4BECB3F1EBD682D00B98BA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB37B267B5709340ACC441C6 /* Pods-Pod.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = F42N7QJG3C;
+				CODE_SIGN_ENTITLEMENTS = Pod/Pod.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = D4JV2P86HG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sdk/Aws",
+					"$(PROJECT_DIR)/Sdk/Facebook",
+					"$(PROJECT_DIR)/Pod/Sdk/Aws",
+					"$(PROJECT_DIR)/Pod/AmazonAws",
+					"$(PROJECT_DIR)/Pod/Sdk/Facebook",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pod/Sdk2/Aws",
+					"$(PROJECT_DIR)/Pod/Sdk2/Aws/extras",
+					"$(PROJECT_DIR)/Pod/Sdk2/Facebook",
+					"$(PROJECT_DIR)/Pod/Sdk3/Aws",
+				);
 				INFOPLIST_FILE = Pod/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.Pod;
+				OTHER_LDFLAGS = (
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"stdc++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKLoginKit\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"GGLCore\"",
+					"-framework",
+					"\"GGLSignIn\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GTMOAuth2\"",
+					"-framework",
+					"\"GTMSessionFetcher\"",
+					"-framework",
+					"\"GoogleMaps\"",
+					"-framework",
+					"\"GoogleMapsBase\"",
+					"-framework",
+					"\"GoogleMapsCore\"",
+					"-framework",
+					"\"GooglePlaces\"",
+					"-framework",
+					"\"GoogleSignIn\"",
+					"-framework",
+					"\"GoogleToolboxForMac\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SlackTextViewController\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"TextFieldEffects\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.PodApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		F4BECB401EBD682D00B98BA8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D44DA30209E359384E89016 /* Pods-Pod.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = F42N7QJG3C;
+				CODE_SIGN_ENTITLEMENTS = Pod/Pod.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = D4JV2P86HG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sdk/Aws",
+					"$(PROJECT_DIR)/Sdk/Facebook",
+					"$(PROJECT_DIR)/Pod/Sdk/Aws",
+					"$(PROJECT_DIR)/Pod/AmazonAws",
+					"$(PROJECT_DIR)/Pod/Sdk/Facebook",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pod/Sdk2/Aws",
+					"$(PROJECT_DIR)/Pod/Sdk2/Aws/extras",
+					"$(PROJECT_DIR)/Pod/Sdk2/Facebook",
+					"$(PROJECT_DIR)/Pod/Sdk3/Aws",
+				);
 				INFOPLIST_FILE = Pod/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.Pod;
+				OTHER_LDFLAGS = (
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"stdc++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKLoginKit\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"GGLCore\"",
+					"-framework",
+					"\"GGLSignIn\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GTMOAuth2\"",
+					"-framework",
+					"\"GTMSessionFetcher\"",
+					"-framework",
+					"\"GoogleMaps\"",
+					"-framework",
+					"\"GoogleMapsBase\"",
+					"-framework",
+					"\"GoogleMapsCore\"",
+					"-framework",
+					"\"GooglePlaces\"",
+					"-framework",
+					"\"GoogleSignIn\"",
+					"-framework",
+					"\"GoogleToolboxForMac\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SlackTextViewController\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"TextFieldEffects\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs194.PodApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -302,6 +1007,7 @@
 				F4BECB401EBD682D00B98BA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

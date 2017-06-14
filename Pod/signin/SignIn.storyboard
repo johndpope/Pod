@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Sign-In View Controller-->
+        <scene sceneID="rnG-yl-b0T">
+            <objects>
+                <viewController storyboardIdentifier="SignIn" title="Sign-In View Controller" id="chu-9a-tXY" customClass="SignInViewController" customModule="Pod" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mfm-o4-Ahh"/>
+                        <viewControllerLayoutGuide type="bottom" id="ihx-ih-R7J"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zkh-hB-LSF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O5D-6T-2LX">
+                                <rect key="frame" x="35" y="40" width="250" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="QkX-ag-RGz"/>
+                                    <constraint firstAttribute="width" constant="250" id="TLt-em-JPw"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pai-Ew-Mvj">
+                                <rect key="frame" x="20" y="400" width="280" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Q64-bd-ccd"/>
+                                    <constraint firstAttribute="width" constant="280" id="d6F-we-1Bf"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.59607843140000005" green="0.83529411760000005" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="O5D-6T-2LX" firstAttribute="centerX" secondItem="Zkh-hB-LSF" secondAttribute="centerX" id="8DV-Kc-qVf"/>
+                            <constraint firstItem="pai-Ew-Mvj" firstAttribute="top" secondItem="O5D-6T-2LX" secondAttribute="bottom" constant="60" id="GpX-VB-cFl"/>
+                            <constraint firstItem="pai-Ew-Mvj" firstAttribute="centerX" secondItem="Zkh-hB-LSF" secondAttribute="centerX" id="W4g-DJ-zYf"/>
+                            <constraint firstItem="O5D-6T-2LX" firstAttribute="top" secondItem="mfm-o4-Ahh" secondAttribute="bottom" constant="20" id="Yht-3H-9dR"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="rYi-WJ-Qdc"/>
+                    <connections>
+                        <outlet property="facebookButton" destination="pai-Ew-Mvj" id="dMt-nW-vo2"/>
+                        <outlet property="logoView" destination="O5D-6T-2LX" id="1Ob-W6-Xkm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1uh-ba-yGZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1683.75" y="453.16901408450707"/>
+        </scene>
+    </scenes>
+</document>
