@@ -31,7 +31,7 @@ class PodViewController: UIViewController, LikedCellDelegate {
         tableView.dataSource = self
         tableView.layer.borderColor = UIColor.darkGray.cgColor
         tableView.layer.borderWidth = 1.0
-        
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 96.0, right: 0)
         return tableView
     }()
     
@@ -115,7 +115,6 @@ class PodViewController: UIViewController, LikedCellDelegate {
         } else {
             tableView.addSubview(refreshControl)
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,22 +124,25 @@ class PodViewController: UIViewController, LikedCellDelegate {
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // Animate new post button
-        let newConstraint = postButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        UIView.animate(withDuration: 0.3) {
+        // Animate 'New Post' button
+        let newPostButtonConstraint = postButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        UIView.animate(withDuration: 0.3, animations: { 
             self.view.removeConstraint(self.postButtonBottomConstraint)
-            self.view.addConstraint(newConstraint)
+            self.view.addConstraint(newPostButtonConstraint)
             
             self.view.layoutIfNeeded()
+        }) { (success) in
+            guard success else {
+                print("Error occured during pod opening transistion")
+                return
+            }
+            self.postButtonBottomConstraint = newPostButtonConstraint
         }
-        postButtonBottomConstraint = newConstraint
     }
     
     // MARK: - Helper Methods
