@@ -191,17 +191,23 @@ extension PodMapViewController: CLLocationManagerDelegate {
 
 extension PodMapViewController: PodMapPreviewDelegate {
     func openButtonPressed(_ pod: PodList) {
-        APIClient.sharedInstance.getPod(withId: pod._podId as! Int, geoHash: pod._geoHashCode!) { (fullPod) in
-            guard let fullPod = fullPod else {
-                print("Unable to retrieve full info for pod with id \(pod._podId!)")
-                return
-            }
-            
-            APIClient.sharedInstance.getPostForPod(withId: pod._podId as! Int, index: 0, completion: { (posts, j) in
-                pod.postData = posts as? [Posts]
-                self.performSegue(withIdentifier: "toMapPod", sender: fullPod)
-            })
-            
-        }
+        APIClient.sharedInstance.getPostForPod(withId: pod._podId as! Int, index: 0, completion: { (posts, j) in
+            pod.postData = posts as? [Posts]
+            self.performSegue(withIdentifier: "toMapPod", sender: pod)
+        })
+        
+        
+//        APIClient.sharedInstance.getPod(withId: pod._podId as! Int, geoHash: pod._geoHashCode!) { (fullPod) in
+//            guard let fullPod = fullPod else {
+//                print("Unable to retrieve full info for pod with id \(pod._podId!)")
+//                return
+//            }
+//            
+//            APIClient.sharedInstance.getPostForPod(withId: pod._podId as! Int, index: 0, completion: { (posts, j) in
+//                pod.postData = posts as? [Posts]
+//                self.performSegue(withIdentifier: "toMapPod", sender: fullPod)
+//            })
+//            
+//        }
     }
 }
