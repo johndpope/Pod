@@ -88,6 +88,8 @@ extension PodMapViewController: GMSMapViewDelegate {
         let nearLeft = visibleRegion.nearLeft
         let farRight = visibleRegion.farRight
         
+        
+        print("Position: \(position.target)")
         APIClient.sharedInstance.getNearbyMapPods(location: position.target, expanding: expanding) { (podList, boundaries) in
             guard let podList = podList,
             let boundaries = boundaries else {
@@ -109,9 +111,16 @@ extension PodMapViewController: GMSMapViewDelegate {
                 }
             }
             
+            guard let west = boundaries.west,
+            let east = boundaries.east,
+            let north = boundaries.north,
+                let south = boundaries.south else {
+                    print("Error in boundaries")
+                    self.expanding = false
+                    return
+            }
             
-
-            if boundaries.west! > nearLeft.longitude || boundaries.east! < farRight.longitude || boundaries.north! < farRight.latitude || boundaries.south! > nearLeft.latitude {
+            if west > nearLeft.longitude || east < farRight.longitude || north < farRight.latitude || south > nearLeft.latitude {
                 DispatchQueue.main.async {
                     self.expanding = true
                     self.mapView(mapView, idleAt: position)

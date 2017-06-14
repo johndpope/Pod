@@ -57,8 +57,8 @@ class APIClient {
         let headerParameters = [
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "latitude": "\(37.4299818)",
-            "longitude": "\(-122.17317)",
+            "latitude": "\(lat)",
+            "longitude": "\(long)",
             "length": "\(geoHashCodes.count)"
         ]
         let jsonObject: [String: AnyObject]  = ["GeoHashCode": geoCodes as AnyObject]
