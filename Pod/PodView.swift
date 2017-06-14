@@ -232,6 +232,8 @@ extension PodView: UITableViewDelegate, UITableViewDataSource {
                 })
                 self.setUpLockConstraints()
             }
+        } else {
+            self.setUpBlurEffect()
         }
         for (i,post) in (podData?.postData)!.enumerated(){
             if(Int(post._postType!) == PostType.photo.hashValue){

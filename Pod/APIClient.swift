@@ -156,8 +156,8 @@ class APIClient {
         let headerParameters = [
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "Latitude":"\(37.420502)",
-            "Longitude":"\(-122.170856)"
+            "Latitude":"\(37.427482)",
+            "Longitude":"\(-122.170264)"
         ]
         let jsonObject: [String: AnyObject]  = ["Latitude": 37.4204870 as AnyObject, "Longitude": -122.1714210 as AnyObject]
         
