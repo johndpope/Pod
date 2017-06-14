@@ -15,7 +15,6 @@ import Haneke
 class PodView: UIView {
     
     // MARK: - Properties
-    
     fileprivate lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -100,13 +99,13 @@ class PodView: UIView {
         tableView.layoutIfNeeded()
         tableView.separatorStyle = .none
         setUpConstraints()
-        
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(triggerDelegate))
         self.joinButton.addGestureRecognizer(tapGesture)
         
         
     }
-    
+
     func triggerDelegate(){
         joinDelegate?.showJoinPodAlert(podView: self)
     }
